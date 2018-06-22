@@ -1,4 +1,5 @@
-#O2MC Mobile tracking library
+# O2MC Mobile tracking library
+
 See the App/app directory on how to initialise the API.
 It's also possible to compile the app project and run the apk to generate test data.
 
