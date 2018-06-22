@@ -65,7 +65,7 @@
         [request setHTTPBody:postData];
         NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (conn) {
-            NSLog(@"lenght (%@) Funnel -> ( %@ ) has been dispatched to: %@", postLength, jsonString, endpoint);
+            NSLog(@"length (%@) Funnel -> ( %@ ) has been dispatched to: %@", postLength, jsonString, endpoint);
             [funnel removeAllObjects];
         } else {
             NSLog(@"Connection could not be made");
