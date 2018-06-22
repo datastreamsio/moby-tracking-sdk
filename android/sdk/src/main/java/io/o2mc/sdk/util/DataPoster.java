@@ -75,6 +75,7 @@ public class DataPoster {
                 }
             });
         } catch (IllegalArgumentException e) {
+            this.failureCallback();
             Log.e(DataPoster.class.getName(), e.getMessage());
         }
     }
