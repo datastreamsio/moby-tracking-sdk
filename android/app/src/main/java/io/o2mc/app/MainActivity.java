@@ -6,18 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import io.o2mc.sdk.O2MC;
-
 
 public class MainActivity extends AppCompatActivity {
-    private O2MC oo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        oo = App.getO2mc();
 
         App.getO2mc().tracker.track("MainActivityCreated");
     }
