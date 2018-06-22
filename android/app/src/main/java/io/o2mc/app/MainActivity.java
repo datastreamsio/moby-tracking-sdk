@@ -18,21 +18,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCreateEventHandler(View v) {
-        EditText text = (EditText) findViewById(R.id.editText);
+        EditText text = findViewById(R.id.editText);
 
         Log.d("O2MC_EVENT", "Created a click event");
         App.getO2mc().tracker.track(text.getText().toString());
     }
 
     public void onCreateAliasHandler(View v) {
-        EditText text = (EditText) findViewById(R.id.editText);
+        EditText text = findViewById(R.id.editText);
 
         Log.d("O2MC_EVENT", "Created alias" + text.getText().toString());
         App.getO2mc().tracker.createAlias(text.getText().toString());
     }
 
     public void onSetIdentityHandler(View v) {
-        EditText text = (EditText) findViewById(R.id.editText);
+        EditText text = findViewById(R.id.editText);
 
         Log.d("O2MC_EVENT", "Set identity" + text.getText().toString());
         App.getO2mc().tracker.identify(text.getText().toString());
