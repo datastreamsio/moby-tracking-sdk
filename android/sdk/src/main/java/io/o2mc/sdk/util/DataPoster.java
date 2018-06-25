@@ -74,7 +74,7 @@ public class DataPoster {
                     Log.e("POSTED", "payload: " + response.body().string());
                 }
             });
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             this.failureCallback();
             Log.e(DataPoster.class.getName(), e.getMessage());
         }
