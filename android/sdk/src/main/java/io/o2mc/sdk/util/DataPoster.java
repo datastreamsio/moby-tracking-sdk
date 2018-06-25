@@ -51,28 +51,33 @@ public class DataPoster {
      * @throws IOException
      */
     public void post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                DataPoster.getInstance().failureCallback();
+        try {
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    DataPoster.getInstance().failureCallback();
 
-                Log.w("DATA_POSTER", "Unable to post data.");
-                e.printStackTrace();
-            }
+                    Log.w("DATA_POSTER", "Unable to post data.");
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (!response.isSuccessful()) return;
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (!response.isSuccessful()) return;
 
-                DataPoster.getInstance().successCallback();
-                Log.e("POSTED", "payload: " + response.body().string());
-            }
-        });
+                    DataPoster.getInstance().successCallback();
+                    Log.e("POSTED", "payload: " + response.body().string());
+                }
+            });
+        } catch (IllegalArgumentException | NullPointerException e) {
+            this.failureCallback();
+            Log.e(DataPoster.class.getName(), e.getMessage());
+        }
     }
 
     public void successCallback() {
