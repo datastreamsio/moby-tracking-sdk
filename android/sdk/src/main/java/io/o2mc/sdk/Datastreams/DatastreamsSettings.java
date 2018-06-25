@@ -34,7 +34,7 @@ public class DatastreamsSettings {
                 endpoint = settings.getString("endpoint");
                 settingsHaveBeenSet = true;
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(DatastreamsSettings.class.getName(), e.getMessage());
             }
         }
     }

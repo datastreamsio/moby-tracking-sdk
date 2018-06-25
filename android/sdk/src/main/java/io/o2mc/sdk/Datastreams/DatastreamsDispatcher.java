@@ -61,7 +61,7 @@ public class DatastreamsDispatcher {
                             JSONObject root = serializer.serialize(dataContainers);
                             DataPoster.getInstance().post(endpoint, root.toString());
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
                         }
                         postInProgress = true;
                     }
@@ -72,7 +72,7 @@ public class DatastreamsDispatcher {
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
                     }
                     postInProgress = true;
                 }
@@ -100,7 +100,7 @@ public class DatastreamsDispatcher {
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
                     }
                     postInProgress = true;
                 }
@@ -111,7 +111,7 @@ public class DatastreamsDispatcher {
                     JSONObject root = serializer.serialize(dataContainers);
                     DataPoster.getInstance().post(endpoint, root.toString());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
                 }
                 postInProgress = true;
             }

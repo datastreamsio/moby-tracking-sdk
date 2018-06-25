@@ -63,7 +63,7 @@ public class DataPoster {
                     DataPoster.getInstance().failureCallback();
 
                     Log.w("DATA_POSTER", "Unable to post data.");
-                    e.printStackTrace();
+                    Log.w(DataPoster.class.getName(), e.getMessage());
                 }
 
                 @Override
