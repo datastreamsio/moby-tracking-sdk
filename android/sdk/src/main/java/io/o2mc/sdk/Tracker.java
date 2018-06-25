@@ -37,7 +37,7 @@ public class Tracker {
             addToFunnel("alias", new JSONObject().put("alias", uuid).put("identity", this.identity));
             alias = uuid.toString();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tracker.class.getName(), e.getMessage());
         }
     }
 
@@ -62,7 +62,7 @@ public class Tracker {
             obj.put("time", new Timestamp(getTimestamp()));
             addToFunnel(eventName, obj);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tracker.class.getName(), e.getMessage());
         }
     }
 
@@ -76,7 +76,7 @@ public class Tracker {
             obj.put("properties", propertiesAsJson);
             addToFunnel(eventName, obj);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tracker.class.getName(), e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class Tracker {
             obj.put("properties", alias);
             addToFunnel("alias", obj);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tracker.class.getName(), e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class Tracker {
             addToFunnel("identity", new JSONObject().put("identity", identifier).put("alias", this.alias));
 //            updateFunnel("identity", 0, new JSONObject().put("identity", identifier).put("alias", this.alias));
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Tracker.class.getName(), e.getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ public class Tracker {
             try {
                 addToFunnel(timedEvent, new JSONObject().put("start", startTime).put("stop", stopTime).put("identity",identity).put("alias",alias));
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(Tracker.class.getName(), e.getMessage());
             }
         }
     }
@@ -142,7 +142,7 @@ public class Tracker {
                 obj.put("startProperties", timedEventProperties);
                 addToFunnel(timedEvent, obj.put("start", startTime).put("stop", stopTime));
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(Tracker.class.getName(), e.getMessage());
             }
         }
     }
