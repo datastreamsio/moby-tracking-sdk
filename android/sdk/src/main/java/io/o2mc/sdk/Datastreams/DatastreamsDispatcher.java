@@ -80,7 +80,7 @@ public class DatastreamsDispatcher {
             }
         }
 
-        Log.e("DATA", dataContainer.asString());
+        Log.d("DATA", dataContainer.asString());
     }
 
     /**

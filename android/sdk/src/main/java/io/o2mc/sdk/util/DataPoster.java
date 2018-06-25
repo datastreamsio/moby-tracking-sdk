@@ -71,7 +71,7 @@ public class DataPoster {
                     if (!response.isSuccessful()) return;
 
                     DataPoster.getInstance().successCallback();
-                    Log.e("POSTED", "payload: " + response.body().string());
+                    Log.d("POSTED", "payload: " + response.body().string());
                 }
             });
         } catch (IllegalArgumentException | NullPointerException e) {

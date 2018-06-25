@@ -66,7 +66,7 @@ public class DatastreamsSettings {
      */
     public boolean setEndpoint(String endpoint) {
         if (!Patterns.WEB_URL.matcher(endpoint).matches()) {
-            Log.e("O2MC_SDK", "Invalid endpoint set. Use a HTTPS or HTTP URL.");
+            Log.w("O2MC_SDK", "Invalid endpoint set. Use a HTTPS or HTTP URL.");
             return false;
         }
 
