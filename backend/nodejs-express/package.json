@@ -1,0 +1,16 @@
+{
+  "name": "nodejs_express",
+  "version": "1.0.0",
+  "description": "NodeJS Express test backend for the DimML mobile tracker SDK",
+  "main": "app.js",
+  "scripts": {
+    "api": "node ./app.js"
+  },
+  "repository": "https://github.com/O2MC/dimml-mobile-sdk",
+  "author": "Tim Slot <tim.slot@o2mc.io>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
