@@ -1,4 +1,9 @@
-# O2MC Mobile tracking library
+# Mobile tracking SDK
+
+O2MC's mobile tracking SDK for collecting and measuring analytical events.
+
+## Getting started
+
 
 See the App/app directory on how to initialise the API.
 It's also possible to compile the app project and run the apk to generate test data.
