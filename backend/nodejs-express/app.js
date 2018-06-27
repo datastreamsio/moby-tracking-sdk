@@ -12,4 +12,4 @@ app.post('/events', (req, res) => {
     res.send(JSON.stringify(req.body))
 })
 
-app.listen(3000, () => console.log('NodeJS-Express test SDK backend listening on port 3000!'))
+app.listen(5000, () => console.log('NodeJS-Express test SDK backend listening on port 5000!'))
