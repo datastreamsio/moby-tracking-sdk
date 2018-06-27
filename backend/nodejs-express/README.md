@@ -28,7 +28,7 @@ $ npm run api
 > nodejs_express@1.0.0 api /dimml_mobile_sdk/backend/nodejs-express
 > node ./app.js
 
-NodeJS-Express test SDK backend listening on port 3000!
+NodeJS-Express test SDK backend listening on port 5000!
 ```
 
 or
@@ -38,5 +38,5 @@ $ yarn run api
 
 yarn run v1.7.0
 $ node ./app.js
-NodeJS-Express test SDK backend listening on port 3000!
+NodeJS-Express test SDK backend listening on port 5000!
 ```
