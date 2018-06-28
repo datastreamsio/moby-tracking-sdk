@@ -24,14 +24,13 @@
 
     Device *d = [[Device alloc] init];
 
-    NSMutableDictionary *data = @{
-            @"AppId" : _appName,
-            @"ip" : [self getIPAddress],
-            @"connection" : @"3G",
-            @"os": [[UIDevice currentDevice] systemName],
-            @"osVersion": [[UIDevice currentDevice] systemVersion],
-            @"device":d.deviceName
-    };
+    NSMutableDictionary* data = [NSMutableDictionary new];
+    [data setObject:_appName forKey:@"AppId"];
+    [data setObject:[self getIPAddress] forKey:@"ip"];
+    [data setObject:@"3G" forKey:@"connection"];
+    [data setObject:[[UIDevice currentDevice] systemName] forKey:@"os"];
+    [data setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
+    [data setObject:d.deviceName forKey:@"device"];
 
     return data;
 }
