@@ -92,7 +92,7 @@ public class App extends Application {
 
 Refer to the [API documentation](docs/API.md) for more details on how to use the SDK.
 
-## Data structure
+## Data specification
 The data is sent as JSON data. The format contains two main properties, the `application` and the `tracked` property. Both properties are guaranteed to be included.
 
 ```
@@ -102,16 +102,5 @@ object {
 }
 ```
 
-### Application property
-
-
-```
-object {
-	string os;
-	string osVersion;
-}
-```
-### Tracked property
-
-*TODO*
+Refer to the [specification documentation](docs/DATA_SPECIFICATION.md) for more details.
 
