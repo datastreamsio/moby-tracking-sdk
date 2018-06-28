@@ -1,5 +1,6 @@
 package io.o2mc.sdk.Datastreams;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 
 import org.json.JSONException;
@@ -96,6 +97,8 @@ public class DataContainer {
         return timestamp;
     }
 
+    @SuppressLint("DefaultLocale")
+    // TODO; retrieve the timestamp in a more appropriate/correct manner
     public void setTimestamp() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.timestamp = Instant.now().toString();

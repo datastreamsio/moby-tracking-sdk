@@ -1,5 +1,6 @@
 package io.o2mc.sdk.Datastreams;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -48,6 +49,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
         return tracker;
     }
 
+    @SuppressLint("HardwareIds")
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         if (deviceId == null)
@@ -106,6 +108,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
      * location (if enabled)
      * @return
      */
+    @SuppressLint("HardwareIds")
     @SuppressWarnings("JavaDoc")
     public JSONObject getGeneralInfo() {
         JSONObject root = new JSONObject();
@@ -127,6 +130,8 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
                 root.put("location", new JSONObject().put("latitude", latitude).put("longtitude", longitude));
             }
             if (getSettings().trackUnique()) {
+                // TODO; what is this deviceId used for? It's probably better to replace it with advertising ID
+                // https://stackoverflow.com/questions/47691310/why-is-using-getstring-to-get-device-identifiers-not-recommended
                 deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                 root.put("deviceID", deviceId);
             }

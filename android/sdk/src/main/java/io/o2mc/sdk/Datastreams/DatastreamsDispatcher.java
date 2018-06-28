@@ -17,6 +17,9 @@ import io.o2mc.sdk.util.DataSerializer;
 public class DatastreamsDispatcher {
     private Activity context;
     private DatastreamsSettings settings;
+
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    // TODO; remove suppress warning; actually use the items or refactor/remove them
     private DatastreamsHandler datastreamsHandler;
     private int batchCounter = 0;
     private boolean postInProgress;

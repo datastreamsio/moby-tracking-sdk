@@ -18,6 +18,7 @@ public class DataSerializer {
 
     /**
      * Sets general context info.
+     *
      * @param generalInfo context info like; appId, OS version, device info, etc.
      */
     public void setGeneralInfo(JSONObject generalInfo) {
@@ -26,9 +27,13 @@ public class DataSerializer {
 
     /**
      * This method is used to add tracking info and combine it with the available generic data.
+     *
      * @param param tracking JSON payload.
      * @return combined JSON data.
      */
+    @SuppressWarnings("unchecked")
+    // Ignore the warning for now; I intend to refactor serializing and adding items
+    // to a JSONObject manually to using domain objects in combination with GSON
     public JSONObject serialize(ArrayList<JSONObject>... param) {
         JSONArray dataAsJson = new JSONArray(param[0]);
 
