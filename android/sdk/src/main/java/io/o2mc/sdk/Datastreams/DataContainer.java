@@ -12,6 +12,7 @@ import java.util.TimeZone;
 /**
  * Data tuple used as storage for gathered track data
  */
+@SuppressWarnings("WeakerAccess")
 public class DataContainer {
     private String elementId;
     private String Activity;

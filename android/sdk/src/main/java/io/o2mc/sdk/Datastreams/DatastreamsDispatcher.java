@@ -19,7 +19,7 @@ public class DatastreamsDispatcher {
     private DatastreamsSettings settings;
     private DatastreamsHandler datastreamsHandler;
     private int batchCounter = 0;
-    public boolean postInProgress;
+    private boolean postInProgress;
     private ArrayList<JSONObject> dataContainers = new ArrayList<>();
     private JSONObject generalInfo;
     private int dispatchThreshold = 5;
@@ -46,6 +46,8 @@ public class DatastreamsDispatcher {
         this.dispatchThreshold = threshold;
     }
 
+    @SuppressWarnings("unchecked")
+    // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatch(DataContainer dataContainer) {
         dataContainers.add(dataContainer.asJson());
 
@@ -55,17 +57,17 @@ public class DatastreamsDispatcher {
             if (!postInProgress) {
                 if (settings.OnlySendWhenWifi()) {
                     if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                            DataSerializer serializer = new DataSerializer();
-                            serializer.setGeneralInfo(generalInfo);
-                            JSONObject root = serializer.serialize(dataContainers);
-                            DataPoster.getInstance().post(endpoint, root.toString());
-                        postInProgress = true;
-                    }
-                } else {
                         DataSerializer serializer = new DataSerializer();
                         serializer.setGeneralInfo(generalInfo);
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
+                        postInProgress = true;
+                    }
+                } else {
+                    DataSerializer serializer = new DataSerializer();
+                    serializer.setGeneralInfo(generalInfo);
+                    JSONObject root = serializer.serialize(dataContainers);
+                    DataPoster.getInstance().post(endpoint, root.toString());
                     postInProgress = true;
                 }
 
@@ -81,30 +83,32 @@ public class DatastreamsDispatcher {
      *
      * @param generalInfo as JSONObject
      */
+    @SuppressWarnings("unchecked")
+    // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatchNow(JSONObject generalInfo) {
         String endpoint = getSettings().getEndpoint();
 
         if (!postInProgress && dataContainers.size() > 0) {
             if (settings.OnlySendWhenWifi()) {
                 if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                        DataSerializer serializer = new DataSerializer();
-                        serializer.setGeneralInfo(generalInfo);
-                        JSONObject root = serializer.serialize(dataContainers);
-                        DataPoster.getInstance().post(endpoint, root.toString());
-                    postInProgress = true;
-                }
-            } else {
                     DataSerializer serializer = new DataSerializer();
                     serializer.setGeneralInfo(generalInfo);
                     JSONObject root = serializer.serialize(dataContainers);
                     DataPoster.getInstance().post(endpoint, root.toString());
+                    postInProgress = true;
+                }
+            } else {
+                DataSerializer serializer = new DataSerializer();
+                serializer.setGeneralInfo(generalInfo);
+                JSONObject root = serializer.serialize(dataContainers);
+                DataPoster.getInstance().post(endpoint, root.toString());
                 postInProgress = true;
             }
 
         }
     }
 
-
+    @SuppressWarnings("WeakerAccess")
     public DatastreamsSettings getSettings() {
         return settings;
     }

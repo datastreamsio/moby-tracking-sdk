@@ -69,7 +69,7 @@ public class DataPoster {
                 }
 
                 @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
                     if (!response.isSuccessful()) return;
 
                     DataPoster.getInstance().successCallback();
@@ -87,13 +87,13 @@ public class DataPoster {
         }
     }
 
-    public void successCallback() {
+    private void successCallback() {
         if (datastreamsDispatcher != null) {
             datastreamsDispatcher.callback();
         }
     }
 
-    public void failureCallback() {
+    private void failureCallback() {
         if (datastreamsDispatcher != null) {
             datastreamsDispatcher.callbackFailure();
         }

@@ -15,6 +15,7 @@ import java.util.Enumeration;
  * Class pulled from Github. (With some small changes)
  * It returns the current networkstate as a String
  */
+@SuppressWarnings("WeakerAccess")
 public class Connectivity {
 
     /**

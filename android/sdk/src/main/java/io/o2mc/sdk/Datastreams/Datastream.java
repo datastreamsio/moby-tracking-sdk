@@ -51,6 +51,8 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         if (deviceId == null)
+            // TODO; what is this deviceId used for? It's probably better to replace it with advertising ID
+            // https://stackoverflow.com/questions/47691310/why-is-using-getstring-to-get-device-identifiers-not-recommended
             deviceId = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         // TODO: request location updates.
         if (mLocationManager == null) {
@@ -129,12 +131,9 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
                 root.put("deviceID", deviceId);
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (SocketException e) {
+        } catch (JSONException | SocketException e) {
             e.printStackTrace();
         }
-
 
         return root;
     }
