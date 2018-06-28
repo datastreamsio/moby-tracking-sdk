@@ -152,9 +152,9 @@ public class Connectivity {
 
     /**
      * Check if the connection is fast
-     * @param type
-     * @param subType
-     * @return
+     * @param type one of the static constants as defined in ConnectivityManager
+     * @param subType if type was of TYPE_MOBILE, subType must be one of TelephonyManager's constants
+     * @return true means the user has a fast network connection
      */
     public static boolean isConnectionFast(int type, int subType){
         switch (type) {

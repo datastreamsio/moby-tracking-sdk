@@ -5,7 +5,6 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import io.o2mc.sdk.util.DataPoster;
@@ -40,6 +39,7 @@ public class DatastreamsDispatcher {
 
     /**
      * Used to set dispatchThreshold, when x datacontainers have been gathered send data to endpoint
+     *
      * @param threshold int - default 5.
      */
     public void setDispatchThreshold(int threshold) {
@@ -55,25 +55,17 @@ public class DatastreamsDispatcher {
             if (!postInProgress) {
                 if (settings.OnlySendWhenWifi()) {
                     if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                        try {
                             DataSerializer serializer = new DataSerializer();
                             serializer.setGeneralInfo(generalInfo);
                             JSONObject root = serializer.serialize(dataContainers);
                             DataPoster.getInstance().post(endpoint, root.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
                         postInProgress = true;
                     }
                 } else {
-                    try {
                         DataSerializer serializer = new DataSerializer();
                         serializer.setGeneralInfo(generalInfo);
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     postInProgress = true;
                 }
 
@@ -86,6 +78,7 @@ public class DatastreamsDispatcher {
     /**
      * This method is derived from the void Dispatch() method but instead of adhering to a threshold it dispatches
      * everything it has gathered up until now.
+     *
      * @param generalInfo as JSONObject
      */
     public void dispatchNow(JSONObject generalInfo) {
@@ -94,25 +87,17 @@ public class DatastreamsDispatcher {
         if (!postInProgress && dataContainers.size() > 0) {
             if (settings.OnlySendWhenWifi()) {
                 if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                    try {
                         DataSerializer serializer = new DataSerializer();
                         serializer.setGeneralInfo(generalInfo);
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                     postInProgress = true;
                 }
             } else {
-                try {
                     DataSerializer serializer = new DataSerializer();
                     serializer.setGeneralInfo(generalInfo);
                     JSONObject root = serializer.serialize(dataContainers);
                     DataPoster.getInstance().post(endpoint, root.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 postInProgress = true;
             }
 

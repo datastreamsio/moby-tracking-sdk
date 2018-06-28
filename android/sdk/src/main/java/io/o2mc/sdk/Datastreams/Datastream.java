@@ -104,6 +104,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
      * location (if enabled)
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     public JSONObject getGeneralInfo() {
         JSONObject root = new JSONObject();
 
