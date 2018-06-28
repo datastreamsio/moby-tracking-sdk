@@ -11,7 +11,7 @@
 
 @implementation Tagger
 
-static objectCount = 0;
+static int objectCount = 0;
 
 -(Tagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
     self = [super init];
