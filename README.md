@@ -99,7 +99,7 @@ The data is sent as JSON data. The format contains two main properties, the `app
 object {
 	object application;
 	array tracked { object; };
-},
+}
 ```
 
 ### Application property
