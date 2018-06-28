@@ -76,7 +76,7 @@ static int objectCount = 0;
     //            NSLog(@"I am bigger than 1 and am starting to dispatch");
     //            [_dispatcher dispatch :_endpoint :_funnel];
     //        }
-    NSLog(@"Array Count = %u && number of items %u", [_funnel count], numberOfItems);
+    NSLog(@"Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
     [self.funnel_lock unlock];
     
 }
