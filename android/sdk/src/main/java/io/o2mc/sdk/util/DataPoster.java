@@ -48,9 +48,8 @@ public class DataPoster {
      * Posts serialized JSON payload to a given end point.
      * @param url endpoint url.
      * @param json analytics payload.
-     * @throws IOException
      */
-    public void post(String url, String json) throws IOException {
+    public void post(String url, String json) {
         try {
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder()

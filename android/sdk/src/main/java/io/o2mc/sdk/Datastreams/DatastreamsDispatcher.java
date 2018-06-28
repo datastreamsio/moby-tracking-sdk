@@ -40,7 +40,7 @@ public class DatastreamsDispatcher {
 
     /**
      * Used to set dispatchThreshold, when x datacontainers have been gathered send data to endpoint
-     * @param threshold
+     * @param threshold int - default 5.
      */
     public void setDispatchThreshold(int threshold) {
         this.dispatchThreshold = threshold;
@@ -86,7 +86,7 @@ public class DatastreamsDispatcher {
     /**
      * This method is derived from the void Dispatch() method but instead of adhering to a threshold it dispatches
      * everything it has gathered up until now.
-     * @param generalInfo
+     * @param generalInfo as JSONObject
      */
     public void dispatchNow(JSONObject generalInfo) {
         String endpoint = getSettings().getEndpoint();

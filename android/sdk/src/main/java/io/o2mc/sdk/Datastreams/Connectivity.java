@@ -22,6 +22,7 @@ public class Connectivity {
      * @param context
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     public static NetworkInfo getNetworkInfo(Context context){
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo();
@@ -32,6 +33,7 @@ public class Connectivity {
      * @param context
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     public static boolean isConnected(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected());
@@ -42,6 +44,7 @@ public class Connectivity {
      * @param context
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     public static boolean isConnectedWifi(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
@@ -52,6 +55,7 @@ public class Connectivity {
      * @param context
      * @return
      */
+    @SuppressWarnings("JavaDoc")
     public static boolean isConnectedMobile(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
@@ -60,13 +64,19 @@ public class Connectivity {
     /**
      * Check if there is fast connectivity
      * @param context
-     * @return
+     * @return true means the user has a fast network connection
      */
+    @SuppressWarnings("JavaDoc")
     public static boolean isConnectedFast(Context context){
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && Connectivity.isConnectionFast(info.getType(),info.getSubtype()));
     }
 
+    /**
+     * Returns the IP address of the network to which the user's phone is currently connected to.
+     * @return InetAddress object if connected to the internet, null if not
+     * @throws SocketException on failure to acquire network interfaces or executing operations on them
+     */
     static InetAddress ip() throws SocketException {
         Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
         NetworkInterface ni;
