@@ -19,61 +19,68 @@ public class Connectivity {
 
     /**
      * Get the network info
+     *
      * @param context
-     * @return
+     * @return null if unable to retrieve active network information
      */
     @SuppressWarnings("JavaDoc")
-    public static NetworkInfo getNetworkInfo(Context context){
+    public static NetworkInfo getNetworkInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //noinspection ConstantConditions -- null is being dealt with in calling methods
         return cm.getActiveNetworkInfo();
     }
 
     /**
      * Check if there is any connectivity
+     *
      * @param context
      * @return
      */
     @SuppressWarnings("JavaDoc")
-    public static boolean isConnected(Context context){
+    public static boolean isConnected(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected());
     }
 
     /**
      * Check if there is any connectivity to a Wifi network
+     *
      * @param context
      * @return
      */
     @SuppressWarnings("JavaDoc")
-    public static boolean isConnectedWifi(Context context){
+    public static boolean isConnectedWifi(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
 
     /**
      * Check if there is any connectivity to a mobile network
+     *
      * @param context
      * @return
      */
     @SuppressWarnings("JavaDoc")
-    public static boolean isConnectedMobile(Context context){
+    public static boolean isConnectedMobile(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
     }
 
     /**
      * Check if there is fast connectivity
+     *
      * @param context
      * @return true means the user has a fast network connection
      */
     @SuppressWarnings("JavaDoc")
-    public static boolean isConnectedFast(Context context){
+    public static boolean isConnectedFast(Context context) {
         NetworkInfo info = Connectivity.getNetworkInfo(context);
-        return (info != null && info.isConnected() && Connectivity.isConnectionFast(info.getType(),info.getSubtype()));
+        return (info != null && info.isConnected() && Connectivity.isConnectionFast(info.getType(), info.getSubtype()));
     }
 
     /**
      * Returns the IP address of the network to which the user's phone is currently connected to.
+     *
      * @return InetAddress object if connected to the internet, null if not
      * @throws SocketException on failure to acquire network interfaces or executing operations on them
      */
@@ -95,7 +102,7 @@ public class Connectivity {
         return null;
     }
 
-    public static String getConnectivityType(Context context){
+    public static String getConnectivityType(Context context) {
 
         NetworkInfo info = Connectivity.getNetworkInfo(context);
         int type = info.getType();
@@ -152,11 +159,12 @@ public class Connectivity {
 
     /**
      * Check if the connection is fast
-     * @param type one of the static constants as defined in ConnectivityManager
+     *
+     * @param type    one of the static constants as defined in ConnectivityManager
      * @param subType if type was of TYPE_MOBILE, subType must be one of TelephonyManager's constants
      * @return true means the user has a fast network connection
      */
-    public static boolean isConnectionFast(int type, int subType){
+    public static boolean isConnectionFast(int type, int subType) {
         switch (type) {
             case ConnectivityManager.TYPE_WIFI:
                 return true;

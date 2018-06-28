@@ -180,20 +180,14 @@ public class Tracker {
 
     class Dispatcher extends TimerTask {
         public void run() {
-            Iterator it = funnel.entrySet().iterator();
-            while (it.hasNext()) {
-
-                Map.Entry pair = (Map.Entry) it.next();
-
-                for (JSONObject obj : funnel.get(pair.getKey())) {
+            for (Map.Entry<String, ArrayList<JSONObject>> entry : funnel.entrySet()) {
+                for (JSONObject obj : entry.getValue()) {
                     DataContainer c = new DataContainer();
-                    c.setEventType((String) pair.getKey());
+                    c.setEventType(entry.getKey());
                     c.setValue(obj.toString());
                     c.setTimestamp();
                     ds.getDatastreamsHandler().getDispatcher().dispatch(c);
                 }
-//                System.out.println(pair.getKey() + " = " + pair.getValue());
-                it.remove(); // avoids a ConcurrentModificationException
             }
             ds.getDatastreamsHandler().getDispatcher().dispatchNow(ds.getGeneralInfo());
             funnel.clear();
