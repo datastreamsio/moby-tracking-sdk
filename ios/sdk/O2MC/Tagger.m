@@ -11,7 +11,7 @@
 
 @implementation Tagger
 
-static objectCount = 0;
+static int objectCount = 0;
 
 -(Tagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
     self = [super init];
@@ -76,7 +76,7 @@ static objectCount = 0;
     //            NSLog(@"I am bigger than 1 and am starting to dispatch");
     //            [_dispatcher dispatch :_endpoint :_funnel];
     //        }
-    NSLog(@"Array Count = %u && number of items %u", [_funnel count], numberOfItems);
+    NSLog(@"Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
     [self.funnel_lock unlock];
     
 }
@@ -93,7 +93,7 @@ static objectCount = 0;
     [self addToFunnel:eventName :funnel];
 }
 
--(void)trackWithProperties:(NSString*)eventName:(NSString*)propertiesAsJson;
+-(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
 {
     NSLog(@"Track %@:%@", eventName, propertiesAsJson);
     NSDictionary *funnel = @{
@@ -146,7 +146,7 @@ static objectCount = 0;
     return iso8601String;
 }
 
--(void)timeEventStartWithProperties:(NSString*)eventName:(NSString*)propertiesAsJson;{
+-(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
     NSLog(@"timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
