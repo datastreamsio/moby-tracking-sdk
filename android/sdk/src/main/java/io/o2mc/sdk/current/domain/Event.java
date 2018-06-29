@@ -25,6 +25,18 @@ public class Event {
         this.value = value;
     }
 
+    public DeviceInformation getDeviceInformation() {
+        return deviceInformation;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return "Event{" +

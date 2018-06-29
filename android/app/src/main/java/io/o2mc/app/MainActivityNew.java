@@ -33,7 +33,7 @@ public class MainActivityNew extends AppCompatActivity {
     public void onClickCreateEvent(View v) {
         EditText text = findViewById(R.id.editText);
         Button button = findViewById(R.id.buttonCreateTrackEvent);
-        o2mc.buttonClicked(button, null);
+//        o2mc.buttonClicked(button, null);
         o2mc.buttonClicked(button, text);
     }
 

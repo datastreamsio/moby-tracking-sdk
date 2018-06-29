@@ -64,4 +64,17 @@ public class DeviceInformation {
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceInformation{" +
+                "appId='" + appId + '\'' +
+                ", ip='" + ip + '\'' +
+                ", connectionType='" + connectionType + '\'' +
+                ", os='" + os + '\'' +
+                ", osVersion='" + osVersion + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceId='" + deviceId + '\'' +
+                '}';
+    }
 }

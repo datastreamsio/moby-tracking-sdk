@@ -115,7 +115,7 @@ public class EventDispatcher {
         return result.toString();
     }
 
-    public static void setO2mc(O2mc o2mc) {
+    public void setO2mc(O2mc o2mc) {
         EventDispatcher.o2mc = o2mc;
         Log.d(TAG, "Set o2mc field.");
     }

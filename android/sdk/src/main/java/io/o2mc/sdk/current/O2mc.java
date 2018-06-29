@@ -89,8 +89,10 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
     public void buttonClicked(Button button, @Nullable Object extra) {
         Event e;
         if (extra == null) {
+            Log.d(TAG, "Extra was null");
             e = eventGenerator.generateClickedButtonEvent(button, null);
         } else {
+            Log.d(TAG, "Extra was not null");
             e = eventGenerator.generateClickedButtonEvent(button, extra);
         }
         if (e == null) {

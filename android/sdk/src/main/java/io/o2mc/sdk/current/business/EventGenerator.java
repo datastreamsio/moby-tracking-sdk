@@ -23,10 +23,11 @@ public class EventGenerator {
 
     public Event generateClickedButtonEvent(Button button, @Nullable Object extra) {
         if (extra == null) {
+            Log.i(TAG, "Generated clickedButtonEvent");
             return new Event(deviceInformation, Event.CLICKED_BUTTON, "some value when clicked button" + button.getId());
         } else {
-            Log.i(TAG, extra.toString());
-            return new Event(deviceInformation, Event.CLICKED_BUTTON, "some value when clicked button" + button.getId());
+            Log.i(TAG, "Generated clickedButtonEvent");
+            return new Event(deviceInformation, Event.CLICKED_BUTTON_EXTRA, "some value when clicked button" + button.getId());
         }
     }
 }
