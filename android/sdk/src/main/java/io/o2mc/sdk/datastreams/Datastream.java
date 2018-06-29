@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.jaredrummler.android.device.DeviceName;
 
@@ -35,12 +36,13 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
     private Double latitude;
     private Double longitude;
     private LocationManager mLocationManager = null;
-    DatastreamsHandler datastreamsHandler;
+    private DatastreamsHandler datastreamsHandler;
     private ArrayList<String> hasBeenMapped = new ArrayList<>();
     public final Tracker tracker;
 
     public Datastream(Application ctx, String endpoint) {
         context = ctx;
+        Toast.makeText(ctx, "Some message", Toast.LENGTH_SHORT).show();
         context.registerActivityLifecycleCallbacks(this);
         datastreamsHandler = new DatastreamsHandler(ctx, endpoint);
         tracker = new Tracker(this);
