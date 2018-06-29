@@ -2,7 +2,7 @@ package io.o2mc.sdk;
 
 import android.app.Application;
 
-import io.o2mc.sdk.Datastreams.Datastream;
+import io.o2mc.sdk.datastreams.Datastream;
 
 
 public class O2MC {

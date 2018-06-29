@@ -1,4 +1,4 @@
-package io.o2mc.sdk.Datastreams;
+package io.o2mc.sdk.datastreams;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

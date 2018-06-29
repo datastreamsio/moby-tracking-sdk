@@ -13,8 +13,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import io.o2mc.sdk.Datastreams.DataContainer;
-import io.o2mc.sdk.Datastreams.Datastream;
+import io.o2mc.sdk.datastreams.DataContainer;
+import io.o2mc.sdk.datastreams.Datastream;
 
 /**
  * App tagging class for dispatching key->value pairs to set endpoint

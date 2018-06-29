@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
-import io.o2mc.sdk.Datastreams.DatastreamsDispatcher;
+import io.o2mc.sdk.datastreams.DatastreamsDispatcher;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
