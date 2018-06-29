@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import io.o2mc.sdk.O2MC;
+import io.o2mc.sdk.old.O2MC;
 
 
 public class MainActivity extends AppCompatActivity {

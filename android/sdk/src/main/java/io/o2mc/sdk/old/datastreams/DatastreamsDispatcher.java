@@ -1,4 +1,4 @@
-package io.o2mc.sdk.datastreams;
+package io.o2mc.sdk.old.datastreams;
 
 import android.app.Activity;
 import android.util.Log;
@@ -7,8 +7,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import io.o2mc.sdk.util.DataPoster;
-import io.o2mc.sdk.util.DataSerializer;
+import io.o2mc.sdk.old.util.DataPoster;
+import io.o2mc.sdk.old.util.DataSerializer;
 
 /**
  * This class handles the dispatching of data

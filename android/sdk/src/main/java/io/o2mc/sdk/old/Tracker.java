@@ -1,4 +1,4 @@
-package io.o2mc.sdk;
+package io.o2mc.sdk.old;
 
 import android.util.Log;
 
@@ -13,8 +13,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import io.o2mc.sdk.datastreams.DataContainer;
-import io.o2mc.sdk.datastreams.Datastream;
+import io.o2mc.sdk.old.datastreams.DataContainer;
+import io.o2mc.sdk.old.datastreams.Datastream;
 
 /**
  * App tagging class for dispatching key->value pairs to set endpoint

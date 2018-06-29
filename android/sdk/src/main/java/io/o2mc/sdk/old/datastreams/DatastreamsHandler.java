@@ -1,4 +1,4 @@
-package io.o2mc.sdk.datastreams;
+package io.o2mc.sdk.old.datastreams;
 
 import android.app.Activity;
 import android.app.Application;

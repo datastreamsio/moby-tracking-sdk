@@ -1,11 +1,11 @@
-package io.o2mc.sdk.util;
+package io.o2mc.sdk.old.util;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
 
-import io.o2mc.sdk.datastreams.DatastreamsDispatcher;
+import io.o2mc.sdk.old.datastreams.DatastreamsDispatcher;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

@@ -1,4 +1,4 @@
-package io.o2mc.sdk.datastreams;
+package io.o2mc.sdk.old.datastreams;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-import io.o2mc.sdk.Tracker;
+import io.o2mc.sdk.old.Tracker;
 
 /**
  * Extension on Datastreams & Dimml

@@ -1,4 +1,4 @@
-package io.o2mc.sdk.util;
+package io.o2mc.sdk.old.util;
 
 import android.util.Log;
 
