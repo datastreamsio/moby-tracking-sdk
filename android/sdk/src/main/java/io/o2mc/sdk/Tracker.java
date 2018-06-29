@@ -48,7 +48,7 @@ public class Tracker {
         if (funnel.get(key) == null) funnel.put(key, new ArrayList<JSONObject>());
         funnel.get(key).add(props);
 
-        Log.i("Added to funnel", key+": "+props.toString());
+        Log.i("Added to funnel", key + ": " + props.toString());
     }
 
     private void updateFunnel(String key, int index, JSONObject props) {

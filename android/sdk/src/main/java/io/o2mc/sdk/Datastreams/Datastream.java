@@ -24,7 +24,7 @@ import io.o2mc.sdk.Tracker;
 
 /**
  * Extension on Datastreams & Dimml
- *
+ * <p>
  * Root object of the library
  * Initialised by only the application context
  * Has activity state listeners and triggers data tracking
@@ -46,7 +46,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
         tracker = new Tracker(this);
     }
 
-    public Tracker getTracker(){
+    public Tracker getTracker() {
         return tracker;
     }
 
@@ -107,6 +107,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
      * operating system
      * ip address
      * location (if enabled)
+     *
      * @return
      */
     @SuppressLint("HardwareIds")

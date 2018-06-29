@@ -52,7 +52,7 @@ public class DatastreamsDispatcher {
     @SuppressWarnings("unchecked")
     // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatch(DataContainer dataContainer) {
-                dataContainers.add(dataContainer.asJson());
+        dataContainers.add(dataContainer.asJson());
 
         String endpoint = getSettings().getEndpoint();
 
@@ -60,25 +60,17 @@ public class DatastreamsDispatcher {
             if (!postInProgress) {
                 if (settings.OnlySendWhenWifi()) {
                     if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                        try {
-                            DataSerializer serializer = new DataSerializer();
-                            serializer.setGeneralInfo(generalInfo);
-                            JSONObject root = serializer.serialize(dataContainers);
-                            DataPoster.getInstance().post(endpoint, root.toString());
-                        } catch (IOException e) {
-                            Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
-                        }
-                        postInProgress = true;
-                    }
-                } else {
-                    try {
                         DataSerializer serializer = new DataSerializer();
                         serializer.setGeneralInfo(generalInfo);
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
+                        postInProgress = true;
                     }
+                } else {
+                    DataSerializer serializer = new DataSerializer();
+                    serializer.setGeneralInfo(generalInfo);
+                    JSONObject root = serializer.serialize(dataContainers);
+                    DataPoster.getInstance().post(endpoint, root.toString());
                     postInProgress = true;
                 }
 
@@ -97,30 +89,22 @@ public class DatastreamsDispatcher {
     @SuppressWarnings("unchecked")
     // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatchNow(JSONObject generalInfo) {
-                String endpoint = getSettings().getEndpoint();
+        String endpoint = getSettings().getEndpoint();
 
         if (!postInProgress && dataContainers.size() > 0) {
             if (settings.OnlySendWhenWifi()) {
                 if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                    try {
-                        DataSerializer serializer = new DataSerializer();
-                        serializer.setGeneralInfo(generalInfo);
-                        JSONObject root = serializer.serialize(dataContainers);
-                        DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
-                    }
-                    postInProgress = true;
-                }
-            } else {
-                try {
                     DataSerializer serializer = new DataSerializer();
                     serializer.setGeneralInfo(generalInfo);
                     JSONObject root = serializer.serialize(dataContainers);
                     DataPoster.getInstance().post(endpoint, root.toString());
-                } catch (IOException e) {
-                    Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
+                    postInProgress = true;
                 }
+            } else {
+                DataSerializer serializer = new DataSerializer();
+                serializer.setGeneralInfo(generalInfo);
+                JSONObject root = serializer.serialize(dataContainers);
+                DataPoster.getInstance().post(endpoint, root.toString());
                 postInProgress = true;
             }
 

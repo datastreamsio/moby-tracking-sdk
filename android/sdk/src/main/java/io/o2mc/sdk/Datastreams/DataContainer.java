@@ -26,9 +26,13 @@ public class DataContainer {
     private String alias;
     private Integer indexWithinActivity;
 
-    public Integer getIndexWithinActivity() { return indexWithinActivity;  }
+    public Integer getIndexWithinActivity() {
+        return indexWithinActivity;
+    }
 
-    public void setIndexWithinActivity(Integer indexWithinActivity) { this.indexWithinActivity = indexWithinActivity; }
+    public void setIndexWithinActivity(Integer indexWithinActivity) {
+        this.indexWithinActivity = indexWithinActivity;
+    }
 
     public String getEventType() {
         return eventType;
@@ -70,18 +74,18 @@ public class DataContainer {
         this.elementId = elementId;
     }
 
-    public String asString(){
+    public String asString() {
         return asJsonString();
     }
 
-    public String asJsonString(){
+    public String asJsonString() {
         return asJson().toString();
     }
 
-    public JSONObject asJson(){
+    public JSONObject asJson() {
         JSONObject json = new JSONObject();
         try {
-            json.put("alias",getAlias());
+            json.put("alias", getAlias());
             json.put("activity", getActivity());
             json.put("eventType", getEventType());
             json.put("elementValue", getValue());

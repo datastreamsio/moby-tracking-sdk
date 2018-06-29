@@ -74,7 +74,7 @@ public class DataPoster {
 
                     DataPoster.getInstance().successCallback();
 
-                    if (response.body() == null ) {
+                    if (response.body() == null) {
                         Log.e("POSTED", "payload: <EMPTY RESPONSE BODY>");
                     } else {
                         //noinspection ConstantConditions
