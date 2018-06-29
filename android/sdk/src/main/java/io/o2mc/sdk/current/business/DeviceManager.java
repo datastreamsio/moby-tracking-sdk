@@ -34,8 +34,8 @@ public class DeviceManager {
         info.setAppId(context.getPackageName());
 
         // todo; check if we're allowed to track network state
-        info.setIp(Connectivity.ip().getCanonicalHostName());
-        info.setConnectionType(Connectivity.getConnectivityType(context));
+//        info.setIp(Connectivity.ip().getCanonicalHostName());
+//        info.setConnectionType(Connectivity.getConnectivityType(context));
         info.setOs("android");
         info.setOsVersion(Build.VERSION.RELEASE);
         info.setDeviceName(DeviceName.getDeviceName());

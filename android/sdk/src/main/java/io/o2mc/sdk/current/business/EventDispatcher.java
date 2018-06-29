@@ -64,7 +64,7 @@ public class EventDispatcher {
     // ==========================================
 
     /**
-     * Sends analytical events to specified backend in JSON format.
+     * Sends analytical events to backend specified by URL in JSON format.
      *
      * @param url    url of backend to send events to
      * @param events list of Event objects
