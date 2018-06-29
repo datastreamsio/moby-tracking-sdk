@@ -1,5 +1,7 @@
 package io.o2mc.sdk.util;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +40,7 @@ public class DataSerializer {
             root.put("tracked", dataAsJson);
             root.put("application", generalInfo);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(DataSerializer.class.getName(), e.getMessage());
         }
 
         return root;
