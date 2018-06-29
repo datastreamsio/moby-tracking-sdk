@@ -1,5 +1,6 @@
 package io.o2mc.sdk.util;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.IOException;
@@ -24,7 +25,8 @@ public class DataPoster {
 
     private static DatastreamsDispatcher datastreamsDispatcher;
 
-    private DataPoster() {}
+    private DataPoster() {
+    }
 
     public static DataPoster getInstance() {
         if (mInstance != null) {
@@ -46,11 +48,11 @@ public class DataPoster {
 
     /**
      * Posts serialized JSON payload to a given end point.
-     * @param url endpoint url.
+     *
+     * @param url  endpoint url.
      * @param json analytics payload.
-     * @throws IOException
      */
-    public void post(String url, String json) throws IOException {
+    public void post(String url, String json) {
         try {
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder()
@@ -59,7 +61,7 @@ public class DataPoster {
                     .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
-                public void onFailure(Call call, IOException e) {
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     DataPoster.getInstance().failureCallback();
 
                     Log.w("DATA_POSTER", "Unable to post data.");
@@ -67,11 +69,17 @@ public class DataPoster {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
                     if (!response.isSuccessful()) return;
 
                     DataPoster.getInstance().successCallback();
-                    Log.d("POSTED", "payload: " + response.body().string());
+
+                    if (response.body() == null) {
+                        Log.e("POSTED", "payload: <EMPTY RESPONSE BODY>");
+                    } else {
+                        //noinspection ConstantConditions
+                        Log.d("POSTED", "payload: " + response.body().toString());
+                    }
                 }
             });
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -80,13 +88,13 @@ public class DataPoster {
         }
     }
 
-    public void successCallback() {
+    private void successCallback() {
         if (datastreamsDispatcher != null) {
             datastreamsDispatcher.callback();
         }
     }
 
-    public void failureCallback() {
+    private void failureCallback() {
         if (datastreamsDispatcher != null) {
             datastreamsDispatcher.callbackFailure();
         }

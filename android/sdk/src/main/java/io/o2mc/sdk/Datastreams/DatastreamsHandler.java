@@ -21,15 +21,15 @@ public class DatastreamsHandler {
         datastreamsDispatcher = new DatastreamsDispatcher(this);
     }
 
-    public DatastreamsDispatcher getDispatcher(){
+    public DatastreamsDispatcher getDispatcher() {
         return datastreamsDispatcher;
     }
 
-    public DatastreamsSettings getSettings(){
+    public DatastreamsSettings getSettings() {
         return datastreamsSettings;
     }
 
-    public void update(Activity activity, JSONObject generalInfo){
+    public void update(Activity activity, JSONObject generalInfo) {
         datastreamsDispatcher.update(activity, generalInfo);
     }
 }

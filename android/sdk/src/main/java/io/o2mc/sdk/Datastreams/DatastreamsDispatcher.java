@@ -5,7 +5,6 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import io.o2mc.sdk.util.DataPoster;
@@ -18,9 +17,12 @@ import io.o2mc.sdk.util.DataSerializer;
 public class DatastreamsDispatcher {
     private Activity context;
     private DatastreamsSettings settings;
+
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    // TODO; remove suppress warning; actually use the items or refactor/remove them
     private DatastreamsHandler datastreamsHandler;
     private int batchCounter = 0;
-    public boolean postInProgress;
+    private boolean postInProgress;
     private ArrayList<JSONObject> dataContainers = new ArrayList<>();
     private JSONObject generalInfo;
     private int dispatchThreshold = 5;
@@ -40,12 +42,15 @@ public class DatastreamsDispatcher {
 
     /**
      * Used to set dispatchThreshold, when x datacontainers have been gathered send data to endpoint
-     * @param threshold
+     *
+     * @param threshold int - default 5.
      */
     public void setDispatchThreshold(int threshold) {
         this.dispatchThreshold = threshold;
     }
 
+    @SuppressWarnings("unchecked")
+    // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatch(DataContainer dataContainer) {
         dataContainers.add(dataContainer.asJson());
 
@@ -55,25 +60,17 @@ public class DatastreamsDispatcher {
             if (!postInProgress) {
                 if (settings.OnlySendWhenWifi()) {
                     if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                        try {
-                            DataSerializer serializer = new DataSerializer();
-                            serializer.setGeneralInfo(generalInfo);
-                            JSONObject root = serializer.serialize(dataContainers);
-                            DataPoster.getInstance().post(endpoint, root.toString());
-                        } catch (IOException e) {
-                            Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
-                        }
-                        postInProgress = true;
-                    }
-                } else {
-                    try {
                         DataSerializer serializer = new DataSerializer();
                         serializer.setGeneralInfo(generalInfo);
                         JSONObject root = serializer.serialize(dataContainers);
                         DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
+                        postInProgress = true;
                     }
+                } else {
+                    DataSerializer serializer = new DataSerializer();
+                    serializer.setGeneralInfo(generalInfo);
+                    JSONObject root = serializer.serialize(dataContainers);
+                    DataPoster.getInstance().post(endpoint, root.toString());
                     postInProgress = true;
                 }
 
@@ -86,40 +83,35 @@ public class DatastreamsDispatcher {
     /**
      * This method is derived from the void Dispatch() method but instead of adhering to a threshold it dispatches
      * everything it has gathered up until now.
-     * @param generalInfo
+     *
+     * @param generalInfo as JSONObject
      */
+    @SuppressWarnings("unchecked")
+    // Ignore because there's an if statement which does check the amount of items to serialize
     public void dispatchNow(JSONObject generalInfo) {
         String endpoint = getSettings().getEndpoint();
 
         if (!postInProgress && dataContainers.size() > 0) {
             if (settings.OnlySendWhenWifi()) {
                 if (Connectivity.getConnectivityType(context).toUpperCase().equals("WIFI")) {
-                    try {
-                        DataSerializer serializer = new DataSerializer();
-                        serializer.setGeneralInfo(generalInfo);
-                        JSONObject root = serializer.serialize(dataContainers);
-                        DataPoster.getInstance().post(endpoint, root.toString());
-                    } catch (IOException e) {
-                        Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
-                    }
-                    postInProgress = true;
-                }
-            } else {
-                try {
                     DataSerializer serializer = new DataSerializer();
                     serializer.setGeneralInfo(generalInfo);
                     JSONObject root = serializer.serialize(dataContainers);
                     DataPoster.getInstance().post(endpoint, root.toString());
-                } catch (IOException e) {
-                    Log.e(DatastreamsDispatcher.class.getName(), e.getMessage());
+                    postInProgress = true;
                 }
+            } else {
+                DataSerializer serializer = new DataSerializer();
+                serializer.setGeneralInfo(generalInfo);
+                JSONObject root = serializer.serialize(dataContainers);
+                DataPoster.getInstance().post(endpoint, root.toString());
                 postInProgress = true;
             }
 
         }
     }
 
-
+    @SuppressWarnings("WeakerAccess")
     public DatastreamsSettings getSettings() {
         return settings;
     }

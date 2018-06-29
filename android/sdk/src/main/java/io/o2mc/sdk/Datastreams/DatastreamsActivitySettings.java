@@ -15,7 +15,7 @@ import java.util.Iterator;
  */
 public class DatastreamsActivitySettings {
 
-    public static final String DISPATCH_ON_EXIT  = "dispatchOnExit";
+    public static final String DISPATCH_ON_EXIT = "dispatchOnExit";
 
     private HashMap<String, Boolean> settingsMap = new HashMap<>();
 
@@ -32,7 +32,7 @@ public class DatastreamsActivitySettings {
         }
     }
 
-    public Boolean getSetting(String key){
+    public Boolean getSetting(String key) {
         return settingsMap.get(key);
     }
 }

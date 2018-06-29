@@ -1,5 +1,6 @@
 package io.o2mc.sdk.Datastreams;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.util.Log;
 
@@ -13,6 +14,7 @@ import java.util.TimeZone;
 /**
  * Data tuple used as storage for gathered track data
  */
+@SuppressWarnings("WeakerAccess")
 public class DataContainer {
     private String elementId;
     private String Activity;
@@ -24,9 +26,13 @@ public class DataContainer {
     private String alias;
     private Integer indexWithinActivity;
 
-    public Integer getIndexWithinActivity() { return indexWithinActivity;  }
+    public Integer getIndexWithinActivity() {
+        return indexWithinActivity;
+    }
 
-    public void setIndexWithinActivity(Integer indexWithinActivity) { this.indexWithinActivity = indexWithinActivity; }
+    public void setIndexWithinActivity(Integer indexWithinActivity) {
+        this.indexWithinActivity = indexWithinActivity;
+    }
 
     public String getEventType() {
         return eventType;
@@ -68,18 +74,18 @@ public class DataContainer {
         this.elementId = elementId;
     }
 
-    public String asString(){
+    public String asString() {
         return asJsonString();
     }
 
-    public String asJsonString(){
+    public String asJsonString() {
         return asJson().toString();
     }
 
-    public JSONObject asJson(){
+    public JSONObject asJson() {
         JSONObject json = new JSONObject();
         try {
-            json.put("alias",getAlias());
+            json.put("alias", getAlias());
             json.put("activity", getActivity());
             json.put("eventType", getEventType());
             json.put("elementValue", getValue());
@@ -96,6 +102,8 @@ public class DataContainer {
         return timestamp;
     }
 
+    @SuppressLint("DefaultLocale")
+    // TODO; retrieve the timestamp in a more appropriate/correct manner
     public void setTimestamp() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.timestamp = Instant.now().toString();

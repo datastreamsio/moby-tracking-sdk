@@ -24,8 +24,8 @@ public class DatastreamsSettings {
     private boolean mapViews = false;
     private HashMap<String, DatastreamsActivitySettings> activitySpecificSettings = new HashMap<>();
 
-    public void set(JSONObject settings){
-        if(!settingsHaveBeenSet && !override) {
+    public void set(JSONObject settings) {
+        if (!settingsHaveBeenSet && !override) {
             try {
                 trackLocation = settings.getBoolean("location");
                 trackNetworkstate = settings.getBoolean("networkstate");
@@ -39,7 +39,7 @@ public class DatastreamsSettings {
         }
     }
 
-    private void override(){
+    private void override() {
         override = true;
     }
 
@@ -47,12 +47,12 @@ public class DatastreamsSettings {
         return endpoint;
     }
 
-    public void setTrackLocation(Boolean bool){
+    public void setTrackLocation(Boolean bool) {
         trackLocation = bool;
         override();
     }
 
-    public void setTrackNetworkstate(Boolean bool){
+    public void setTrackNetworkstate(Boolean bool) {
         trackNetworkstate = bool;
         override();
     }
@@ -79,9 +79,13 @@ public class DatastreamsSettings {
         return true;
     }
 
-    public boolean mapViews() { return mapViews;  }
+    public boolean mapViews() {
+        return mapViews;
+    }
 
-    public void setMapViews(boolean mapViews) { this.mapViews = mapViews;  }
+    public void setMapViews(boolean mapViews) {
+        this.mapViews = mapViews;
+    }
 
     public boolean trackNetworkstate() {
         return trackNetworkstate;
@@ -107,7 +111,7 @@ public class DatastreamsSettings {
         this.onlySendWhenWifi = onlySendWhenWifi;
     }
 
-    public DatastreamsActivitySettings getDatastreamsActivitySettings(String activity){
+    public DatastreamsActivitySettings getDatastreamsActivitySettings(String activity) {
         return activitySpecificSettings.get(activity);
     }
 

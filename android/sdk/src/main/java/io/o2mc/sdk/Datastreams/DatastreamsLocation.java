@@ -12,7 +12,7 @@ public class DatastreamsLocation implements LocationListener {
 
     private Datastream datastream;
 
-    public DatastreamsLocation(Datastream ds){
+    public DatastreamsLocation(Datastream ds) {
         datastream = ds;
     }
 
@@ -20,7 +20,7 @@ public class DatastreamsLocation implements LocationListener {
     public void onLocationChanged(Location location) {
         datastream.setLatitude(location.getLatitude());
         datastream.setLongitude(location.getLongitude());
-        Log.d("LatLong",datastream.getLatitude()+","+datastream.getLongitude());
+        Log.d("LatLong", datastream.getLatitude() + "," + datastream.getLongitude());
     }
 
     @Override
