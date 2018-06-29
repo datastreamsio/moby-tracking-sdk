@@ -2,6 +2,7 @@ package io.o2mc.sdk.Datastreams;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,7 +89,7 @@ public class DataContainer {
             json.put("trackingDateTime", getTimestamp());
             json.put("indexWithinActivity", getIndexWithinActivity());
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(DataContainer.class.getName(), e.getMessage());
         }
         return json;
     }

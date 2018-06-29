@@ -24,21 +24,18 @@
 
     Device *d = [[Device alloc] init];
 
-    NSMutableDictionary *data = @{
-            @"AppId" : _appName,
-            @"ip" : [self getIPAddress],
-            @"connection" : @"3G",
-            @"os": [[UIDevice currentDevice] systemName],
-            @"osVersion": [[UIDevice currentDevice] systemVersion],
-            @"device":d.deviceName
-    };
+    NSMutableDictionary* data = [NSMutableDictionary new];
+    [data setObject:_appName forKey:@"AppId"];
+    [data setObject:[self getIPAddress] forKey:@"ip"];
+    [data setObject:@"3G" forKey:@"connection"];
+    [data setObject:[[UIDevice currentDevice] systemName] forKey:@"os"];
+    [data setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
+    [data setObject:d.deviceName forKey:@"device"];
 
     return data;
 }
 
 - (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
-    NSLog(@"Am i being called?");
-    
     NSDictionary *data = @{
             @"application" :  [self getGeneralInfo],
             @"tracked" : funnel
@@ -56,7 +53,7 @@
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *post = [NSString stringWithFormat:@"%@", jsonString];
         NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
         [request setURL:[NSURL URLWithString:endpoint]];
         [request setHTTPMethod:@"POST"];

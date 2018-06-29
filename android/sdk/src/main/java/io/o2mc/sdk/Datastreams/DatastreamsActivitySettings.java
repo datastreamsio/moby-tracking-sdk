@@ -1,5 +1,7 @@
 package io.o2mc.sdk.Datastreams;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +27,7 @@ public class DatastreamsActivitySettings {
             try {
                 settingsMap.put(key, (Boolean) settings.get(key));
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(DatastreamsActivitySettings.class.getName(), e.getMessage());
             }
         }
     }

@@ -19,7 +19,7 @@ $ pip install -r requirements.txt
 `$ FLASK_APP=app.py flask run`
 
 ### On FISH
-`$ FLASK_APP=app.py flask run`
+`$ env FLASK_APP=app.py flask run`
 
 #### Expected output
 ```

@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.O2MC = [[O2MC alloc] init:@"app-obj-c" : @"http://127.0.0.1:3000/events" :  [NSNumber numberWithInt:10] :YES];
+    self.O2MC = [[O2MC alloc] init:@"app-obj-c" : @"http://127.0.0.1:5000/events" :  [NSNumber numberWithInt:10] :YES];
 }
 
 

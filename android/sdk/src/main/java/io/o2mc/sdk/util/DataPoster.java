@@ -65,7 +65,7 @@ public class DataPoster {
                     DataPoster.getInstance().failureCallback();
 
                     Log.w("DATA_POSTER", "Unable to post data.");
-                    e.printStackTrace();
+                    Log.w(DataPoster.class.getName(), e.getMessage());
                 }
 
                 @Override
@@ -73,11 +73,12 @@ public class DataPoster {
                     if (!response.isSuccessful()) return;
 
                     DataPoster.getInstance().successCallback();
+
                     if (response.body() == null ) {
                         Log.e("POSTED", "payload: <EMPTY RESPONSE BODY>");
                     } else {
                         //noinspection ConstantConditions
-                        Log.e("POSTED", "payload: " + response.body().toString());
+                        Log.d("POSTED", "payload: " + response.body().toString());
                     }
                 }
             });
