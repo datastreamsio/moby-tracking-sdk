@@ -93,7 +93,7 @@ static int objectCount = 0;
     [self addToFunnel:eventName :funnel];
 }
 
--(void)trackWithProperties:(NSString*)eventName:(NSString*)propertiesAsJson;
+-(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
 {
     NSLog(@"Track %@:%@", eventName, propertiesAsJson);
     NSDictionary *funnel = @{
@@ -146,7 +146,7 @@ static int objectCount = 0;
     return iso8601String;
 }
 
--(void)timeEventStartWithProperties:(NSString*)eventName:(NSString*)propertiesAsJson;{
+-(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
     NSLog(@"timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
