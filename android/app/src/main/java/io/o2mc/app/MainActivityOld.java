@@ -9,7 +9,7 @@ import android.widget.EditText;
 import io.o2mc.sdk.old.O2MC;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivityOld extends AppCompatActivity {
 
     private O2MC o2mc;
 
