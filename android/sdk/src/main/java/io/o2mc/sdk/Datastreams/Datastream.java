@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.jaredrummler.android.device.DeviceName;
 
@@ -129,9 +130,9 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
             }
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(Datastream.class.getName(), e.getMessage());
         } catch (SocketException e) {
-            e.printStackTrace();
+            Log.e(Datastream.class.getName(), e.getMessage());
         }
 
 
@@ -149,7 +150,7 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(Datastream.class.getName(), e.getMessage());
         }
         return false;
     }

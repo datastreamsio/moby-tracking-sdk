@@ -36,8 +36,6 @@
 }
 
 - (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
-    NSLog(@"Am i being called?");
-    
     NSDictionary *data = @{
             @"application" :  [self getGeneralInfo],
             @"tracked" : funnel
