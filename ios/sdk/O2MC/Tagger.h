@@ -32,7 +32,7 @@
 -(Tagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
 -(void) clearFunnel;
 -(void) setEndpoint :(NSString *) endpoint;
--(void) setAppid :(NSString *) appId;
+-(void) setAppId :(NSString *) appId;
 -(void) setDispatchInterval :(NSNumber *)dispatchInterval;
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 
