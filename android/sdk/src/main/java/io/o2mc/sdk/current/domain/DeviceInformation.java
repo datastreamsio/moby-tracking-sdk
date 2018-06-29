@@ -1,4 +1,4 @@
-package io.o2mc.sdk.domain;
+package io.o2mc.sdk.current.domain;
 
 public class DeviceInformation {
     private String appId;

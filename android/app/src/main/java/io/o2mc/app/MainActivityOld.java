@@ -24,30 +24,22 @@ public class MainActivityOld extends AppCompatActivity {
         o2mc.tracker.track("MainActivityCreated");
     }
 
-    public void onCreateEventHandler(View v) {
+    public void onClickCreateEvent(View view) {
         EditText text = findViewById(R.id.editText);
-
-        Log.d("O2MC_EVENT", "Created a click event");
         o2mc.tracker.track(text.getText().toString());
     }
 
     public void onCreateAliasHandler(View v) {
         EditText text = findViewById(R.id.editText);
-
-        Log.d("O2MC_EVENT", "Created alias" + text.getText().toString());
         o2mc.tracker.createAlias(text.getText().toString());
     }
 
     public void onSetIdentityHandler(View v) {
         EditText text = findViewById(R.id.editText);
-
-        Log.d("O2MC_EVENT", "Set identity" + text.getText().toString());
         o2mc.tracker.identify(text.getText().toString());
     }
 
     public void onResetTrackingHandler(View v) {
-        Log.d("O2MC_EVENT", "Reset tracking");
-
         o2mc.tracker.reset();
     }
 }

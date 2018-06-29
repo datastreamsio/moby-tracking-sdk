@@ -1,4 +1,4 @@
-package io.o2mc.sdk.domain;
+package io.o2mc.sdk.current.business;
 
 import android.content.Context;
 import android.os.Build;
@@ -7,6 +7,8 @@ import android.provider.Settings;
 import com.jaredrummler.android.device.DeviceName;
 
 import java.net.SocketException;
+
+import io.o2mc.sdk.current.domain.DeviceInformation;
 
 /**
  * Manages all operations specifically targeted to the user's device.
