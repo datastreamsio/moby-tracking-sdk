@@ -15,18 +15,12 @@ public class EventGenerator {
 
     private static final String TAG = "EventGenerator";
 
-    private final DeviceInformation deviceInformation;
-
-    public EventGenerator(DeviceInformation deviceInformation) {
-        this.deviceInformation = deviceInformation;
-    }
-
     public Event generateClickedButtonEvent(Button button, @Nullable Object extra) {
         Log.i(TAG, "generateClickedButtonEvent: Generated clickedButtonEvent");
         if (extra == null) {
-            return new Event(deviceInformation, Event.CLICKED_BUTTON, "some value when clicked button" + button.getId());
+            return new Event(Event.CLICKED_BUTTON, "some value when clicked button" + button.getId());
         } else {
-            return new Event(deviceInformation, Event.CLICKED_BUTTON_EXTRA, "some value when clicked button" + button.getId());
+            return new Event(Event.CLICKED_BUTTON_EXTRA, "some value when clicked button" + button.getId());
         }
     }
 }

@@ -11,10 +11,12 @@ import java.net.SocketException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.o2mc.sdk.current.business.BatchGenerator;
 import io.o2mc.sdk.current.business.DeviceManager;
 import io.o2mc.sdk.current.business.EventBus;
 import io.o2mc.sdk.current.business.EventDispatcher;
 import io.o2mc.sdk.current.business.EventGenerator;
+import io.o2mc.sdk.current.domain.Batch;
 import io.o2mc.sdk.current.domain.Event;
 
 /**
@@ -34,6 +36,7 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
 
     private DeviceManager deviceManager;
     private EventGenerator eventGenerator;
+    private BatchGenerator batchGenerator;
     private EventBus eventBus;
 
     public O2mc(Application app, String endpoint) throws SocketException {
@@ -43,7 +46,8 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
         this.endpoint = endpoint;
 
         this.deviceManager = new DeviceManager(this.app);
-        this.eventGenerator = new EventGenerator(deviceManager.generateDeviceInformation()); // todo; optimization; better to do this on another thread. rethink this structure
+        this.eventGenerator = new EventGenerator();
+        this.batchGenerator = new BatchGenerator(deviceManager.generateDeviceInformation()); // todo; optimization; better to do this on another thread. rethink this structure
         this.eventBus = new EventBus();
 
         EventDispatcher.getInstance().setO2mc(this);
@@ -136,10 +140,11 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
     class Dispatcher extends TimerTask {
         public void run() {
             if (eventBus.getEvents().size() > 0) {
-                Log.i(TAG, String.format("run: Dispatching %s events.", eventBus.getEvents().size()));
-                EventDispatcher.getInstance().post(endpoint, eventBus.getEvents());
+                Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
+                Batch b = batchGenerator.generateBatch(eventBus.getEvents());
+                EventDispatcher.getInstance().post(endpoint, b);
             } else {
-                Log.i(TAG, "run: There are no events to dispatch. Skipping dispatch.");
+                Log.i(TAG, "run: There are no events to dispatch. Skipping.");
             }
         }
     }
