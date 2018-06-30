@@ -74,7 +74,7 @@ public class EventDispatcher {
     public void post(String url, List<Event> events) {
         try {
             String json = eventsToJson(events);
-            Log.d(TAG, String.format("Posting\n%s\n", json));
+            Log.d(TAG, String.format("About to post: %s", json));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
             client.newCall(request).enqueue(new Callback() {
@@ -82,21 +82,23 @@ public class EventDispatcher {
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     EventDispatcher.getInstance().failureCallback();
 
-                    Log.w(TAG, "Unable to post data.");
-                    Log.w(TAG, e.getMessage());
+                    Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
                 }
 
                 @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) {
-                    if (!response.isSuccessful()) return;
-
-                    EventDispatcher.getInstance().successCallback();
-
-                    if (response.body() == null) {
-                        Log.e(TAG, "payload: <EMPTY RESPONSE BODY>");
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        // Http response indicates success, inform user and SDK
+                        EventDispatcher.getInstance().successCallback();
+                        if (response.body() == null) {
+                            Log.w(TAG, "onResponse: empty http response from backend");
+                        } else {
+                            Log.i(TAG, String.format("onResponse: http response was '%s'", response.body().string()));
+                        }
                     } else {
-                        //noinspection ConstantConditions
-                        Log.d(TAG, "payload: " + response.body().toString());
+                        // Http response indicates failure, inform user and SDK
+                        EventDispatcher.getInstance().failureCallback();
+                        Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
                     }
                 }
             });
@@ -108,6 +110,7 @@ public class EventDispatcher {
 
     /**
      * Transforms a list of events to an array of JsonObjects in Json format
+     *
      * @param events list of events
      * @return list of JsonObjects in JSON format, as String
      */

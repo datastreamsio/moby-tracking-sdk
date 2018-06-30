@@ -69,7 +69,7 @@ public class DataPoster {
                 }
 
                 @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     if (!response.isSuccessful()) return;
 
                     DataPoster.getInstance().successCallback();
@@ -78,7 +78,7 @@ public class DataPoster {
                         Log.e("POSTED", "payload: <EMPTY RESPONSE BODY>");
                     } else {
                         //noinspection ConstantConditions
-                        Log.d("POSTED", "payload: " + response.body().toString());
+                        Log.d("POSTED", "payload: " + response.body().string());
                     }
                 }
             });
