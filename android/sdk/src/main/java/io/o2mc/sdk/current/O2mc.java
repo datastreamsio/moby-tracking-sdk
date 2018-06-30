@@ -111,12 +111,9 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
      * Called upon successful HTTP post
      */
     public void dispatchSuccess() {
-        // TODO: 29-6-18 clear databus
         // TODO: 29-6-18 keep track of batches
         Log.d(TAG, "Dispatch successful.");
         eventBus.clearEvents();
-//        batchCounter += 1;
-//        postInProgress = false;
     }
 
     /**
@@ -126,26 +123,24 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
         Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
     }
 
+    /**
+     * Sets a timer for dispatching events to the backend.
+     */
     public void startDispatching() {
         timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
     }
 
+    /**
+     * Sends all events from the EventBus to the backend, if there are any events.
+     */
     class Dispatcher extends TimerTask {
         public void run() {
-            // TODO: 30-6-18 dispatch events from EventBus now
-//            for (Map.Entry<String, ArrayList<JSONObject>> entry : funnel.entrySet()) {
-//                for (JSONObject obj : entry.getValue()) {
-//                    DataContainer c = new DataContainer();
-//                    c.setEventType(entry.getKey());
-//                    c.setValue(obj.toString());
-//                    c.setTimestamp();
-//                    ds.getDatastreamsHandler().getDispatcher().dispatch(c);
-//                }
-//            }
-//            ds.getDatastreamsHandler().getDispatcher().dispatchNow(ds.getGeneralInfo());
-//            funnel.clear();
-            Log.i(TAG, "Dispatching events...");
-            EventDispatcher.getInstance().post(endpoint, eventBus.getEvents());
+            if (eventBus.getEvents().size() > 0) {
+                Log.i(TAG, String.format("run: Dispatching %s events.", eventBus.getEvents().size()));
+                EventDispatcher.getInstance().post(endpoint, eventBus.getEvents());
+            } else {
+                Log.i(TAG, "run: There are no events to dispatch. Skipping dispatch.");
+            }
         }
     }
 }
