@@ -15,18 +15,12 @@ public class Event {
     public static final String CLICKED_EDITTEXT = "CLICKED_EDITTEXT";
     public static final String CLICKED_EDITTEXT_EXTRA = "CLICKED_EDITTEXT_EXTRA";
 
-    private DeviceInformation deviceInformation;
     private String type;
     private Object value;
 
-    public Event(DeviceInformation deviceInformation, String type, Object value) {
-        this.deviceInformation = deviceInformation;
+    public Event(String type, Object value) {
         this.type = type;
         this.value = value;
-    }
-
-    public DeviceInformation getDeviceInformation() {
-        return deviceInformation;
     }
 
     public String getType() {
@@ -40,8 +34,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "deviceInformation=" + deviceInformation +
-                ", type='" + type + '\'' +
+                "type='" + type + '\'' +
                 ", value=" + value +
                 '}';
     }

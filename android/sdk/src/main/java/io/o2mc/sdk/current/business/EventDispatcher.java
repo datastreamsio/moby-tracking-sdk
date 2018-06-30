@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 
 import io.o2mc.sdk.current.O2mc;
+import io.o2mc.sdk.current.domain.Batch;
 import io.o2mc.sdk.old.datastreams.DatastreamsDispatcher;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,7 +43,6 @@ public class EventDispatcher {
     // region Start singleton technicalities
     // ==========================================
     private static EventDispatcher mInstance;
-    private static EventDispatcher eventDispatcher;
 
     private EventDispatcher() {
     }
@@ -68,12 +68,12 @@ public class EventDispatcher {
     /**
      * Sends analytical events to backend specified by URL in JSON format.
      *
-     * @param url    url of backend to send events to
-     * @param events list of Event objects
+     * @param url   url of backend to send events to
+     * @param batch list of events with meta data
      */
-    public void post(String url, List<Event> events) {
+    public void post(String url, Batch batch) {
         try {
-            String json = eventsToJson(events);
+            String json = batchToJson(batch);
             Log.d(TAG, String.format("About to post: %s", json));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
@@ -110,15 +110,16 @@ public class EventDispatcher {
     /**
      * Transforms a list of events to an array of JsonObjects in Json format
      *
-     * @param events list of events
+     * @param batch list of events with meta data
      * @return list of JsonObjects in JSON format, as String
      */
-    private String eventsToJson(List<Event> events) {
-        List<JsonObject> result = new ArrayList<>();
-        for (Event e : events) {
-            result.add((JsonObject) gson.toJsonTree(e));
-        }
-        return gson.toJson(result);
+    private String batchToJson(Batch batch) {
+//        List<JsonObject> result = new ArrayList<>();
+//        for (Event e : batch.getEvents()) {
+//            result.add((JsonObject) gson.toJsonTree(e));
+//        }
+        return gson.toJson(batch);
+//        return gson.toJson(result);
     }
 
     public void setO2mc(O2mc o2mc) {
