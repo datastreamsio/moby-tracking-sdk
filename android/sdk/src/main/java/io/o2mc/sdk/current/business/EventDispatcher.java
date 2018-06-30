@@ -81,7 +81,6 @@ public class EventDispatcher {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     EventDispatcher.getInstance().failureCallback();
-
                     Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
                 }
 
@@ -103,7 +102,7 @@ public class EventDispatcher {
                 }
             });
         } catch (IllegalArgumentException | NullPointerException e) {
-            this.failureCallback();
+            EventDispatcher.getInstance().failureCallback();
             Log.e(TAG, e.getMessage());
         }
     }
