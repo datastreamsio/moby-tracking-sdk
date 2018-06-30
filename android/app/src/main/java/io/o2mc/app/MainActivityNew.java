@@ -25,6 +25,7 @@ public class MainActivityNew extends AppCompatActivity {
         try {
             o2mc = new O2mc(getApplication(), "http://10.0.2.2:5000/events");
             o2mc.setDispatchInterval(10);
+            o2mc.startDispatching();
         } catch (SocketException e) {
             Log.d(TAG, e.getMessage());
         }

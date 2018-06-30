@@ -72,6 +72,7 @@ public class EventDispatcher {
     public void post(String url, List<Event> events) {
         try {
             String json = eventsToJson(events);
+            Log.d(TAG, String.format("Posting\n\n%s\n\n", json));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
             client.newCall(request).enqueue(new Callback() {
@@ -79,7 +80,7 @@ public class EventDispatcher {
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     EventDispatcher.getInstance().failureCallback();
 
-                    Log.w("DATA_POSTER", "Unable to post data.");
+                    Log.w(TAG, "Unable to post data.");
                     Log.w(TAG, e.getMessage());
                 }
 
@@ -90,10 +91,10 @@ public class EventDispatcher {
                     EventDispatcher.getInstance().successCallback();
 
                     if (response.body() == null) {
-                        Log.e("POSTED", "payload: <EMPTY RESPONSE BODY>");
+                        Log.e(TAG, "payload: <EMPTY RESPONSE BODY>");
                     } else {
                         //noinspection ConstantConditions
-                        Log.d("POSTED", "payload: " + response.body().toString());
+                        Log.d(TAG, "payload: " + response.body().toString());
                     }
                 }
             });
@@ -105,7 +106,7 @@ public class EventDispatcher {
 
     private String eventsToJson(List<Event> events) {
         // todo; obviously, this method has to be implemented. leaving like this for dev purposes
-        StringBuilder result = new StringBuilder("nothing");
+        StringBuilder result = new StringBuilder("");
         for (Event e : events) {
             String json = gson.toJson(e);
             Log.d(TAG, String.format("Turning event %s into JSON String", e.toString()));

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.Button;
 
 import java.net.SocketException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.o2mc.sdk.current.business.DeviceManager;
 import io.o2mc.sdk.current.business.EventBus;
@@ -25,6 +27,9 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
 
     private Application app; // required for activity callbacks & context
 
+    private String endpoint;
+
+    private Timer timer = new Timer(); // timer used for dispatching events
     private int dispatchInterval; // interval on which to send events
 
     private DeviceManager deviceManager;
@@ -34,6 +39,8 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
     public O2mc(Application app, String endpoint) throws SocketException {
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
+
+        this.endpoint = endpoint;
 
         this.deviceManager = new DeviceManager(this.app);
         this.eventGenerator = new EventGenerator(deviceManager.generateDeviceInformation()); // todo; optimization; better to do this on another thread. rethink this structure
@@ -112,5 +119,28 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
 
     public void dispatchFailure() {
         Log.d(TAG, "Dispatch failed.");
+    }
+
+    public void startDispatching() {
+        timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
+    }
+
+    class Dispatcher extends TimerTask {
+        public void run() {
+            // TODO: 30-6-18 dispatch events from EventBus now
+//            for (Map.Entry<String, ArrayList<JSONObject>> entry : funnel.entrySet()) {
+//                for (JSONObject obj : entry.getValue()) {
+//                    DataContainer c = new DataContainer();
+//                    c.setEventType(entry.getKey());
+//                    c.setValue(obj.toString());
+//                    c.setTimestamp();
+//                    ds.getDatastreamsHandler().getDispatcher().dispatch(c);
+//                }
+//            }
+//            ds.getDatastreamsHandler().getDispatcher().dispatchNow(ds.getGeneralInfo());
+//            funnel.clear();
+            Log.i(TAG, "Dispatching events...");
+            EventDispatcher.getInstance().post(endpoint, eventBus.getEvents());
+        }
     }
 }
