@@ -16,7 +16,7 @@ import java.util.Enumeration;
  * It returns the current networkstate as a String
  */
 @SuppressWarnings("WeakerAccess")
-public class Connectivity {
+public class NetworkManager {
 
     /**
      * Get the network info
@@ -57,7 +57,7 @@ public class Connectivity {
 
     public static String getConnectivityType(Context context) {
 
-        NetworkInfo info = Connectivity.getNetworkInfo(context);
+        NetworkInfo info = NetworkManager.getNetworkInfo(context);
         int type = info.getType();
         int subType = info.getSubtype();
 

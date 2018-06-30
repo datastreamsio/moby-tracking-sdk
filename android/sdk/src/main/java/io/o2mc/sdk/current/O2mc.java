@@ -107,17 +107,23 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
         eventBus.add(e);
     }
 
+    /**
+     * Called upon successful HTTP post
+     */
     public void dispatchSuccess() {
         // TODO: 29-6-18 clear databus
         // TODO: 29-6-18 keep track of batches
-        Log.d(TAG, "Dispatch succeeded.");
-//        dataContainers.clear();
+        Log.d(TAG, "Dispatch successful.");
+        eventBus.clearEvents();
 //        batchCounter += 1;
 //        postInProgress = false;
     }
 
+    /**
+     * Called upon failure of HTTP post
+     */
     public void dispatchFailure() {
-        Log.d(TAG, "Dispatch failed.");
+        Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
     }
 
     public void startDispatching() {

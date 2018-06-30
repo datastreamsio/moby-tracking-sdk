@@ -28,4 +28,9 @@ public class EventBus {
     public List<Event> getEvents() {
         return events;
     }
+
+    public void clearEvents() {
+        events.clear();
+        Log.d(TAG, "clearEvents: Cleared the EventBus.");
+    }
 }

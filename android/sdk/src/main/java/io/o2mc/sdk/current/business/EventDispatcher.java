@@ -106,8 +106,12 @@ public class EventDispatcher {
         }
     }
 
+    /**
+     * Transforms a list of events to an array of JsonObjects in Json format
+     * @param events list of events
+     * @return list of JsonObjects in JSON format, as String
+     */
     private String eventsToJson(List<Event> events) {
-        // todo; obviously, this method has to be implemented. leaving like this for dev purposes
         List<JsonObject> result = new ArrayList<>();
         for (Event e : events) {
             result.add((JsonObject) gson.toJsonTree(e));
@@ -120,6 +124,9 @@ public class EventDispatcher {
         Log.d(TAG, "Set o2mc field.");
     }
 
+    /**
+     * Called upon successful HTTP post
+     */
     private void successCallback() {
         if (o2mc != null) {
             o2mc.dispatchSuccess();
@@ -128,6 +135,9 @@ public class EventDispatcher {
         }
     }
 
+    /**
+     * Called upon failure of HTTP post
+     */
     private void failureCallback() {
         if (o2mc != null) {
             o2mc.dispatchFailure();
