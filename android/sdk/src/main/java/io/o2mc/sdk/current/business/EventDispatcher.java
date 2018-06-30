@@ -1,11 +1,13 @@
 package io.o2mc.sdk.current.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
@@ -72,7 +74,7 @@ public class EventDispatcher {
     public void post(String url, List<Event> events) {
         try {
             String json = eventsToJson(events);
-            Log.d(TAG, String.format("Posting\n\n%s\n\n", json));
+            Log.d(TAG, String.format("Posting\n%s\n", json));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
             client.newCall(request).enqueue(new Callback() {
@@ -106,14 +108,11 @@ public class EventDispatcher {
 
     private String eventsToJson(List<Event> events) {
         // todo; obviously, this method has to be implemented. leaving like this for dev purposes
-        StringBuilder result = new StringBuilder("");
+        List<JsonObject> result = new ArrayList<>();
         for (Event e : events) {
-            String json = gson.toJson(e);
-            Log.d(TAG, String.format("Turning event %s into JSON String", e.toString()));
-            Log.d(TAG, String.format("Json string: < %s >", json));
-            result.append(json);
+            result.add((JsonObject) gson.toJsonTree(e));
         }
-        return result.toString();
+        return gson.toJson(result);
     }
 
     public void setO2mc(O2mc o2mc) {
