@@ -39,7 +39,7 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
     private BatchGenerator batchGenerator;
     private EventBus eventBus;
 
-    public O2mc(Application app, String endpoint) throws SocketException {
+    public O2mc(Application app, String endpoint)  {
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
 

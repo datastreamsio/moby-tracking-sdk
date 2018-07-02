@@ -2,7 +2,6 @@ package io.o2mc.sdk.current.business;
 
 import android.util.Log;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import io.o2mc.sdk.current.domain.Batch;
@@ -17,6 +16,8 @@ public class BatchGenerator {
 
     private static final String TAG = "BatchGenerator";
 
+    private static int batchCounter = 0;
+
     private final DeviceInformation deviceInformation;
 
     public BatchGenerator(DeviceInformation deviceInformation) {
@@ -26,6 +27,7 @@ public class BatchGenerator {
     public Batch generateBatch(List<Event> events) {
         Log.i(TAG, "generateBatch: Generating batch");
 
-        return new Batch(deviceInformation, Util.generateTimestamp(), events);
+        batchCounter += 1;
+        return new Batch(deviceInformation, Util.generateTimestamp(), events, batchCounter);
     }
 }

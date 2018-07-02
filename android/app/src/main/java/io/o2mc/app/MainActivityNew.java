@@ -22,13 +22,9 @@ public class MainActivityNew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            o2mc = new O2mc(getApplication(), "http://10.0.2.2:5000/events");
-            o2mc.setDispatchInterval(10);
-            o2mc.startDispatching();
-        } catch (SocketException e) {
-            Log.d(TAG, e.getMessage());
-        }
+        o2mc = new O2mc(getApplication(), "http://10.0.2.2:5000/events");
+        o2mc.setDispatchInterval(10);
+        o2mc.startDispatching();
     }
 
     public void onClickCreateEvent(View v) {

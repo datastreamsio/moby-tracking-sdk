@@ -11,11 +11,13 @@ public class Batch {
     private DeviceInformation deviceInformation;
     private Timestamp timestamp;
     private List<Event> events;
+    private int number;
 
-    public Batch(DeviceInformation deviceInformation, Timestamp timestamp, List<Event> events) {
+    public Batch(DeviceInformation deviceInformation, Timestamp timestamp, List<Event> events, int number) {
         this.deviceInformation = deviceInformation;
         this.timestamp = timestamp;
         this.events = events;
+        this.number = number;
     }
 
     public DeviceInformation getDeviceInformation() {
@@ -40,5 +42,13 @@ public class Batch {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

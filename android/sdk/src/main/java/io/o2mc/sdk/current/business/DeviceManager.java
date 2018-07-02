@@ -28,7 +28,7 @@ public class DeviceManager {
      *
      * @return information about a phone
      */
-    public DeviceInformation generateDeviceInformation() throws SocketException {
+    public DeviceInformation generateDeviceInformation() {
         DeviceInformation info = new DeviceInformation();
 
         info.setAppId(context.getPackageName());
