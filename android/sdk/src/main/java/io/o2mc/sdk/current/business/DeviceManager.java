@@ -28,6 +28,11 @@ public class DeviceManager {
      * @return information about a phone
      */
     public DeviceInformation generateDeviceInformation() {
+        if (app == null) {
+            Log.e(TAG, "generateDeviceInformation: No device information could be retrieved. Did you supply your Application to the O2MC module?");
+            return null;
+        }
+
         DeviceInformation info = new DeviceInformation();
 
         info.setAppId(app.getPackageName());
