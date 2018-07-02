@@ -55,11 +55,13 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
 
     /**
      * Tells the EventManager on which intervals it should send the generated events.
+     * Starts dispatching once interval is set.
      *
      * @param seconds time in seconds
      */
     public void setDispatchInterval(int seconds) {
         this.dispatchInterval = seconds;
+        startDispatching(); // Interval is set, start dispatching now.
     }
 
     @Override
