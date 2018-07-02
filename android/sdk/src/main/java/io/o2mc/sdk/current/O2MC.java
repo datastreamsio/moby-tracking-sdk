@@ -23,9 +23,9 @@ import io.o2mc.sdk.current.domain.Event;
  * This is central point of communication between the SDK and the app implementing it.
  * The implementing app should never have anything to deal with any other class than this one.
  */
-public class O2mc implements Application.ActivityLifecycleCallbacks {
+public class O2MC implements Application.ActivityLifecycleCallbacks {
 
-    private static final String TAG = "O2mc";
+    private static final String TAG = "O2MC";
 
     private Application app; // required for activity callbacks & context
 
@@ -39,7 +39,7 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
     private BatchGenerator batchGenerator;
     private EventBus eventBus;
 
-    public O2mc(Application app, String endpoint)  {
+    public O2MC(Application app, String endpoint)  {
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
 
@@ -108,7 +108,7 @@ public class O2mc implements Application.ActivityLifecycleCallbacks {
             e = eventGenerator.generateClickedButtonEvent(button, extra);
         }
         if (e == null) {
-            Log.e(TAG, "Error in O2mc library. Event should not be null.");
+            Log.e(TAG, "Error in O2MC library. Event should not be null.");
         }
         eventBus.add(e);
     }

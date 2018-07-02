@@ -1,19 +1,14 @@
 package io.o2mc.sdk.current.business;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
-import io.o2mc.sdk.current.O2mc;
+import io.o2mc.sdk.current.O2MC;
 import io.o2mc.sdk.current.domain.Batch;
-import io.o2mc.sdk.old.datastreams.DatastreamsDispatcher;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -21,8 +16,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-
-import io.o2mc.sdk.current.domain.Event;
 
 /**
  * Dispatches events in JSON format.
@@ -34,7 +27,7 @@ public class EventDispatcher {
     private static final String TAG = "EventDispatcher";
 
     private static Gson gson;
-    private static O2mc o2mc;
+    private static O2MC o2mc;
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static OkHttpClient client = new OkHttpClient().newBuilder().retryOnConnectionFailure(false).build();
@@ -122,7 +115,7 @@ public class EventDispatcher {
 //        return gson.toJson(result);
     }
 
-    public void setO2mc(O2mc o2mc) {
+    public void setO2mc(O2MC o2mc) {
         EventDispatcher.o2mc = o2mc;
         Log.d(TAG, "Set o2mc field.");
     }

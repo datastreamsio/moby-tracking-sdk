@@ -42,7 +42,6 @@ public class Datastream implements Application.ActivityLifecycleCallbacks {
 
     public Datastream(Application ctx, String endpoint) {
         context = ctx;
-        Toast.makeText(ctx, "Some message", Toast.LENGTH_SHORT).show();
         context.registerActivityLifecycleCallbacks(this);
         datastreamsHandler = new DatastreamsHandler(ctx, endpoint);
         tracker = new Tracker(this);

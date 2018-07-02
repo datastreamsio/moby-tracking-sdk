@@ -7,23 +7,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.net.SocketException;
-
-import io.o2mc.sdk.current.O2mc;
+import io.o2mc.sdk.current.O2MC;
 
 
 public class MainActivityNew extends AppCompatActivity {
 
     private static final String TAG = "MainActivityNew";
-    private O2mc o2mc;
+    private O2MC o2mc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        o2mc = new O2mc(getApplication(), "http://10.0.2.2:5000/events");
+        o2mc = new O2MC(getApplication(), "http://10.0.2.2:5000/events");
         o2mc.setDispatchInterval(10);
+
+        o2mc.track("MainActivityCreated");
     }
 
     public void onClickCreateEvent(View v) {
