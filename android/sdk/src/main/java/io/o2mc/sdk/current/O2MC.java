@@ -40,7 +40,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private EventBus eventBus;
 
     public O2MC(Application app, String endpoint) {
-        Log.e(TAG, "O2MC: init");
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
 

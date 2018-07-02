@@ -3,7 +3,9 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 
     defaultConfig {
         minSdkVersion 15

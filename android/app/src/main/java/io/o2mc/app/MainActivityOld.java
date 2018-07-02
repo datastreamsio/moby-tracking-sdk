@@ -16,7 +16,6 @@ public class MainActivityOld extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e(TAG, "onCreate: init");
         AppOld.getO2mc().tracker.track("MainActivityCreated");
     }
 

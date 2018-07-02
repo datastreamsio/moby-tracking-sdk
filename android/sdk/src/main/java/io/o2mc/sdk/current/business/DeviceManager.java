@@ -19,7 +19,6 @@ public class DeviceManager {
     private Application app;
 
     public DeviceManager(Application app) {
-        Log.e(TAG, "DeviceManager: init");
         this.app = app;
     }
 

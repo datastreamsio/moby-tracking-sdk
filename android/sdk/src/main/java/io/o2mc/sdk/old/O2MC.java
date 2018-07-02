@@ -13,7 +13,6 @@ public class O2MC {
     public final Tracker tracker;
 
     public O2MC(Application ctx, String endpoint) {
-        Log.e(TAG, "O2MC: init");
         context = ctx;
         datastream = new Datastream(ctx, endpoint);
         tracker = datastream.getTracker();
