@@ -1,6 +1,5 @@
 package io.o2mc.sdk.current.domain;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -9,11 +8,11 @@ import java.util.List;
  */
 public class Batch {
     private DeviceInformation deviceInformation;
-    private Timestamp timestamp;
+    private String timestamp;
     private List<Event> events;
     private int number;
 
-    public Batch(DeviceInformation deviceInformation, Timestamp timestamp, List<Event> events, int number) {
+    public Batch(DeviceInformation deviceInformation, String timestamp, List<Event> events, int number) {
         this.deviceInformation = deviceInformation;
         this.timestamp = timestamp;
         this.events = events;
@@ -28,11 +27,11 @@ public class Batch {
         this.deviceInformation = deviceInformation;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 

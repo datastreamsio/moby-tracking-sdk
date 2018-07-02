@@ -9,11 +9,14 @@ import android.widget.EditText;
 
 public class MainActivityOld extends AppCompatActivity {
 
+    private static final String TAG = "MainActivityOld";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.e(TAG, "onCreate: init");
         AppOld.getO2mc().tracker.track("MainActivityCreated");
     }
 

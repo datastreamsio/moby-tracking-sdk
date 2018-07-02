@@ -1,12 +1,11 @@
 package io.o2mc.sdk.current.business;
 
-import android.content.Context;
+import android.app.Application;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.jaredrummler.android.device.DeviceName;
-
-import java.net.SocketException;
 
 import io.o2mc.sdk.current.domain.DeviceInformation;
 
@@ -17,10 +16,11 @@ import io.o2mc.sdk.current.domain.DeviceInformation;
 public class DeviceManager {
     private static final String TAG = "DeviceManager";
 
-    private Context context;
+    private Application app;
 
-    public DeviceManager(Context context) {
-        this.context = context;
+    public DeviceManager(Application app) {
+        Log.e(TAG, "DeviceManager: init");
+        this.app = app;
     }
 
     /**
@@ -31,7 +31,7 @@ public class DeviceManager {
     public DeviceInformation generateDeviceInformation() {
         DeviceInformation info = new DeviceInformation();
 
-        info.setAppId(context.getPackageName());
+        info.setAppId(app.getPackageName());
 
         // todo; check if we're allowed to track network state
 //        info.setIp(NetworkManager.ip().getCanonicalHostName());
@@ -42,7 +42,7 @@ public class DeviceManager {
 
         // TODO; what is this deviceId used for? It's probably better to replace it with advertising ID
         // https://stackoverflow.com/questions/47691310/why-is-using-getstring-to-get-device-identifiers-not-recommended
-        info.setDeviceId(Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        info.setDeviceId(Settings.Secure.getString(app.getContentResolver(), Settings.Secure.ANDROID_ID));
 
         return info;
     }

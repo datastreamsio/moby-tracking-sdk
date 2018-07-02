@@ -67,7 +67,7 @@ public class EventDispatcher {
     public void post(String url, Batch batch) {
         try {
             String json = batchToJson(batch);
-            Log.d(TAG, String.format("About to post: %s", json));
+            Log.d(TAG, String.format("Posting batch containing a total of '%s' characters", json.length()));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
             client.newCall(request).enqueue(new Callback() {
@@ -85,7 +85,7 @@ public class EventDispatcher {
                         if (response.body() == null) {
                             Log.w(TAG, "onResponse: empty http response from backend");
                         } else {
-                            Log.i(TAG, String.format("onResponse: http response was '%s'", response.body().string()));
+                            Log.i(TAG, String.format("onResponse: http response contained '%s' characters", response.body().string().length()));
                         }
                     } else {
                         // Http response indicates failure, inform user and SDK

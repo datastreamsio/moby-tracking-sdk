@@ -40,14 +40,15 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private EventBus eventBus;
 
     public O2MC(Application app, String endpoint) {
+        Log.e(TAG, "O2MC: init");
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
 
         this.endpoint = endpoint;
 
-        this.deviceManager = new DeviceManager(this.app);
+        this.deviceManager = new DeviceManager(app);
         this.eventGenerator = new EventGenerator();
-        this.batchGenerator = new BatchGenerator(deviceManager.generateDeviceInformation()); // todo; optimization; better to do this on another thread. rethink this structure
+        this.batchGenerator = new BatchGenerator();
         this.eventBus = new EventBus();
 
         EventDispatcher.getInstance().setO2mc(this);
@@ -102,12 +103,13 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     public void track(String eventName) {
         Log.d(TAG, String.format("Tracked '%s'", eventName));
         Event e = eventGenerator.generateEvent(eventName);
-//            Log.e(TAG, "Error in O2MC library. Event should not be null.");
         eventBus.add(e);
     }
 
     public void trackWithProperties(String eventName, String propertiesAsJson) {
-
+        Log.d(TAG, String.format("Tracked '%s'", eventName));
+        Event e = eventGenerator.generateEventWithProperties(eventName, propertiesAsJson);
+        eventBus.add(e);
     }
 
     /**
@@ -137,14 +139,23 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * Sends all events from the EventBus to the backend, if there are any events.
      */
     class Dispatcher extends TimerTask {
+        private static final String TAG = "Dispatcher";
+
         public void run() {
-            if (eventBus.getEvents().size() > 0) {
-                Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
-                Batch b = batchGenerator.generateBatch(eventBus.getEvents());
-                EventDispatcher.getInstance().post(endpoint, b);
-            } else {
+            // Don't dispatch if we have no events
+            if (eventBus.getEvents().size() <= 0) {
                 Log.i(TAG, "run: There are no events to dispatch. Skipping.");
+                return;
             }
+
+            // Initialize batchGenerator meta data on the first run
+            if (batchGenerator.firstRun()) {
+                batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());// todo; optimization; better to do this on another thread. rethink this structure
+            }
+
+            Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
+            Batch b = batchGenerator.generateBatch(eventBus.getEvents());
+            EventDispatcher.getInstance().post(endpoint, b);
         }
     }
 }

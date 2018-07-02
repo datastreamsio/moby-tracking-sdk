@@ -3,8 +3,9 @@ package io.o2mc.sdk.current.business;
 import java.sql.Timestamp;
 
 public class Util {
-    public static Timestamp generateTimestamp() {
+    public static String generateTimestamp() {
         long l = new java.util.Date().getTime();
-        return new Timestamp(l);
+        Timestamp t = new Timestamp(l);
+        return String.format("%tFT%<tTZ", t);
     }
 }

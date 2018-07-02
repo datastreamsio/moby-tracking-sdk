@@ -6,9 +6,9 @@ public class Event {
 
     private String name;
     private Object value;
-    private Timestamp timestamp;
+    private String timestamp;
 
-    public Event(String name, Object value, Timestamp timestamp) {
+    public Event(String name, Object value, String timestamp) {
         this.name = name;
         this.value = value;
         this.timestamp = timestamp;
@@ -22,7 +22,7 @@ public class Event {
         return value;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 

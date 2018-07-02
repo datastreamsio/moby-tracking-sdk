@@ -13,23 +13,21 @@ import io.o2mc.sdk.current.O2MC;
 public class MainActivityNew extends AppCompatActivity {
 
     private static final String TAG = "MainActivityNew";
-    private O2MC o2mc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        o2mc = new O2MC(getApplication(), "http://10.0.2.2:5000/events");
-        o2mc.setDispatchInterval(10);
-
-        o2mc.track("MainActivityCreated");
+        Log.e(TAG, "onCreate: init");
+        AppNew.getO2mc().track("MainActivityCreated");
     }
 
     public void onCreateEventHandler(View v) {
         EditText editText = findViewById(R.id.editText);
         String text = editText.getText().toString();
-        o2mc.trackWithProperties("Clicked button: 'Create Track Event'", text);
+
+        AppNew.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
     }
 
     public void onCreateAliasHandler(View v) {
@@ -37,11 +35,12 @@ public class MainActivityNew extends AppCompatActivity {
     }
 
     public void onSetIdentityHandler(View v) {
+        Log.d(TAG, "onSetIdentityHandler executed");
         // Not sure what anyone would do with this.
     }
 
     public void onResetTrackingHandler(View v) {
-        Log.d("O2MC_EVENT", "Reset tracking");
+        Log.d(TAG, "onResetTrackingHandler executed");
         // TODO: 29-6-18 implement reset of eventbus
     }
 }

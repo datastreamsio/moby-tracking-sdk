@@ -18,16 +18,24 @@ public class BatchGenerator {
 
     private static int batchCounter = 0;
 
-    private final DeviceInformation deviceInformation;
+    private DeviceInformation deviceInformation;
 
-    public BatchGenerator(DeviceInformation deviceInformation) {
+    /**
+     * Tells whether or not we're about to run for the first time.
+     *
+     * @return true if we're about to run for the first time.
+     */
+    public boolean firstRun() {
+        return batchCounter <= 0;
+    }
+
+    public void setDeviceInformation(DeviceInformation deviceInformation) {
         this.deviceInformation = deviceInformation;
     }
 
     public Batch generateBatch(List<Event> events) {
         Log.i(TAG, "generateBatch: Generating batch");
 
-        batchCounter += 1;
-        return new Batch(deviceInformation, Util.generateTimestamp(), events, batchCounter);
+        return new Batch(deviceInformation, Util.generateTimestamp(), events, batchCounter++ /*add 1 to the counter after this statement*/);
     }
 }

@@ -14,12 +14,12 @@ public class EventGenerator {
     private static final String TAG = "EventGenerator";
 
     public Event generateEvent(String eventName) {
-        Log.i(TAG, String.format("generateClickedButtonEvent: Generated event with name '%s'", eventName));
+        Log.i(TAG, String.format("generateEvent: Generated event with name '%s'", eventName));
         return new Event(eventName, null, Util.generateTimestamp());
     }
 
     public Event generateEventWithProperties(String eventName, String properties) {
-        Log.i(TAG, String.format("generateClickedButtonEvent: Generated event '%s' with properties consisting of '%s' characters", eventName, properties.length()));
+        Log.i(TAG, String.format("generateEventWithProperties: Generated event '%s' with properties consisting of '%s' characters", eventName, properties.length()));
         return new Event(eventName, properties, Util.generateTimestamp());
     }
 }
