@@ -12,12 +12,42 @@ public class Util {
 
     /**
      * Generates a timestamp based on current time.
+     *
      * @return timestamp in String format
      */
     public static String generateTimestamp() {
         long l = new java.util.Date().getTime();
         Timestamp t = new Timestamp(l);
         return String.format("%tFT%<tTZ", t);
+    }
+
+    /**
+     * Checks whether or not the provided interval is valid and reasonable.
+     * This method will warn the user upon unreasonable usage, e.g. by mistaking seconds for milliseconds.
+     *
+     * @param seconds the amount of seconds to wait before each batch is dispatch
+     * @return true if the provided interval is valid and reasonable
+     */
+    public static boolean isValidDispatchInterval(int seconds) {
+        // Value must be positive
+        if (seconds <= 0) {
+            return false;
+        }
+
+        // Waiting an hour before dispatching is outrageous. Don't allow it.
+        int oneHour = 60 * 60;
+        if (seconds > oneHour) {
+            return false;
+        }
+
+        // Waiting longer than 2 minutes to dispatch batches seems very long. The user will probably
+        // have left the app by then. Allow it, but warn the developer.
+        int twoMinutes = 2 * 60;
+        if (seconds > twoMinutes) {
+            Log.w(TAG, "isValidDispatchInterval: Using a 2 minute interval between dispatching batches. This seems long. Are you sure you want to do this?");
+        }
+
+        return true;
     }
 
     /**

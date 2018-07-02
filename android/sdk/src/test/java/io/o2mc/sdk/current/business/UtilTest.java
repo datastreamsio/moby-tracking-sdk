@@ -56,4 +56,30 @@ public class UtilTest {
             assertFalse(String.format("Endpoint '%s' should be invalid. It's considered valid.", s), Util.isValidEndpoint(s)); // should be false
         }
     }
+
+    @Test
+    public void isValidDispatchInterval() {
+        // Test valid dispatch intervals (anywhere between 1 second and 1 hour)
+        int second = 1;
+        assertTrue(Util.isValidDispatchInterval(second));
+
+        int minute = 60;
+        assertTrue(Util.isValidDispatchInterval(minute));
+
+        int fiveMinutes = 60 * 5;
+        assertTrue(Util.isValidDispatchInterval(fiveMinutes));
+
+        int fiftyFiveMinutes = 60 * 55;
+        assertTrue(Util.isValidDispatchInterval(fiftyFiveMinutes));
+
+        // Test invalid dispatch intervals (anywhere above 1 hour and below 1 second)
+        int hourAndSecond = 60 * 60 + 1;
+        assertFalse(Util.isValidDispatchInterval(hourAndSecond));
+
+        int twoHours = 60 * 60 * 2;
+        assertFalse(Util.isValidDispatchInterval(twoHours));
+
+        int negativeNumber = -10;
+        assertFalse(Util.isValidDispatchInterval(negativeNumber));
+    }
 }

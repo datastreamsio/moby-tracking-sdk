@@ -73,8 +73,12 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param seconds time in seconds
      */
     public void setDispatchInterval(int seconds) {
-        this.dispatchInterval = seconds;
-        startDispatching(); // Interval is set, start dispatching now.
+        if (Util.isValidDispatchInterval(seconds)) {
+            this.dispatchInterval = seconds;
+            startDispatching(); // Interval is set, start dispatching now.
+        } else {
+            Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.", dispatchInterval));
+        }
     }
 
     @Override
