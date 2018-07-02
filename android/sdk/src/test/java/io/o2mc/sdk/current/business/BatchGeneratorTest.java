@@ -16,6 +16,7 @@ public class BatchGeneratorTest {
     @Before
     public void setUp() throws Exception {
         o2MC = new O2MC(null, null);
+//        o2MC = new O2MC(null, "http://10.0.2.2:5000/events");
         batchGenerator = new BatchGenerator();
     }
 

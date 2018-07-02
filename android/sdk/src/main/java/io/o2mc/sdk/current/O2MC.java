@@ -40,10 +40,22 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private EventBus eventBus;
 
     public O2MC(Application app, String endpoint) {
-        this.app = app;
-        this.app.registerActivityLifecycleCallbacks(this);
+        if (app == null) {
+            Log.w(TAG, "O2MC: Application (context) provided was null. " +
+                    "Manually tracked events will still work, however " +
+                    "activity lifecycle callbacks will not be automatically detected.");
+        } else {
+            this.app = app;
+            this.app.registerActivityLifecycleCallbacks(this);
+        }
 
-        this.endpoint = endpoint;
+        if (endpoint == null) {
+            Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
+        } else if (validEndpointFormat(endpoint)) {
+            this.endpoint = endpoint;
+        } else {
+            Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
+        }
 
         this.deviceManager = new DeviceManager(app);
         this.eventGenerator = new EventGenerator();
@@ -51,6 +63,26 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         this.eventBus = new EventBus();
 
         EventDispatcher.getInstance().setO2mc(this);
+    }
+
+    /**
+     * Checks whether or not the provided endpoint is in valid format.
+     * This does not check whether or not the endpoint actually exists / is online.
+     *
+     * @param endpoint URL pointing to a backend
+     * @return true if the parameter is valid
+     */
+    private boolean validEndpointFormat(String endpoint) {
+        String urlPattern = "^http(s{0,1})://[a-zA-Z0-9_/\\-\\.]+\\.([A-Za-z/]{2,5})[a-zA-Z0-9_/\\&\\?\\=\\-\\.\\~\\%]*";
+        boolean isValid = endpoint.matches(urlPattern);
+        if (!isValid) return false;
+
+        // Check if using HTTP or HTTPS
+        if (urlPattern.charAt(4) != 's' && urlPattern.charAt(4) != 'S') {
+            Log.w(TAG, "validEndpointFormat: Endpoint is valid, but detected usage of HTTP instead of HTTPS. It is strongly recommended to use HTTPS in production usage.");
+        }
+
+        return true;
     }
 
     /**
