@@ -21,7 +21,7 @@ public class EventBus {
     }
 
     public void add(Event e) {
-        Log.d(TAG, String.format("Added event '%s' to EventBus. Full event value:\n%s", e.getType(), e));
+        Log.d(TAG, String.format("Added event '%s' to EventBus. Full event value:\n%s", e.getName(), e));
         events.add(e);
     }
 

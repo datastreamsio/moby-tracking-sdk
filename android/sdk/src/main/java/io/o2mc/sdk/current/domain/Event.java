@@ -1,46 +1,37 @@
 package io.o2mc.sdk.current.domain;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
+import java.sql.Timestamp;
 
 public class Event {
 
-    // ============================================================
-    // Define event types. This list may be expanded we please.
-    // ============================================================
-    // ------------------------
-    // Naming conventions
-    // ------------------------
-    // <ACTION>_<NOUN>_<EXTRA>
-    // ...where EXTRA means we'd like to submit additional data besides meta data.
-    public static final String CLICKED_BUTTON = "CLICKED_BUTTON";
-    public static final String CLICKED_BUTTON_EXTRA = "CLICKED_BUTTON_EXTRA";
-    public static final String CLICKED_EDITTEXT = "CLICKED_EDITTEXT";
-    public static final String CLICKED_EDITTEXT_EXTRA = "CLICKED_EDITTEXT_EXTRA";
-
-    private String type;
+    private String name;
     private Object value;
+    private Timestamp timestamp;
 
-    public Event(String type, Object value) {
-        this.type = type;
+    public Event(String name, Object value, Timestamp timestamp) {
+        this.name = name;
         this.value = value;
+        this.timestamp = timestamp;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
     public Object getValue() {
         return value;
     }
 
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
     @Override
     public String toString() {
         return "Event{" +
-                "type='" + type + '\'' +
+                "name='" + name + '\'' +
                 ", value=" + value +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

@@ -39,7 +39,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private BatchGenerator batchGenerator;
     private EventBus eventBus;
 
-    public O2MC(Application app, String endpoint)  {
+    public O2MC(Application app, String endpoint) {
         this.app = app;
         this.app.registerActivityLifecycleCallbacks(this);
 
@@ -99,18 +99,15 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         Log.i(TAG, "Activity stopped.");
     }
 
-    public void buttonClicked(Button button, @Nullable Object extra) {
-        Log.d(TAG, "buttonClicked");
-        Event e;
-        if (extra == null) {
-            e = eventGenerator.generateClickedButtonEvent(button, null);
-        } else {
-            e = eventGenerator.generateClickedButtonEvent(button, extra);
-        }
-        if (e == null) {
-            Log.e(TAG, "Error in O2MC library. Event should not be null.");
-        }
+    public void track(String eventName) {
+        Log.d(TAG, String.format("Tracked '%s'", eventName));
+        Event e = eventGenerator.generateEvent(eventName);
+//            Log.e(TAG, "Error in O2MC library. Event should not be null.");
         eventBus.add(e);
+    }
+
+    public void trackWithProperties(String eventName, String propertiesAsJson) {
+
     }
 
     /**

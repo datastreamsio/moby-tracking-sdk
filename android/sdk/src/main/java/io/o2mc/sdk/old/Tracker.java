@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,15 +17,12 @@ import java.util.UUID;
 import io.o2mc.sdk.old.datastreams.DataContainer;
 import io.o2mc.sdk.old.datastreams.Datastream;
 
+
 /**
  * App tagging class for dispatching key->value pairs to set endpoint
  * Methods from this class can be used from throughout your android app
  */
-@SuppressWarnings("FieldCanBeLocal")
-// TODO; remove suppress warning; actually use the items or refactor/remove them
 public class Tracker {
-    @SuppressWarnings("unused")
-    // TODO; remove suppress warning; actually use the items or refactor/remove them
     private String trackingId;
     private String alias = "";
     private String identity = "";
@@ -36,24 +34,23 @@ public class Tracker {
     public Tracker(Datastream datastream) {
         ds = datastream;
         try {
-            UUID uuid = UUID.randomUUID();
+            UUID uuid =  UUID.randomUUID();
             addToFunnel("alias", new JSONObject().put("alias", uuid).put("identity", this.identity));
             alias = uuid.toString();
         } catch (JSONException e) {
-            Log.e(Tracker.class.getName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
     private void addToFunnel(String key, JSONObject props) {
         if (funnel.get(key) == null) funnel.put(key, new ArrayList<JSONObject>());
         funnel.get(key).add(props);
-
-        Log.i("Added to funnel", key + ": " + props.toString());
+        Log.e("Added to funnel", key+": "+props.toString());
     }
 
     private void updateFunnel(String key, int index, JSONObject props) {
         funnel.get(key).set(index, props);
-        Log.i("Updated in funnel", key + ": " + props.toString());
+        Log.e("Updated in funnel", key + ": " + props.toString());
     }
 
 
@@ -66,7 +63,7 @@ public class Tracker {
             obj.put("time", new Timestamp(getTimestamp()));
             addToFunnel(eventName, obj);
         } catch (JSONException e) {
-            Log.e(Tracker.class.getName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -80,7 +77,7 @@ public class Tracker {
             obj.put("properties", propertiesAsJson);
             addToFunnel(eventName, obj);
         } catch (JSONException e) {
-            Log.e(Tracker.class.getName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -94,7 +91,7 @@ public class Tracker {
             obj.put("properties", alias);
             addToFunnel("alias", obj);
         } catch (JSONException e) {
-            Log.e(Tracker.class.getName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -104,7 +101,7 @@ public class Tracker {
             addToFunnel("identity", new JSONObject().put("identity", identifier).put("alias", this.alias));
 //            updateFunnel("identity", 0, new JSONObject().put("identity", identifier).put("alias", this.alias));
         } catch (JSONException e) {
-            Log.e(Tracker.class.getName(), e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -123,9 +120,9 @@ public class Tracker {
         if (eventName.equals(timedEvent)) {
             stopTime = getTimestamp();
             try {
-                addToFunnel(timedEvent, new JSONObject().put("start", startTime).put("stop", stopTime).put("identity", identity).put("alias", alias));
+                addToFunnel(timedEvent, new JSONObject().put("start", startTime).put("stop", stopTime).put("identity",identity).put("alias",alias));
             } catch (JSONException e) {
-                Log.e(Tracker.class.getName(), e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -146,7 +143,7 @@ public class Tracker {
                 obj.put("startProperties", timedEventProperties);
                 addToFunnel(timedEvent, obj.put("start", startTime).put("stop", stopTime));
             } catch (JSONException e) {
-                Log.e(Tracker.class.getName(), e.getMessage());
+                e.printStackTrace();
             }
         }
     }
@@ -167,12 +164,12 @@ public class Tracker {
 
     public void setDispatchInterval(int interval) {
         try {
-            if (timerHasStarted) {
+            if(timerHasStarted) {
                 timer.cancel();
                 timer.purge();
             }
             timer.schedule(new Dispatcher(), interval * 1000, interval * 1000);
-        } catch (IllegalStateException e) {
+        } catch(IllegalStateException e){
             Log.e("DISPATCHTIMER", e.getMessage());
         }
     }
@@ -184,14 +181,20 @@ public class Tracker {
 
     class Dispatcher extends TimerTask {
         public void run() {
-            for (Map.Entry<String, ArrayList<JSONObject>> entry : funnel.entrySet()) {
-                for (JSONObject obj : entry.getValue()) {
+            Iterator it = funnel.entrySet().iterator();
+            while (it.hasNext()) {
+
+                Map.Entry pair = (Map.Entry) it.next();
+
+                for (JSONObject obj : funnel.get(pair.getKey())) {
                     DataContainer c = new DataContainer();
-                    c.setEventType(entry.getKey());
+                    c.setEventType((String) pair.getKey());
                     c.setValue(obj.toString());
                     c.setTimestamp();
                     ds.getDatastreamsHandler().getDispatcher().dispatch(c);
                 }
+//                System.out.println(pair.getKey() + " = " + pair.getValue());
+                it.remove(); // avoids a ConcurrentModificationException
             }
             ds.getDatastreamsHandler().getDispatcher().dispatchNow(ds.getGeneralInfo());
             funnel.clear();

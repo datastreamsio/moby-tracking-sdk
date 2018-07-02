@@ -26,11 +26,10 @@ public class MainActivityNew extends AppCompatActivity {
         o2mc.track("MainActivityCreated");
     }
 
-    public void onClickCreateEvent(View v) {
-        EditText text = findViewById(R.id.editText);
-        Button button = findViewById(R.id.buttonCreateTrackEvent);
-//        o2mc.buttonClicked(button, null);
-        o2mc.buttonClicked(button, text);
+    public void onCreateEventHandler(View v) {
+        EditText editText = findViewById(R.id.editText);
+        String text = editText.getText().toString();
+        o2mc.trackWithProperties("Clicked button: 'Create Track Event'", text);
     }
 
     public void onCreateAliasHandler(View v) {

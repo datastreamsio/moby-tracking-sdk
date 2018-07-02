@@ -6,40 +6,41 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import io.o2mc.sdk.old.O2MC;
-
 
 public class MainActivityOld extends AppCompatActivity {
-
-    private O2MC o2mc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        o2mc = new O2MC(getApplication(), "http://10.0.2.2:5000/events");
-        o2mc.tracker.setDispatchInterval(10);
-
-        o2mc.tracker.track("MainActivityCreated");
+        AppOld.getO2mc().tracker.track("MainActivityCreated");
     }
 
-    public void onClickCreateEvent(View view) {
+    public void onCreateEventHandler(View v) {
         EditText text = findViewById(R.id.editText);
-        o2mc.tracker.track(text.getText().toString());
+
+        Log.d("O2MC_EVENT", "Created a click event");
+        AppOld.getO2mc().tracker.track(text.getText().toString());
     }
 
     public void onCreateAliasHandler(View v) {
         EditText text = findViewById(R.id.editText);
-        o2mc.tracker.createAlias(text.getText().toString());
+
+        Log.d("O2MC_EVENT", "Created alias" + text.getText().toString());
+        AppOld.getO2mc().tracker.createAlias(text.getText().toString());
     }
 
     public void onSetIdentityHandler(View v) {
         EditText text = findViewById(R.id.editText);
-        o2mc.tracker.identify(text.getText().toString());
+
+        Log.d("O2MC_EVENT", "Set identity" + text.getText().toString());
+        AppOld.getO2mc().tracker.identify(text.getText().toString());
     }
 
     public void onResetTrackingHandler(View v) {
-        o2mc.tracker.reset();
+        Log.d("O2MC_EVENT", "Reset tracking");
+
+        AppOld.getO2mc().tracker.reset();
     }
 }
