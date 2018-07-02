@@ -96,7 +96,7 @@ public class EventDispatcher {
             });
         } catch (IllegalArgumentException | NullPointerException e) {
             EventDispatcher.getInstance().failureCallback();
-            Log.e(TAG, e.getMessage());
+            Log.e(TAG, "post: Failed to dispatch events", e);
         }
     }
 

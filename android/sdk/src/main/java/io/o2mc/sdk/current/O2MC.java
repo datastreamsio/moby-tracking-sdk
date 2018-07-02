@@ -16,6 +16,7 @@ import io.o2mc.sdk.current.business.DeviceManager;
 import io.o2mc.sdk.current.business.EventBus;
 import io.o2mc.sdk.current.business.EventDispatcher;
 import io.o2mc.sdk.current.business.EventGenerator;
+import io.o2mc.sdk.current.business.Util;
 import io.o2mc.sdk.current.domain.Batch;
 import io.o2mc.sdk.current.domain.Event;
 
@@ -49,9 +50,9 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
             this.app.registerActivityLifecycleCallbacks(this);
         }
 
-        if (endpoint == null) {
+        if (endpoint == null || endpoint.isEmpty()) {
             Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
-        } else if (validEndpointFormat(endpoint)) {
+        } else if (Util.isValidEndpoint(endpoint)) {
             this.endpoint = endpoint;
         } else {
             Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
@@ -63,26 +64,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         this.eventBus = new EventBus();
 
         EventDispatcher.getInstance().setO2mc(this);
-    }
-
-    /**
-     * Checks whether or not the provided endpoint is in valid format.
-     * This does not check whether or not the endpoint actually exists / is online.
-     *
-     * @param endpoint URL pointing to a backend
-     * @return true if the parameter is valid
-     */
-    private boolean validEndpointFormat(String endpoint) {
-        String urlPattern = "^http(s{0,1})://[a-zA-Z0-9_/\\-\\.]+\\.([A-Za-z/]{2,5})[a-zA-Z0-9_/\\&\\?\\=\\-\\.\\~\\%]*";
-        boolean isValid = endpoint.matches(urlPattern);
-        if (!isValid) return false;
-
-        // Check if using HTTP or HTTPS
-        if (urlPattern.charAt(4) != 's' && urlPattern.charAt(4) != 'S') {
-            Log.w(TAG, "validEndpointFormat: Endpoint is valid, but detected usage of HTTP instead of HTTPS. It is strongly recommended to use HTTPS in production usage.");
-        }
-
-        return true;
     }
 
     /**
@@ -147,7 +128,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * Called upon successful HTTP post
      */
     public void dispatchSuccess() {
-        // TODO: 29-6-18 keep track of batches
         Log.d(TAG, "Dispatch successful.");
         eventBus.clearEvents();
     }
