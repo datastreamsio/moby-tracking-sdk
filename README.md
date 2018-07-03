@@ -48,6 +48,7 @@ allprojects {
 ```
 dependencies {
 	...
+	compile 'com.google.code.gson:gson:2.8.5'
 	compile 'com.squareup.okhttp3:okhttp:3.10.0'
 	compile 'com.jaredrummler:android-device-names:1.1.7'
 	compile(name: 'sdk-debug', ext: 'aar')
