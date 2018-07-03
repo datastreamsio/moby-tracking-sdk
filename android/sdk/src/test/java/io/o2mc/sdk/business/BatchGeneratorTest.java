@@ -1,10 +1,10 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.o2mc.sdk.current.O2MC;
+import io.o2mc.sdk.O2MC;
 
 import static org.junit.Assert.assertEquals;
 

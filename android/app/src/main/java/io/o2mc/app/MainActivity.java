@@ -7,23 +7,23 @@ import android.view.View;
 import android.widget.EditText;
 
 
-public class MainActivityNew extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivityNew";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppNew.getO2mc().track("MainActivityCreated");
+        App.getO2mc().track("MainActivityCreated");
     }
 
     public void onCreateEventHandler(View v) {
         EditText editText = findViewById(R.id.editText);
         String text = editText.getText().toString();
 
-        AppNew.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
+        App.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
     }
 
     public void onCreateAliasHandler(View v) {
@@ -37,6 +37,6 @@ public class MainActivityNew extends AppCompatActivity {
 
     public void onResetTrackingHandler(View v) {
         Log.d(TAG, "onResetTrackingHandler executed");
-        AppNew.getO2mc().reset();
+        App.getO2mc().reset();
     }
 }

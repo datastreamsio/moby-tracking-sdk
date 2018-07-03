@@ -1,4 +1,4 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

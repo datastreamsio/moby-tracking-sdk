@@ -1,12 +1,12 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import android.util.Log;
 
 import java.util.List;
 
-import io.o2mc.sdk.current.domain.Batch;
-import io.o2mc.sdk.current.domain.DeviceInformation;
-import io.o2mc.sdk.current.domain.Event;
+import io.o2mc.sdk.domain.Batch;
+import io.o2mc.sdk.domain.DeviceInformation;
+import io.o2mc.sdk.domain.Event;
 
 /**
  * Generates batches of events.

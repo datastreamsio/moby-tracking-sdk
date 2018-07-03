@@ -1,4 +1,4 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
-import io.o2mc.sdk.current.O2MC;
-import io.o2mc.sdk.current.domain.Batch;
+import io.o2mc.sdk.O2MC;
+import io.o2mc.sdk.domain.Batch;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;

@@ -1,8 +1,8 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import android.util.Log;
 
-import io.o2mc.sdk.current.domain.Event;
+import io.o2mc.sdk.domain.Event;
 
 /**
  * Generates the appropriate event based on input.

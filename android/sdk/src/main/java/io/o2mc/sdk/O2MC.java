@@ -1,4 +1,4 @@
-package io.o2mc.sdk.current;
+package io.o2mc.sdk;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,14 +8,14 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.o2mc.sdk.current.business.BatchGenerator;
-import io.o2mc.sdk.current.business.DeviceManager;
-import io.o2mc.sdk.current.business.EventBus;
-import io.o2mc.sdk.current.business.EventDispatcher;
-import io.o2mc.sdk.current.business.EventGenerator;
-import io.o2mc.sdk.current.business.Util;
-import io.o2mc.sdk.current.domain.Batch;
-import io.o2mc.sdk.current.domain.Event;
+import io.o2mc.sdk.business.BatchGenerator;
+import io.o2mc.sdk.business.DeviceManager;
+import io.o2mc.sdk.business.EventBus;
+import io.o2mc.sdk.business.EventDispatcher;
+import io.o2mc.sdk.business.EventGenerator;
+import io.o2mc.sdk.business.Util;
+import io.o2mc.sdk.domain.Batch;
+import io.o2mc.sdk.domain.Event;
 
 /**
  * This is central point of communication between the SDK and the app implementing it.

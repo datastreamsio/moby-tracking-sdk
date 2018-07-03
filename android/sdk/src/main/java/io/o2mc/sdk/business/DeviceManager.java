@@ -1,4 +1,4 @@
-package io.o2mc.sdk.current.business;
+package io.o2mc.sdk.business;
 
 import android.app.Application;
 import android.os.Build;
@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.jaredrummler.android.device.DeviceName;
 
-import io.o2mc.sdk.current.domain.DeviceInformation;
+import io.o2mc.sdk.domain.DeviceInformation;
 
 /**
  * Manages all operations specifically targeted to the user's device.

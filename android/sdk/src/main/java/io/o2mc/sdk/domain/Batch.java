@@ -1,4 +1,4 @@
-package io.o2mc.sdk.current.domain;
+package io.o2mc.sdk.domain;
 
 import java.util.List;
 
