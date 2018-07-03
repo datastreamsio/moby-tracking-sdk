@@ -36,6 +36,11 @@ public class BatchGenerator {
     public Batch generateBatch(List<Event> events) {
         Log.i(TAG, "generateBatch: Generating batch");
 
-        return new Batch(deviceInformation, Util.generateTimestamp(), events, batchCounter++ /*add 1 to the counter after this statement*/);
+        return new Batch(
+                deviceInformation,
+                Util.generateTimestamp(),
+                events,
+                batchCounter++ /*add 1 to the counter after this statement*/
+        );
     }
 }

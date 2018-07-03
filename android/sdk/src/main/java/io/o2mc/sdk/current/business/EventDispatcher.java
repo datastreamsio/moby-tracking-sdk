@@ -67,6 +67,7 @@ public class EventDispatcher {
     public void post(String url, Batch batch) {
         try {
             String json = batchToJson(batch);
+
             Log.d(TAG, String.format("Posting batch containing a total of '%s' characters", json.length()));
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
@@ -115,12 +116,7 @@ public class EventDispatcher {
      * @return list of JsonObjects in JSON format, as String
      */
     private String batchToJson(Batch batch) {
-//        List<JsonObject> result = new ArrayList<>();
-//        for (Event e : batch.getEvents()) {
-//            result.add((JsonObject) gson.toJsonTree(e));
-//        }
         return gson.toJson(batch);
-//        return gson.toJson(result);
     }
 
     public void setO2mc(O2MC o2mc) {

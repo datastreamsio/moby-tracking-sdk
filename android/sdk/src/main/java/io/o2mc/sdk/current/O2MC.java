@@ -86,32 +86,32 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.i(TAG, "Activity started.");
+        Log.d(TAG, "Activity started.");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.i(TAG, "Activity resumed.");
+        Log.d(TAG, "Activity resumed.");
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.i(TAG, "Activity resumed.");
+        Log.d(TAG, "Activity resumed.");
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.i(TAG, "Activity stopped.");
+        Log.d(TAG, "Activity stopped.");
     }
 
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-        Log.i(TAG, "Activity saved instance state.");
+        Log.d(TAG, "Activity saved instance state.");
     }
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.i(TAG, "Activity stopped.");
+        Log.d(TAG, "Activity stopped.");
     }
 
     public void track(String eventName) {
@@ -131,13 +131,13 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     public void dispatchSuccess() {
         Log.d(TAG, "Dispatch successful.");
-        resetEventBus();
+        reset();
     }
 
     /**
      * Removes all messages from the EventBus.
      */
-    public void resetEventBus() {
+    public void reset() {
         eventBus.clearEvents();
     }
 
@@ -164,7 +164,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         public void run() {
             // Don't dispatch if we have no events
             if (eventBus.getEvents().size() <= 0) {
-                Log.i(TAG, "run: There are no events to dispatch. Skipping.");
+                Log.d(TAG, "run: There are no events to dispatch. Skipping.");
                 return;
             }
 

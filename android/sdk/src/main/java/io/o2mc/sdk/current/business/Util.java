@@ -14,6 +14,7 @@ public class Util {
      *
      * @return timestamp in String format
      */
+    @SuppressLint("DefaultLocale")
     public static String generateTimestamp() {
         long l = new java.util.Date().getTime();
         Timestamp t = new Timestamp(l);

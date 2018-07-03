@@ -37,6 +37,6 @@ public class MainActivityNew extends AppCompatActivity {
 
     public void onResetTrackingHandler(View v) {
         Log.d(TAG, "onResetTrackingHandler executed");
-        AppNew.getO2mc().resetEventBus();
+        AppNew.getO2mc().reset();
     }
 }
