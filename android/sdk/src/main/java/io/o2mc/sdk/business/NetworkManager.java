@@ -31,30 +31,6 @@ public class NetworkManager {
         return cm.getActiveNetworkInfo();
     }
 
-    /**
-     * Returns the IP address of the network to which the user's phone is currently connected to.
-     *
-     * @return InetAddress object if connected to the internet, null if not
-     * @throws SocketException on failure to acquire network interfaces or executing operations on them
-     */
-    public static InetAddress ip() throws SocketException {
-        Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
-        NetworkInterface ni;
-        while (nis.hasMoreElements()) {
-            ni = nis.nextElement();
-            if (!ni.isLoopback()/*not loopback*/ && ni.isUp()/*it works now*/) {
-                for (InterfaceAddress ia : ni.getInterfaceAddresses()) {
-                    //filter for ipv4/ipv6
-                    if (ia.getAddress().getAddress().length == 4) {
-                        //4 for ipv4, 16 for ipv6
-                        return ia.getAddress();
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     public static String getConnectivityType(Context context) {
 
         NetworkInfo info = NetworkManager.getNetworkInfo(context);
