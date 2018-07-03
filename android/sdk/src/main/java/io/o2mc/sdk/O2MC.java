@@ -164,7 +164,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     /**
      * Called upon successful HTTP post
      */
-    protected void dispatchSuccess() {
+    public void dispatchSuccess() {
         Log.d(TAG, "Dispatch successful.");
         reset();
     }
@@ -179,7 +179,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     /**
      * Called upon failure of HTTP post
      */
-    protected void dispatchFailure() {
+    public void dispatchFailure() {
         Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
     }
 
