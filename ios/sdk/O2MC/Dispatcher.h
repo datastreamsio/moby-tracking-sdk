@@ -14,5 +14,4 @@
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
 -(NSMutableDictionary *) getGeneralInfo;
-- (NSString *)getIPAddress;
 @end

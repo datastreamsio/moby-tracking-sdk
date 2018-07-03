@@ -2,7 +2,6 @@ package io.o2mc.sdk.domain;
 
 public class DeviceInformation {
     private String appId;
-    private String ip;
     private String connectionType;
     private String os;
     private String osVersion;
@@ -15,14 +14,6 @@ public class DeviceInformation {
 
     public void setAppId(String appId) {
         this.appId = appId;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public String getConnectionType() {
@@ -69,7 +60,6 @@ public class DeviceInformation {
     public String toString() {
         return "DeviceInformation{" +
                 "appId='" + appId + '\'' +
-                ", ip='" + ip + '\'' +
                 ", connectionType='" + connectionType + '\'' +
                 ", os='" + os + '\'' +
                 ", osVersion='" + osVersion + '\'' +
