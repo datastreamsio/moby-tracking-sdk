@@ -1,7 +1,5 @@
 package io.o2mc.sdk.current.domain;
 
-import java.sql.Timestamp;
-
 public class Event {
 
     private String name;

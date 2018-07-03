@@ -1,7 +1,6 @@
 package io.o2mc.sdk.old;
 
 import android.app.Application;
-import android.util.Log;
 
 import io.o2mc.sdk.old.datastreams.Datastream;
 

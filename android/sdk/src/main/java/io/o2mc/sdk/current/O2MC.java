@@ -3,11 +3,8 @@ package io.o2mc.sdk.current;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Button;
 
-import java.net.SocketException;
 import java.util.Timer;
 import java.util.TimerTask;
 

@@ -2,8 +2,6 @@ package io.o2mc.sdk.current.business;
 
 import android.util.Log;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Timestamp;
 
 public class Util {
