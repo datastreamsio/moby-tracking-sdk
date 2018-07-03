@@ -35,24 +35,14 @@ public class EventDispatcher {
     // ==========================================
     // region Start singleton technicalities
     // ==========================================
-    private static EventDispatcher mInstance;
+    private static EventDispatcher instance;
 
-    private EventDispatcher() {
-    }
-
-    public static EventDispatcher getInstance() {
-        if (mInstance != null) {
-            return mInstance;
+    public static synchronized EventDispatcher getInstance() {
+        if (instance == null) {
+            instance = new EventDispatcher();
+            gson = new Gson();
         }
-
-        synchronized (EventDispatcher.class) {
-            if (mInstance == null) {
-                mInstance = new EventDispatcher();
-                gson = new Gson();
-            }
-        }
-
-        return mInstance;
+        return instance;
     }
     // ==========================================
     // endregion Start singleton technicalities

@@ -75,7 +75,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
             this.dispatchInterval = seconds;
             startDispatching(); // Interval is set, start dispatching now.
         } else {
-            Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.\nNot dispatching events.", dispatchInterval));
+            Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.", dispatchInterval));
         }
     }
 
