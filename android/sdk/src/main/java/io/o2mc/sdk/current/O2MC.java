@@ -25,7 +25,8 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
 
     private static final String TAG = "O2MC";
 
-    private Application app; // required for activity callbacks & context
+    @SuppressWarnings("FieldCanBeLocal")
+    private Application app; // required for activity callbacks & context (may need it for more callbacks in the future)
 
     private String endpoint;
 
@@ -143,7 +144,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     /**
      * Sets a timer for dispatching events to the backend.
      */
-    public void startDispatching() {
+    private void startDispatching() {
         timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
     }
 

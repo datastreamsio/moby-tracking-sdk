@@ -30,7 +30,7 @@ public class EventDispatcher {
     private static O2MC o2mc;
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static OkHttpClient client = new OkHttpClient().newBuilder().retryOnConnectionFailure(false).build();
+    private static final OkHttpClient client = new OkHttpClient().newBuilder().retryOnConnectionFailure(false).build();
 
     // ==========================================
     // region Start singleton technicalities
@@ -85,12 +85,20 @@ public class EventDispatcher {
                         if (response.body() == null) {
                             Log.w(TAG, "onResponse: empty http response from backend");
                         } else {
-                            Log.i(TAG, String.format("onResponse: http response contained '%s' characters", response.body().string().length()));
+                            try {
+                                Log.i(TAG, String.format("onResponse: http response contained '%s' characters", response.body().string().length()));
+                            } catch (NullPointerException | IOException ex) {
+                                Log.e(TAG, "onResponse: Response string is null", ex);
+                            }
                         }
                     } else {
-                        // Http response indicates failure, inform user and SDK
-                        EventDispatcher.getInstance().failureCallback();
-                        Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
+                        try {
+                            // Http response indicates failure, inform user and SDK
+                            EventDispatcher.getInstance().failureCallback();
+                            Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
+                        } catch (NullPointerException | IOException ex) {
+                            Log.e(TAG, "onResponse: Response string is null", ex);
+                        }
                     }
                 }
             });

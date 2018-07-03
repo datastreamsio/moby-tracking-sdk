@@ -1,5 +1,6 @@
 package io.o2mc.sdk.current.business;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.sql.Timestamp;
@@ -16,6 +17,7 @@ public class Util {
     public static String generateTimestamp() {
         long l = new java.util.Date().getTime();
         Timestamp t = new Timestamp(l);
+        // TODO: 7/3/18 research timestamp generation for a correct implementation
         return String.format("%tFT%<tTZ", t);
     }
 
