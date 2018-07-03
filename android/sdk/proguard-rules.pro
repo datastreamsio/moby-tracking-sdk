@@ -26,3 +26,13 @@
 -dontwarn org.conscrypt.**
 # A resource is loaded with a relative path so the package of this class must be preserved.
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# Remove log methods when compiling production API
+-assumenosideeffects class android.util.Log {
+    public static *** v(...); # Verbose
+    public static *** d(...); # Debug
+    public static *** i(...); # Info
+    public static *** w(...); # Warn
+    public static *** e(...); # Error
+    public static *** a(...); # Assert
+}
