@@ -1,36 +1,28 @@
-# Public API: React-native, IOS & Android
-**All events automatically get a timestamp assigned**
-**The system automatically gathers general phone data.** (Screensize, Android OS version, Phone type)
+# Public API: IOS & Android
+The following functions can be executed to send data to the O2MC Platform and to configure how this is done. A typical implementation only uses the tracking ing function that will send data to the end point. Other functions defined here allow additional configuration and set up.
 
-**Send single string to endpoint**
-```Void Track(String eventName)```
-
+# General tracking function
 **Send key value pair to endpoint (make sure second argument is a string and not a javascript object (Use JSON.stringify())**
+
 ```Void trackWithproperties(String eventName, String propertiesAsJson)```
 
-**Give the user an alias, can be used to match an anonymous user.**
-```Void createAlias(String alias)```
+The parameter `eventName` can be any string. Similarly the only requirement to the second parameter is that a JSON formatted object is used, there is no limitation to the name or structure of the properties. (For the application receiving and processing the data, the specification of the data set needs to be made provided so the data can be processed properly).
 
-**Couple an identifier to a user. (Only set once. for example when an user authenticates) When not set the system automatically assigns an uuid at initialisation).**
-```Void identify(String alias)```
+**Send single string to endpoint**
 
-**Start an eventtimer coupled to an eventName.**
-```Void timeEventStart(String eventName)```
+```Void Track(String eventName)```
 
-**Stop an eventtimer coupled to eventname. Must be the same as the eventName used at timeEventStart**
-```Void timeEventStop(String eventName)```
+This tracking function only captures the eventname (and only the automatically collected metadata)
 
-**Start an eventtimer coupled to an eventName.**
-```Void timeEventStartWithProps(String eventName, String propertiesAsJson)```
+# Configuration functions
+**Change endpoint for the data funnel. (Http url)**
 
-**Stop an eventtimer coupled to eventname. Must be the same as the eventName used at timeEventStart**
-```Void timeEventStopWithProps(String eventName, String propertiesAsJson)```
+```Void setEndpoint(String endpoint)```
 
-**Reset the datafunnel. Removes all gathered data from memory. (Be carefull using this method. it might remove unsent data)**
-```Void reset()```  
+Note that the initialisation of the tracker object already defines an endpoint so if no change to this endpoint is required, this function does not need to be used to send data
 
-**Set an endpoint for the data funnel. (Http url)**
-```Void setEndpoint(String endpoint)```  
+**Sets the dispatch interval**
 
-**Sets the dispatchinterval**
 ```Void setDispatchInterval(int interval)```
+
+The parameter defines the interval in minutes for buffering events and sending to the processing server
