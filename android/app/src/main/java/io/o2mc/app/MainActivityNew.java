@@ -37,6 +37,6 @@ public class MainActivityNew extends AppCompatActivity {
 
     public void onResetTrackingHandler(View v) {
         Log.d(TAG, "onResetTrackingHandler executed");
-        // TODO: 29-6-18 implement reset of eventbus
+        AppNew.getO2mc().resetEventBus();
     }
 }

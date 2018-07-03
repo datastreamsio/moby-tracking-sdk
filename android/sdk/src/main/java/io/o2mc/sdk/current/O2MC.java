@@ -131,6 +131,13 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     public void dispatchSuccess() {
         Log.d(TAG, "Dispatch successful.");
+        resetEventBus();
+    }
+
+    /**
+     * Removes all messages from the EventBus.
+     */
+    public void resetEventBus() {
         eventBus.clearEvents();
     }
 
