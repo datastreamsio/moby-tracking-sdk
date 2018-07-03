@@ -1,0 +1,1 @@
+- Add gson as new dependency

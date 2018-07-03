@@ -6,22 +6,17 @@ import io.o2mc.sdk.O2MC;
 
 public class App extends Application {
 
+    private static final String TAG = "App";
+
     private static O2MC o2mc;
-    private static Application instance;
 
-    public App(){
-        /**
-         * Initialising the Datastreams module
-         */
+    public App() {
+//        o2mc = new O2MC(null, null);
         o2mc = new O2MC(this, "http://10.0.2.2:5000/events");
-        o2mc.tracker.setDispatchInterval(10);
+        o2mc.setDispatchInterval(8);
     }
 
-    public static Application getContext(){
-        return instance;
-    }
-
-    public static O2MC getO2mc(){
+    public static O2MC getO2mc() {
         return o2mc;
     }
 }
