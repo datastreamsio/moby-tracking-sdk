@@ -79,63 +79,98 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         }
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityCreated' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
         Log.i(TAG, "Activity created.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityStarted(Activity activity) {
         Log.d(TAG, "Activity started.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityResumed(Activity activity) {
         Log.d(TAG, "Activity resumed.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityPaused' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityPaused(Activity activity) {
         Log.d(TAG, "Activity resumed.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityStopped' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityStopped(Activity activity) {
         Log.d(TAG, "Activity stopped.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivitySaveInstanceState' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
         Log.d(TAG, "Activity saved instance state.");
     }
 
+    /**
+     * Executed on the Activity lifecycle event 'onActivityDestroyed' of any Activity inside the provided 'App' parameter on initialization of this class.
+     */
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.d(TAG, "Activity stopped.");
+        Log.d(TAG, "Activity destroyed.");
     }
 
+    /**
+     * Tracks an event.
+     * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
+     *
+     * @param eventName name of tracked event
+     */
     public void track(String eventName) {
         Log.d(TAG, String.format("Tracked '%s'", eventName));
         Event e = eventGenerator.generateEvent(eventName);
         eventBus.add(e);
     }
 
-    public void trackWithProperties(String eventName, String propertiesAsJson) {
+    /**
+     * Tracks an event with additional data.
+     * Essentially adds a new event with the String parameter as name and any properties in String format.
+     * Will be dispatched to backend on next dispatch interval.
+     *
+     * @param eventName name of tracked event
+     * @param value     anything you'd like to keep track of in String format
+     */
+    public void trackWithProperties(String eventName, String value) {
         Log.d(TAG, String.format("Tracked '%s'", eventName));
-        Event e = eventGenerator.generateEventWithProperties(eventName, propertiesAsJson);
+        Event e = eventGenerator.generateEventWithProperties(eventName, value);
         eventBus.add(e);
     }
 
     /**
      * Called upon successful HTTP post
      */
-    public void dispatchSuccess() {
+    protected void dispatchSuccess() {
         Log.d(TAG, "Dispatch successful.");
         reset();
     }
 
     /**
-     * Removes all messages from the EventBus.
+     * Removes all tracking events which would otherwise be sent upon next dispatch interval.
      */
     public void reset() {
         eventBus.clearEvents();
@@ -144,7 +179,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     /**
      * Called upon failure of HTTP post
      */
-    public void dispatchFailure() {
+    protected void dispatchFailure() {
         Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
     }
 
@@ -170,7 +205,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
 
             // Initialize batchGenerator meta data on the first run
             if (batchGenerator.firstRun()) {
-                batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());// todo; optimization; better to do this on another thread. rethink this structure
+                batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());
             }
 
             Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));

@@ -16,8 +16,8 @@ public class EventGenerator {
         return new Event(eventName, null, Util.generateTimestamp());
     }
 
-    public Event generateEventWithProperties(String eventName, String properties) {
-        Log.i(TAG, String.format("generateEventWithProperties: Generated event '%s' with properties consisting of '%s' characters", eventName, properties.length()));
-        return new Event(eventName, properties, Util.generateTimestamp());
+    public Event generateEventWithProperties(String eventName, String value) {
+        Log.i(TAG, String.format("generateEventWithProperties: Generated event '%s' with value consisting of '%s' characters", eventName, value.length()));
+        return new Event(eventName, value, Util.generateTimestamp());
     }
 }
