@@ -1,6 +1,8 @@
 package io.o2mc.sdk.business;
 
 import android.annotation.SuppressLint;
+import android.os.Build;
+import android.security.NetworkSecurityPolicy;
 import android.util.Log;
 
 import java.sql.Timestamp;
@@ -52,6 +54,24 @@ public class Util {
     }
 
     /**
+     * Checks whether or not an endpoint is communicated over using HTTPS.
+     *
+     * @param endpoint backend endpoint
+     * @return true on https
+     */
+    public static boolean isHttps(String endpoint) {
+        if (endpoint == null || endpoint.isEmpty() || endpoint.length() < 5) {
+            return false;
+        }
+
+        if (endpoint.substring(4, 5).equals("s") || endpoint.substring(4, 5).equals("S")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Checks whether or not the provided endpoint is in valid format.
      * This does not check whether or not the endpoint actually exists / is online.
      *
@@ -65,21 +85,44 @@ public class Util {
         boolean isValidWebEndpoint = endpoint.matches(webUrlPattern);
         if (isValidWebEndpoint) {
             // Check if using HTTP or HTTPS
-            if (endpoint.charAt(4) != 's' && endpoint.charAt(4) != 'S') {
+            if (!isHttps(endpoint)) {
                 Log.w(TAG, "validEndpointFormat: Endpoint is valid, but detected usage of HTTP instead of HTTPS. It is strongly recommended to use HTTPS in production usage.");
             }
-            Log.d(TAG, String.format("validEndpointFormat: Valid web url '%s'", endpoint));
+            Log.d(TAG, "validEndpointFormat: Valid web url '%s'");
             return true;
         }
 
         String localUrlPattern = "^\\w{4,5}://\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b.*";
         boolean isValidLocalEndpoint = endpoint.matches(localUrlPattern);
         if (isValidLocalEndpoint) {
-            Log.d(TAG, String.format("validEndpointFormat: Valid local url '%s'", endpoint));
+            Log.d(TAG, "validEndpointFormat: Valid local url.");
             return true;
         }
 
         // No valid pattern matches found
         return false;
+    }
+
+    /**
+     * Checks whether or not the client is allowed to dispatch events to the backend.
+     *
+     * @param usingHttpEndpoint indicates whether or not app is using the HTTPS protocol to dispatch events
+     * @return true if this client is allowed to dispatch events
+     */
+    public static boolean isAllowedToDispatchEvents(boolean usingHttpEndpoint) {
+        // Https traffic is always allowed
+        if (usingHttpEndpoint) {
+            return true;
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            boolean allowed = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
+            if (!allowed) {
+                Log.e(TAG, "isAllowedToDispatchEvents: Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version.");
+            }
+            return allowed;
+        }
+
+        return true;
     }
 }

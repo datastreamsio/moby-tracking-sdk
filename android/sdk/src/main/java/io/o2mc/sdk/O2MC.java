@@ -29,6 +29,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private Application app; // required for activity callbacks & context (may need it for more callbacks in the future)
 
     private String endpoint;
+    private boolean usingHttpsEndpoint;
 
     private Timer timer = new Timer(); // timer used for dispatching events
     private int dispatchInterval; // interval on which to send events
@@ -52,6 +53,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
             Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
         } else if (Util.isValidEndpoint(endpoint)) {
             this.endpoint = endpoint;
+            this.usingHttpsEndpoint = Util.isHttps(endpoint);
         } else {
             Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
         }
@@ -187,6 +189,12 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * Sets a timer for dispatching events to the backend.
      */
     private void startDispatching() {
+        // Check if the device is allowed to dispatch events
+        if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
+            Log.e(TAG, "run: Not allowed to dispatch events. See previous message(s) for more info.");
+            return;
+        }
+
         timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
     }
 
