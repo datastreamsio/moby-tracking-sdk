@@ -1,8 +1,8 @@
 # Public API: IOS & Android
-The following functions can be executed to send data to the O2MC Platform and to configure how this is done. A typical implementation only uses the tracking ing function that will send data to the end point. Other functions defined here allow additional configuration and set up.
+The following functions can be executed to send data to the O2MC Platform and to configure how this is done. A typical implementation only uses the tracking function that will send data to the end point. Other functions defined here allow additional configuration and set up.
 
 # General tracking function
-**Send key value pair to endpoint (make sure second argument is a string and not a javascript object (Use JSON.stringify())**
+**Send key value pair to endpoint (make sure second argument is a string and not a javascript object (Use JSON.stringify()))**
 
 ```Void trackWithproperties(String eventName, String propertiesAsJson)```
 
@@ -28,20 +28,17 @@ Note that the initialisation of the tracker object already defines an endpoint s
 The parameter defines the interval in minutes for buffering events and sending to the processing server
 
 # API Calls
-The functions and the SDK calls result in a HTTPS POST request. If for some reason it is not possible or not desirable to use the SDK, a direct call can be made to the end point. The following URL structure should be adhered to±
+The functions and the SDK calls result in a HTTPS POST request. If for some reason it is not possible or not desirable to use the SDK, a direct call can be made to the end point. The following URL structure should be adhered to:
 
 ```https://<SERVER>/flow/code.js?dimml.concept=//<ENVIRONMENT>@<FILE>/<CONCEPT>```
 
 - Server points to the specific location of the processing environment. 
-- Environment is defined as either prod, qa, dev or user specific test environments. If the O2MC Cloud environment is used, then the value can be collected by using the O2MC Studio and view the Public API at the properties of the DimML file created for processing the data
-- File is the exact name of the DimML file created for processing the data based on the type of connection and connection details (e.g. domain op a website)
+- Environment is defined as either prod, QA, dev or user specific test environments. If the O2MC Cloud environment is used, then the value can be collected by using the O2MC Studio and view the Public API at the properties of the DimML file created for processing the data.
+- File is the exact name of the DimML file created for processing the data based on the type of connection and connection details (e.g. domain on a website).
 - Concept is the name of the concept in the DimML file which should process the data. This allows data to be send to a specific concept/component of the application.
 
 For example if you have used the O2MC Studio to create an file exampleandroid.app.dimml with concept Global in the test environment for processing the data being the user johndoe, the HTTP end point to use in the native app implementation is
 
 ```https://baltar-dev.dimml.io/flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml```
 
-Additionally sending the data requires setting the Content-Type header to 'application/json'. 
-
-
-
+Additionally sending the data requires setting the `Content-Type` header to `application/json`. 
