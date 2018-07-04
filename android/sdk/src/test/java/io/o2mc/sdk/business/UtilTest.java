@@ -83,4 +83,13 @@ public class UtilTest {
         int negativeNumber = -10;
         assertFalse(Util.isValidDispatchInterval(negativeNumber));
     }
+
+    @Test
+    public void isHttps() {
+        String httpEndpoint = "http://google.com";
+        assertFalse(Util.isHttps(httpEndpoint));
+
+        String httpsEndpoint = "https://google.com";
+        assertTrue(Util.isHttps(httpsEndpoint));
+    }
 }
