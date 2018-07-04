@@ -72,6 +72,7 @@ dependencies {
 ## Usage
 
 
+
 ## Android
 
 To initiate the library and use the basic tagging functionality you need to create a new instance of it.

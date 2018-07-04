@@ -26,3 +26,12 @@ Note that the initialisation of the tracker object already defines an endpoint s
 ```Void setDispatchInterval(int interval)```
 
 The parameter defines the interval in minutes for buffering events and sending to the processing server
+
+# API Calls
+The functions and the SDK calls result in a HTTPS POST request. If for some reason it is not possible or not desirable to use the SDK, a direct call can be made to the end point. For this purpose the following URL is required for a POST Request
+
+//{protocol}://{endpoint}
+
+
+
+
