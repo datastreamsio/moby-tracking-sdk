@@ -59,15 +59,37 @@
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:postData];
-        NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        if (conn) {
-            NSLog(@"length (%@) Funnel -> ( %@ ) has been dispatched to: %@", postLength, jsonString, endpoint);
-            [funnel removeAllObjects];
-        } else {
-            NSLog(@"Connection could not be made");
-        }
+
+        NSURLSessionDataTask *dataTask = [[self urlSession] dataTaskWithRequest: request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+
+            if ([data length] > 0 && error == nil) {
+                if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
+                    NSLog(@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]);
+                    [funnel removeAllObjects];
+                }
+            } else {
+                NSLog(@"Connection could not be made");
+            }
+        }];
+
+        [dataTask resume];
     }
 
+}
+
+-(NSURLSession *) urlSession {
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        // We use an empheral session config since we don't want to store any
+        // data on the device's disk.
+        NSURLSessionConfiguration *empheralConfigObject = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+
+        self->_session = [NSURLSession sessionWithConfiguration:empheralConfigObject delegate:nil delegateQueue: [NSOperationQueue mainQueue]];
+    });
+
+    return _session;
 }
 
 
