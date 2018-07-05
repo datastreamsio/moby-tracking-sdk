@@ -2,6 +2,7 @@ package io.o2mc.sdk.business;
 
 import android.util.Log;
 
+import io.o2mc.sdk.Util;
 import io.o2mc.sdk.domain.Event;
 
 /**

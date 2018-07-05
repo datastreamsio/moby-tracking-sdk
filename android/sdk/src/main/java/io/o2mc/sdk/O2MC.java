@@ -13,7 +13,6 @@ import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.EventBus;
 import io.o2mc.sdk.business.EventDispatcher;
 import io.o2mc.sdk.business.EventGenerator;
-import io.o2mc.sdk.business.Util;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
 

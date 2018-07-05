@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.o2mc.sdk.Util;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

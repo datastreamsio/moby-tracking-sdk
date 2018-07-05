@@ -1,4 +1,4 @@
-package io.o2mc.sdk.business;
+package io.o2mc.sdk;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
