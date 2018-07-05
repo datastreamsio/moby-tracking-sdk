@@ -6,6 +6,7 @@
 //  Copyright © 2016 Adversitement. All rights reserved.
 //
 
+#import <os/log.h>
 #import <Foundation/Foundation.h>
 
 @class Dispatcher;
@@ -20,6 +21,7 @@
     NSString * _timedEvent;
     NSString * _timedEventProperties;
     Dispatcher *_dispatcher;
+    os_log_t _logTopic;
 }
 
 @property NSLock * funnel_lock;
