@@ -51,10 +51,10 @@ allprojects {
 ```
 dependencies {
 	...
-	compile 'com.google.code.gson:gson:2.8.5'
-	compile 'com.squareup.okhttp3:okhttp:3.10.0'
-	compile 'com.jaredrummler:android-device-names:1.1.7'
-	compile(name: 'sdk-debug', ext: 'aar')
+	implementation 'com.google.code.gson:gson:2.8.5'
+	implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+	implementation 'com.jaredrummler:android-device-names:1.1.7'
+	implementation(name: 'sdk-debug', ext: 'aar')
 }
 ```
 
@@ -80,6 +80,8 @@ The class should look like this after imports/package declaration.
 ...
 
 import android.app.Application;
+
+import io.o2mc.sdk.O2MC;
 
 public class App extends Application {
 
