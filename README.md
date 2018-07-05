@@ -40,3 +40,8 @@ object {
 
 Refer to the [specification documentation](docs/DATA_SPECIFICATION.md) for more details.
 
+## License
+
+[MIT license](LICENSE).
+
+Copyright (c) Insite Innovations and Properties B.V.
