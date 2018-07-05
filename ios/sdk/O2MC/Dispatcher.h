@@ -9,9 +9,11 @@
 
 @interface Dispatcher : NSObject {
     NSString* _appName;
+    NSURLSession* _session;
 }
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
 -(NSMutableDictionary *) getGeneralInfo;
+-(NSURLSession *) urlSession;
 @end
