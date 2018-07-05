@@ -22,6 +22,8 @@ public class BatchGenerator {
 
     private DeviceInformation deviceInformation;
 
+    private int retries = 0; // represents the amount of times in a row batches have failed to be sent
+
     /**
      * Tells whether or not we're about to run for the first time.
      *
@@ -42,7 +44,32 @@ public class BatchGenerator {
                 deviceInformation,
                 Util.generateTimestamp(),
                 events,
-                batchCounter++ /*add 1 to the counter after this statement*/
+                batchCounter++, /*add 1 to the counter after this statement*/
+                retries
         );
+    }
+
+    /**
+     * Called when the most recent batch has failed to be processed by the backend.
+     */
+    public void lastBatchFailed() {
+        retries++;
+
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, String.format("Last batch failed. Retries is '%s' now.", retries));
+    }
+
+    /**
+     * Called when the most recent batch has successfully been processed by the backend.
+     */
+    public void lastBatchSucceeded() {
+        retries = 0;
+
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, String.format("Last batch succeeded. Retries is '%s' now.", retries));
+    }
+
+    public int getRetries() {
+        return retries;
     }
 }
