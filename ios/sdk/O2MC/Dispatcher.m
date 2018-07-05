@@ -3,6 +3,7 @@
 // Copyright (c) 2016 Adversitement. All rights reserved.
 //
 
+#import <os/log.h>
 #import "Dispatcher.h"
 #import "Device.h"
 #import <UIKit/UIDevice.h>
@@ -47,7 +48,7 @@
                                                          error:&error];
 
     if (!jsonData) {
-        NSLog(@"Got an error: %@", error);
+        os_log_error(OS_LOG_DEFAULT, "Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *post = [NSString stringWithFormat:@"%@", jsonString];
@@ -65,11 +66,11 @@
 
             if ([data length] > 0 && error == nil) {
                 if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
-                    NSLog(@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]);
+                    os_log_debug(OS_LOG_DEFAULT, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]);
                     [funnel removeAllObjects];
                 }
             } else {
-                NSLog(@"Connection could not be made");
+                os_log(OS_LOG_DEFAULT, "Connection could not be made");
             }
         }];
 
