@@ -67,7 +67,9 @@
 
             if ([data length] > 0 && error == nil) {
                 if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
-                    os_log(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]);
+                    #ifdef DEBUG
+                        os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
+                    #endif
                     [funnel removeAllObjects];
                 }
             } else {

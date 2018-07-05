@@ -76,13 +76,17 @@ static int objectCount = 0;
     //        if(numberOfItems > 1){
     //            [_dispatcher dispatch :_endpoint :_funnel];
     //        }
-    os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
+    #endif
     [self.funnel_lock unlock];
     
 }
 
 -(void)track :(NSString*)eventName; {
-    os_log_debug(self->_logTopic, "Track %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Track %@", eventName);
+    #endif
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -95,7 +99,9 @@ static int objectCount = 0;
 
 -(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
 {
-    os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
+    #endif
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -108,7 +114,9 @@ static int objectCount = 0;
 
 
 -(void)createAlias:(NSString*)alias; {
-    os_log_debug(self->_logTopic, "Alias %@", alias);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Alias %@", alias);
+    #endif
     _alias = alias;
     NSDictionary *funnel = @{
                              @"event" : @"alias",
@@ -120,7 +128,9 @@ static int objectCount = 0;
 }
 
 -(void)identify:(NSString *)identity; {
-    os_log_debug(self->_logTopic, "Identity %@", identity);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Identity %@", identity);
+    #endif
     _identity = identity;
     NSDictionary *funnel = @{
                              @"event" : @"identity",
@@ -147,21 +157,27 @@ static int objectCount = 0;
 }
 
 -(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
-    os_log_debug(self->_logTopic, "timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
+    #endif
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
     _timedEventProperties = propertiesAsJson;
 }
 
 -(void)timeEventStart:(NSString*)eventName;{
-    os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
+    #endif
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
 }
 
 
 -(void)timeEventStop:(NSString*)eventName;{
-    os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
+    #endif
     if([_timedEvent isEqualToString:eventName]){
         if(_timedEventProperties){
             NSDictionary *funnel = @{
