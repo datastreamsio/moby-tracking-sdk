@@ -98,7 +98,8 @@ public class Util {
         String localUrlPattern = "^\\w{4,5}://\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b.*";
         boolean isValidLocalEndpoint = endpoint.matches(localUrlPattern);
         if (isValidLocalEndpoint) {
-            Log.d(TAG, "validEndpointFormat: Valid local url.");
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "validEndpointFormat: Valid local url.");
             return true;
         }
 
@@ -121,7 +122,8 @@ public class Util {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             boolean allowed = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
             if (!allowed) {
-                Log.e(TAG, "isAllowedToDispatchEvents: Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version.");
+                if (BuildConfig.DEBUG)
+                    Log.e(TAG, "isAllowedToDispatchEvents: Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version.");
             }
             return allowed;
         }
