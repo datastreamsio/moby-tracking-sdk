@@ -9,7 +9,7 @@
 #import <os/log.h>
 #import <UIKit/UIKit.h>
 #import "O2MC.h"
-#import "O2Tagger.h"
+#import "O2MTagger.h"
 
 @interface ViewController : UIViewController
 

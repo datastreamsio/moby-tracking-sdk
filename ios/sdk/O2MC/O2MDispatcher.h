@@ -5,10 +5,10 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
-#import "O2Tagger.h"
+#import "O2MTagger.h"
 
 
-@interface O2Dispatcher : NSObject {
+@interface O2MDispatcher : NSObject {
     NSString* _appName;
     NSURLSession* _session;
     os_log_t _logTopic;

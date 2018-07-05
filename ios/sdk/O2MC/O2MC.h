@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class O2Tagger;
+@class O2MTagger;
 
 @interface O2MC : NSObject {
 }
 
-@property (readonly, nonatomic) O2Tagger *tracker;
+@property (readonly, nonatomic) O2MTagger *tracker;
 
 -(id)init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
 
