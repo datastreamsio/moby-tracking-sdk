@@ -6,6 +6,7 @@
 //  Copyright © 2018 Adversitement. All rights reserved.
 //
 
+#import <os/log.h>
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -17,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self._logTopic = os_log_create("io.o2mc.app-obj-c", "testapp-obj-c");
     self.O2MC = [[O2MC alloc] init:@"app-obj-c" : @"http://127.0.0.1:5000/events" :  [NSNumber numberWithInt:10] :YES];
 }
 
@@ -27,25 +29,25 @@
 }
 
 - (IBAction)BtnTouchCreateEvent:(id)sender {
-    NSLog(@"created event");
+    os_log(self._logTopic, "created event");
 
     [self.O2MC.tracker track:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchCreateAlias:(id)sender {
-    NSLog(@"created alias");
+    os_log(self._logTopic, "created alias");
 
     [self.O2MC.tracker createAlias:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchSetIdentity:(id)sender {
-    NSLog(@"set identity");
+    os_log(self._logTopic, "set identity");
 
     [self.O2MC.tracker identify:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchResetTracking:(id)sender {
-    NSLog(@"reset tracking");
+    os_log(self._logTopic, "reset tracking");
 
     [self.O2MC.tracker clearFunnel];
 }

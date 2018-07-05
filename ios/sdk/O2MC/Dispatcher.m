@@ -3,6 +3,7 @@
 // Copyright (c) 2016 Adversitement. All rights reserved.
 //
 
+
 #import "Dispatcher.h"
 #import "Device.h"
 #import <UIKit/UIDevice.h>
@@ -17,6 +18,7 @@
 - (id)init:(NSString *)appName; {
     self = [super init];
     _appName = appName;
+    _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
     return self;
 }
 
@@ -47,7 +49,7 @@
                                                          error:&error];
 
     if (!jsonData) {
-        NSLog(@"Got an error: %@", error);
+        os_log_error(self->_logTopic, "Got an error: %@", error);
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *post = [NSString stringWithFormat:@"%@", jsonString];
@@ -65,11 +67,13 @@
 
             if ([data length] > 0 && error == nil) {
                 if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
-                    NSLog(@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]);
+                    #ifdef DEBUG
+                        os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
+                    #endif
                     [funnel removeAllObjects];
                 }
             } else {
-                NSLog(@"Connection could not be made");
+                os_log(self->_logTopic, "Connection could not be made");
             }
         }];
 

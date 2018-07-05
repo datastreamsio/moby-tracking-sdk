@@ -21,6 +21,7 @@ static int objectCount = 0;
     _dispatcher = [[Dispatcher alloc] init :appId];
     _alias = [[NSUUID UUID] UUIDString];
     _identity = @"";
+    _logTopic = os_log_create("io.o2mc.sdk", "tagger");
     
     [self setAppId:appId];
     [self setEndpoint:endpoint];
@@ -37,9 +38,9 @@ static int objectCount = 0;
                                                userInfo:nil
                                                 repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-        NSLog(@"Init tagger with timer");
+        os_log(self->_logTopic, "Init tagger with timer");
     } else {
-        NSLog(@"Init tagger");
+        os_log(self->_logTopic, "Init tagger");
     }
     objectCount++;
     return self;
@@ -48,7 +49,7 @@ static int objectCount = 0;
 -(void) dispatch:(NSTimer *)timer;{
     [self.funnel_lock lock];
     if([_funnel count] > 0){
-        NSLog(@"Dispatcher has been triggered");
+        os_log(self->_logTopic, "Dispatcher has been triggered");
         [_dispatcher dispatch :_endpoint :_funnel];
     }
     [self.funnel_lock unlock];
@@ -73,16 +74,19 @@ static int objectCount = 0;
         numberOfItems += [[_funnel objectForKey:key] count];
     }
     //        if(numberOfItems > 1){
-    //            NSLog(@"I am bigger than 1 and am starting to dispatch");
     //            [_dispatcher dispatch :_endpoint :_funnel];
     //        }
-    NSLog(@"Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
+    #endif
     [self.funnel_lock unlock];
     
 }
 
 -(void)track :(NSString*)eventName; {
-    NSLog(@"Track %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Track %@", eventName);
+    #endif
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -95,7 +99,9 @@ static int objectCount = 0;
 
 -(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
 {
-    NSLog(@"Track %@:%@", eventName, propertiesAsJson);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
+    #endif
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -108,7 +114,9 @@ static int objectCount = 0;
 
 
 -(void)createAlias:(NSString*)alias; {
-    NSLog(@"Alias %@", alias);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Alias %@", alias);
+    #endif
     _alias = alias;
     NSDictionary *funnel = @{
                              @"event" : @"alias",
@@ -120,7 +128,9 @@ static int objectCount = 0;
 }
 
 -(void)identify:(NSString *)identity; {
-    NSLog(@"Identity %@", identity);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Identity %@", identity);
+    #endif
     _identity = identity;
     NSDictionary *funnel = @{
                              @"event" : @"identity",
@@ -147,21 +157,27 @@ static int objectCount = 0;
 }
 
 -(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
-    NSLog(@"timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
+    #endif
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
     _timedEventProperties = propertiesAsJson;
 }
 
 -(void)timeEventStart:(NSString*)eventName;{
-    NSLog(@"timeEventStart %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
+    #endif
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
 }
 
 
 -(void)timeEventStop:(NSString*)eventName;{
-    NSLog(@"timeEventStop %@", eventName);
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
+    #endif
     if([_timedEvent isEqualToString:eventName]){
         if(_timedEventProperties){
             NSDictionary *funnel = @{

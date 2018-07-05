@@ -3,6 +3,7 @@
 // Copyright (c) 2016 Adversitement. All rights reserved.
 //
 
+#import <os/log.h>
 #import <Foundation/Foundation.h>
 #import "Tagger.h"
 
@@ -10,6 +11,7 @@
 @interface Dispatcher : NSObject {
     NSString* _appName;
     NSURLSession* _session;
+    os_log_t _logTopic;
 }
 
 - (id)init:(NSString*)appName;

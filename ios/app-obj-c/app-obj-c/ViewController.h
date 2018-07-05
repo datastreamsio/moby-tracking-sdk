@@ -6,6 +6,7 @@
 //  Copyright © 2018 Adversitement. All rights reserved.
 //
 
+#import <os/log.h>
 #import <UIKit/UIKit.h>
 #import "O2MC.h"
 #import "Tagger.h"
@@ -14,6 +15,7 @@
 
 @property (strong, nonatomic) O2MC *O2MC;
 @property (nonatomic, retain) IBOutlet UITextField *eventNameTextField;
+@property (nonatomic, retain) os_log_t _logTopic;
 
 - (IBAction)BtnTouchCreateEvent:(id)sender;
 - (IBAction)BtnTouchCreateAlias:(id)sender;
