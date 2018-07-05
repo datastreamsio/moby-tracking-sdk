@@ -40,6 +40,12 @@ object {
 
 Refer to the [specification documentation](docs/DATA_SPECIFICATION.md) for more details.
 
+## Contributing
+
+Any kind of contribution is welcome.
+For bug reports, feature requests, please open an issue without any hesitation.
+For code contributions, it's strongly suggested to open an issue for discussion first. For more details, please refer to [contributing documentation](docs/CONTRIBUTING.md).
+
 ## License
 
 [MIT license](LICENSE).
