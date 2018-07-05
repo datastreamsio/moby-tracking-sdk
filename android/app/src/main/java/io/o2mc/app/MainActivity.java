@@ -31,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSetIdentityHandler(View v) {
-        Log.d(TAG, "onSetIdentityHandler executed");
+        if (BuildConfig.DEBUG) Log.d(TAG, "onSetIdentityHandler executed");
+
         // Not sure what anyone would do with this.
     }
 
     public void onResetTrackingHandler(View v) {
-        Log.d(TAG, "onResetTrackingHandler executed");
+        if (BuildConfig.DEBUG) Log.d(TAG, "onResetTrackingHandler executed");
         App.getO2mc().reset();
     }
 }

@@ -47,7 +47,8 @@ public class Util {
         // have left the app by then. Allow it, but warn the developer.
         int twoMinutes = 2 * 60;
         if (seconds > twoMinutes) {
-            Log.w(TAG, "isValidDispatchInterval: Using an interval between 2 minutes and 1 hour between dispatching batches. This seems long. Are you sure you want to do this?");
+            if (BuildConfig.DEBUG)
+                Log.w(TAG, "isValidDispatchInterval: Using an interval between 2 minutes and 1 hour between dispatching batches. This seems long. Are you sure you want to do this?");
         }
 
         return true;
@@ -86,9 +87,11 @@ public class Util {
         if (isValidWebEndpoint) {
             // Check if using HTTP or HTTPS
             if (!isHttps(endpoint)) {
-                Log.w(TAG, "validEndpointFormat: Endpoint is valid, but detected usage of HTTP instead of HTTPS. It is strongly recommended to use HTTPS in production usage.");
+                if (BuildConfig.DEBUG)
+                    Log.w(TAG, "validEndpointFormat: Endpoint is valid, but detected usage of HTTP instead of HTTPS. It is strongly recommended to use HTTPS in production usage.");
             }
-            Log.d(TAG, "validEndpointFormat: Valid web url '%s'");
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "validEndpointFormat: Valid web url '%s'");
             return true;
         }
 

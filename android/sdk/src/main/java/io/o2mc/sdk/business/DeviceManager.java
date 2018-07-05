@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.jaredrummler.android.device.DeviceName;
 
+import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.domain.DeviceInformation;
 
 /**
@@ -29,7 +30,8 @@ public class DeviceManager {
      */
     public DeviceInformation generateDeviceInformation() {
         if (app == null) {
-            Log.e(TAG, "generateDeviceInformation: No device information could be retrieved. Did you supply your Application to the O2MC module?");
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "generateDeviceInformation: No device information could be retrieved. Did you supply your Application to the O2MC module?");
             return null;
         }
 
