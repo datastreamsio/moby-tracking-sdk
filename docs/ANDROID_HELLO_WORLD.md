@@ -16,7 +16,7 @@ These instructions will get you up and running on your local machine, targeting 
 - One of either:
 	- [Android Virtual Device](https://developer.android.com/studio/run/managing-avds)
 	- A [USB connected Android debuggable device](https://developer.android.com/studio/run/device)
-- This tutorial assumes you have a back-end running to accept tracking events. You can find some examples [here](../backend/README.md).
+- This tutorial assumes you have a back-end running to accept tracking events. You can find some examples [here](../backend/).
 
 # Steps
 > A step by step series of instructions that tell you how to include the SDK into your app.
