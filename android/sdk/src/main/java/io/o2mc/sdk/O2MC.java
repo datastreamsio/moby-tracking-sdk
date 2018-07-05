@@ -8,10 +8,10 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.o2mc.sdk.business.BatchDispatcher;
 import io.o2mc.sdk.business.BatchGenerator;
 import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.EventBus;
-import io.o2mc.sdk.business.EventDispatcher;
 import io.o2mc.sdk.business.EventGenerator;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
@@ -63,7 +63,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         this.batchGenerator = new BatchGenerator();
         this.eventBus = new EventBus();
 
-        EventDispatcher.getInstance().setO2mc(this);
+        BatchDispatcher.getInstance().setO2mc(this);
     }
 
     /**
@@ -223,7 +223,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
                 Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
 
             Batch b = batchGenerator.generateBatch(eventBus.getEvents());
-            EventDispatcher.getInstance().post(endpoint, b);
+            BatchDispatcher.getInstance().post(endpoint, b);
         }
     }
 }
