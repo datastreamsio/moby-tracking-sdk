@@ -22,7 +22,6 @@
     Dispatcher *_dispatcher;
 }
 
-+(int) objectCount;
 @property NSLock * funnel_lock;
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;
