@@ -4,14 +4,14 @@
 //
 
 
-#import "Dispatcher.h"
-#import "Device.h"
+#import "O2Dispatcher.h"
+#import "O2Device.h"
 #import <UIKit/UIDevice.h>
 #include <ifaddrs.h>
 #include <arpa/inet.h>
 
 
-@implementation Dispatcher {
+@implementation O2Dispatcher {
 
 }
 
@@ -24,7 +24,7 @@
 
 - (NSMutableDictionary *)getGeneralInfo; {
 
-    Device *d = [[Device alloc] init];
+    O2Device *d = [[O2Device alloc] init];
 
     NSMutableDictionary* data = [NSMutableDictionary new];
     [data setObject:_appName forKey:@"AppId"];

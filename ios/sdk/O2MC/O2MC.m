@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "O2MC.h"
-#import "Tagger.h"
+#import "O2Tagger.h"
 
 @implementation O2MC
  -(id)init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
-     self->_tracker =  [[Tagger alloc] init:appId :endpoint :dispatchInterval :forceStartTimer];
+     self->_tracker =  [[O2Tagger alloc] init:appId :endpoint :dispatchInterval :forceStartTimer];
     return self;
 }
 @end

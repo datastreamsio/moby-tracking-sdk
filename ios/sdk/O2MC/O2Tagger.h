@@ -1,6 +1,6 @@
 //
-//  Datastreams.h
-//  Datastreams
+//  O2Tagger.h
+//  O2Tagger
 //
 //  Created by Nicky Romeijn on 16-06-16.
 //  Copyright © 2016 Adversitement. All rights reserved.
@@ -9,9 +9,9 @@
 #import <os/log.h>
 #import <Foundation/Foundation.h>
 
-@class Dispatcher;
+@class O2Dispatcher;
 
-@interface Tagger : NSObject {
+@interface O2Tagger : NSObject {
     Boolean _timerHasStarted;
     NSString * _alias;
     NSString * _identity;
@@ -20,7 +20,7 @@
     NSString * _startTime;
     NSString * _timedEvent;
     NSString * _timedEventProperties;
-    Dispatcher *_dispatcher;
+    O2Dispatcher *_dispatcher;
     os_log_t _logTopic;
 }
 
@@ -30,7 +30,7 @@
 @property NSString *appId;
 @property NSNumber *dispatchInterval;
 
--(Tagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+-(O2Tagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
 -(void) clearFunnel;
 -(void) setEndpoint :(NSString *) endpoint;
 -(void) setAppId :(NSString *) appId;

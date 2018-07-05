@@ -1,7 +1,7 @@
 #import <sys/utsname.h>
-#import "Device.h"
+#import "O2Device.h"
 
-@implementation Device
+@implementation O2Device
 {
     //(your private ivars)
 }
