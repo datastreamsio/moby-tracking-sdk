@@ -74,7 +74,6 @@ static int objectCount = 0;
         numberOfItems += [[_funnel objectForKey:key] count];
     }
     //        if(numberOfItems > 1){
-    //            os_log(@"I am bigger than 1 and am starting to dispatch");
     //            [_dispatcher dispatch :_endpoint :_funnel];
     //        }
     os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
