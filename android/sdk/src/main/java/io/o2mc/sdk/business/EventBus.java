@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.domain.Event;
 
 /**
@@ -21,7 +22,9 @@ public class EventBus {
     }
 
     public void add(Event e) {
-        Log.d(TAG, String.format("Added event '%s' to EventBus.", e.getName()));
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, String.format("Added event '%s' to EventBus.", e.getName()));
+
         events.add(e);
     }
 
@@ -31,6 +34,8 @@ public class EventBus {
 
     public void clearEvents() {
         events.clear();
-        Log.d(TAG, "clearEvents: Cleared the EventBus.");
+
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "clearEvents: Cleared the EventBus.");
     }
 }

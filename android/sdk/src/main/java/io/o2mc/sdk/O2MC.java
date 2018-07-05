@@ -13,7 +13,6 @@ import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.EventBus;
 import io.o2mc.sdk.business.EventDispatcher;
 import io.o2mc.sdk.business.EventGenerator;
-import io.o2mc.sdk.business.Util;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
 
@@ -41,7 +40,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
 
     public O2MC(Application app, String endpoint) {
         if (app == null) {
-            Log.w(TAG, "O2MC: Application (context) provided was null. " +
+            if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
                     "Manually tracked events will still work, however " +
                     "activity lifecycle callbacks will not be automatically detected.");
         } else {
@@ -50,12 +49,13 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         }
 
         if (endpoint == null || endpoint.isEmpty()) {
-            Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
+            if (BuildConfig.DEBUG) Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
         } else if (Util.isValidEndpoint(endpoint)) {
             this.endpoint = endpoint;
             this.usingHttpsEndpoint = Util.isHttps(endpoint);
         } else {
-            Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
         }
 
         this.deviceManager = new DeviceManager(app);
@@ -77,7 +77,8 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
             this.dispatchInterval = seconds;
             startDispatching(); // Interval is set, start dispatching now.
         } else {
-            Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.", dispatchInterval));
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.", dispatchInterval));
         }
     }
 
@@ -86,7 +87,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        Log.i(TAG, "Activity created.");
+        if (BuildConfig.DEBUG) Log.i(TAG, "Activity created.");
     }
 
     /**
@@ -94,7 +95,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityStarted(Activity activity) {
-        Log.d(TAG, "Activity started.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity started.");
     }
 
     /**
@@ -102,7 +103,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.d(TAG, "Activity resumed.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity resumed.");
     }
 
     /**
@@ -110,7 +111,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.d(TAG, "Activity resumed.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity resumed.");
     }
 
     /**
@@ -118,7 +119,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.d(TAG, "Activity stopped.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity stopped.");
     }
 
     /**
@@ -126,7 +127,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-        Log.d(TAG, "Activity saved instance state.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity saved instance state.");
     }
 
     /**
@@ -134,7 +135,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.d(TAG, "Activity destroyed.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Activity destroyed.");
     }
 
     /**
@@ -144,7 +145,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param eventName name of tracked event
      */
     public void track(String eventName) {
-        Log.d(TAG, String.format("Tracked '%s'", eventName));
+        if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
         Event e = eventGenerator.generateEvent(eventName);
         eventBus.add(e);
     }
@@ -158,7 +159,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param value     anything you'd like to keep track of in String format
      */
     public void trackWithProperties(String eventName, String value) {
-        Log.d(TAG, String.format("Tracked '%s'", eventName));
+        if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
         Event e = eventGenerator.generateEventWithProperties(eventName, value);
         eventBus.add(e);
     }
@@ -167,7 +168,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * Called upon successful HTTP post
      */
     public void dispatchSuccess() {
-        Log.d(TAG, "Dispatch successful.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch successful.");
         reset();
     }
 
@@ -182,7 +183,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * Called upon failure of HTTP post
      */
     public void dispatchFailure() {
-        Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
+        if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
     }
 
     /**
@@ -191,7 +192,8 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private void startDispatching() {
         // Check if the device is allowed to dispatch events
         if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
-            Log.e(TAG, "run: Not allowed to dispatch events. See previous message(s) for more info.");
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "run: Not allowed to dispatch events. See previous message(s) for more info.");
             return;
         }
 
@@ -207,7 +209,8 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         public void run() {
             // Don't dispatch if we have no events
             if (eventBus.getEvents().size() <= 0) {
-                Log.d(TAG, "run: There are no events to dispatch. Skipping.");
+                if (BuildConfig.DEBUG)
+                    Log.d(TAG, "run: There are no events to dispatch. Skipping.");
                 return;
             }
 
@@ -216,7 +219,9 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
                 batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());
             }
 
-            Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
+            if (BuildConfig.DEBUG)
+                Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
+
             Batch b = batchGenerator.generateBatch(eventBus.getEvents());
             EventDispatcher.getInstance().post(endpoint, b);
         }

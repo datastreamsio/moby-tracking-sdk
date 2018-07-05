@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.O2MC;
 import io.o2mc.sdk.domain.Batch;
 import okhttp3.Call;
@@ -58,14 +59,18 @@ public class EventDispatcher {
         try {
             String json = batchToJson(batch);
 
-            Log.d(TAG, String.format("Posting batch containing a total of '%s' characters", json.length()));
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, String.format("Posting batch containing a total of '%s' characters", json.length()));
+
             RequestBody body = RequestBody.create(JSON, json);
             Request request = new Request.Builder().url(url).post(body).build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     EventDispatcher.getInstance().failureCallback();
-                    Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
+
+                    if (BuildConfig.DEBUG)
+                        Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
                 }
 
                 @Override
@@ -74,28 +79,37 @@ public class EventDispatcher {
                         // Http response indicates success, inform user and SDK
                         EventDispatcher.getInstance().successCallback();
                         if (response.body() == null) {
-                            Log.w(TAG, "onResponse: empty http response from backend");
+                            if (BuildConfig.DEBUG)
+                                Log.w(TAG, "onResponse: empty http response from backend");
                         } else {
                             try {
-                                Log.i(TAG, String.format("onResponse: http response contained '%s' characters", response.body().string().length()));
+                                if (BuildConfig.DEBUG)
+                                    Log.i(TAG, String.format("onResponse: http response contained '%s' characters", response.body().string().length()));
                             } catch (NullPointerException | IOException ex) {
-                                Log.e(TAG, "onResponse: Response string is null", ex);
+                                //noinspection ConstantConditions
+                                if (BuildConfig.DEBUG)
+                                    Log.e(TAG, "onResponse: Response string is null", ex);
                             }
                         }
                     } else {
                         try {
                             // Http response indicates failure, inform user and SDK
                             EventDispatcher.getInstance().failureCallback();
-                            Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
+
+                            if (BuildConfig.DEBUG)
+                                Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
                         } catch (NullPointerException | IOException ex) {
-                            Log.e(TAG, "onResponse: Response string is null", ex);
+                            if (BuildConfig.DEBUG)
+                                Log.e(TAG, "onResponse: Response string is null", ex);
                         }
                     }
                 }
             });
         } catch (IllegalArgumentException | NullPointerException e) {
             EventDispatcher.getInstance().failureCallback();
-            Log.e(TAG, "post: Failed to dispatch events", e);
+
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, "post: Failed to dispatch events", e);
         }
     }
 
@@ -111,7 +125,9 @@ public class EventDispatcher {
 
     public void setO2mc(O2MC o2mc) {
         EventDispatcher.o2mc = o2mc;
-        Log.d(TAG, "Set o2mc field.");
+
+        if (BuildConfig.DEBUG)
+            Log.d(TAG, "Set o2mc field.");
     }
 
     /**
@@ -121,7 +137,8 @@ public class EventDispatcher {
         if (o2mc != null) {
             o2mc.dispatchSuccess();
         } else {
-            Log.d(TAG, "O2mc variable is null.");
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "O2mc variable is null.");
         }
     }
 
@@ -132,7 +149,8 @@ public class EventDispatcher {
         if (o2mc != null) {
             o2mc.dispatchFailure();
         } else {
-            Log.d(TAG, "O2mc variable is null.");
+            if (BuildConfig.DEBUG)
+                Log.d(TAG, "O2mc variable is null.");
         }
     }
 }

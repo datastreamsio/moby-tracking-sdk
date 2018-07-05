@@ -4,6 +4,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import io.o2mc.sdk.BuildConfig;
+import io.o2mc.sdk.Util;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
@@ -34,7 +36,7 @@ public class BatchGenerator {
     }
 
     public Batch generateBatch(List<Event> events) {
-        Log.i(TAG, "generateBatch: Generating batch");
+        if (BuildConfig.DEBUG) Log.i(TAG, "generateBatch: Generating batch");
 
         return new Batch(
                 deviceInformation,
