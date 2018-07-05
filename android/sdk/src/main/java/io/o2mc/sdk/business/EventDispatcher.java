@@ -134,23 +134,23 @@ public class EventDispatcher {
      * Called upon successful HTTP post
      */
     private void successCallback() {
-        if (o2mc != null) {
-            o2mc.dispatchSuccess();
-        } else {
+        if (o2mc == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
+            return;
         }
+        o2mc.dispatchSuccess();
     }
 
     /**
      * Called upon failure of HTTP post
      */
     private void failureCallback() {
-        if (o2mc != null) {
-            o2mc.dispatchFailure();
-        } else {
+        if (o2mc == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
+            return;
         }
+        o2mc.dispatchFailure();
     }
 }
