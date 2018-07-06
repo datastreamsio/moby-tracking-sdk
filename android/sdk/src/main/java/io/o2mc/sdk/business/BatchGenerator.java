@@ -6,7 +6,6 @@ import java.util.List;
 
 import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.TimeUtil;
-import io.o2mc.sdk.Util;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;

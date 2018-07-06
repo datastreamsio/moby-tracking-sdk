@@ -73,6 +73,7 @@ public class BatchDispatcher {
                         Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
                 }
 
+                @SuppressWarnings("ConstantConditions") // invalid warning because it's checked for
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     if (response.isSuccessful()) {

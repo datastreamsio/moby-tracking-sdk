@@ -30,7 +30,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private String endpoint;
     private boolean usingHttpsEndpoint;
 
-    private Timer timer = new Timer(); // timer used for dispatching events
+    private final Timer timer = new Timer(); // timer used for dispatching events
     private int dispatchInterval; // interval on which to send events
     private int maxRetries; // max amount of times to retry sending batches
 
@@ -103,6 +103,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     /**
      * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
      */
+    @SuppressWarnings("WeakerAccess") // invalid warning; this method is intended to be used by an App implementing our SDK.
     public void setMaxRetries(int maxRetries) {
         if (Util.isValidMaxRetries(maxRetries)) {
             this.maxRetries = maxRetries;
@@ -267,7 +268,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         }
     }
 
-    public void setApp(Application app) {
+    private void setApp(Application app) {
         if (app == null) {
             if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
                     "Manually tracked events will still work, however " +

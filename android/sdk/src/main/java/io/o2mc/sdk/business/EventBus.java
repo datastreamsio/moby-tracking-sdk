@@ -15,7 +15,7 @@ public class EventBus {
 
     private static final String TAG = "EventBus";
 
-    private List<Event> events;
+    private final List<Event> events;
 
     public EventBus() {
         events = new ArrayList<>();

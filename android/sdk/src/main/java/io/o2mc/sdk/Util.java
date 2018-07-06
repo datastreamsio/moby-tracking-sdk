@@ -1,11 +1,7 @@
 package io.o2mc.sdk;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
 import android.security.NetworkSecurityPolicy;
 import android.util.Log;
-
-import java.sql.Timestamp;
 
 public final class Util {
 
@@ -48,15 +44,7 @@ public final class Util {
      * @return true on https
      */
     public static boolean isHttps(String endpoint) {
-        if (endpoint == null || endpoint.isEmpty() || endpoint.length() < 5) {
-            return false;
-        }
-
-        if (endpoint.substring(4, 5).equals("s") || endpoint.substring(4, 5).equals("S")) {
-            return true;
-        }
-
-        return false;
+        return endpoint != null && !endpoint.isEmpty() && endpoint.length() >= 5 && (endpoint.substring(4, 5).equals("s") || endpoint.substring(4, 5).equals("S"));
     }
 
     /**

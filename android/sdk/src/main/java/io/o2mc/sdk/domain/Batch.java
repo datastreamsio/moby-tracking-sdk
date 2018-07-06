@@ -6,6 +6,8 @@ import java.util.List;
  * Represents a batch of Events.
  * Essentially contains events and meta data for analytical purposes.
  */
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
+// Invalid warnings because they're used by gson to be serialized
 public class Batch {
     private DeviceInformation deviceInformation;
     private String timestamp;
@@ -21,29 +23,6 @@ public class Batch {
         this.retries = retries;
     }
 
-    public DeviceInformation getDeviceInformation() {
-        return deviceInformation;
-    }
-
-    public void setDeviceInformation(DeviceInformation deviceInformation) {
-        this.deviceInformation = deviceInformation;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public List<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
 
     public int getNumber() {
         return number;
@@ -52,4 +31,5 @@ public class Batch {
     public void setNumber(int number) {
         this.number = number;
     }
+
 }
