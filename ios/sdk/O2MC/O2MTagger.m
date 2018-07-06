@@ -65,7 +65,7 @@ static int objectCount = 0;
             #endif
             [_dispatcher dispatch :_endpoint :_funnel];
         } else {
-            os_log_info(self->_logTopic, "Reached max connection retries (%u), stopping dispatcher.", _dispatcher.connRetriesMax);
+            os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)_dispatcher.connRetriesMax);
 
             // Stopping the time based interval loop.
             [timer invalidate];
