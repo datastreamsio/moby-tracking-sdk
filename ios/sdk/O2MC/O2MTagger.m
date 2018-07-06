@@ -46,6 +46,16 @@ static int objectCount = 0;
     return self;
 }
 
+#pragma mark - Configuration methods
+
+-(void) setMaxRetries :(NSInteger)maxRetries; {
+    if (_dispatcher) {
+        [_dispatcher setConnRetriesMax: maxRetries];
+    }
+}
+
+#pragma mark - Internal methods
+
 -(void) dispatch:(NSTimer *)timer;{
     [self.funnel_lock lock];
     if(_funnel.count > 0){
@@ -70,12 +80,6 @@ static int objectCount = 0;
     [self.funnel_lock unlock];
 }
 
--(void) setMaxRetries :(NSInteger)maxRetries; {
-    if (_dispatcher) {
-        [_dispatcher setConnRetriesMax: maxRetries];
-    }
-}
-
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
     [self.funnel_lock lock];
     if([_funnel objectForKey:funnelKey] == nil){
@@ -95,6 +99,8 @@ static int objectCount = 0;
     [self.funnel_lock unlock];
     
 }
+
+#pragma mark - Tracking methods
 
 -(void)track :(NSString*)eventName; {
     #ifdef DEBUG
