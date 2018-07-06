@@ -39,7 +39,7 @@ The functions and the SDK calls result in a HTTPS POST request. If for some reas
 
 For example if you have used the O2MC Studio to create an file exampleandroid.app.dimml with concept Global in the test environment for processing the data being the user johndoe, the HTTP end point to use in the native app implementation is
 
-```/user/{user}/items/{item}/flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml```
+```https://baltar-dev.dimml.io/flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml```
 
 Additionally sending the data requires setting the `Content-Type` header to `application/json`. 
 
