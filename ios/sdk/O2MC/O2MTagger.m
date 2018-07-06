@@ -32,7 +32,7 @@ static int objectCount = 0;
                                       };
     [self addToFunnel:@"alias" : buildInitFunnel];
     if(objectCount == 1 || forceStartTimer){
-        NSTimer *timer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue]
+        NSTimer *timer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
                                                  target:self
                                                selector:@selector(dispatch:)
                                                userInfo:nil
@@ -48,7 +48,7 @@ static int objectCount = 0;
 
 -(void) dispatch:(NSTimer *)timer;{
     [self.funnel_lock lock];
-    if([_funnel count] > 0){
+    if(_funnel.count > 0){
         if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
             #ifdef DEBUG
                 os_log_debug(self->_logTopic, "Dispatcher has been triggered");

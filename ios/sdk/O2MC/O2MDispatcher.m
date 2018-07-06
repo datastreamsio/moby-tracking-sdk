@@ -31,8 +31,8 @@
     NSMutableDictionary* data = [NSMutableDictionary new];
     [data setObject:_appName forKey:@"AppId"];
     [data setObject:@"3G" forKey:@"connection"];
-    [data setObject:[[UIDevice currentDevice] systemName] forKey:@"os"];
-    [data setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
+    [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
+    [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
     [data setObject:d.deviceName forKey:@"device"];
 
     return data;
@@ -67,8 +67,8 @@
         NSURLSessionDataTask *dataTask = [[self urlSession] dataTaskWithRequest: request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
-            if ([data length] > 0 && error == nil) {
-                if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
+            if (data.length > 0 && error == nil) {
+                if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
                     #ifdef DEBUG
                         os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
                     #endif
