@@ -1,5 +1,7 @@
 package io.o2mc.sdk.domain;
 
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
+// Invalid warnings because they're used by gson to be serialized
 public class Event {
 
     private String name;

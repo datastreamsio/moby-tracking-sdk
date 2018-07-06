@@ -17,7 +17,7 @@ import io.o2mc.sdk.domain.DeviceInformation;
 public class DeviceManager {
     private static final String TAG = "DeviceManager";
 
-    private Application app;
+    private final Application app;
 
     public DeviceManager(Application app) {
         this.app = app;

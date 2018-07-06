@@ -4,7 +4,6 @@ import android.util.Log;
 
 import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.TimeUtil;
-import io.o2mc.sdk.Util;
 import io.o2mc.sdk.domain.Event;
 
 /**
