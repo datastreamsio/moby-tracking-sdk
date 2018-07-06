@@ -19,6 +19,8 @@
     self = [super init];
     _appName = appName;
     _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
+    _connRetries = 0;
+    _connRetriesMax = 5;
     return self;
 }
 
@@ -71,15 +73,26 @@
                         os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
                     #endif
                     [funnel removeAllObjects];
+                    [self successHandler];
                 }
             } else {
                 os_log(self->_logTopic, "Connection could not be made");
+                [self errorHandler];
             }
         }];
 
         [dataTask resume];
     }
 
+}
+
+-(void) successHandler {
+    // Reset after each successful data post.
+    self->_connRetries = 0;
+}
+
+-(void) errorHandler {
+    self->_connRetries++;
 }
 
 -(NSURLSession *) urlSession {

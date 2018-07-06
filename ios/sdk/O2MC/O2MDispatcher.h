@@ -12,10 +12,14 @@
     NSString* _appName;
     NSURLSession* _session;
     os_log_t _logTopic;
+    int _connRetries;
+    int _connRetriesMax;
 }
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
 -(NSMutableDictionary *) getGeneralInfo;
+-(void) successHandler;
+-(void) errorHandler;
 -(NSURLSession *) urlSession;
 @end
