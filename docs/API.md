@@ -39,6 +39,43 @@ The functions and the SDK calls result in a HTTPS POST request. If for some reas
 
 For example if you have used the O2MC Studio to create an file exampleandroid.app.dimml with concept Global in the test environment for processing the data being the user johndoe, the HTTP end point to use in the native app implementation is
 
-```https://baltar-dev.dimml.io/flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml```
+```/user/{user}/items/{item}/flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml```
 
 Additionally sending the data requires setting the `Content-Type` header to `application/json`. 
+
+Here's a complete example of the HTTP request.
+
+```http
+POST /flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml HTTP/1.1
+Host: https://baltar-dev.dimml.io
+Content-Type: application/json
+
+{
+   "deviceInformation":{
+      "appId":"io.o2mc.app",
+      "deviceId":"eeb261ced725039b",
+      "deviceName":"Android SDK Built For X86",
+      "os":"android",
+      "osVersion":"9"
+   },
+   "events":[
+      {
+         "name":"MainActivityCreated",
+         "timestamp":"2018-07-06T12:25:18Z"
+      },
+      {
+         "name":"Clicked button: \u0027Create Track Event\u0027",
+         "timestamp":"2018-07-06T12:25:23Z",
+         "value":"Name"
+      },
+      {
+         "name":"Clicked button: \u0027Create Track Event\u0027",
+         "timestamp":"2018-07-06T12:25:26Z",
+         "value":"Name"
+      }
+   ],
+   "number":0,
+   "retries":0,
+   "timestamp":"2018-07-06T12:25:28Z"
+}
+```
