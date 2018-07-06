@@ -6,7 +6,6 @@
 //  Copyright © 2018 Adversitement. All rights reserved.
 //
 
-#import <os/log.h>
 #import "ViewController.h"
 
 @interface ViewController ()

@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Device : NSObject
+@interface O2MDevice : NSObject
 
 - (NSString*) deviceName;
 
