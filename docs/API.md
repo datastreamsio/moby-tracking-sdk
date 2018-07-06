@@ -1,31 +1,62 @@
 # Public API: IOS & Android
-The following functions can be executed to send data to the O2MC Platform and to configure how this is done. A typical implementation only uses the tracking function that will send data to the end point. Other functions defined here allow additional configuration and set up.
+> Scope
+This document describes the way our SDK interfaces between anyone implementing it into their own app, and a backend. This is not a hello-world tutorial, please refer to the `docs/` directory for those.
+
+# Initialization & Configuration
+
+In its simplest form, this is how you'd initialize our O2MC module:
+
+`o2mc = new O2MC(this, "<endpoint>");`
+
+Optionally, you could specify the `dispatchInterval` in **seconds** yourself (default **10**):
+
+`o2mc = new O2MC(this, "<endpoint>", 15);`
+
+Additionally, you could specify the max amount of retries before the SDK gives up on retrying to send events. After the specified amount of times (default **15**), the SDK will no longer try to send events, thus saving battery and data usage wisely.
+
+`o2mc = new O2MC(this, "<endpoint>", 15, 20);`
+
+Finally, it's possible to set a max retries number without explicitly stating the `dispatchInterval`, like this:
+
+`o2mc.setMaxRetries(15);`
+
 
 # General tracking function
-**Send key value pair to endpoint (make sure second argument is a string and not a javascript object (Use JSON.stringify()))**
 
-```Void trackWithproperties(String eventName, String propertiesAsJson)```
+## track(...)
 
-The parameter `eventName` can be any string. Similarly the only requirement to the second parameter is that a JSON formatted object is used, there is no limitation to the name or structure of the properties. (For the application receiving and processing the data, the specification of the data set needs to be made provided so the data can be processed properly).
+```java
+/**
+* Tracks an event.
+* Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
+*
+* @param eventName name of tracked event
+*/
+public void track(String eventName) { ... }
+```
 
-**Send single string to endpoint**
+> Invoke function by executing the following statement
 
-```Void Track(String eventName)```
+`App.getO2mc().track("<eventname>");`
 
-This tracking function only captures the eventname (and only the automatically collected metadata)
+## trackWithProperties(...)
 
-# Configuration functions
-**Change endpoint for the data funnel. (Http url)**
+```java
+/**
+* Tracks an event with additional data.
+* Essentially adds a new event with the String parameter as name and any properties in String format.
+* Will be dispatched to backend on next dispatch interval.
+*
+* @param eventName name of tracked event
+* @param value     anything you'd like to keep track of in String format
+*/
+public void trackWithProperties(String eventName, String value) { ... }
+```
 
-```Void setEndpoint(String endpoint)```
+> Invoke function by executing the following statement
 
-Note that the initialisation of the tracker object already defines an endpoint so if no change to this endpoint is required, this function does not need to be used to send data
+`App.getO2mc().trackWithProperties("<eventname>", "<eventvalue>");`
 
-**Sets the dispatch interval**
-
-```Void setDispatchInterval(int interval)```
-
-The parameter defines the interval in minutes for buffering events and sending to the processing server
 
 # API Calls
 The functions and the SDK calls result in a HTTPS POST request. If for some reason it is not possible or not desirable to use the SDK, a direct call can be made to the end point. The following URL structure should be adhered to:
