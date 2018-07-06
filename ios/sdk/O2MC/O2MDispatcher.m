@@ -29,19 +29,20 @@
     O2MDevice *d = [[O2MDevice alloc] init];
 
     NSMutableDictionary* data = [NSMutableDictionary new];
-    [data setObject:_appName forKey:@"AppId"];
+    [data setObject:_appName forKey:@"appId"];
     [data setObject:@"3G" forKey:@"connection"];
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
-    [data setObject:d.deviceName forKey:@"device"];
+    [data setObject:d.deviceName forKey:@"deviceName"];
 
     return data;
 }
 
 - (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
     NSDictionary *data = @{
-            @"application" :  [self getGeneralInfo],
-            @"tracked" : funnel
+            @"deviceInformation" :  [self getGeneralInfo],
+            @"events" : funnel,
+            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries]
     };
 
 
