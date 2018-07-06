@@ -14,8 +14,13 @@
     os_log_t _logTopic;
 }
 
+@property (assign, nonatomic, readonly) NSInteger connRetries;
+@property (assign, nonatomic) NSInteger connRetriesMax;
+
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
 -(NSMutableDictionary *) getGeneralInfo;
+-(void) successHandler;
+-(void) errorHandler;
 -(NSURLSession *) urlSession;
 @end

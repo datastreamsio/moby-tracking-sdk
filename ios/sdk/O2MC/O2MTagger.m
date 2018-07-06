@@ -49,8 +49,17 @@ static int objectCount = 0;
 -(void) dispatch:(NSTimer *)timer;{
     [self.funnel_lock lock];
     if([_funnel count] > 0){
-        os_log(self->_logTopic, "Dispatcher has been triggered");
-        [_dispatcher dispatch :_endpoint :_funnel];
+        if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
+            #ifdef DEBUG
+                os_log_debug(self->_logTopic, "Dispatcher has been triggered");
+            #endif
+            [_dispatcher dispatch :_endpoint :_funnel];
+        } else {
+            os_log_info(self->_logTopic, "Reached max connection retries (%u), stopping dispatcher.", _dispatcher.connRetriesMax);
+
+            // Stopping the time based interval loop.
+            [timer invalidate];
+        }
     }
     [self.funnel_lock unlock];
 }
@@ -59,6 +68,12 @@ static int objectCount = 0;
     [self.funnel_lock lock];
     [_funnel removeAllObjects];
     [self.funnel_lock unlock];
+}
+
+-(void) setMaxRetries :(NSInteger)maxRetries; {
+    if (_dispatcher) {
+        [_dispatcher setConnRetriesMax: maxRetries];
+    }
 }
 
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
