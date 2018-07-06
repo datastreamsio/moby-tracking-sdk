@@ -12,9 +12,10 @@
     NSString* _appName;
     NSURLSession* _session;
     os_log_t _logTopic;
-    int _connRetries;
-    int _connRetriesMax;
 }
+
+@property (assign, nonatomic, readonly) NSInteger connRetries;
+@property (assign, nonatomic, readonly) NSInteger connRetriesMax;
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
