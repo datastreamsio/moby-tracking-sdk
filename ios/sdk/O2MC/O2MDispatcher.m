@@ -22,16 +22,16 @@
     return self;
 }
 
-- (NSMutableDictionary *)getGeneralInfo; {
+- (NSDictionary *)getGeneralInfo; {
 
     O2MDevice *d = [[O2MDevice alloc] init];
-
-    NSMutableDictionary* data = [NSMutableDictionary new];
-    [data setObject:_appName forKey:@"AppId"];
-    [data setObject:@"3G" forKey:@"connection"];
-    [data setObject:[[UIDevice currentDevice] systemName] forKey:@"os"];
-    [data setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
-    [data setObject:d.deviceName forKey:@"device"];
+    NSDictionary *data = @{
+                           @"AppId": _appName,
+                           @"connection": @"3G",
+                           @"os": [[UIDevice currentDevice] systemName],
+                           @"osVersion": [[UIDevice currentDevice] systemVersion],
+                           @"device": d.deviceName
+                           };
 
     return data;
 }
