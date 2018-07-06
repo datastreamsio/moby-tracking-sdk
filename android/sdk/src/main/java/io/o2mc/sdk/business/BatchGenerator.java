@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.List;
 
 import io.o2mc.sdk.BuildConfig;
+import io.o2mc.sdk.TimeUtil;
 import io.o2mc.sdk.Util;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.DeviceInformation;
@@ -40,7 +41,7 @@ public class BatchGenerator {
 
         return new Batch(
                 deviceInformation,
-                Util.generateTimestamp(),
+                TimeUtil.generateTimestamp(),
                 events,
                 batchCounter++ /*add 1 to the counter after this statement*/
         );

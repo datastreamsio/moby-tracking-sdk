@@ -7,22 +7,9 @@ import android.util.Log;
 
 import java.sql.Timestamp;
 
-public class Util {
+public final class Util {
 
     private static final String TAG = "Util";
-
-    /**
-     * Generates a timestamp based on current time.
-     *
-     * @return timestamp in String format
-     */
-    @SuppressLint("DefaultLocale")
-    public static String generateTimestamp() {
-        long l = new java.util.Date().getTime();
-        Timestamp t = new Timestamp(l);
-        // TODO: 7/3/18 research timestamp generation for a correct implementation
-        return String.format("%tFT%<tTZ", t);
-    }
 
     /**
      * Checks whether or not the provided interval is valid and reasonable.
