@@ -50,7 +50,9 @@ static int objectCount = 0;
     [self.funnel_lock lock];
     if([_funnel count] > 0){
         if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
-            os_log(self->_logTopic, "Dispatcher has been triggered");
+            #ifdef DEBUG
+                os_log_debug(self->_logTopic, "Dispatcher has been triggered");
+            #endif
             [_dispatcher dispatch :_endpoint :_funnel];
         } else {
             os_log_info(self->_logTopic, "Reached max connection retries (%u), stopping dispatcher.", _dispatcher.connRetriesMax);
