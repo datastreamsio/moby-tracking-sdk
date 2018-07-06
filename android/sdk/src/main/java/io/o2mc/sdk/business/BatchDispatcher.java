@@ -23,9 +23,9 @@ import okhttp3.Response;
  * Singleton class, guaranteed to have only one instance in the apps lifecycle.
  * Sends events in a thread-safe manner.
  */
-public class EventDispatcher {
+public class BatchDispatcher {
 
-    private static final String TAG = "EventDispatcher";
+    private static final String TAG = "BatchDispatcher";
 
     private static Gson gson;
     private static O2MC o2mc;
@@ -36,11 +36,11 @@ public class EventDispatcher {
     // ==========================================
     // region Start singleton technicalities
     // ==========================================
-    private static EventDispatcher instance;
+    private static BatchDispatcher instance;
 
-    public static synchronized EventDispatcher getInstance() {
+    public static synchronized BatchDispatcher getInstance() {
         if (instance == null) {
-            instance = new EventDispatcher();
+            instance = new BatchDispatcher();
             gson = new Gson();
         }
         return instance;
@@ -67,7 +67,7 @@ public class EventDispatcher {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    EventDispatcher.getInstance().failureCallback();
+                    BatchDispatcher.getInstance().failureCallback();
 
                     if (BuildConfig.DEBUG)
                         Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
@@ -77,7 +77,7 @@ public class EventDispatcher {
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     if (response.isSuccessful()) {
                         // Http response indicates success, inform user and SDK
-                        EventDispatcher.getInstance().successCallback();
+                        BatchDispatcher.getInstance().successCallback();
                         if (response.body() == null) {
                             if (BuildConfig.DEBUG)
                                 Log.w(TAG, "onResponse: empty http response from backend");
@@ -94,7 +94,7 @@ public class EventDispatcher {
                     } else {
                         try {
                             // Http response indicates failure, inform user and SDK
-                            EventDispatcher.getInstance().failureCallback();
+                            BatchDispatcher.getInstance().failureCallback();
 
                             if (BuildConfig.DEBUG)
                                 Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'", response.body().string()));
@@ -106,7 +106,7 @@ public class EventDispatcher {
                 }
             });
         } catch (IllegalArgumentException | NullPointerException e) {
-            EventDispatcher.getInstance().failureCallback();
+            BatchDispatcher.getInstance().failureCallback();
 
             if (BuildConfig.DEBUG)
                 Log.e(TAG, "post: Failed to dispatch events", e);
@@ -124,7 +124,7 @@ public class EventDispatcher {
     }
 
     public void setO2mc(O2MC o2mc) {
-        EventDispatcher.o2mc = o2mc;
+        BatchDispatcher.o2mc = o2mc;
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, "Set o2mc field.");
@@ -134,23 +134,23 @@ public class EventDispatcher {
      * Called upon successful HTTP post
      */
     private void successCallback() {
-        if (o2mc != null) {
-            o2mc.dispatchSuccess();
-        } else {
+        if (o2mc == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
+            return;
         }
+        o2mc.dispatchSuccess();
     }
 
     /**
      * Called upon failure of HTTP post
      */
     private void failureCallback() {
-        if (o2mc != null) {
-            o2mc.dispatchFailure();
-        } else {
+        if (o2mc == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
+            return;
         }
+        o2mc.dispatchFailure();
     }
 }

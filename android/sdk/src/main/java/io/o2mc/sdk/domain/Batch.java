@@ -4,19 +4,21 @@ import java.util.List;
 
 /**
  * Represents a batch of Events.
- * Basically contains events and meta data for analytical purposes.
+ * Essentially contains events and meta data for analytical purposes.
  */
 public class Batch {
     private DeviceInformation deviceInformation;
     private String timestamp;
     private List<Event> events;
     private int number;
+    private int retries;
 
-    public Batch(DeviceInformation deviceInformation, String timestamp, List<Event> events, int number) {
+    public Batch(DeviceInformation deviceInformation, String timestamp, List<Event> events, int number, int retries) {
         this.deviceInformation = deviceInformation;
         this.timestamp = timestamp;
         this.events = events;
         this.number = number;
+        this.retries = retries;
     }
 
     public DeviceInformation getDeviceInformation() {

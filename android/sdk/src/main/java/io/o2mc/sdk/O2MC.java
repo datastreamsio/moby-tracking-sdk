@@ -8,10 +8,10 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.o2mc.sdk.business.BatchDispatcher;
 import io.o2mc.sdk.business.BatchGenerator;
 import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.EventBus;
-import io.o2mc.sdk.business.EventDispatcher;
 import io.o2mc.sdk.business.EventGenerator;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
@@ -32,6 +32,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
 
     private Timer timer = new Timer(); // timer used for dispatching events
     private int dispatchInterval; // interval on which to send events
+    private int maxRetries; // max amount of times to retry sending batches
 
     private DeviceManager deviceManager;
     private EventGenerator eventGenerator;
@@ -63,7 +64,19 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         this.batchGenerator = new BatchGenerator();
         this.eventBus = new EventBus();
 
-        EventDispatcher.getInstance().setO2mc(this);
+        BatchDispatcher.getInstance().setO2mc(this);
+    }
+
+    /**
+     * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
+     *
+     * @param maxRetries the amount of times the SDK should try to resend a batch before giving up
+     */
+    public void setMaxRetries(int maxRetries) {
+        // Setting a max below zero or zero makes no sense -- then you'd never send any batches.
+        if (maxRetries > 0) {
+            this.maxRetries = maxRetries;
+        }
     }
 
     /**
@@ -170,6 +183,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     public void dispatchSuccess() {
         if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch successful.");
         reset();
+        batchGenerator.lastBatchSucceeded();
     }
 
     /**
@@ -184,6 +198,8 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     public void dispatchFailure() {
         if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
+
+        batchGenerator.lastBatchFailed();
     }
 
     /**
@@ -219,11 +235,20 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
                 batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());
             }
 
+            // Don't try resending a batch if the max retries limit has exceeded
+            if (batchGenerator.getRetries() >= maxRetries) {
+                if (BuildConfig.DEBUG)
+                    Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
+                timer.cancel();
+                timer.purge();
+                return;
+            }
+
             if (BuildConfig.DEBUG)
                 Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
 
             Batch b = batchGenerator.generateBatch(eventBus.getEvents());
-            EventDispatcher.getInstance().post(endpoint, b);
+            BatchDispatcher.getInstance().post(endpoint, b);
         }
     }
 }
