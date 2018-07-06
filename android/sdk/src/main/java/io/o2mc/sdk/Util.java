@@ -130,4 +130,19 @@ public class Util {
 
         return true;
     }
+
+    /**
+     * Checks whether or not the max retries given is above 0.
+     * Anything above is allowed. Some insanely high values may not make much sense, and will be given a warning, but allowed.
+     *
+     * @param maxRetries the amount of times to retry dispatching events
+     * @return true if the max retries value is allowed
+     */
+    public static boolean isValidMaxRetries(int maxRetries) {
+        if (maxRetries > 1000) {
+            if (BuildConfig.DEBUG)
+                Log.w(TAG, String.format("isValidMaxRetries: Max retries '%s' is valid, but seems excessive. Are you sure you want to wait %s iterations before giving up on sending events?", maxRetries, maxRetries));
+        }
+        return maxRetries > 0;
+    }
 }

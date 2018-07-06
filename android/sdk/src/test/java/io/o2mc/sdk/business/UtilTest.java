@@ -94,4 +94,27 @@ public class UtilTest {
         String httpsEndpoint = "https://google.com";
         assertTrue(Util.isHttps(httpsEndpoint));
     }
+
+    @Test
+    public void isValidMaxRetries() {
+        List<Integer> validRetries = new ArrayList<>();
+        validRetries.add(1);
+        validRetries.add(2);
+        validRetries.add(3);
+        validRetries.add(99);
+        validRetries.add(100);
+        validRetries.add(101);
+
+        for (int i : validRetries) {
+            assertTrue(Util.isValidMaxRetries(i));
+        }
+
+        List<Integer> invalidRetries = new ArrayList<>();
+        invalidRetries.add(0);
+        invalidRetries.add(-1);
+        invalidRetries.add(-2);
+        for (int i : invalidRetries) {
+            assertFalse(Util.isValidMaxRetries(i));
+        }
+    }
 }
