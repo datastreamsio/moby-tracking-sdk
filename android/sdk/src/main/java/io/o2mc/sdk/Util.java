@@ -139,6 +139,10 @@ public class Util {
      * @return true if the max retries value is allowed
      */
     public static boolean isValidMaxRetries(int maxRetries) {
+        if (maxRetries > 1000) {
+            if (BuildConfig.DEBUG)
+                Log.w(TAG, String.format("isValidMaxRetries: Max retries '%s' is valid, but seems excessive. Are you sure you want to wait %s iterations before giving up on sending events?", maxRetries, maxRetries));
+        }
         return maxRetries > 0;
     }
 }
