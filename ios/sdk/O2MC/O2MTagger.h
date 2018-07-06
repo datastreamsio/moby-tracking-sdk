@@ -35,6 +35,7 @@
 -(void) setEndpoint :(NSString *) endpoint;
 -(void) setAppId :(NSString *) appId;
 -(void) setDispatchInterval :(NSNumber *)dispatchInterval;
+-(void) setMaxRetries :(NSInteger)maxRetries;
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 
 //Tracking methods

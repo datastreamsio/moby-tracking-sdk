@@ -15,7 +15,7 @@
 }
 
 @property (assign, nonatomic, readonly) NSInteger connRetries;
-@property (assign, nonatomic, readonly) NSInteger connRetriesMax;
+@property (assign, nonatomic) NSInteger connRetriesMax;
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;

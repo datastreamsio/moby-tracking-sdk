@@ -70,6 +70,12 @@ static int objectCount = 0;
     [self.funnel_lock unlock];
 }
 
+-(void) setMaxRetries :(NSInteger)maxRetries; {
+    if (_dispatcher) {
+        [_dispatcher setConnRetriesMax: maxRetries];
+    }
+}
+
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
     [self.funnel_lock lock];
     if([_funnel objectForKey:funnelKey] == nil){
