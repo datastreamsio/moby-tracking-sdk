@@ -29,19 +29,20 @@
     O2MDevice *d = [[O2MDevice alloc] init];
 
     NSMutableDictionary* data = [NSMutableDictionary new];
-    [data setObject:_appName forKey:@"AppId"];
+    [data setObject:_appName forKey:@"appId"];
     [data setObject:@"3G" forKey:@"connection"];
-    [data setObject:[[UIDevice currentDevice] systemName] forKey:@"os"];
-    [data setObject:[[UIDevice currentDevice] systemVersion] forKey:@"osVersion"];
-    [data setObject:d.deviceName forKey:@"device"];
+    [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
+    [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
+    [data setObject:d.deviceName forKey:@"deviceName"];
 
     return data;
 }
 
 - (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
     NSDictionary *data = @{
-            @"application" :  [self getGeneralInfo],
-            @"tracked" : funnel
+            @"deviceInformation" :  [self getGeneralInfo],
+            @"events" : funnel,
+            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries]
     };
 
 
@@ -67,8 +68,8 @@
         NSURLSessionDataTask *dataTask = [[self urlSession] dataTaskWithRequest: request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
-            if ([data length] > 0 && error == nil) {
-                if ([httpResponse statusCode] == 200 || [httpResponse statusCode] == 201) {
+            if (data.length > 0 && error == nil) {
+                if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
                     #ifdef DEBUG
                         os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
                     #endif

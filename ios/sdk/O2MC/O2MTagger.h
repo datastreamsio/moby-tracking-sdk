@@ -34,12 +34,31 @@
 -(void) clearFunnel;
 -(void) setEndpoint :(NSString *) endpoint;
 -(void) setAppId :(NSString *) appId;
+/**
+ * The time interval between sending events to the backend.
+ * @param dispatchInterval time in seconds (defaults to 8)
+ */
 -(void) setDispatchInterval :(NSNumber *)dispatchInterval;
+/**
+ * The max amount of connection retries before stopping dispatching.
+ * @param maxRetries retry amount (defaults to 5)
+ */
 -(void) setMaxRetries :(NSInteger)maxRetries;
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 
 //Tracking methods
+/**
+ * Tracks an event.
+ * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
+ * @param eventName name of tracked event
+ */
 -(void)track :(NSString*)eventName;
+/**
+ * Tracks an event with additional data.
+ * Essentially adds a new event with the String parameter as name and any properties as JSON String format.
+ * @param eventName name of tracked event
+ * @param propertiesAsJson anything you'd like to keep track of
+ */
 -(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
 -(void)createAlias :(NSString*)alias;
 -(void)identify :(NSString *)identity;
