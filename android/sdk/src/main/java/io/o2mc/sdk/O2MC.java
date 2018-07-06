@@ -39,25 +39,16 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private BatchGenerator batchGenerator;
     private EventBus eventBus;
 
-    public O2MC(Application app, String endpoint) {
-        if (app == null) {
-            if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
-                    "Manually tracked events will still work, however " +
-                    "activity lifecycle callbacks will not be automatically detected.");
-        } else {
-            this.app = app;
-            this.app.registerActivityLifecycleCallbacks(this);
-        }
-
-        if (endpoint == null || endpoint.isEmpty()) {
-            if (BuildConfig.DEBUG) Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
-        } else if (Util.isValidEndpoint(endpoint)) {
-            this.endpoint = endpoint;
-            this.usingHttpsEndpoint = Util.isHttps(endpoint);
-        } else {
-            if (BuildConfig.DEBUG)
-                Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
-        }
+    /**
+     * This is central point of communication between the SDK and the app implementing it.
+     * The implementing app should never have anything to deal with any other class than this one.
+     *
+     * @param app      Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
+     * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
+     */
+    private void shadowConstructor(Application app, String endpoint) {
+        setApp(app);
+        setEndpoint(endpoint);
 
         this.deviceManager = new DeviceManager(app);
         this.eventGenerator = new EventGenerator();
@@ -68,14 +59,59 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
+     * This is central point of communication between the SDK and the app implementing it.
+     * The implementing app should never have anything to deal with any other class than this one.
      *
-     * @param maxRetries the amount of times the SDK should try to resend a batch before giving up
+     * @param app      Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
+     * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
+     */
+    public O2MC(Application app, String endpoint) {
+        shadowConstructor(app, endpoint);
+        setDispatchInterval(Config.DEFAULT_DISPATCH_INTERVAL);
+        setMaxRetries(Config.DEFAULT_MAX_RETRIES);
+    }
+
+    /**
+     * This is central point of communication between the SDK and the app implementing it.
+     * The implementing app should never have anything to deal with any other class than this one.
+     *
+     * @param app              Top-level application class, as defined in the app manifest
+     * @param endpoint         URL to the back-end, defines where to dispatch tracking events to
+     * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
+     */
+    public O2MC(Application app, String endpoint, int dispatchInterval) {
+        shadowConstructor(app, endpoint);
+        setDispatchInterval(dispatchInterval);
+        setMaxRetries(Config.DEFAULT_MAX_RETRIES);
+    }
+
+    /**
+     * This is central point of communication between the SDK and the app implementing it.
+     * The implementing app should never have anything to deal with any other class than this one.
+     *
+     * @param app              Top-level application class, as defined in the app manifest
+     * @param endpoint         URL to the back-end, defines where to dispatch tracking events to
+     * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
+     * @param maxRetries       Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
+     */
+    public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
+        shadowConstructor(app, endpoint);
+        setDispatchInterval(dispatchInterval);
+        setMaxRetries(maxRetries);
+    }
+
+    /**
+     * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
      */
     public void setMaxRetries(int maxRetries) {
-        // Setting a max below zero or zero makes no sense -- then you'd never send any batches.
-        if (maxRetries > 0) {
+        if (Util.isValidMaxRetries(maxRetries)) {
             this.maxRetries = maxRetries;
+        } else {
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, String.format("O2MC: Max retries amount '%s' is invalid.", maxRetries));
+                Log.w(TAG, String.format("setMaxRetries: Setting to default '%s'", Config.DEFAULT_MAX_RETRIES));
+            }
+            this.maxRetries = Config.DEFAULT_MAX_RETRIES;
         }
     }
 
@@ -85,13 +121,16 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      *
      * @param seconds time in seconds
      */
-    public void setDispatchInterval(int seconds) {
+    private void setDispatchInterval(int seconds) {
         if (Util.isValidDispatchInterval(seconds)) {
             this.dispatchInterval = seconds;
             startDispatching(); // Interval is set, start dispatching now.
         } else {
-            if (BuildConfig.DEBUG)
+            if (BuildConfig.DEBUG) {
                 Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.", dispatchInterval));
+                Log.w(TAG, String.format("setDispatchInterval: Setting to default '%s'", Config.DEFAULT_DISPATCH_INTERVAL));
+            }
+            this.dispatchInterval = Config.DEFAULT_DISPATCH_INTERVAL;
         }
     }
 
@@ -216,6 +255,29 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
         timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
     }
 
+    private void setEndpoint(String endpoint) {
+        if (endpoint == null || endpoint.isEmpty()) {
+            if (BuildConfig.DEBUG) Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
+        } else if (Util.isValidEndpoint(endpoint)) {
+            this.endpoint = endpoint;
+            this.usingHttpsEndpoint = Util.isHttps(endpoint);
+        } else {
+            if (BuildConfig.DEBUG)
+                Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
+        }
+    }
+
+    public void setApp(Application app) {
+        if (app == null) {
+            if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
+                    "Manually tracked events will still work, however " +
+                    "activity lifecycle callbacks will not be automatically detected.");
+        } else {
+            this.app = app;
+            this.app.registerActivityLifecycleCallbacks(this);
+        }
+    }
+
     /**
      * Sends all events from the EventBus to the backend, if there are any events.
      */
@@ -236,7 +298,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
             }
 
             // Don't try resending a batch if the max retries limit has exceeded
-            if (batchGenerator.getRetries() >= maxRetries) {
+            if (batchGenerator.getRetries() > maxRetries) {
                 if (BuildConfig.DEBUG)
                     Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
                 timer.cancel();

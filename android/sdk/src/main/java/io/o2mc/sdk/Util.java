@@ -130,4 +130,15 @@ public class Util {
 
         return true;
     }
+
+    /**
+     * Checks whether or not the max retries given is above 0.
+     * Anything above is allowed. Some insanely high values may not make much sense, and will be given a warning, but allowed.
+     *
+     * @param maxRetries the amount of times to retry dispatching events
+     * @return true if the max retries value is allowed
+     */
+    public static boolean isValidMaxRetries(int maxRetries) {
+        return maxRetries > 0;
+    }
 }
