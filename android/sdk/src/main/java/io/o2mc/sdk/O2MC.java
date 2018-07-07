@@ -8,11 +8,11 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.o2mc.sdk.business.BatchDispatcher;
-import io.o2mc.sdk.business.BatchGenerator;
+import io.o2mc.sdk.business.batch.BatchDispatcher;
+import io.o2mc.sdk.business.batch.BatchGenerator;
 import io.o2mc.sdk.business.DeviceManager;
-import io.o2mc.sdk.business.EventBus;
-import io.o2mc.sdk.business.EventGenerator;
+import io.o2mc.sdk.business.event.EventBus;
+import io.o2mc.sdk.business.event.EventGenerator;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
 

@@ -1,4 +1,4 @@
-package io.o2mc.sdk.business;
+package io.o2mc.sdk.business.batch;
 
 import android.util.Log;
 
