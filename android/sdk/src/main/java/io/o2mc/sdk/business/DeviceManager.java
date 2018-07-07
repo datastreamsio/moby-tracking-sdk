@@ -1,7 +1,9 @@
 package io.o2mc.sdk.business;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Build;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -17,7 +19,7 @@ import io.o2mc.sdk.domain.DeviceInformation;
 public class DeviceManager {
     private static final String TAG = "DeviceManager";
 
-    private final Application app;
+    private Application app;
 
     public DeviceManager(Application app) {
         this.app = app;

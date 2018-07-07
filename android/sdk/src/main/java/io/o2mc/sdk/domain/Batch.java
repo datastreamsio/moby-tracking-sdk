@@ -23,6 +23,9 @@ public class Batch {
         this.retries = retries;
     }
 
+    public List<Event> getEvents() {
+        return events;
+    }
 
     public int getNumber() {
         return number;

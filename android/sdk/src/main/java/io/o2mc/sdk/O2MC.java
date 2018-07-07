@@ -5,17 +5,6 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import io.o2mc.sdk.business.batch.BatchDispatcher;
-import io.o2mc.sdk.business.batch.BatchGenerator;
-import io.o2mc.sdk.business.DeviceManager;
-import io.o2mc.sdk.business.event.EventBus;
-import io.o2mc.sdk.business.event.EventGenerator;
-import io.o2mc.sdk.domain.Batch;
-import io.o2mc.sdk.domain.Event;
-
 /**
  * This is central point of communication between the SDK and the app implementing it.
  * The implementing app should never have anything to deal with any other class than this one.
@@ -25,19 +14,10 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     private static final String TAG = "O2MC";
 
     @SuppressWarnings("FieldCanBeLocal")
+    // keeping the variable here may prevent GC from removing the reference to the App
     private Application app; // required for activity callbacks & context (may need it for more callbacks in the future)
 
-    private String endpoint;
-    private boolean usingHttpsEndpoint;
-
-    private final Timer timer = new Timer(); // timer used for dispatching events
-    private int dispatchInterval; // interval on which to send events
-    private int maxRetries; // max amount of times to retry sending batches
-
-    private DeviceManager deviceManager;
-    private EventGenerator eventGenerator;
-    private BatchGenerator batchGenerator;
-    private EventBus eventBus;
+    private TrackingManager trackingManager;
 
     /**
      * This is central point of communication between the SDK and the app implementing it.
@@ -46,29 +26,9 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param app      Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
      * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
      */
-    private void shadowConstructor(Application app, String endpoint) {
-        setApp(app);
-        setEndpoint(endpoint);
-
-        this.deviceManager = new DeviceManager(app);
-        this.eventGenerator = new EventGenerator();
-        this.batchGenerator = new BatchGenerator();
-        this.eventBus = new EventBus();
-
-        BatchDispatcher.getInstance().setO2mc(this);
-    }
-
-    /**
-     * This is central point of communication between the SDK and the app implementing it.
-     * The implementing app should never have anything to deal with any other class than this one.
-     *
-     * @param app      Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
-     * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
-     */
+    @SuppressWarnings({"unused", "WeakerAccess"}) // potentially used by App implementing our SDK
     public O2MC(Application app, String endpoint) {
-        shadowConstructor(app, endpoint);
-        setDispatchInterval(Config.DEFAULT_DISPATCH_INTERVAL);
-        setMaxRetries(Config.DEFAULT_MAX_RETRIES);
+        this(app, endpoint, Config.DEFAULT_DISPATCH_INTERVAL, Config.DEFAULT_MAX_RETRIES);
     }
 
     /**
@@ -79,10 +39,9 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param endpoint         URL to the back-end, defines where to dispatch tracking events to
      * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
      */
+    @SuppressWarnings({"unused", "WeakerAccess"}) // potentially used by App implementing our SDK
     public O2MC(Application app, String endpoint, int dispatchInterval) {
-        shadowConstructor(app, endpoint);
-        setDispatchInterval(dispatchInterval);
-        setMaxRetries(Config.DEFAULT_MAX_RETRIES);
+        this(app, endpoint, dispatchInterval, Config.DEFAULT_MAX_RETRIES);
     }
 
     /**
@@ -94,45 +53,18 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
      * @param maxRetries       Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
      */
+    @SuppressWarnings({"unused", "WeakerAccess"}) // potentially used by App implementing our SDK
     public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
-        shadowConstructor(app, endpoint);
-        setDispatchInterval(dispatchInterval);
-        setMaxRetries(maxRetries);
-    }
-
-    /**
-     * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
-     */
-    @SuppressWarnings("WeakerAccess") // invalid warning; this method is intended to be used by an App implementing our SDK.
-    public void setMaxRetries(int maxRetries) {
-        if (Util.isValidMaxRetries(maxRetries)) {
-            this.maxRetries = maxRetries;
+        if (app == null) {
+            if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
+                    "Manually tracked events will still work, however " +
+                    "activity lifecycle callbacks will not be automatically detected.");
         } else {
-            if (BuildConfig.DEBUG) {
-                Log.e(TAG, String.format("O2MC: Max retries amount '%s' is invalid.", maxRetries));
-                Log.w(TAG, String.format("setMaxRetries: Setting to default '%s'", Config.DEFAULT_MAX_RETRIES));
-            }
-            this.maxRetries = Config.DEFAULT_MAX_RETRIES;
+            this.app = app;
+            this.app.registerActivityLifecycleCallbacks(this);
         }
-    }
 
-    /**
-     * Tells the EventManager on which intervals it should send the generated events.
-     * Starts dispatching once interval is set.
-     *
-     * @param seconds time in seconds
-     */
-    private void setDispatchInterval(int seconds) {
-        if (Util.isValidDispatchInterval(seconds)) {
-            this.dispatchInterval = seconds;
-            startDispatching(); // Interval is set, start dispatching now.
-        } else {
-            if (BuildConfig.DEBUG) {
-                Log.e(TAG, String.format("O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.", dispatchInterval));
-                Log.w(TAG, String.format("setDispatchInterval: Setting to default '%s'", Config.DEFAULT_DISPATCH_INTERVAL));
-            }
-            this.dispatchInterval = Config.DEFAULT_DISPATCH_INTERVAL;
-        }
+        trackingManager = new TrackingManager(app, endpoint, dispatchInterval, maxRetries);
     }
 
     /**
@@ -199,8 +131,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     public void track(String eventName) {
         if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
-        Event e = eventGenerator.generateEvent(eventName);
-        eventBus.add(e);
+        trackingManager.track(eventName);
     }
 
     /**
@@ -213,105 +144,11 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
      */
     public void trackWithProperties(String eventName, String value) {
         if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
-        Event e = eventGenerator.generateEventWithProperties(eventName, value);
-        eventBus.add(e);
+        trackingManager.trackWithProperties(eventName, value);
     }
 
-    /**
-     * Called upon successful HTTP post
-     */
-    public void dispatchSuccess() {
-        if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch successful.");
-        reset();
-        batchGenerator.lastBatchSucceeded();
-    }
-
-    /**
-     * Removes all tracking events which would otherwise be sent upon next dispatch interval.
-     */
     public void reset() {
-        eventBus.clearEvents();
-    }
-
-    /**
-     * Called upon failure of HTTP post
-     */
-    public void dispatchFailure() {
-        if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
-
-        batchGenerator.lastBatchFailed();
-    }
-
-    /**
-     * Sets a timer for dispatching events to the backend.
-     */
-    private void startDispatching() {
-        // Check if the device is allowed to dispatch events
-        if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
-            if (BuildConfig.DEBUG)
-                Log.e(TAG, "run: Not allowed to dispatch events. See previous message(s) for more info.");
-            return;
-        }
-
-        timer.schedule(new Dispatcher(), dispatchInterval * 1000, dispatchInterval * 1000);
-    }
-
-    private void setEndpoint(String endpoint) {
-        if (endpoint == null || endpoint.isEmpty()) {
-            if (BuildConfig.DEBUG) Log.e(TAG, "O2MC: Please provide a non-empty endpoint.");
-        } else if (Util.isValidEndpoint(endpoint)) {
-            this.endpoint = endpoint;
-            this.usingHttpsEndpoint = Util.isHttps(endpoint);
-        } else {
-            if (BuildConfig.DEBUG)
-                Log.e(TAG, String.format("O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.", endpoint));
-        }
-    }
-
-    private void setApp(Application app) {
-        if (app == null) {
-            if (BuildConfig.DEBUG) Log.w(TAG, "O2MC: Application (context) provided was null. " +
-                    "Manually tracked events will still work, however " +
-                    "activity lifecycle callbacks will not be automatically detected.");
-        } else {
-            this.app = app;
-            this.app.registerActivityLifecycleCallbacks(this);
-        }
-    }
-
-    /**
-     * Sends all events from the EventBus to the backend, if there are any events.
-     */
-    class Dispatcher extends TimerTask {
-        private static final String TAG = "Dispatcher";
-
-        public void run() {
-            // Don't dispatch if we have no events
-            if (eventBus.getEvents().size() <= 0) {
-                if (BuildConfig.DEBUG)
-                    Log.d(TAG, "run: There are no events to dispatch. Skipping.");
-                return;
-            }
-
-            // Initialize batchGenerator meta data on the first run
-            if (batchGenerator.firstRun()) {
-                batchGenerator.setDeviceInformation(deviceManager.generateDeviceInformation());
-            }
-
-            // Don't try resending a batch if the max retries limit has exceeded
-            if (batchGenerator.getRetries() > maxRetries) {
-                if (BuildConfig.DEBUG)
-                    Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
-                timer.cancel();
-                timer.purge();
-                return;
-            }
-
-            if (BuildConfig.DEBUG)
-                Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", eventBus.getEvents().size()));
-
-            Batch b = batchGenerator.generateBatch(eventBus.getEvents());
-            BatchDispatcher.getInstance().post(endpoint, b);
-        }
+        if (BuildConfig.DEBUG) Log.d(TAG, "Reset all events & batches.");
+        trackingManager.reset();
     }
 }

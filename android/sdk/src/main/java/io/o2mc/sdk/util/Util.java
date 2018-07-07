@@ -1,7 +1,9 @@
-package io.o2mc.sdk;
+package io.o2mc.sdk.util;
 
 import android.security.NetworkSecurityPolicy;
 import android.util.Log;
+
+import io.o2mc.sdk.BuildConfig;
 
 public final class Util {
 

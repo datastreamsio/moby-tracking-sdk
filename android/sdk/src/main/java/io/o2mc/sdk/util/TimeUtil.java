@@ -1,4 +1,4 @@
-package io.o2mc.sdk;
+package io.o2mc.sdk.util;
 
 import android.annotation.SuppressLint;
 

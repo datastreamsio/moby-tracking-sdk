@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.O2MC;
+import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Batch;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,7 +29,7 @@ public class BatchDispatcher {
     private static final String TAG = "BatchDispatcher";
 
     private static Gson gson;
-    private static O2MC o2mc;
+    private static BatchManager batchManager;
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final OkHttpClient client = new OkHttpClient().newBuilder().retryOnConnectionFailure(false).build();
@@ -124,8 +125,8 @@ public class BatchDispatcher {
         return gson.toJson(batch);
     }
 
-    public void setO2mc(O2MC o2mc) {
-        BatchDispatcher.o2mc = o2mc;
+    public void setBatchManager(BatchManager batchManager) {
+        BatchDispatcher.batchManager = batchManager;
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, "Set o2mc field.");
@@ -135,23 +136,23 @@ public class BatchDispatcher {
      * Called upon successful HTTP post
      */
     private void successCallback() {
-        if (o2mc == null) {
+        if (batchManager == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
             return;
         }
-        o2mc.dispatchSuccess();
+        batchManager.dispatchSuccess();
     }
 
     /**
      * Called upon failure of HTTP post
      */
     private void failureCallback() {
-        if (o2mc == null) {
+        if (batchManager == null) {
             if (BuildConfig.DEBUG)
                 Log.d(TAG, "O2mc variable is null.");
             return;
         }
-        o2mc.dispatchFailure();
+        batchManager.dispatchFailure();
     }
 }
