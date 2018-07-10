@@ -107,6 +107,7 @@
 		3CB18830619F92436E12AF54 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = O2M;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Adversitement;
 			};

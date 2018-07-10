@@ -32,7 +32,7 @@ static int objectCount = 0;
                                       };
     [self addToFunnel:@"alias" : buildInitFunnel];
     if(objectCount == 1 || forceStartTimer){
-        NSTimer *timer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue]
+        NSTimer *timer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
                                                  target:self
                                                selector:@selector(dispatch:)
                                                userInfo:nil
@@ -46,16 +46,26 @@ static int objectCount = 0;
     return self;
 }
 
+#pragma mark - Configuration methods
+
+-(void) setMaxRetries :(NSInteger)maxRetries; {
+    if (_dispatcher) {
+        [_dispatcher setConnRetriesMax: maxRetries];
+    }
+}
+
+#pragma mark - Internal methods
+
 -(void) dispatch:(NSTimer *)timer;{
     [self.funnel_lock lock];
-    if([_funnel count] > 0){
+    if(_funnel.count > 0){
         if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
             #ifdef DEBUG
                 os_log_debug(self->_logTopic, "Dispatcher has been triggered");
             #endif
             [_dispatcher dispatch :_endpoint :_funnel];
         } else {
-            os_log_info(self->_logTopic, "Reached max connection retries (%u), stopping dispatcher.", _dispatcher.connRetriesMax);
+            os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)_dispatcher.connRetriesMax);
 
             // Stopping the time based interval loop.
             [timer invalidate];
@@ -70,12 +80,6 @@ static int objectCount = 0;
     [self.funnel_lock unlock];
 }
 
--(void) setMaxRetries :(NSInteger)maxRetries; {
-    if (_dispatcher) {
-        [_dispatcher setConnRetriesMax: maxRetries];
-    }
-}
-
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
     [self.funnel_lock lock];
     if([_funnel objectForKey:funnelKey] == nil){
@@ -88,15 +92,15 @@ static int objectCount = 0;
     for(id key in _funnel){
         numberOfItems += [[_funnel objectForKey:key] count];
     }
-    //        if(numberOfItems > 1){
-    //            [_dispatcher dispatch :_endpoint :_funnel];
-    //        }
+
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
     #endif
     [self.funnel_lock unlock];
     
 }
+
+#pragma mark - Tracking methods
 
 -(void)track :(NSString*)eventName; {
     #ifdef DEBUG
