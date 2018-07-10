@@ -74,7 +74,7 @@ public class BatchDispatcher {
 
                 @SuppressWarnings("ConstantConditions") // invalid warning because it's checked for
                 @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
                     if (response.isSuccessful()) {
                         // Http response indicates success, inform user and SDK
                         BatchDispatcher.getInstance().successCallback();
