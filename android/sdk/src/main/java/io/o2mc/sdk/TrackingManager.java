@@ -37,6 +37,10 @@ public class TrackingManager {
         this.batchManager = new BatchManager(this, endpoint, dispatchInterval, maxRetries);
     }
 
+    public void setMaxRetries(int maxRetries) {
+        this.batchManager.setMaxRetries(maxRetries);
+    }
+
     public void track(String eventName) {
         eventManager.newEvent(eventName);
     }

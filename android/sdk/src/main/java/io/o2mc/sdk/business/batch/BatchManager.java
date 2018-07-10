@@ -46,7 +46,7 @@ public class BatchManager {
     /**
      * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
      */
-    private void setMaxRetries(int maxRetries) {
+    public void setMaxRetries(int maxRetries) {
         if (Util.isValidMaxRetries(maxRetries)) {
             this.maxRetries = maxRetries;
         } else {

@@ -68,6 +68,16 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
+     * Changes the number of times the SDK should try to resend data to the backend before giving up.
+     *
+     * @param maxRetries number of times to retry
+     */
+    @SuppressWarnings("unused")
+    public void setMaxRetries(int maxRetries) {
+        trackingManager.setMaxRetries(maxRetries);
+    }
+
+    /**
      * Executed on the Activity lifecycle event 'onActivityCreated' of any Activity inside the provided 'App' parameter on initialization of this class.
      */
     @Override
