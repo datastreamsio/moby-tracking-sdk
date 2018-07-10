@@ -166,30 +166,40 @@ public class BatchManager {
                 return;
             }
 
-            // Don't generate a batch if we have no events
-            if (getEvents().size() <= 0) {
+            // Only generate a batch if we have events
+            if (getEvents().size() > 0) {
+                batchBus.add(batchBus.generateBatch(getEvents()));
+                if (BuildConfig.DEBUG)
+                    Log.d(TAG, String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
+                clearEvents();
+            } else {
                 if (BuildConfig.DEBUG)
                     Log.d(TAG, "run: There are no events to generate a new batch from.");
-                return;
-            } else {
-                batchBus.add(batchBus.generateBatch(getEvents()));
-                Log.d(TAG, String.format("run: Batch contains '%s' events", getEvents().size()));
-                clearEvents();
             }
 
             // If there's a batch pending, skip this run
-            if (batchBus.isBatchPending()) {
+            if (batchBus.awaitingCallback()) {
                 if (BuildConfig.DEBUG)
-                    Log.d(TAG, "run: There's a batch pending. Stopping here.");
+                    Log.d(TAG, "run: Still awaiting a callback from previous run. Stopping here.");
                 return;
             }
 
-            // No batch pending, continue
-            batchBus.setPendingBatch();
+            // There's no pending batch, set / generate one if possible
+            if (batchBus.getPendingBatch() == null) {
+                batchBus.setPendingBatch();
+            }
+
+            // If there is one now, send it
+            if (batchBus.getPendingBatch() == null) {
+                if (BuildConfig.DEBUG)
+                    Log.i(TAG, "run: There is no pending batch set. Not dispatching.");
+                return;
+            }
 
             // Dispatch the newly set batch
             if (BuildConfig.DEBUG)
                 Log.i(TAG, String.format("run: Dispatching batch with '%s' events.", batchBus.getPendingBatch().getEvents().size()));
+            batchBus.onDispatch();
             BatchDispatcher.getInstance().post(endpoint, batchBus.getPendingBatch());
         }
     }

@@ -15,12 +15,11 @@ public class Batch {
     private int number;
     private int retries;
 
-    public Batch(DeviceInformation deviceInformation, String timestamp, List<Event> events, int number, int retries) {
+    public Batch(DeviceInformation deviceInformation, String timestamp, List<Event> events, int number) {
         this.deviceInformation = deviceInformation;
         this.timestamp = timestamp;
         this.events = events;
         this.number = number;
-        this.retries = retries;
     }
 
     public List<Event> getEvents() {
@@ -35,4 +34,7 @@ public class Batch {
         this.number = number;
     }
 
+    public void setRetries(int retries) {
+        this.retries = retries;
+    }
 }

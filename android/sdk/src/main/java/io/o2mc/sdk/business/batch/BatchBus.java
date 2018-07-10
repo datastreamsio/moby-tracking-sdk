@@ -25,7 +25,7 @@ public class BatchBus {
     private static int batchCounter = 0; // represents how many batches have been generated so far
     private int retries = 0; // represents the amount of times in a row batches have failed to be sent
 
-    private boolean isBatchPending;
+    private boolean awaitingCallback;
     private Batch pendingBatch;
 
     public BatchBus() {
@@ -52,8 +52,7 @@ public class BatchBus {
                 deviceInformation,
                 TimeUtil.generateTimestamp(),
                 new ArrayList<>(events), // generate a new list, don't use a reference to the list
-                batchCounter++, /*add 1 to the counter after this statement*/
-                retries
+                batchCounter++ /*add 1 to the counter after this statement*/
         );
     }
 
@@ -62,6 +61,7 @@ public class BatchBus {
      */
     public void lastBatchFailed() {
         retries++;
+        awaitingCallback = false;
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, String.format("Last batch failed. Retries is '%s' now.", retries));
@@ -73,7 +73,7 @@ public class BatchBus {
     public void lastBatchSucceeded() {
         retries = 0;
         pendingBatch = null;
-        isBatchPending = false;
+        awaitingCallback = false;
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, String.format("Last batch succeeded. Retries is '%s' now.", retries));
@@ -98,12 +98,12 @@ public class BatchBus {
     }
 
     /**
-     * Checks whether or not there's currently a batch pending.
+     * Checks whether or not we're currently awaiting a callback from previous dispatch.
      *
-     * @return true if we're waiting for a Batch to either be processed successfully or faulty
+     * @return true if we're still waiting for a http response
      */
-    public boolean isBatchPending() {
-        return isBatchPending;
+    public boolean awaitingCallback() {
+        return awaitingCallback;
     }
 
     /**
@@ -114,18 +114,19 @@ public class BatchBus {
         synchronized (batches) { // another thread may be updating the BatchBus
             switch (batches.size()) {
                 case 0:
-                    Log.w(TAG, "setPendingBatch: There are no batches to set as pending. This is unexpected behaviour, there should have been set at least one batch prior to execution of this method. Please contact the SDK maintainer.");
+                    if (BuildConfig.DEBUG)
+                        Log.w(TAG, "setPendingBatch: There are no batches to set as pending.");
                     break;
                 case 1:
-                    Log.d(TAG, "setPendingBatch: There's currently one batch in the BatchBus. Setting it as pending.");
+                    if (BuildConfig.DEBUG)
+                        Log.d(TAG, "setPendingBatch: There's currently one batch in the BatchBus. Setting it as pending.");
                     pendingBatch = batches.get(0); // set the only batch as pending
-                    isBatchPending = true; // set this batch as the pending batch, we're about to send it
                     clearBatches(); // remove from bus to prevent resending it later
                     break;
                 default:
-                    Log.d(TAG, String.format("setPendingBatch: There are currently more than one ('%s') batches in the BatchBus. Merging.", batches.size()));
+                    if (BuildConfig.DEBUG)
+                        Log.d(TAG, String.format("setPendingBatch: There are currently more than one ('%s') batches in the BatchBus. Merging.", batches.size()));
                     pendingBatch = mergeBatches(batches); // set all batches in the batch bus as a new big one on pending
-                    isBatchPending = true; // set this batch as the pending batch, we're about to send it
                     clearBatches(); // remove from bus to prevent resending it later
                     break;
             }
@@ -149,5 +150,13 @@ public class BatchBus {
             allEvents.addAll(b.getEvents());
         }
         return generateBatch(allEvents);
+    }
+
+    /**
+     * Executed when starting to dispatch batch(es) from BatchManager.
+     */
+    public void onDispatch() {
+        awaitingCallback = true;
+        pendingBatch.setRetries(retries);
     }
 }

@@ -54,7 +54,7 @@ public class TrackingManager {
     }
 
     /**
-     * Return device information. Generate it it it hasn't been generated before.
+     * Return device information. Generate if it hasn't been generated before.
      *
      * @return information about device
      */

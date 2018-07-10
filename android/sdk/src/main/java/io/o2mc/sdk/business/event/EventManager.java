@@ -22,7 +22,6 @@ public class EventManager {
         eventBus.add(e);
     }
 
-
     /**
      * Removes all tracking events which would otherwise be sent upon next dispatch interval.
      */
