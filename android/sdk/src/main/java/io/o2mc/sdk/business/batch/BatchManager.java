@@ -2,18 +2,15 @@ package io.o2mc.sdk.business.batch;
 
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.TimerTask;
 
-import java.util.Timer;
-
+import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.Config;
 import io.o2mc.sdk.TrackingManager;
-import io.o2mc.sdk.util.Util;
-import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.Event;
-import io.o2mc.sdk.BuildConfig;
+import io.o2mc.sdk.util.Util;
 
 public class BatchManager {
 

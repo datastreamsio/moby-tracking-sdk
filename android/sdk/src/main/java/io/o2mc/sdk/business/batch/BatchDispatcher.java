@@ -8,8 +8,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import io.o2mc.sdk.BuildConfig;
-import io.o2mc.sdk.O2MC;
-import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Batch;
 import okhttp3.Call;
 import okhttp3.Callback;

@@ -1,9 +1,7 @@
 package io.o2mc.sdk.business;
 
 import android.app.Application;
-import android.content.Context;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.util.Log;
 

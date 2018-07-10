@@ -5,7 +5,6 @@ import android.app.Application;
 import java.util.List;
 
 import io.o2mc.sdk.business.DeviceManager;
-import io.o2mc.sdk.business.batch.BatchDispatcher;
 import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.domain.DeviceInformation;
