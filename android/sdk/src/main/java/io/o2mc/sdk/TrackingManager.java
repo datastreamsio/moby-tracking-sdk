@@ -62,7 +62,7 @@ public class TrackingManager {
    */
   public DeviceInformation getDeviceInformation() {
     if (deviceInformation == null) {
-      this.deviceInformation = deviceManager.generateDeviceInformation();
+      deviceInformation = deviceManager.generateDeviceInformation();
     }
     return deviceInformation;
   }

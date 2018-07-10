@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Manages everything that's related to batches by making use of a BatchBus and a BatchDispatcher.
+ */
 public class BatchManager {
 
   private static final String TAG = "BatchManager";
@@ -26,6 +29,12 @@ public class BatchManager {
 
   private BatchBus batchBus;
 
+  /**
+   * @param trackingManager required for callbacks
+   * @param endpoint URL to the backend
+   * @param dispatchInterval dispatch interval in seconds
+   * @param maxRetries number of times the manager will retry sending batches before giving up
+   */
   public BatchManager(TrackingManager trackingManager, String endpoint, int dispatchInterval,
       int maxRetries) {
     this.batchBus = new BatchBus();
@@ -41,6 +50,8 @@ public class BatchManager {
 
   /**
    * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
+   *
+   * @param maxRetries amount of times to retry before giving up
    */
   public void setMaxRetries(int maxRetries) {
     if (Util.isValidMaxRetries(maxRetries)) {
@@ -124,7 +135,8 @@ public class BatchManager {
       return;
     }
 
-    timer.schedule(new DispatcherTask(), dispatchInterval * 1000, dispatchInterval * 1000);
+    final int SECOND = 1000;
+    timer.schedule(new DispatcherTask(), dispatchInterval * SECOND, dispatchInterval * SECOND);
   }
 
   /**

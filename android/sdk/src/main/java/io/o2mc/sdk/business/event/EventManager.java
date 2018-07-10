@@ -3,6 +3,9 @@ package io.o2mc.sdk.business.event;
 import io.o2mc.sdk.domain.Event;
 import java.util.List;
 
+/**
+ * Manages everything that's related to events by making use of a EventBus.
+ */
 public class EventManager {
 
   private EventBus eventBus;

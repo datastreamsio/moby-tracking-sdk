@@ -120,8 +120,7 @@ public class BatchBus {
           clearBatches(); // remove from bus to prevent resending it later
           break;
         default:
-          pendingBatch =
-              mergeBatches(batches); // set all batches in the batch bus as a new big one on pending
+          pendingBatch = mergeBatches(batches); // set all batches as a new big one on pending
           clearBatches(); // remove from bus to prevent resending it later
           break;
       }
