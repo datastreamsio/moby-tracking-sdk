@@ -32,7 +32,6 @@ public class BatchBus {
         this.batches = new ArrayList<>();
     }
 
-
     /**
      * Sets device information. Only set it if it hasn't been set previously.
      *
@@ -95,6 +94,10 @@ public class BatchBus {
 
         if (BuildConfig.DEBUG)
             Log.d(TAG, "clearBatches: Cleared the BatchBus.");
+    }
+
+    public void clearPending() {
+        pendingBatch = null;
     }
 
     /**

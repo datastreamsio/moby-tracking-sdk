@@ -144,6 +144,7 @@ public class BatchManager {
 
     public void reset() {
         batchBus.clearBatches();
+        batchBus.clearPending();
     }
 
     /**
