@@ -1,11 +1,9 @@
-package io.o2mc.sdk.business;
+package io.o2mc.sdk.util;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.o2mc.sdk.util.Util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
