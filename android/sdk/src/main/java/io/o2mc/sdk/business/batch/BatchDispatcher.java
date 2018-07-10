@@ -66,11 +66,11 @@ public class BatchDispatcher {
       client.newCall(request).enqueue(new Callback() {
         @Override
         public void onFailure(@NonNull Call call, @NonNull IOException e) {
-          BatchDispatcher.getInstance().failureCallback();
-
           if (BuildConfig.DEBUG) {
             Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
           }
+
+          BatchDispatcher.getInstance().failureCallback();
         }
 
         @SuppressWarnings("ConstantConditions") // invalid warning because it's checked for
