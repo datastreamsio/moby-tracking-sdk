@@ -89,11 +89,11 @@ public class BatchManager {
       this.endpoint = endpoint;
       this.usingHttpsEndpoint = Util.isHttps(endpoint);
     } else {
-        if (BuildConfig.DEBUG) {
-            Log.e(TAG, String.format(
-                "O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.",
-                endpoint));
-        }
+      if (BuildConfig.DEBUG) {
+        Log.e(TAG, String.format(
+            "O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.",
+            endpoint));
+      }
     }
   }
 
@@ -117,10 +117,10 @@ public class BatchManager {
   private void startDispatching() {
     // Check if the device is allowed to dispatch events
     if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
-        if (BuildConfig.DEBUG) {
-            Log.e(TAG,
-                "run: Not allowed to dispatch events. See previous message(s) for more info.");
-        }
+      if (BuildConfig.DEBUG) {
+        Log.e(TAG,
+            "run: Not allowed to dispatch events. See previous message(s) for more info.");
+      }
       return;
     }
 
@@ -161,9 +161,9 @@ public class BatchManager {
 
       // Don't try resending a batch if the max retries limit has exceeded
       if (batchBus.getRetries() > maxRetries) {
-          if (BuildConfig.DEBUG) {
-              Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
-          }
+        if (BuildConfig.DEBUG) {
+          Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
+        }
         timer.cancel();
         timer.purge();
         return;
@@ -172,19 +172,19 @@ public class BatchManager {
       // Only generate a batch if we have events
       if (getEvents().size() > 0) {
         batchBus.add(batchBus.generateBatch(getEvents()));
-          if (BuildConfig.DEBUG) {
-              Log.d(TAG,
-                  String.format("run: Newly generated batch contains '%s' events",
-                      getEvents().size()));
-          }
+        if (BuildConfig.DEBUG) {
+          Log.d(TAG,
+              String.format("run: Newly generated batch contains '%s' events",
+                  getEvents().size()));
+        }
         clearEvents();
       }
 
       // If there's a batch pending, skip this run
       if (batchBus.awaitingCallback()) {
-          if (BuildConfig.DEBUG) {
-              Log.d(TAG, "run: Still awaiting a callback from previous run. Stopping here.");
-          }
+        if (BuildConfig.DEBUG) {
+          Log.d(TAG, "run: Still awaiting a callback from previous run. Stopping here.");
+        }
         return;
       }
 
@@ -195,17 +195,17 @@ public class BatchManager {
 
       // If there is one now, send it
       if (batchBus.getPendingBatch() == null) {
-          if (BuildConfig.DEBUG) {
-              Log.i(TAG, "run: There is no pending batch set. Not dispatching.");
-          }
+        if (BuildConfig.DEBUG) {
+          Log.i(TAG, "run: There is no pending batch set. Not dispatching.");
+        }
         return;
       }
 
       // Dispatch the newly set batch
-        if (BuildConfig.DEBUG) {
-            Log.i(TAG, String.format("run: Dispatching batch with '%s' events.",
-                batchBus.getPendingBatch().getEvents().size()));
-        }
+      if (BuildConfig.DEBUG) {
+        Log.i(TAG, String.format("run: Dispatching batch with '%s' events.",
+            batchBus.getPendingBatch().getEvents().size()));
+      }
       batchBus.onDispatch();
       BatchDispatcher.getInstance().post(endpoint, batchBus.getPendingBatch());
     }
