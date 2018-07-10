@@ -1,14 +1,12 @@
 package io.o2mc.sdk;
 
 import android.app.Application;
-
-import java.util.List;
-
 import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
+import java.util.List;
 
 /**
  * Acts as an intermediate between O2MC and our classes. This is useful to protect methods which
@@ -20,56 +18,57 @@ import io.o2mc.sdk.domain.Event;
  */
 public class TrackingManager {
 
-    private Application application;
+  private Application application;
 
-    private DeviceManager deviceManager;
-    private EventManager eventManager;
-    private BatchManager batchManager;
+  private DeviceManager deviceManager;
+  private EventManager eventManager;
+  private BatchManager batchManager;
 
-    private DeviceInformation deviceInformation;
+  private DeviceInformation deviceInformation;
 
-    public TrackingManager(Application application, String endpoint, int dispatchInterval, int maxRetries) {
-        this.application = application;
+  public TrackingManager(Application application, String endpoint, int dispatchInterval,
+      int maxRetries) {
+    this.application = application;
 
-        this.deviceManager = new DeviceManager(application);
-        this.eventManager = new EventManager();
-        this.batchManager = new BatchManager(this, endpoint, dispatchInterval, maxRetries);
+    this.deviceManager = new DeviceManager(application);
+    this.eventManager = new EventManager();
+    this.batchManager = new BatchManager(this, endpoint, dispatchInterval, maxRetries);
+  }
+
+  public void setMaxRetries(int maxRetries) {
+    this.batchManager.setMaxRetries(maxRetries);
+  }
+
+  public void track(String eventName) {
+    eventManager.newEvent(eventName);
+  }
+
+  public void trackWithProperties(String eventName, String value) {
+    eventManager.newEventWithProperties(eventName, value);
+  }
+
+  public List<Event> getEventsFromBus() {
+    return eventManager.getEventsFromBus();
+  }
+
+  public void clearEventsFromBus() {
+    eventManager.clearEventsFromBus();
+  }
+
+  /**
+   * Return device information. Generate if it hasn't been generated before.
+   *
+   * @return information about device
+   */
+  public DeviceInformation getDeviceInformation() {
+    if (deviceInformation == null) {
+      this.deviceInformation = deviceManager.generateDeviceInformation();
     }
+    return deviceInformation;
+  }
 
-    public void setMaxRetries(int maxRetries) {
-        this.batchManager.setMaxRetries(maxRetries);
-    }
-
-    public void track(String eventName) {
-        eventManager.newEvent(eventName);
-    }
-
-    public void trackWithProperties(String eventName, String value) {
-        eventManager.newEventWithProperties(eventName, value);
-    }
-
-    public List<Event> getEventsFromBus() {
-        return eventManager.getEventsFromBus();
-    }
-
-    public void clearEventsFromBus() {
-        eventManager.clearEventsFromBus();
-    }
-
-    /**
-     * Return device information. Generate if it hasn't been generated before.
-     *
-     * @return information about device
-     */
-    public DeviceInformation getDeviceInformation() {
-        if (deviceInformation == null) {
-            this.deviceInformation = deviceManager.generateDeviceInformation();
-        }
-        return deviceInformation;
-    }
-
-    public void reset() {
-        this.eventManager.reset();
-        this.batchManager.reset();
-    }
+  public void reset() {
+    this.eventManager.reset();
+    this.batchManager.reset();
+  }
 }
