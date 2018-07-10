@@ -1,7 +1,6 @@
 package io.o2mc.app;
 
 import android.app.Application;
-
 import io.o2mc.sdk.O2MC;
 
 public class App extends Application {
