@@ -42,10 +42,6 @@ public class BatchBus {
   }
 
   public Batch generateBatch(List<Event> events) {
-    if (BuildConfig.DEBUG) {
-      Log.i(TAG, String.format("generateBatch: Generating batch with '%s' events", events.size()));
-    }
-
     return new Batch(
         deviceInformation,
         TimeUtil.generateTimestamp(),
@@ -94,10 +90,6 @@ public class BatchBus {
 
   public void clearBatches() {
     batches.clear();
-
-    if (BuildConfig.DEBUG) {
-      Log.d(TAG, "clearBatches: Cleared the BatchBus.");
-    }
   }
 
   public void clearPending() {
@@ -124,19 +116,10 @@ public class BatchBus {
           // There are no batches to set as pending, do nothing.
           break;
         case 1:
-          if (BuildConfig.DEBUG) {
-            Log.d(TAG,
-                "setPendingBatch: There's currently one batch in the BatchBus. Setting it as pending.");
-          }
           pendingBatch = batches.get(0); // set the only batch as pending
           clearBatches(); // remove from bus to prevent resending it later
           break;
         default:
-          if (BuildConfig.DEBUG) {
-            Log.d(TAG, String.format(
-                "setPendingBatch: There are currently more than one ('%s') batches in the BatchBus. Merging.",
-                batches.size()));
-          }
           pendingBatch =
               mergeBatches(batches); // set all batches in the batch bus as a new big one on pending
           clearBatches(); // remove from bus to prevent resending it later
