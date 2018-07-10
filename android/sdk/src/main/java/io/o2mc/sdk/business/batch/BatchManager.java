@@ -101,8 +101,6 @@ public class BatchManager {
    * Called upon successful HTTP post
    */
   public void dispatchSuccess() {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch successful.");
-
     batchBus.lastBatchSucceeded();
   }
 
@@ -110,8 +108,6 @@ public class BatchManager {
    * Called upon failure of HTTP post
    */
   public void dispatchFailure() {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Dispatch failure. Not clearing EventBus.");
-
     batchBus.lastBatchFailed();
   }
 
