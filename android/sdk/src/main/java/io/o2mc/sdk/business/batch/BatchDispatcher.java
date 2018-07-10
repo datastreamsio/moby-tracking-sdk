@@ -56,11 +56,6 @@ public class BatchDispatcher {
     try {
       String json = batchToJson(batch);
 
-      if (BuildConfig.DEBUG) {
-        Log.d(TAG,
-            String.format("Posting batch containing a total of '%s' characters", json.length()));
-      }
-
       RequestBody body = RequestBody.create(JSON, json);
       Request request = new Request.Builder().url(url).post(body).build();
       client.newCall(request).enqueue(new Callback() {
@@ -82,18 +77,6 @@ public class BatchDispatcher {
             if (response.body() == null) {
               if (BuildConfig.DEBUG) {
                 Log.w(TAG, "onResponse: empty http response from backend");
-              }
-            } else {
-              try {
-                if (BuildConfig.DEBUG) {
-                  Log.i(TAG, String.format("onResponse: http response contained '%s' characters",
-                      response.body().string().length()));
-                }
-              } catch (NullPointerException | IOException ex) {
-                //noinspection ConstantConditions
-                if (BuildConfig.DEBUG) {
-                  Log.e(TAG, "onResponse: Response string is null", ex);
-                }
               }
             }
           } else {
