@@ -121,9 +121,7 @@ public class BatchBus {
     synchronized (batches) { // another thread may be updating the BatchBus
       switch (batches.size()) {
         case 0:
-          if (BuildConfig.DEBUG) {
-            Log.w(TAG, "setPendingBatch: There are no batches to set as pending.");
-          }
+          // There are no batches to set as pending, do nothing.
           break;
         case 1:
           if (BuildConfig.DEBUG) {

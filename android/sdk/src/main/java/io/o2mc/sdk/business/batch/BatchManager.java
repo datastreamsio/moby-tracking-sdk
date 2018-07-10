@@ -178,10 +178,6 @@ public class BatchManager {
                       getEvents().size()));
           }
         clearEvents();
-      } else {
-          if (BuildConfig.DEBUG) {
-              Log.d(TAG, "run: There are no events to generate a new batch from.");
-          }
       }
 
       // If there's a batch pending, skip this run
