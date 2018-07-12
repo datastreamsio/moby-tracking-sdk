@@ -48,11 +48,11 @@ public class TrackingManager {
   }
 
   public List<Event> getEventsFromBus() {
-    return eventManager.getEventsFromBus();
+    return eventManager.getEvents();
   }
 
   public void clearEventsFromBus() {
-    eventManager.clearEventsFromBus();
+    eventManager.reset();
   }
 
   /**
@@ -70,5 +70,13 @@ public class TrackingManager {
   public void reset() {
     this.eventManager.reset();
     this.batchManager.reset();
+  }
+
+  /**
+   * Stops the EventManager and BatchManager from generating data and dispatching them.
+   */
+  public void stop() {
+    eventManager.stop();
+    batchManager.stop();
   }
 }

@@ -9,16 +9,32 @@ import java.util.List;
 public class EventManager {
 
   private EventBus eventBus;
+  private boolean isStopped;
 
   public EventManager() {
     this.eventBus = new EventBus();
   }
 
+  /**
+   * Generates a new event and adds it to the EventBus.
+   *
+   * @param eventName name of event to generate
+   */
   public void newEvent(String eventName) {
+    if (isStopped) {
+      return;
+    }
+
     Event e = eventBus.generateEvent(eventName);
     eventBus.add(e);
   }
 
+  /**
+   * Generates a new event with additional properties and adds it to the EventBus.
+   *
+   * @param eventName name of event to generate
+   * @param value value to include in the event
+   */
   public void newEventWithProperties(String eventName, String value) {
     Event e = eventBus.generateEventWithProperties(eventName, value);
     eventBus.add(e);
@@ -31,11 +47,20 @@ public class EventManager {
     eventBus.clearEvents();
   }
 
-  public List<Event> getEventsFromBus() {
+  /**
+   * Returns all known events which are not yet dispatched to the backend
+   *
+   * @return list of events
+   */
+  public List<Event> getEvents() {
     return eventBus.getEvents();
   }
 
-  public void clearEventsFromBus() {
+  /**
+   * When called, no more events will be generated
+   */
+  public void stop() {
     reset();
+    isStopped = true;
   }
 }

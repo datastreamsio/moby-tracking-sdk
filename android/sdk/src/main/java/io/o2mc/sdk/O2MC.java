@@ -160,8 +160,20 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
     trackingManager.trackWithProperties(eventName, value);
   }
 
+  /**
+   * Resets all currently generated data. This removes currently tracking events which are not
+   * sent to the backend permanently. This does not change anything in the backend.
+   */
   public void reset() {
     if (BuildConfig.DEBUG) Log.d(TAG, "Reset all events & batches.");
     trackingManager.reset();
+  }
+
+  /**
+   * Stops generating tracking events and stops dispatching already generated ones.
+   */
+  public void stop() {
+    if (BuildConfig.DEBUG) Log.d(TAG, "Stop generating and dispatching events / batches.");
+    trackingManager.stop();
   }
 }

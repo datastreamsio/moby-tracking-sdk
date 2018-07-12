@@ -26,14 +26,8 @@ public class MainActivity extends AppCompatActivity {
         App.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
     }
 
-    public void onCreateAliasHandler(View v) {
-        // Not sure what anyone would do with this.
-    }
-
-    public void onSetIdentityHandler(View v) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "onSetIdentityHandler executed");
-
-        // Not sure what anyone would do with this.
+    public void onStopTracking(View v) {
+        App.getO2mc().stop();
     }
 
     public void onResetTrackingHandler(View v) {

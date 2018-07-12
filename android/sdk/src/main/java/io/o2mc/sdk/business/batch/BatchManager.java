@@ -29,6 +29,8 @@ public class BatchManager {
 
   private BatchBus batchBus;
 
+  private boolean isStopped;
+
   /**
    * @param trackingManager required for callbacks
    * @param endpoint URL to the backend
@@ -158,6 +160,11 @@ public class BatchManager {
   public void reset() {
     batchBus.clearBatches();
     batchBus.clearPending();
+  }
+
+  public void stop() {
+    reset();
+    isStopped = true;
   }
 
   /**
