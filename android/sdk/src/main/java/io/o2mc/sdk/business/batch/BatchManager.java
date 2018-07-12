@@ -175,6 +175,10 @@ public class BatchManager {
 
     @Override
     public void run() {
+      if (isStopped) {
+        return;
+      }
+
       // Initialize batchGenerator meta data
       batchBus.setDeviceInformation(trackingManager.getDeviceInformation());
 
