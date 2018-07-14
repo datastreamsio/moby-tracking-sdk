@@ -67,6 +67,9 @@ public class TrackingManager {
     return deviceInformation;
   }
 
+  /**
+   * Resets the current data recorded in the managers to zero. All events, batches, will be cleared.
+   */
   public void reset() {
     this.eventManager.reset();
     this.batchManager.reset();

@@ -21,9 +21,7 @@ public class EventManager {
    * @param eventName name of event to generate
    */
   public void newEvent(String eventName) {
-    if (isStopped) {
-      return;
-    }
+    if (isStopped) return;
 
     Event e = eventBus.generateEvent(eventName);
     eventBus.add(e);
@@ -36,6 +34,8 @@ public class EventManager {
    * @param value value to include in the event
    */
   public void newEventWithProperties(String eventName, String value) {
+    if (isStopped) return;
+
     Event e = eventBus.generateEventWithProperties(eventName, value);
     eventBus.add(e);
   }
