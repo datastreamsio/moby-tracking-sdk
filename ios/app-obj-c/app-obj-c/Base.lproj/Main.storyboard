@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abu-cO-rNf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abu-cO-rNf">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -53,6 +53,28 @@
                                     <action selector="BtnTouchResetTracking:" destination="Abu-cO-rNf" eventType="touchDown" id="I6X-Ce-oKj"/>
                                 </connections>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zWT-dW-HNr">
+                                <rect key="frame" x="337" y="226" width="95" height="30"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-lc-up9">
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="30"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hVB-nc-p0b">
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUK-Mt-LmN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="95" height="30"/>
+                                                        <state key="normal" title="Stop Tracking"/>
+                                                        <connections>
+                                                            <action selector="BtnTouchStopTracking:" destination="Abu-cO-rNf" eventType="touchDown" id="8wU-Yk-iNU"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -65,8 +87,10 @@
                             <constraint firstItem="K7p-86-AlV" firstAttribute="top" secondItem="czo-UV-NSk" secondAttribute="top" constant="16" id="ZCW-vo-U84"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="centerX" secondItem="K7p-86-AlV" secondAttribute="centerX" id="eKK-TI-c8x"/>
                             <constraint firstItem="bHt-u1-LqR" firstAttribute="centerX" secondItem="DoE-SC-Mbw" secondAttribute="centerX" id="gPT-aV-sZC"/>
+                            <constraint firstItem="zWT-dW-HNr" firstAttribute="centerX" secondItem="crc-Kh-X3j" secondAttribute="centerX" id="gnb-hh-rRM"/>
                             <constraint firstItem="MfZ-Di-i0r" firstAttribute="top" secondItem="bHt-u1-LqR" secondAttribute="bottom" constant="8" symbolic="YES" id="jZh-LJ-Jz4"/>
                             <constraint firstItem="K7p-86-AlV" firstAttribute="leading" secondItem="Mly-dr-BNN" secondAttribute="leadingMargin" id="mtD-JJ-7qF"/>
+                            <constraint firstItem="zWT-dW-HNr" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="rOg-uS-4Ek"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="czo-UV-NSk"/>
                     </view>
