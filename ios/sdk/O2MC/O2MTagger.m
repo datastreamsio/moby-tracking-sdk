@@ -32,12 +32,12 @@ static int objectCount = 0;
                                       };
     [self addToFunnel:@"alias" : buildInitFunnel];
     if(objectCount == 1 || forceStartTimer){
-        NSTimer *timer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
+        _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
                                                  target:self
                                                selector:@selector(dispatch:)
                                                userInfo:nil
                                                 repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop mainRunLoop] addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
         os_log(self->_logTopic, "Init tagger with timer");
     } else {
         os_log(self->_logTopic, "Init tagger");
@@ -219,6 +219,12 @@ static int objectCount = 0;
             [self addToFunnel:eventName :funnel];
         }
     }
+}
+
+-(void)stop {
+    os_log_info(self->_logTopic, "tracking stopped");
+
+    [_dispatchTimer invalidate];
 }
 
 @end
