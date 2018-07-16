@@ -160,6 +160,16 @@ public class BatchManager {
     batchBus.clearPending();
   }
 
+  public void stop() {
+    stopTimer();
+    reset();
+  }
+
+  private void stopTimer() {
+    timer.cancel();
+    timer.purge();
+  }
+
   /**
    * Sends all events from the EventBus to the backend, if there are any events.
    */
@@ -176,8 +186,7 @@ public class BatchManager {
         if (BuildConfig.DEBUG) {
           Log.w(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
         }
-        timer.cancel();
-        timer.purge();
+        stopTimer();
         return;
       }
 
