@@ -16,6 +16,8 @@ import io.o2mc.sdk.BuildConfig;
  * Suggestion: It would be better to use ProGuard to remove logs in the release build variant.
  * This, however, has proven to require a lot of understanding about ProGuard and thus time consuming.
  */
+// Suppressing JavaDoc warnings for methods because the explanation above is sufficient for all methods.
+@SuppressWarnings("JavaDoc")
 public class LogUtil {
 
   public static void LogE(final String TAG, String message) {
