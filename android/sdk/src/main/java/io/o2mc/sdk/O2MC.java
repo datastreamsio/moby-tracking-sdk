@@ -3,7 +3,9 @@ package io.o2mc.sdk;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
+
+import static io.o2mc.sdk.util.LogUtil.LogD;
+import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * This is central point of communication between the SDK and the app implementing it.
@@ -57,11 +59,9 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
   @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
     if (app == null) {
-      if (BuildConfig.DEBUG) {
-        Log.w(TAG, "O2MC: Application (context) provided was null. " +
-            "Manually tracked events will still work, however " +
-            "activity lifecycle callbacks will not be automatically detected.");
-      }
+      LogW(TAG, "O2MC: Application (context) provided was null. " +
+          "Manually tracked events will still work, however " +
+          "activity lifecycle callbacks will not be automatically detected.");
     } else {
       this.app = app;
       this.app.registerActivityLifecycleCallbacks(this);
@@ -85,7 +85,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityCreated(Activity activity, Bundle bundle) {
-    if (BuildConfig.DEBUG) Log.i(TAG, "Activity created.");
+    LogD(TAG, "Activity created.");
   }
 
   /**
@@ -93,7 +93,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityStarted(Activity activity) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity started.");
+    LogD(TAG, "Activity started.");
   }
 
   /**
@@ -101,7 +101,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityResumed(Activity activity) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity resumed.");
+    LogD(TAG, "Activity resumed.");
   }
 
   /**
@@ -109,7 +109,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityPaused(Activity activity) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity resumed.");
+    LogD(TAG, "Activity resumed.");
   }
 
   /**
@@ -117,7 +117,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityStopped(Activity activity) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity stopped.");
+    LogD(TAG, "Activity stopped.");
   }
 
   /**
@@ -125,7 +125,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity saved instance state.");
+    LogD(TAG, "Activity saved instance state.");
   }
 
   /**
@@ -133,7 +133,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    */
   @Override
   public void onActivityDestroyed(Activity activity) {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Activity destroyed.");
+    LogD(TAG, "Activity destroyed.");
   }
 
   /**
@@ -143,7 +143,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param eventName name of tracked event
    */
   public void track(String eventName) {
-    if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
+    LogD(TAG, String.format("Tracked '%s'", eventName));
     trackingManager.track(eventName);
   }
 
@@ -156,12 +156,12 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param value anything you'd like to keep track of in String format
    */
   public void trackWithProperties(String eventName, String value) {
-    if (BuildConfig.DEBUG) Log.d(TAG, String.format("Tracked '%s'", eventName));
+    LogD(TAG, String.format("Tracked '%s'", eventName));
     trackingManager.trackWithProperties(eventName, value);
   }
 
   public void reset() {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Reset all events & batches.");
+    LogD(TAG, "Reset all events & batches.");
     trackingManager.reset();
   }
 }

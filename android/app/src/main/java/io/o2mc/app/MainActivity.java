@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import static io.o2mc.sdk.util.LogUtil.LogD;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +32,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSetIdentityHandler(View v) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "onSetIdentityHandler executed");
+        LogD(TAG, "onSetIdentityHandler executed");
 
         // Not sure what anyone would do with this.
     }
 
     public void onResetTrackingHandler(View v) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "onResetTrackingHandler executed");
+        LogD(TAG, "onResetTrackingHandler executed");
         App.getO2mc().reset();
     }
 }
