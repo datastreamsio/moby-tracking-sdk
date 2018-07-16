@@ -177,9 +177,7 @@ public class BatchManager {
 
       // Don't try resending a batch if the max retries limit has exceeded
       if (batchBus.getRetries() > maxRetries) {
-        if (BuildConfig.DEBUG) {
-          LogW(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
-        }
+        LogW(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
         stopTimer();
         return;
       }
