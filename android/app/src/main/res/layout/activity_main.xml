@@ -31,18 +31,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonStopTracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onCreateAliasHandler"
-            android:text="@string/create_alias" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onSetIdentityHandler"
-            android:text="@string/set_identity" />
+            android:onClick="onStopTracking"
+            android:text="@string/stop_tracking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/button2"
