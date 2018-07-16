@@ -54,7 +54,7 @@
 - (IBAction)BtnTouchStopTracking:(id)sender {
     os_log(self._logTopic, "stop tracking");
 
-    [self.O2MC.tracker stop];
+    [self.O2MC.tracker stop:YES];
 }
 
 

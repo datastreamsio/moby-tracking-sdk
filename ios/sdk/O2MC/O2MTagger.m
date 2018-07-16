@@ -224,7 +224,16 @@ static int objectCount = 0;
 -(void)stop {
     os_log_info(self->_logTopic, "tracking stopped");
 
+    [self stop:YES];
+}
+
+-(void)stop:(BOOL) clearFunnel; {
     [_dispatchTimer invalidate];
+
+    if (clearFunnel == YES) {
+        os_log_debug(self->_logTopic, "clearing the funnel");
+        [self clearFunnel];
+    }
 }
 
 @end

@@ -38,6 +38,7 @@
  * Stops tracking of events.
  */
 -(void) stop;
+-(void) stop :(BOOL) clearFunnel;
 /**
  * The time interval between sending events to the backend.
  * @param dispatchInterval time in seconds (defaults to 8)
