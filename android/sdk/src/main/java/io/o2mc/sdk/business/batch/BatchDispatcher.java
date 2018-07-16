@@ -1,9 +1,7 @@
 package io.o2mc.sdk.business.batch;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import com.google.gson.Gson;
-import io.o2mc.sdk.BuildConfig;
 import io.o2mc.sdk.domain.Batch;
 import java.io.IOException;
 import okhttp3.Call;
@@ -13,6 +11,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
+import static io.o2mc.sdk.util.LogUtil.LogD;
+import static io.o2mc.sdk.util.LogUtil.LogE;
+import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * Dispatches events in JSON format.
@@ -61,10 +63,7 @@ public class BatchDispatcher {
       client.newCall(request).enqueue(new Callback() {
         @Override
         public void onFailure(@NonNull Call call, @NonNull IOException e) {
-          if (BuildConfig.DEBUG) {
-            Log.e(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
-          }
-
+          LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
           BatchDispatcher.getInstance().failureCallback();
         }
 
@@ -75,33 +74,24 @@ public class BatchDispatcher {
             // Http response indicates success, inform user and SDK
             BatchDispatcher.getInstance().successCallback();
             if (response.body() == null) {
-              if (BuildConfig.DEBUG) {
-                Log.w(TAG, "onResponse: empty http response from backend");
-              }
+              LogW(TAG, "onResponse: empty http response from backend");
             }
           } else {
             try {
               // Http response indicates failure, inform user and SDK
               BatchDispatcher.getInstance().failureCallback();
 
-              if (BuildConfig.DEBUG) {
-                Log.w(TAG, String.format("onResponse: Http response indicates failure: '%s'",
-                    response.body().string()));
-              }
+              LogW(TAG, String.format("onResponse: Http response indicates failure: '%s'",
+                  response.body().string()));
             } catch (NullPointerException | IOException ex) {
-              if (BuildConfig.DEBUG) {
-                Log.e(TAG, "onResponse: Response string is null", ex);
-              }
+              LogE(TAG, "onResponse: Response string is null", ex);
             }
           }
         }
       });
     } catch (IllegalArgumentException | NullPointerException e) {
       BatchDispatcher.getInstance().failureCallback();
-
-      if (BuildConfig.DEBUG) {
-        Log.e(TAG, "post: Failed to dispatch events", e);
-      }
+      LogE(TAG, "post: Failed to dispatch events", e);
     }
   }
 
@@ -117,10 +107,7 @@ public class BatchDispatcher {
 
   public void setBatchManager(BatchManager batchManager) {
     BatchDispatcher.batchManager = batchManager;
-
-    if (BuildConfig.DEBUG) {
-      Log.d(TAG, "Set o2mc field.");
-    }
+    LogD(TAG, "Set o2mc field.");
   }
 
   /**
@@ -128,9 +115,7 @@ public class BatchDispatcher {
    */
   private void successCallback() {
     if (batchManager == null) {
-      if (BuildConfig.DEBUG) {
-        Log.d(TAG, "O2mc variable is null.");
-      }
+      LogD(TAG, "O2mc variable is null.");
       return;
     }
     batchManager.dispatchSuccess();
@@ -141,9 +126,7 @@ public class BatchDispatcher {
    */
   private void failureCallback() {
     if (batchManager == null) {
-      if (BuildConfig.DEBUG) {
-        Log.d(TAG, "O2mc variable is null.");
-      }
+      LogD(TAG, "O2mc variable is null.");
       return;
     }
     batchManager.dispatchFailure();
