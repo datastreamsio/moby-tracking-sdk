@@ -3,7 +3,7 @@
 //  app-swift
 //
 //  Created by Juan Jose Bernal on 12/07/2018.
-//  Copyright © 2018 Adversitement. All rights reserved.
+//  Copyright © 2018 O2MC. All rights reserved.
 //
 
 import UIKit
