@@ -103,9 +103,11 @@ static int objectCount = 0;
 #pragma mark - Tracking methods
 
 -(void)track :(NSString*)eventName; {
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Track %@", eventName);
     #endif
+
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -118,9 +120,11 @@ static int objectCount = 0;
 
 -(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
 {
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
     #endif
+
     NSDictionary *funnel = @{
                              @"event" : eventName,
                              @"alias":_alias,
@@ -133,9 +137,11 @@ static int objectCount = 0;
 
 
 -(void)createAlias:(NSString*)alias; {
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Alias %@", alias);
     #endif
+
     _alias = alias;
     NSDictionary *funnel = @{
                              @"event" : @"alias",
@@ -147,9 +153,11 @@ static int objectCount = 0;
 }
 
 -(void)identify:(NSString *)identity; {
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Identity %@", identity);
     #endif
+
     _identity = identity;
     NSDictionary *funnel = @{
                              @"event" : @"identity",
@@ -176,15 +184,18 @@ static int objectCount = 0;
 }
 
 -(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
     #endif
+
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
     _timedEventProperties = propertiesAsJson;
 }
 
 -(void)timeEventStart:(NSString*)eventName;{
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
     #endif
@@ -194,6 +205,7 @@ static int objectCount = 0;
 
 
 -(void)timeEventStop:(NSString*)eventName;{
+    if (![_dispatchTimer isValid]) return;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
     #endif
