@@ -26,6 +26,14 @@ object {
 
 The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
 
+#### os
+
+The device's operating system. For example `ios` or `android`. The value should be in lowercase.
+
+#### osVersion
+
+The operating system's version. For example `11.4` or `9`.
+
 ### Events property
 
 *TODO*
