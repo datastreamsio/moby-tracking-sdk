@@ -6,6 +6,7 @@
 
 #import "O2MDispatcher.h"
 #import "O2MDevice.h"
+#import "O2MUtil.h"
 #import <UIKit/UIDevice.h>
 
 
@@ -39,7 +40,8 @@
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
             @"events" : funnel,
-            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries]
+            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries],
+            @"timestamp": [O2MUtil currentTimestamp]
     };
 
 
