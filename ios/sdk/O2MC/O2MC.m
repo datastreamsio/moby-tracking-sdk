@@ -11,8 +11,8 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
- -(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
-     self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval :forceStartTimer];
+ -(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
+     self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval];
     return self;
 }
 @end

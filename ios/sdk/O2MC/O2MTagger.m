@@ -14,7 +14,7 @@
 
 static int objectCount = 0;
 
--(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
+-(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
     _funnel = [[NSMutableDictionary alloc] init];
@@ -23,25 +23,17 @@ static int objectCount = 0;
     _alias = [[NSUUID UUID] UUIDString];
     _identity = @"";
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
-    
+
     [self setEndpoint:endpoint];
     [self setDispatchInterval:dispatchInterval];
-    NSDictionary *buildInitFunnel = @{
-                                      @"alias" : _alias,
-                                      @"identity": _identity
-                                      };
-    [self addToFunnel:@"alias" : buildInitFunnel];
-    if(objectCount == 1 || forceStartTimer){
-        _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
-                                                 target:self
-                                               selector:@selector(dispatch:)
-                                               userInfo:nil
-                                                repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
-        os_log(self->_logTopic, "Init tagger with timer");
-    } else {
-        os_log(self->_logTopic, "Init tagger");
-    }
+
+    _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
+                                             target:self
+                                           selector:@selector(dispatch:)
+                                           userInfo:nil
+                                            repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
+
     objectCount++;
     return self;
 }

@@ -26,7 +26,7 @@
 @property NSString *appId;
 @property NSNumber *dispatchInterval;
 
--(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+-(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 /**
  * Removes current events which are not yet dispatched to the backend.
  */

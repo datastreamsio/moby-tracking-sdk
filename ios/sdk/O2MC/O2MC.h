@@ -15,6 +15,6 @@
 
 @property (readonly, nonatomic) O2MTagger *tracker;
 
--(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+-(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 
 @end
