@@ -7,8 +7,6 @@
 #import "O2MDispatcher.h"
 #import "O2MDevice.h"
 #import <UIKit/UIDevice.h>
-#include <ifaddrs.h>
-#include <arpa/inet.h>
 
 
 @implementation O2MDispatcher {
