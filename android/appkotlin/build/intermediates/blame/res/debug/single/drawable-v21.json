@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d81400998ca1e2e35e7b6369cb6d520e/res/drawable-v21/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d81400998ca1e2e35e7b6369cb6d520e/res/drawable-v21/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/abc_dialog_material_background.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/fc8dee56f722e2b85c46b77ef1692b3f/res/drawable-v21/abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/abc_list_divider_material.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-alpha3.aar/fc8dee56f722e2b85c46b77ef1692b3f/res/drawable-v21/abc_list_divider_material.xml"
+    },
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/abc_action_bar_item_background_material.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d81400998ca1e2e35e7b6369cb6d520e/res/drawable-v21/abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "/mnt/data/Projects/dimml-mobile-sdk/android/appkotlin/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
+        "source": "/home/eddy/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/7244e415148aac0cf126c3e16281b2a4/res/drawable-v21/notification_action_background.xml"
+    }
+]
