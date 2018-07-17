@@ -26,7 +26,7 @@ public class BatchBus {
   private boolean awaitingCallback;
   private Batch pendingBatch;
 
-  public BatchBus() {
+  BatchBus() {
     this.batches = new ArrayList<>();
   }
 

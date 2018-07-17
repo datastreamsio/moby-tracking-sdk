@@ -1,6 +1,8 @@
 package io.o2mc.sdk.business.batch;
 
+import android.util.Log;
 import io.o2mc.sdk.Config;
+import io.o2mc.sdk.O2MCCallback;
 import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.util.Util;
@@ -211,7 +213,21 @@ public class BatchManager {
       LogI(TAG, String.format("run: Dispatching batch with '%s' events.",
           batchBus.getPendingBatch().getEvents().size()));
       batchBus.onDispatch();
-      BatchDispatcher.getInstance().post(endpoint, batchBus.getPendingBatch());
+
+      // Declare a new exception callback, exceptions can be handled here.
+      // This is a prototype for the future exception handling framework, there should be one
+      // final place where exceptions can be handled, being at the top of our SDK.
+      O2MCCallback callback = new O2MCCallback() {
+        @Override public void exception(Exception e) {
+          Log.e(TAG, "callback: Received an exception from O2MCExceptionCallback", e);
+          dispatchFailure();
+        }
+
+        @Override public void success() {
+          dispatchSuccess();
+        }
+      };
+      BatchDispatcher.getInstance().post(endpoint, batchBus.getPendingBatch(), callback);
     }
   }
 }
