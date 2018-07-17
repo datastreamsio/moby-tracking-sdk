@@ -199,6 +199,7 @@ static int objectCount = 0;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
     #endif
+
     _startTime = [self getIsoTimestamp];
     _timedEvent = eventName;
 }
@@ -209,6 +210,7 @@ static int objectCount = 0;
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
     #endif
+
     if([_timedEvent isEqualToString:eventName]){
         if(_timedEventProperties){
             NSDictionary *funnel = @{
