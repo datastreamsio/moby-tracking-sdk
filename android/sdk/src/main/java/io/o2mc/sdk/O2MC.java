@@ -173,7 +173,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * Stops generating tracking events and stops dispatching already generated ones.
    */
   public void stop() {
-    if (BuildConfig.DEBUG) Log.d(TAG, "Stop generating and dispatching events / batches.");
+    LogD(TAG, "Stop generating and dispatching events / batches.");
     trackingManager.stop();
   }
 }
