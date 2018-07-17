@@ -28,7 +28,6 @@
 
     NSMutableDictionary* data = [NSMutableDictionary new];
     [data setObject:_appName forKey:@"appId"];
-    [data setObject:@"3G" forKey:@"connection"];
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
     [data setObject:d.deviceName forKey:@"deviceName"];
