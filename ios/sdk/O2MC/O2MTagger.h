@@ -12,14 +12,10 @@
 @class O2MDispatcher;
 
 @interface O2MTagger : NSObject {
-    Boolean _timerHasStarted;
     NSString * _alias;
     NSString * _identity;
     NSMutableDictionary * _funnel;
     NSTimer * _dispatchTimer;
-    NSString * _startTime;
-    NSString * _timedEvent;
-    NSString * _timedEventProperties;
     O2MDispatcher *_dispatcher;
     os_log_t _logTopic;
 }
