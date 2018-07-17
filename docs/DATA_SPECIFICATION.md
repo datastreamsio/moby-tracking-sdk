@@ -16,10 +16,16 @@ object {
 
 ```
 object {
+	string appId;
 	string os;
 	string osVersion;
 }
 ```
+
+#### appId
+
+The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
+
 ### Events property
 
 *TODO*
