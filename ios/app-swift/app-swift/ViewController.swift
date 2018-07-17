@@ -33,18 +33,6 @@ class ViewController: UIViewController {
         self.o2mc.tracker.track(self.eventNameTextField.text)
     }
     
-    @IBAction func BtnTouchCreateAlias(_ sender: Any) {
-        os_log("created alias", self._logTopic)
-        
-        self.o2mc.tracker.createAlias(self.eventNameTextField.text)
-    }
-    
-    @IBAction func BtnTouchSetIdentity(_ sender: Any) {
-        os_log("created identity", self._logTopic)
-        
-        self.o2mc.tracker.identify(self.eventNameTextField.text)
-    }
-    
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
         os_log("reset tracking", self._logTopic)
         

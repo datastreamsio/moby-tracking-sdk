@@ -65,11 +65,6 @@
  * @param propertiesAsJson anything you'd like to keep track of
  */
 -(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
--(void)createAlias :(NSString*)alias;
--(void)identify :(NSString *)identity;
--(void)timeEventStartWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
--(void)timeEventStart:(NSString*)eventName;
--(void)timeEventStop:(NSString*)eventName;
 
 
 -(void) dispatch :(NSTimer *)timer;
