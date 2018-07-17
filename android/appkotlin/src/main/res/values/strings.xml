@@ -1,3 +1,9 @@
 <resources>
   <string name="app_name">AppKotlin</string>
+  <string name="create_event">Create track event</string>
+  <string name="reset_tracking">Reset tracking</string>
+  <string name="name">Name</string>
+  <string name="create_alias">Create alias</string>
+  <string name="set_identity">Set identity</string>
+  <string name="stop_tracking">Stop Tracking</string>
 </resources>

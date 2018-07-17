@@ -1,22 +1,18 @@
 package io.o2mc.appkotlin
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import android.app.Application
+import io.o2mc.sdk.O2MC
 
-//class App : AppCompatActivity() {
-//
-//  override fun onCreate(savedInstanceState: Bundle?) {
-//    super.onCreate(savedInstanceState)
-//    setContentView(R.layout.activity_main)
-//  }
-//}
-var O2MC o2mc;
+class App : Application() {
 
-public App() {
-  o2mc = new O2MC(this, "http://10.0.2.2:5000/events");
+  // Closest equivalent to Java's static (https://stackoverflow.com/a/43857895/5273299)
+  companion object {
+    lateinit var o2mc: O2MC
+  }
+
+  // Called on constructor
+  init {
+    o2mc = O2MC(this, "http://10.0.2.2:5000/events") // init the 'static' field o2mc
+  }
 }
 
-public static O2MC getO2mc() {
-  return o2mc;
-}
-}
