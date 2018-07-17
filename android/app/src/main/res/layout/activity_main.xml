@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <EditText
             android:id="@+id/editText"
@@ -16,7 +17,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="@string/name" />
+            android:text="@string/name"
+            />
 
         <Button
             android:id="@+id/buttonCreateTrackEvent"
@@ -28,7 +30,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <Button
             android:id="@+id/buttonStopTracking"
@@ -40,18 +43,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonResumeTracking"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onResetTrackingHandler"
-            android:text="@string/reset_tracking"
+            android:onClick="onResumeTracking"
+            android:text="@string/resume_tracking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="299dp" />
+            tools:layout_editor_absoluteY="299dp"
+            />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

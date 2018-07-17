@@ -2,37 +2,40 @@ package io.o2mc.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import static io.o2mc.sdk.util.LogUtil.LogD;
-
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    App.getO2mc().track("MainActivityCreated");
+  }
 
-        App.getO2mc().track("MainActivityCreated");
-    }
+  /**
+   * Called on 'Create Track Event' button click
+   */
+  public void onCreateEventHandler(View v) {
+    EditText editText = findViewById(R.id.editText);
+    String text = editText.getText().toString();
 
-    public void onCreateEventHandler(View v) {
-        EditText editText = findViewById(R.id.editText);
-        String text = editText.getText().toString();
+    App.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
+  }
 
-        App.getO2mc().trackWithProperties("Clicked button: 'Create Track Event'", text);
-    }
+  /**
+   * Called on 'Stop Tracking' button click
+   */
+  public void onStopTracking(View v) {
+    App.getO2mc().stop();
+  }
 
-    public void onStopTracking(View v) {
-        App.getO2mc().stop();
-    }
-
-    public void onResetTrackingHandler(View v) {
-        LogD(TAG, "onResetTrackingHandler executed");
-        App.getO2mc().reset();
-    }
+  /**
+   * Called on 'Resume Tracking' button click
+   */
+  public void onResumeTracking(View v) {
+    App.getO2mc().resume();
+  }
 }

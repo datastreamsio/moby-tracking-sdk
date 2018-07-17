@@ -3,10 +3,14 @@ package io.o2mc.sdk.business.event;
 import io.o2mc.sdk.domain.Event;
 import java.util.List;
 
+import static io.o2mc.sdk.util.LogUtil.LogD;
+
 /**
  * Manages everything that's related to events by making use of a EventBus.
  */
 public class EventManager {
+
+  private static final String TAG = "EventManager";
 
   private EventBus eventBus;
   private boolean isStopped;
@@ -36,6 +40,8 @@ public class EventManager {
   public void newEventWithProperties(String eventName, String value) {
     if (isStopped) return;
 
+    LogD(TAG, String.format("Tracked '%s'", eventName));
+
     Event e = eventBus.generateEventWithProperties(eventName, value);
     eventBus.add(e);
   }
@@ -57,10 +63,17 @@ public class EventManager {
   }
 
   /**
-   * When called, no more events will be generated
+   * When called, disallow generation of events.
    */
   public void stop() {
     reset();
     isStopped = true;
+  }
+
+  /**
+   * Allow generation of events again.
+   */
+  public void resume() {
+    isStopped = false;
   }
 }
