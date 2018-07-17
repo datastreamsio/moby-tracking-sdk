@@ -30,12 +30,12 @@ For a Hello-world example, please refer to [this](docs/ANDROID_HELLO_WORLD.md) p
 Refer to the [API documentation](docs/API.md) for more details on how to use the SDK.
 
 ## Data specification
-The data is sent as JSON data. The format contains two main properties, the `application` and the `tracked` property. Both properties are guaranteed to be included.
+The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
 
 ```
 object {
-	object application;
-	array tracked { object; };
+	object deviceInformation;
+	array events { object; };
 }
 ```
 

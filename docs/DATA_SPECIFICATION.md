@@ -1,14 +1,14 @@
 # Data specification
-The data is sent as JSON data. The format contains two main properties, the `application` and the `tracked` property. Both properties are guaranteed to be included.
+The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
 
 ```
 object {
-	object application;
-	array tracked { object; };
+	object deviceInformation;
+	array events { object; };
 }
 ```
 
-### Application property
+### DeviceInformation property
 
 
 ```
@@ -17,6 +17,6 @@ object {
 	string osVersion;
 }
 ```
-### Tracked property
+### Events property
 
 *TODO*
