@@ -135,39 +135,6 @@ static int objectCount = 0;
     [self addToFunnel:eventName :funnel];
 }
 
-
--(void)createAlias:(NSString*)alias; {
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "Alias %@", alias);
-    #endif
-
-    _alias = alias;
-    NSDictionary *funnel = @{
-                             @"event" : @"alias",
-                             @"alias":_alias,
-                             @"identitiy":_identity,
-                             @"time":[self getIsoTimestamp]
-                             };
-    [self addToFunnel:@"alias" :funnel];
-}
-
--(void)identify:(NSString *)identity; {
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "Identity %@", identity);
-    #endif
-
-    _identity = identity;
-    NSDictionary *funnel = @{
-                             @"event" : @"identity",
-                             @"alias":_alias,
-                             @"identitiy":_identity,
-                             @"time":[self getIsoTimestamp]
-                             };
-    [self addToFunnel:@"identity" :funnel];
-}
-
 -(NSString*) getIsoTimestamp {
     // method found on stackoverflow: https://stackoverflow.com/a/16254918
     // iOS 10+ should use NSISO8601DateFormatter.
@@ -183,57 +150,6 @@ static int objectCount = 0;
     return iso8601String;
 }
 
--(void)timeEventStartWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;{
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "timeEventStartWithProperties %@:%@", eventName, propertiesAsJson);
-    #endif
-
-    _startTime = [self getIsoTimestamp];
-    _timedEvent = eventName;
-    _timedEventProperties = propertiesAsJson;
-}
-
--(void)timeEventStart:(NSString*)eventName;{
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "timeEventStart %@", eventName);
-    #endif
-
-    _startTime = [self getIsoTimestamp];
-    _timedEvent = eventName;
-}
-
-
--(void)timeEventStop:(NSString*)eventName;{
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "timeEventStop %@", eventName);
-    #endif
-
-    if([_timedEvent isEqualToString:eventName]){
-        if(_timedEventProperties){
-            NSDictionary *funnel = @{
-                                     @"event" : eventName,
-                                     @"alias":_alias,
-                                     @"identitiy":_identity,
-                                     @"timeStart":_startTime,
-                                     @"timeStop":[self getIsoTimestamp],
-                                     @"properties":_timedEventProperties
-                                     };
-            [self addToFunnel:eventName :funnel];
-        } else {
-            NSDictionary *funnel = @{
-                                     @"event" : eventName,
-                                     @"alias":_alias,
-                                     @"identitiy":_identity,
-                                     @"timeStart":_startTime,
-                                     @"timeStop":[self getIsoTimestamp]
-                                     };
-            [self addToFunnel:eventName :funnel];
-        }
-    }
-}
 
 -(void)stop {
     [self stop:YES];
