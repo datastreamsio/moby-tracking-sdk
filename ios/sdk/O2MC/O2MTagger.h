@@ -27,13 +27,24 @@
 @property NSNumber *dispatchInterval;
 
 -(O2MTagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+/**
+ * Removes current events which are not yet dispatched to the backend.
+ */
 -(void) clearFunnel;
+/**
+ * Configures an end point where the events will be dispatched to.
+ * @param endpoint http(s) URL which should be publicly reachable
+ */
 -(void) setEndpoint :(NSString *) endpoint;
 -(void) setAppId :(NSString *) appId;
 /**
  * Stops tracking of events.
  */
 -(void) stop;
+/**
+ * Stops tracking of events.
+ * @param clearFunnel clears any existing events
+ */
 -(void) stop :(BOOL) clearFunnel;
 /**
  * The time interval between sending events to the backend.
