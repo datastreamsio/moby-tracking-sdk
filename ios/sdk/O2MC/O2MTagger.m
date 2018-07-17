@@ -8,6 +8,7 @@
 
 #import "O2MTagger.h"
 #import "O2MDispatcher.h"
+#import "O2MUtil.h"
 
 @implementation O2MTagger
 
@@ -112,7 +113,7 @@ static int objectCount = 0;
                              @"event" : eventName,
                              @"alias":_alias,
                              @"identitiy":_identity,
-                             @"time":[self getIsoTimestamp]
+                             @"time":[O2MUtil currentTimestamp]
                              };
     
     [self addToFunnel:eventName :funnel];
@@ -129,25 +130,10 @@ static int objectCount = 0;
                              @"event" : eventName,
                              @"alias":_alias,
                              @"identitiy":_identity,
-                             @"time":[self getIsoTimestamp],
+                             @"time":[O2MUtil currentTimestamp],
                              @"properties":propertiesAsJson
                              };
     [self addToFunnel:eventName :funnel];
-}
-
--(NSString*) getIsoTimestamp {
-    // method found on stackoverflow: https://stackoverflow.com/a/16254918
-    // iOS 10+ should use NSISO8601DateFormatter.
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-
-    NSDate *now = [NSDate date];
-    NSString *iso8601String = [dateFormatter stringFromDate:now];
-
-    return iso8601String;
 }
 
 
