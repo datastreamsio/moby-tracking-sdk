@@ -14,7 +14,7 @@
 @interface O2MTagger : NSObject {
     NSString * _alias;
     NSString * _identity;
-    NSMutableDictionary * _funnel;
+    NSMutableArray * _funnel;
     NSTimer * _dispatchTimer;
     O2MDispatcher *_dispatcher;
     os_log_t _logTopic;

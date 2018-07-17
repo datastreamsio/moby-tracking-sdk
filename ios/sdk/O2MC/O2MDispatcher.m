@@ -36,7 +36,7 @@
     return data;
 }
 
-- (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
+- (void)dispatch:(NSString *)endpoint :(NSMutableArray *)funnel; {
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
             @"events" : funnel,

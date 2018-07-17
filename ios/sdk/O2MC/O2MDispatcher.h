@@ -18,7 +18,7 @@
 @property (assign, nonatomic) NSInteger connRetriesMax;
 
 - (id)init:(NSString*)appName;
--(void) dispatch:(NSString*)endpoint :(NSMutableDictionary *)funnel;
+-(void) dispatch:(NSString*)endpoint :(NSMutableArray *)funnel;
 -(NSMutableDictionary *) getGeneralInfo;
 -(void) successHandler;
 -(void) errorHandler;

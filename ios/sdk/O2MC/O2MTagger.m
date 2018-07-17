@@ -17,7 +17,7 @@ static int objectCount = 0;
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
-    _funnel = [[NSMutableDictionary alloc] init];
+    _funnel = [[NSMutableArray alloc] init];
     self.funnel_lock = [[NSLock alloc] init];
     _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
     _alias = [[NSUUID UUID] UUIDString];
@@ -74,19 +74,11 @@ static int objectCount = 0;
 
 -(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
     [self.funnel_lock lock];
-    if([_funnel objectForKey:funnelKey] == nil){
-        [_funnel setObject :[[NSMutableArray alloc] init] forKey :funnelKey];
-    }
-    [[_funnel objectForKey:funnelKey] addObject:funnelData];
-    
-    
-    int numberOfItems = 0;
-    for(id key in _funnel){
-        numberOfItems += [[_funnel objectForKey:key] count];
-    }
+
+    [_funnel addObject:funnelData];
 
     #ifdef DEBUG
-        os_log_debug(self->_logTopic, "Array Count = %lu && number of items %u", (unsigned long)[_funnel count], numberOfItems);
+    os_log_debug(self->_logTopic, "number of events %lu", (unsigned long)[_funnel count]);
     #endif
     [self.funnel_lock unlock];
     
