@@ -68,5 +68,4 @@
 
 
 -(void) dispatch :(NSTimer *)timer;
--(NSString*) getIsoTimestamp;
 @end
