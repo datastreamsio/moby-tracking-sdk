@@ -36,6 +36,9 @@ The data is sent as JSON data. The format contains two main properties, the `dev
 object {
 	object deviceInformation;
 	array events { object; };
+	int number;
+	int retries;
+	string timestamp;
 }
 ```
 
