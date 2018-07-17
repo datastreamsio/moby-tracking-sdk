@@ -50,5 +50,11 @@ class ViewController: UIViewController {
         
         self.o2mc.tracker.clearFunnel()
     }
+
+    @IBAction func BtnTouchStopTracking(_ sender: Any) {
+        os_log("stop tracking", self._logTopic)
+
+        self.o2mc.tracker.stop()
+    }
 }
 

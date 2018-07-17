@@ -51,5 +51,11 @@
     [self.O2MC.tracker clearFunnel];
 }
 
+- (IBAction)BtnTouchStopTracking:(id)sender {
+    os_log(self._logTopic, "stop tracking");
+
+    [self.O2MC.tracker stop];
+}
+
 
 @end

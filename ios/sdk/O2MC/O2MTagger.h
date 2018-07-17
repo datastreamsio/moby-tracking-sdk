@@ -16,7 +16,7 @@
     NSString * _alias;
     NSString * _identity;
     NSMutableDictionary * _funnel;
-    //    NSTimer * _dispatchTimer;
+    NSTimer * _dispatchTimer;
     NSString * _startTime;
     NSString * _timedEvent;
     NSString * _timedEventProperties;
@@ -34,6 +34,11 @@
 -(void) clearFunnel;
 -(void) setEndpoint :(NSString *) endpoint;
 -(void) setAppId :(NSString *) appId;
+/**
+ * Stops tracking of events.
+ */
+-(void) stop;
+-(void) stop :(BOOL) clearFunnel;
 /**
  * The time interval between sending events to the backend.
  * @param dispatchInterval time in seconds (defaults to 8)
