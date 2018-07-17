@@ -14,17 +14,16 @@
 
 static int objectCount = 0;
 
--(O2MTagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
+-(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer; {
     self = [super init];
     
     _funnel = [[NSMutableDictionary alloc] init];
     self.funnel_lock = [[NSLock alloc] init];
-    _dispatcher = [[O2MDispatcher alloc] init :appId];
+    _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
     _alias = [[NSUUID UUID] UUIDString];
     _identity = @"";
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
     
-    [self setAppId:appId];
     [self setEndpoint:endpoint];
     [self setDispatchInterval:dispatchInterval];
     NSDictionary *buildInitFunnel = @{

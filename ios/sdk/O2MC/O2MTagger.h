@@ -26,7 +26,7 @@
 @property NSString *appId;
 @property NSNumber *dispatchInterval;
 
--(O2MTagger *) init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+-(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
 /**
  * Removes current events which are not yet dispatched to the backend.
  */
@@ -36,7 +36,6 @@
  * @param endpoint http(s) URL which should be publicly reachable
  */
 -(void) setEndpoint :(NSString *) endpoint;
--(void) setAppId :(NSString *) appId;
 /**
  * Stops tracking of events.
  */
