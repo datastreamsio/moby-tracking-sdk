@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func BtnTouchCreateEvent(_ sender: Any) {
         os_log("created event", self._logTopic)
         
-        self.o2mc.tracker.track(self.eventNameTextField.text)
+        self.o2mc.track(self.eventNameTextField.text)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     @IBAction func BtnTouchStopTracking(_ sender: Any) {
         os_log("stop tracking", self._logTopic)
 
-        self.o2mc.tracker.stop()
+        self.o2mc.stop()
     }
 }
 

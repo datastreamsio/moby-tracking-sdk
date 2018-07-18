@@ -30,7 +30,7 @@
 - (IBAction)BtnTouchCreateEvent:(id)sender {
     os_log(self._logTopic, "created event");
 
-    [self.O2MC.tracker track:self.eventNameTextField.text];
+    [self.O2MC track:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchResetTracking:(id)sender {
@@ -42,7 +42,7 @@
 - (IBAction)BtnTouchStopTracking:(id)sender {
     os_log(self._logTopic, "stop tracking");
 
-    [self.O2MC.tracker stop];
+    [self.O2MC stop];
 }
 
 

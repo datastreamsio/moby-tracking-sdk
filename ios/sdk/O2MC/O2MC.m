@@ -15,5 +15,30 @@
      self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval];
     return self;
 }
+
+-(void) setEndpoint :(NSString *) endpoint; {
+    [self->_tracker setEndpoint:endpoint];
+}
+
+-(void) setMaxRetries :(NSInteger)maxRetries; {
+    [self->_tracker setMaxRetries:maxRetries];
+}
+
+-(void) stop; {
+    [self->_tracker stop];
+}
+
+-(void) stop :(BOOL) clearFunnel; {
+    [self->_tracker stop:clearFunnel];
+}
+
+-(void)track :(NSString*)eventName; {
+    [self->_tracker track:eventName];
+}
+
+-(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson; {
+    [self->_tracker trackWithProperties:eventName :propertiesAsJson];
+}
+
 @end
 
