@@ -6,9 +6,8 @@
 
 #import "O2MDispatcher.h"
 #import "O2MDevice.h"
+#import "O2MUtil.h"
 #import <UIKit/UIDevice.h>
-#include <ifaddrs.h>
-#include <arpa/inet.h>
 
 
 @implementation O2MDispatcher {
@@ -30,7 +29,6 @@
 
     NSMutableDictionary* data = [NSMutableDictionary new];
     [data setObject:_appName forKey:@"appId"];
-    [data setObject:@"3G" forKey:@"connection"];
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
     [data setObject:d.deviceName forKey:@"deviceName"];
@@ -38,11 +36,12 @@
     return data;
 }
 
-- (void)dispatch:(NSString *)endpoint :(NSMutableDictionary *)funnel; {
+- (void)dispatch:(NSString *)endpoint :(NSMutableArray *)funnel; {
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
             @"events" : funnel,
-            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries]
+            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries],
+            @"timestamp": [O2MUtil currentTimestamp]
     };
 
 

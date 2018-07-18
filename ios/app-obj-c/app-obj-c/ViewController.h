@@ -18,9 +18,8 @@
 @property (nonatomic, retain) os_log_t _logTopic;
 
 - (IBAction)BtnTouchCreateEvent:(id)sender;
-- (IBAction)BtnTouchCreateAlias:(id)sender;
-- (IBAction)BtnTouchSetIdentity:(id)sender;
 - (IBAction)BtnTouchResetTracking:(id)sender;
+- (IBAction)BtnTouchStopTracking:(id)sender;
 
 @end
 

@@ -18,7 +18,7 @@
     [super viewDidLoad];
 
     self._logTopic = os_log_create("io.o2mc.app-obj-c", "testapp-obj-c");
-    self.O2MC = [[O2MC alloc] init:@"app-obj-c" : @"http://127.0.0.1:5000/events" :  [NSNumber numberWithInt:10] :YES];
+    self.O2MC = [[O2MC alloc] init:@"http://127.0.0.1:5000/events" :  [NSNumber numberWithInt:10]];
 }
 
 
@@ -30,7 +30,7 @@
 - (IBAction)BtnTouchCreateEvent:(id)sender {
     os_log(self._logTopic, "created event");
 
-    [self.O2MC.tracker track:self.eventNameTextField.text];
+    [self.O2MC track:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchResetTracking:(id)sender {
@@ -42,7 +42,7 @@
 - (IBAction)BtnTouchStopTracking:(id)sender {
     os_log(self._logTopic, "stop tracking");
 
-    [self.O2MC.tracker stop];
+    [self.O2MC stop];
 }
 
 

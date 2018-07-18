@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
-        self.o2mc = O2MC("app-swift", "http://127.0.0.1:5000/events", 10, true)
+        self.o2mc = O2MC("http://127.0.0.1:5000/events", 10)
         
     }
 
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func BtnTouchCreateEvent(_ sender: Any) {
         os_log("created event", self._logTopic)
         
-        self.o2mc.tracker.track(self.eventNameTextField.text)
+        self.o2mc.track(self.eventNameTextField.text)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     @IBAction func BtnTouchStopTracking(_ sender: Any) {
         os_log("stop tracking", self._logTopic)
 
-        self.o2mc.tracker.stop()
+        self.o2mc.stop()
     }
 }
 
