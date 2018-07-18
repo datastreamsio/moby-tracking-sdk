@@ -8,6 +8,7 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
+#import "O2MEventManager.h"
 
 @class O2MDispatcher;
 
@@ -18,6 +19,7 @@
     NSTimer * _dispatchTimer;
     O2MDispatcher *_dispatcher;
     os_log_t _logTopic;
+    O2MEventManager* _eventManager;
 }
 
 @property NSLock * funnel_lock;
@@ -80,6 +82,5 @@
 
 #pragma mark - Internal methods
 
--(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 -(void) dispatch :(NSTimer *)timer;
 @end
