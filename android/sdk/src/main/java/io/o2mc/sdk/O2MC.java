@@ -156,24 +156,23 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param value anything you'd like to keep track of in String format
    */
   public void trackWithProperties(String eventName, String value) {
-    LogD(TAG, String.format("Tracked '%s'", eventName));
     trackingManager.trackWithProperties(eventName, value);
   }
 
   /**
-   * Resets all currently generated data. This removes currently tracking events which are not
-   * sent to the backend permanently. This does not change anything in the backend.
+   * Removes events that were cached and would have been sent on the next interval otherwise.
+   * Additionally disallows generating new events created by the 'track' methods.
+   * Stops sending events to the backend altogether.
    */
-  public void reset() {
-    LogD(TAG, "Reset all events & batches.");
-    trackingManager.reset();
+  public void stop() {
+    trackingManager.stop();
   }
 
   /**
-   * Stops generating tracking events and stops dispatching already generated ones.
+   * Allows generating new events created by the 'track' methods.
+   * Starts sending events to the backend again.
    */
-  public void stop() {
-    LogD(TAG, "Stop generating and dispatching events / batches.");
-    trackingManager.stop();
+  public void resume() {
+    trackingManager.resume();
   }
 }

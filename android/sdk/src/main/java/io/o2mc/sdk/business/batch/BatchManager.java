@@ -33,6 +33,7 @@ public class BatchManager {
   private TrackingManager trackingManager;
 
   private BatchBus batchBus;
+  private boolean isStopped;
 
   /**
    * @param trackingManager required for callbacks
@@ -154,14 +155,19 @@ public class BatchManager {
     batchBus.clearPending();
   }
 
+  /**
+   * Disallows generation and sending of batches.
+   */
   public void stop() {
-    stopTimer();
     reset();
+    isStopped = true;
   }
 
-  private void stopTimer() {
-    timer.cancel();
-    timer.purge();
+  /**
+   * Allows generating and sending of batches again.
+   */
+  public void resume() {
+    isStopped = false;
   }
 
   /**
@@ -172,13 +178,15 @@ public class BatchManager {
 
     @Override
     public void run() {
+      if (isStopped) return;
+
       // Initialize batchGenerator meta data
       batchBus.setDeviceInformation(trackingManager.getDeviceInformation());
 
       // Don't try resending a batch if the max retries limit has exceeded
       if (batchBus.getRetries() > maxRetries) {
         LogW(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
-        stopTimer();
+        isStopped = true;
         return;
       }
 

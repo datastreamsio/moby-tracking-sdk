@@ -18,7 +18,7 @@ import io.o2mc.sdk.BuildConfig;
  */
 // Suppressing JavaDoc warnings for methods because the explanation above is sufficient for all methods.
 @SuppressWarnings("JavaDoc")
-public class LogUtil {
+public final class LogUtil {
 
   public static void LogE(final String TAG, String message) {
     if (BuildConfig.DEBUG) {
