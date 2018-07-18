@@ -3,6 +3,7 @@ package io.o2mc.sdk;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import io.o2mc.sdk.util.LogUtil;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogW;
@@ -11,7 +12,9 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
  * This is central point of communication between the SDK and the app implementing it.
  * The implementing app should never have anything to deal with any other class than this one.
  */
-public class O2MC implements Application.ActivityLifecycleCallbacks {
+// Suppress unused warnings, because the methods in this class are supposed to be used by any
+// app implementing this SDK. They may or may not be used, but that's up to the developer.
+@SuppressWarnings("unused") public class O2MC implements Application.ActivityLifecycleCallbacks {
 
   private static final String TAG = "O2MC";
 
@@ -42,7 +45,7 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param endpoint URL to the back-end, defines where to dispatch tracking events to
    * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
+  @SuppressWarnings({ "WeakerAccess" })
   public O2MC(Application app, String endpoint, int dispatchInterval) {
     this(app, endpoint, dispatchInterval, Config.DEFAULT_MAX_RETRIES);
   }
@@ -75,9 +78,19 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    *
    * @param maxRetries number of times to retry
    */
-  @SuppressWarnings("unused")
   public void setMaxRetries(int maxRetries) {
     trackingManager.setMaxRetries(maxRetries);
+  }
+
+  /**
+   * Enable or disable logging.
+   * Logging in release builds is disabled. This behavior is immutable.
+   * Logging in all other builds is configurable. The default is set to 'true', logging is enabled.
+   *
+   * @param shouldLog true if logging should be enabled, false if logging should be disabled
+   */
+  public void setLogging(boolean shouldLog) {
+    LogUtil.setShouldLog(shouldLog);
   }
 
   /**
