@@ -46,7 +46,8 @@ public class BatchBus {
         deviceInformation,
         TimeUtil.generateTimestamp(),
         new ArrayList<>(events), // generate a new list, don't use a reference to the list
-        batchCounter++ /*add 1 to the counter after this statement*/
+        batchCounter++, /*add 1 to the counter after this statement*/
+        0
     );
   }
 
