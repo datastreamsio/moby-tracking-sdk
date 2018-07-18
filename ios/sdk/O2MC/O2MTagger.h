@@ -27,15 +27,31 @@
 @property NSNumber *dispatchInterval;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
-/**
- * Removes current events which are not yet dispatched to the backend.
- */
--(void) clearFunnel;
+#pragma mark - Configuration methods
+
 /**
  * Configures an end point where the events will be dispatched to.
  * @param endpoint http(s) URL which should be publicly reachable
  */
 -(void) setEndpoint :(NSString *) endpoint;
+/**
+ * The max amount of connection retries before stopping dispatching.
+ * @param maxRetries retry amount (defaults to 5)
+ */
+-(void) setMaxRetries :(NSInteger)maxRetries;
+/**
+ * The time interval between sending events to the backend.
+ * @param dispatchInterval time in seconds (defaults to 8)
+ */
+-(void) setDispatchInterval :(NSNumber *)dispatchInterval;
+
+#pragma mark - Control methods
+
+/**
+ * Removes current events which are not yet dispatched to the backend.
+ */
+-(void) clearFunnel;
+
 /**
  * Stops tracking of events.
  */
@@ -45,19 +61,9 @@
  * @param clearFunnel clears any existing events
  */
 -(void) stop :(BOOL) clearFunnel;
-/**
- * The time interval between sending events to the backend.
- * @param dispatchInterval time in seconds (defaults to 8)
- */
--(void) setDispatchInterval :(NSNumber *)dispatchInterval;
-/**
- * The max amount of connection retries before stopping dispatching.
- * @param maxRetries retry amount (defaults to 5)
- */
--(void) setMaxRetries :(NSInteger)maxRetries;
--(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 
-//Tracking methods
+#pragma mark - Tracking methods
+
 /**
  * Tracks an event.
  * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
@@ -72,6 +78,8 @@
  */
 -(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
 
+#pragma mark - Internal methods
 
+-(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
 -(void) dispatch :(NSTimer *)timer;
 @end

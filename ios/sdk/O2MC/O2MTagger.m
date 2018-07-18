@@ -46,25 +46,7 @@ static int objectCount = 0;
     }
 }
 
-#pragma mark - Internal methods
-
--(void) dispatch:(NSTimer *)timer;{
-    [self.funnel_lock lock];
-    if(_funnel.count > 0){
-        if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
-            #ifdef DEBUG
-                os_log_debug(self->_logTopic, "Dispatcher has been triggered");
-            #endif
-            [_dispatcher dispatch :_endpoint :_funnel];
-        } else {
-            os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)_dispatcher.connRetriesMax);
-
-            // Stopping the time based interval loop.
-            [timer invalidate];
-        }
-    }
-    [self.funnel_lock unlock];
-}
+#pragma mark - Control methods
 
 -(void) clearFunnel; {
     [self.funnel_lock lock];
@@ -72,16 +54,20 @@ static int objectCount = 0;
     [self.funnel_lock unlock];
 }
 
--(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
-    [self.funnel_lock lock];
+-(void)stop {
+    [self stop:YES];
+}
 
-    [_funnel addObject:funnelData];
-
-    #ifdef DEBUG
-    os_log_debug(self->_logTopic, "number of events %lu", (unsigned long)[_funnel count]);
-    #endif
-    [self.funnel_lock unlock];
+-(void)stop:(BOOL) clearFunnel; {
+    os_log_info(self->_logTopic, "stopping tracking");
+    [_dispatchTimer invalidate];
     
+    if (clearFunnel == YES) {
+        #ifdef DEBUG
+            os_log_debug(self->_logTopic, "clearing the funnel");
+        #endif
+        [self clearFunnel];
+    }
 }
 
 #pragma mark - Tracking methods
@@ -119,21 +105,35 @@ static int objectCount = 0;
     [self addToFunnel:eventName :funnel];
 }
 
+#pragma mark - Internal methods
 
--(void)stop {
-    [self stop:YES];
+-(void) dispatch:(NSTimer *)timer;{
+    [self.funnel_lock lock];
+    if(_funnel.count > 0){
+        if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
+            #ifdef DEBUG
+                os_log_debug(self->_logTopic, "Dispatcher has been triggered");
+            #endif
+            [_dispatcher dispatch :_endpoint :_funnel];
+        } else {
+            os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)_dispatcher.connRetriesMax);
+
+            // Stopping the time based interval loop.
+            [timer invalidate];
+        }
+    }
+    [self.funnel_lock unlock];
 }
 
--(void)stop:(BOOL) clearFunnel; {
-    os_log_info(self->_logTopic, "stopping tracking");
-    [_dispatchTimer invalidate];
+-(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
+    [self.funnel_lock lock];
 
-    if (clearFunnel == YES) {
-        #ifdef DEBUG
-            os_log_debug(self->_logTopic, "clearing the funnel");
-        #endif
-        [self clearFunnel];
-    }
+    [_funnel addObject:funnelData];
+
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "number of events %lu", (unsigned long)[_funnel count]);
+    #endif
+    [self.funnel_lock unlock];
 }
 
 @end
