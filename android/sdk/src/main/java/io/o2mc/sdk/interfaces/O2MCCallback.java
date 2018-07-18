@@ -1,4 +1,4 @@
-package io.o2mc.sdk;
+package io.o2mc.sdk.interfaces;
 
 public interface O2MCCallback {
   void exception(Exception e);

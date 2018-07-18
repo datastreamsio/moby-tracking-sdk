@@ -6,6 +6,7 @@ import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import java.util.List;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
@@ -87,5 +88,11 @@ public class TrackingManager {
     eventManager.resume();
     batchManager.resume();
     LogD(TAG, "Resumed generating and dispatching events / batches.");
+  }
+
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    deviceManager.setO2MCExceptionListener(o2MCExceptionListener);
+    batchManager.setO2MCExceptionListener(o2MCExceptionListener);
+    eventManager.setO2MCExceptionListener(o2MCExceptionListener);
   }
 }
