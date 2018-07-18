@@ -8,6 +8,8 @@ import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
 import java.util.List;
 
+import static io.o2mc.sdk.util.LogUtil.LogD;
+
 /**
  * Acts as an intermediate between O2MC and our classes. This is useful to protect methods which
  * are not supposed to be used by the implementing App, but which are required to be public for
@@ -17,6 +19,8 @@ import java.util.List;
  * therefore prevents incorrect usage of our SDK. Makes the SDK more easy to use and robust.
  */
 public class TrackingManager {
+
+  private static final String TAG = "TrackingManager";
 
   private Application application;
 
@@ -68,18 +72,20 @@ public class TrackingManager {
   }
 
   /**
-   * Resets the current data recorded in the managers to zero. All events, batches, will be cleared.
-   */
-  public void reset() {
-    this.eventManager.reset();
-    this.batchManager.reset();
-  }
-
-  /**
    * Stops the EventManager and BatchManager from generating data and dispatching them.
    */
   public void stop() {
     eventManager.stop();
     batchManager.stop();
+    LogD(TAG, "Stop generating and dispatching events / batches.");
+  }
+
+  /**
+   * Allows the EventManager and BatchManager to execute their tasks (again).
+   */
+  public void resume() {
+    eventManager.resume();
+    batchManager.resume();
+    LogD(TAG, "Resumed generating and dispatching events / batches.");
   }
 }

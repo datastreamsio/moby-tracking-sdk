@@ -50,11 +50,11 @@
         />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonResumeTracking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onResetTrackingHandler"
-        android:text="@string/reset_tracking"
+        android:onClick="onResumeTracking"
+        android:text="@string/resume_tracking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
