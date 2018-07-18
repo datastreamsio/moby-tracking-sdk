@@ -33,22 +33,16 @@
     [self.O2MC.tracker track:self.eventNameTextField.text];
 }
 
-- (IBAction)BtnTouchCreateAlias:(id)sender {
-    os_log(self._logTopic, "created alias");
-
-    [self.O2MC.tracker createAlias:self.eventNameTextField.text];
-}
-
-- (IBAction)BtnTouchSetIdentity:(id)sender {
-    os_log(self._logTopic, "set identity");
-
-    [self.O2MC.tracker identify:self.eventNameTextField.text];
-}
-
 - (IBAction)BtnTouchResetTracking:(id)sender {
     os_log(self._logTopic, "reset tracking");
 
     [self.O2MC.tracker clearFunnel];
+}
+
+- (IBAction)BtnTouchStopTracking:(id)sender {
+    os_log(self._logTopic, "stop tracking");
+
+    [self.O2MC.tracker stop];
 }
 
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abu-cO-rNf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Abu-cO-rNf">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="eventName" borderStyle="roundedRect" placeholder="Your event name here" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K7p-86-AlV">
-                                <rect key="frame" x="20" y="36" width="728" height="30"/>
+                                <rect key="frame" x="303" y="36" width="162" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -32,22 +31,28 @@
                                     <action selector="BtnTouchCreateEvent:" destination="Abu-cO-rNf" eventType="touchDown" id="RSy-aD-iDa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHt-u1-LqR">
-                                <rect key="frame" x="344" y="112" width="81" height="30"/>
-                                <state key="normal" title="Create alias"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zWT-dW-HNr">
+                                <rect key="frame" x="337" y="150" width="95" height="126"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-lc-up9">
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="126"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hVB-nc-p0b">
+                                                <rect key="frame" x="0.0" y="0.0" width="95" height="126"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUK-Mt-LmN">
+                                <rect key="frame" x="337" y="150" width="95" height="30"/>
+                                <state key="normal" title="Stop Tracking"/>
                                 <connections>
-                                    <action selector="BtnTouchCreateAlias:" destination="Abu-cO-rNf" eventType="touchDown" id="AgG-yT-UaK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MfZ-Di-i0r">
-                                <rect key="frame" x="345" y="150" width="79" height="30"/>
-                                <state key="normal" title="Set Identity"/>
-                                <connections>
-                                    <action selector="BtnTouchSetIdentity:" destination="Abu-cO-rNf" eventType="touchDown" id="VyX-br-ikI"/>
+                                    <action selector="BtnTouchStopTracking:" destination="Abu-cO-rNf" eventType="touchDown" id="8wU-Yk-iNU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crc-Kh-X3j">
-                                <rect key="frame" x="333" y="188" width="102" height="30"/>
+                                <rect key="frame" x="333" y="112" width="102" height="30"/>
                                 <state key="normal" title="Reset Tracking"/>
                                 <connections>
                                     <action selector="BtnTouchResetTracking:" destination="Abu-cO-rNf" eventType="touchDown" id="I6X-Ce-oKj"/>
@@ -56,17 +61,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bHt-u1-LqR" firstAttribute="centerX" secondItem="crc-Kh-X3j" secondAttribute="centerX" id="0kt-nN-PI6"/>
-                            <constraint firstItem="K7p-86-AlV" firstAttribute="trailing" secondItem="Mly-dr-BNN" secondAttribute="trailingMargin" id="238-ly-wQR"/>
-                            <constraint firstItem="crc-Kh-X3j" firstAttribute="top" secondItem="MfZ-Di-i0r" secondAttribute="bottom" constant="8" symbolic="YES" id="Exx-pA-wh4"/>
+                            <constraint firstItem="KUK-Mt-LmN" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="IFy-iv-o58"/>
+                            <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="KUK-Mt-LmN" secondAttribute="centerX" id="Iys-Y8-WGs"/>
+                            <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="zWT-dW-HNr" secondAttribute="centerX" id="LPl-9t-rXg"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="top" secondItem="K7p-86-AlV" secondAttribute="bottom" constant="8" symbolic="YES" id="PMQ-kw-lnJ"/>
-                            <constraint firstItem="bHt-u1-LqR" firstAttribute="top" secondItem="DoE-SC-Mbw" secondAttribute="bottom" constant="8" symbolic="YES" id="R2F-qG-Hi3"/>
-                            <constraint firstItem="bHt-u1-LqR" firstAttribute="centerX" secondItem="MfZ-Di-i0r" secondAttribute="centerX" id="Z6Q-6n-ZWU"/>
                             <constraint firstItem="K7p-86-AlV" firstAttribute="top" secondItem="czo-UV-NSk" secondAttribute="top" constant="16" id="ZCW-vo-U84"/>
+                            <constraint firstItem="crc-Kh-X3j" firstAttribute="top" secondItem="DoE-SC-Mbw" secondAttribute="bottom" constant="8" symbolic="YES" id="bpk-e5-No3"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="centerX" secondItem="K7p-86-AlV" secondAttribute="centerX" id="eKK-TI-c8x"/>
-                            <constraint firstItem="bHt-u1-LqR" firstAttribute="centerX" secondItem="DoE-SC-Mbw" secondAttribute="centerX" id="gPT-aV-sZC"/>
-                            <constraint firstItem="MfZ-Di-i0r" firstAttribute="top" secondItem="bHt-u1-LqR" secondAttribute="bottom" constant="8" symbolic="YES" id="jZh-LJ-Jz4"/>
-                            <constraint firstItem="K7p-86-AlV" firstAttribute="leading" secondItem="Mly-dr-BNN" secondAttribute="leadingMargin" id="mtD-JJ-7qF"/>
+                            <constraint firstItem="zWT-dW-HNr" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="mR4-FO-JF4"/>
+                            <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="Mly-dr-BNN" secondAttribute="centerX" id="qAw-d9-2N2"/>
+                            <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="DoE-SC-Mbw" secondAttribute="centerX" id="wqM-wb-Po1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="czo-UV-NSk"/>
                     </view>
