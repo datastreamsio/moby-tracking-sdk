@@ -49,8 +49,6 @@ public class BatchManager {
     setMaxRetries(maxRetries);
 
     this.trackingManager = trackingManager;
-
-    BatchDispatcher.getInstance().setBatchManager(this);
   }
 
   /**

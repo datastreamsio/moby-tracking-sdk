@@ -17,10 +17,7 @@ import static io.o2mc.sdk.util.LogUtil.LogD;
  */
 class BatchDispatcher {
 
-  private static final String TAG = "BatchDispatcher";
-
   private static Gson gson;
-  private static BatchManager batchManager;
 
   private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
   private static final OkHttpClient client =
@@ -65,10 +62,5 @@ class BatchDispatcher {
    */
   private String batchToJson(Batch batch) {
     return gson.toJson(batch);
-  }
-
-  public void setBatchManager(BatchManager batchManager) {
-    BatchDispatcher.batchManager = batchManager;
-    LogD(TAG, "Set o2mc field.");
   }
 }
