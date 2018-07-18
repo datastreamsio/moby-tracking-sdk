@@ -5,6 +5,8 @@ import android.os.Build;
 import android.provider.Settings;
 import com.jaredrummler.android.device.DeviceName;
 import io.o2mc.sdk.domain.DeviceInformation;
+import io.o2mc.sdk.exceptions.O2MCDeviceException;
+import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 
 import static io.o2mc.sdk.util.LogUtil.LogE;
 
@@ -16,6 +18,7 @@ public class DeviceManager {
   private static final String TAG = "DeviceManager";
 
   private Application app;
+  private O2MCExceptionListener o2MCExceptionListener;
 
   public DeviceManager(Application app) {
     this.app = app;
@@ -28,8 +31,13 @@ public class DeviceManager {
    */
   public DeviceInformation generateDeviceInformation() {
     if (app == null) {
-      LogE(TAG,
-          "generateDeviceInformation: No device information could be retrieved. Did you supply your Application to the O2MC module?");
+      if (o2MCExceptionListener != null) { // if listener is set, inform using an exception
+        o2MCExceptionListener.onO2MCDeviceException(new O2MCDeviceException(
+            "No device information could be retrieved. Did you supply your Application to the O2MC module?"));
+      } else { // no listener set, just log
+        LogE(TAG,
+            "generateDeviceInformation: No device information could be retrieved. Did you supply your Application to the O2MC module?");
+      }
       return null;
     }
 
@@ -49,5 +57,9 @@ public class DeviceManager {
     return new DeviceInformation(
         appId, os, osVersion, deviceName, deviceId
     );
+  }
+
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    this.o2MCExceptionListener = o2MCExceptionListener;
   }
 }

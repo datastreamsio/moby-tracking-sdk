@@ -1,7 +1,8 @@
 package io.o2mc.sdk.business.batch;
 
 import android.support.annotation.NonNull;
-import io.o2mc.sdk.O2MCCallback;
+import io.o2mc.sdk.exceptions.O2MCDispatchException;
+import io.o2mc.sdk.interfaces.O2MCCallback;
 import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,7 +24,6 @@ public class BatchCallback implements Callback {
 
   @Override
   public void onFailure(@NonNull Call call, @NonNull IOException e) {
-    LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
     callback.exception(e);
   }
 
@@ -36,7 +36,7 @@ public class BatchCallback implements Callback {
     } else {
       // Http response indicates failure, inform user and SDK
       LogW(TAG, "onResponse: Http response indicates failure");
-      callback.exception(new Exception(
+      callback.exception(new O2MCDispatchException(
           String.format("Backend HTTP response status code indicated failure. Status was '%s'",
               response.code())));
     }

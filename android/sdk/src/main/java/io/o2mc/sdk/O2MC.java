@@ -3,6 +3,7 @@ package io.o2mc.sdk;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.util.LogUtil;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
@@ -14,14 +15,15 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
  */
 // Suppress unused warnings, because the methods in this class are supposed to be used by any
 // app implementing this SDK. They may or may not be used, but that's up to the developer.
-@SuppressWarnings("unused") public class O2MC implements Application.ActivityLifecycleCallbacks {
+@SuppressWarnings({ "unused", "WeakerAccess" }) public class O2MC
+    implements Application.ActivityLifecycleCallbacks {
 
   private static final String TAG = "O2MC";
 
   @SuppressWarnings("FieldCanBeLocal")
   // keeping the variable here may prevent GC from removing the reference to the App
-  private Application app;
   // required for activity callbacks & context (may need it for more callbacks in the future)
+  private Application app;
 
   private TrackingManager trackingManager;
 
@@ -32,7 +34,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    * @param app Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
    * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint) {
     this(app, endpoint, Config.DEFAULT_DISPATCH_INTERVAL, Config.DEFAULT_MAX_RETRIES);
   }
@@ -45,7 +46,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    * @param endpoint URL to the back-end, defines where to dispatch tracking events to
    * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
    */
-  @SuppressWarnings({ "WeakerAccess" })
   public O2MC(Application app, String endpoint, int dispatchInterval) {
     this(app, endpoint, dispatchInterval, Config.DEFAULT_MAX_RETRIES);
   }
@@ -59,7 +59,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
    * @param maxRetries Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
     if (app == null) {
       LogW(TAG, "O2MC: Application (context) provided was null. " +
@@ -80,6 +79,15 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    */
   public void setMaxRetries(int maxRetries) {
     trackingManager.setMaxRetries(maxRetries);
+  }
+
+  /**
+   * Sets an exception listener which receives any exceptions thrown by the O2MC module.
+   *
+   * @param o2MCExceptionListener any class implementing the `O2MCExceptionListener` interface
+   */
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    trackingManager.setO2MCExceptionListener(o2MCExceptionListener);
   }
 
   /**
