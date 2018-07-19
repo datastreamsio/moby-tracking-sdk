@@ -11,6 +11,7 @@
 @interface O2MEventManager : NSObject
 
 @property (nonatomic, strong) NSMutableArray* events;
+@property (nonatomic, strong) dispatch_queue_t eventQueue;
 
 + (instancetype)sharedManager;
 -(void) addEvent :(NSDictionary*)event;

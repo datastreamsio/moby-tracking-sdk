@@ -22,12 +22,15 @@
 -(instancetype) init; {
     if (self = [super init]) {
         _events = [[NSMutableArray alloc] init];
+        _eventQueue = dispatch_queue_create("eventQueue", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
 
 -(void) addEvent :(NSDictionary*)event; {
-    [self->_events addObject:event];
+    dispatch_async(self->_eventQueue,^{
+        [self->_events addObject:event];
+    });
 }
 
 @end
