@@ -20,50 +20,56 @@ import io.o2mc.sdk.BuildConfig;
 @SuppressWarnings("JavaDoc")
 public final class LogUtil {
 
+  private static boolean shouldLog = true;
+
+  public static void setShouldLog(boolean shouldLog) {
+    LogUtil.shouldLog = shouldLog;
+  }
+
   public static void LogE(final String TAG, String message) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.e(TAG, message);
     }
   }
 
   public static void LogE(final String TAG, String message, Throwable tr) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.e(TAG, message, tr);
     }
   }
 
   public static void LogW(final String TAG, String message) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.w(TAG, message);
     }
   }
 
   public static void LogW(final String TAG, String message, Throwable tr) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.w(TAG, message, tr);
     }
   }
 
   public static void LogI(final String TAG, String message) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.i(TAG, message);
     }
   }
 
   public static void LogI(final String TAG, String message, Throwable tr) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.i(TAG, message, tr);
     }
   }
 
   public static void LogD(final String TAG, String message) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.d(TAG, message);
     }
   }
 
   public static void LogD(final String TAG, String message, Throwable tr) {
-    if (BuildConfig.DEBUG) {
+    if (BuildConfig.DEBUG && shouldLog) {
       Log.d(TAG, message, tr);
     }
   }

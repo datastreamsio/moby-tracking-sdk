@@ -3,6 +3,8 @@ package io.o2mc.sdk;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import io.o2mc.sdk.interfaces.O2MCExceptionListener;
+import io.o2mc.sdk.util.LogUtil;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogW;
@@ -11,14 +13,17 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
  * This is central point of communication between the SDK and the app implementing it.
  * The implementing app should never have anything to deal with any other class than this one.
  */
-public class O2MC implements Application.ActivityLifecycleCallbacks {
+// Suppress unused warnings, because the methods in this class are supposed to be used by any
+// app implementing this SDK. They may or may not be used, but that's up to the developer.
+@SuppressWarnings({ "unused", "WeakerAccess" }) public class O2MC
+    implements Application.ActivityLifecycleCallbacks {
 
   private static final String TAG = "O2MC";
 
   @SuppressWarnings("FieldCanBeLocal")
   // keeping the variable here may prevent GC from removing the reference to the App
-  private Application app;
   // required for activity callbacks & context (may need it for more callbacks in the future)
+  private Application app;
 
   private TrackingManager trackingManager;
 
@@ -29,7 +34,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param app Top-level application class, as defined in the app manifest. Used to automatically detect meta-events like ActivityStarted and ActivityDestroyed.
    * @param endpoint URL to the back-end, defines where to dispatch tracking events to.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint) {
     this(app, endpoint, Config.DEFAULT_DISPATCH_INTERVAL, Config.DEFAULT_MAX_RETRIES);
   }
@@ -42,7 +46,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param endpoint URL to the back-end, defines where to dispatch tracking events to
    * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint, int dispatchInterval) {
     this(app, endpoint, dispatchInterval, Config.DEFAULT_MAX_RETRIES);
   }
@@ -56,7 +59,6 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    * @param dispatchInterval Tells the EventManager on which intervals it should send the generated events. Denoted in seconds.
    * @param maxRetries Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
    */
-  @SuppressWarnings({ "unused", "WeakerAccess" }) // potentially used by App implementing our SDK
   public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
     if (app == null) {
       LogW(TAG, "O2MC: Application (context) provided was null. " +
@@ -75,9 +77,28 @@ public class O2MC implements Application.ActivityLifecycleCallbacks {
    *
    * @param maxRetries number of times to retry
    */
-  @SuppressWarnings("unused")
   public void setMaxRetries(int maxRetries) {
     trackingManager.setMaxRetries(maxRetries);
+  }
+
+  /**
+   * Sets an exception listener which receives any exceptions thrown by the O2MC module.
+   *
+   * @param o2MCExceptionListener any class implementing the `O2MCExceptionListener` interface
+   */
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    trackingManager.setO2MCExceptionListener(o2MCExceptionListener);
+  }
+
+  /**
+   * Enable or disable logging.
+   * Logging in release builds is disabled. This behavior is immutable.
+   * Logging in all other builds is configurable. The default is set to 'true', logging is enabled.
+   *
+   * @param shouldLog true if logging should be enabled, false if logging should be disabled
+   */
+  public void setLogging(boolean shouldLog) {
+    LogUtil.setShouldLog(shouldLog);
   }
 
   /**
