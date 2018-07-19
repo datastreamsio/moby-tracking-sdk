@@ -34,20 +34,12 @@ public class DeviceManager {
     }
 
     String appId = app.getPackageName();
-
-    // todo; check if we're allowed to track network state
-    //        info.setConnectionType(NetworkManager.getConnectivityType(context));
     String os = "android";
     String osVersion = Build.VERSION.RELEASE;
     String deviceName = DeviceName.getDeviceName();
 
-    // TODO; what is this deviceId used for? It's probably better to replace it with advertising ID
-    // https://stackoverflow.com/questions/47691310/why-is-using-getstring-to-get-device-identifiers-not-recommended
-    String deviceId =
-        Settings.Secure.getString(app.getContentResolver(), Settings.Secure.ANDROID_ID);
-
     return new DeviceInformation(
-        appId, os, osVersion, deviceName, deviceId
+        appId, os, osVersion, deviceName
     );
   }
 }
