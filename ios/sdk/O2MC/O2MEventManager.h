@@ -14,7 +14,14 @@
 @property (nonatomic, strong) dispatch_queue_t eventQueue;
 
 + (instancetype)sharedManager;
+/**
+ * Stores an event.
+ * @param event event to store.
+ */
 -(void) addEvent :(NSDictionary*)event;
+/**
+ * Removes all stored events from the device.
+ */
 -(void) clearEvents;
 
 @end
