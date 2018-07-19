@@ -16,11 +16,11 @@
 + (instancetype)sharedManager;
 /**
  * Stores an event.
- * @param event event to store.
+ * @param event event to store
  */
 -(void) addEvent :(NSDictionary*)event;
 /**
- * Removes all stored events from the device.
+ * Removes all stored events from the device
  */
 -(void) clearEvents;
 
