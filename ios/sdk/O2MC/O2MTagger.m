@@ -12,8 +12,6 @@
 
 @implementation O2MTagger
 
-static int objectCount = 0;
-
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
@@ -34,7 +32,6 @@ static int objectCount = 0;
                                             repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
 
-    objectCount++;
     return self;
 }
 
