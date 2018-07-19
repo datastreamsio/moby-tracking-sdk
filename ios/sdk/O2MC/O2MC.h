@@ -15,6 +15,48 @@
 
 @property (readonly, nonatomic) O2MTagger *tracker;
 
--(id)init :(NSString *)appId :(NSString *)endpoint :(NSNumber *)dispatchInterval :(Boolean) forceStartTimer;
+
+-(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
+
+#pragma mark - Configuration methods
+
+/**
+ * Configures an end point where the events will be dispatched to.
+ * @param endpoint http(s) URL which should be publicly reachable
+ */
+-(void) setEndpoint :(NSString *) endpoint;
+/**
+ * The max amount of connection retries before stopping dispatching.
+ * @param maxRetries retry amount (defaults to 5)
+ */
+-(void) setMaxRetries :(NSInteger)maxRetries;
+
+#pragma mark - Control methods
+
+/**
+ * Stops tracking of events.
+ */
+-(void) stop;
+/**
+ * Stops tracking of events.
+ * @param clearFunnel clears any existing events
+ */
+-(void) stop :(BOOL) clearFunnel;
+
+#pragma mark - Tracking methods
+
+/**
+ * Tracks an event.
+ * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
+ * @param eventName name of tracked event
+ */
+-(void)track :(NSString*)eventName;
+/**
+ * Tracks an event with additional data.
+ * Essentially adds a new event with the String parameter as name and any properties as JSON String format.
+ * @param eventName name of tracked event
+ * @param propertiesAsJson anything you'd like to keep track of
+ */
+-(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
 
 @end
