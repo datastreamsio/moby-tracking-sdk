@@ -17,7 +17,6 @@ import static io.o2mc.sdk.util.LogUtil.LogD;
 /**
  * Dispatches events in JSON format.
  * Singleton class, guaranteed to have only one instance in the apps lifecycle.
- * Sends events in a thread-safe manner.
  */
 class BatchDispatcher {
 
