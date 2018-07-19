@@ -15,7 +15,6 @@ public class App extends Application implements O2MCExceptionListener {
   public App() {
     o2mc = new O2MC(null, "http://10.0.2.2:5000/events");
     o2mc.setO2MCExceptionListener(this);
-    o2mc.setLogging(false);
   }
 
   public static O2MC getO2mc() {
