@@ -19,9 +19,9 @@
     O2MDispatcher *_dispatcher;
     os_log_t _logTopic;
     O2MEventManager* _eventManager;
+    dispatch_queue_t _tagQueue;
 }
 
-@property NSLock * funnel_lock;
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;
 @property NSString *appId;
