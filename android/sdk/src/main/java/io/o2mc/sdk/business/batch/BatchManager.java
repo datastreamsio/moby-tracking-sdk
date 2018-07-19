@@ -41,6 +41,8 @@ public class BatchManager {
 
   private O2MCExceptionListener o2MCExceptionListener;
 
+  private String batchId;
+
   /**
    * @param trackingManager required for callbacks
    * @param endpoint URL to the backend
@@ -181,6 +183,10 @@ public class BatchManager {
     this.o2MCExceptionListener = o2MCExceptionListener;
   }
 
+  public void setIdentifier(String identifier) {
+    this.batchId = identifier;
+  }
+
   /**
    * Sends all events from the EventBus to the backend, if there are any events.
    */
@@ -206,7 +212,7 @@ public class BatchManager {
 
       // Only generate a batch if we have events
       if (getEvents().size() > 0) {
-        batchBus.add(batchBus.generateBatch(getEvents()));
+        batchBus.add(batchBus.generateBatch(batchId, getEvents()));
         LogD(TAG,
             String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
         clearEvents();

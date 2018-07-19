@@ -41,12 +41,13 @@ public class BatchBus {
     }
   }
 
-  public Batch generateBatch(List<Event> events) {
+  public Batch generateBatch(String batchId, List<Event> events) {
     return new Batch(
         deviceInformation,
         TimeUtil.generateTimestamp(),
         new ArrayList<>(events), // generate a new list, don't use a reference to the list
         batchCounter++, /*add 1 to the counter after this statement*/
+        batchId,
         0
     );
   }
@@ -129,14 +130,20 @@ public class BatchBus {
    * This removes meta data from old batches, and generates a new batch by only keeping all of the events from old batches.
    * This reduces overhead and thus saves data (by sending less meta data in total).
    *
-   * @return a big(ger) Batch containing the events of every batch currently in the BatchBus
+   * @return a big(ger) Batch containing the events of every batch currently in the BatchBus, null if no batches provided
    */
   private Batch mergeBatches(List<Batch> batches) {
+    if (batches.size() <= 0) return null; // can't merge non existent batches
+
     List<Event> allEvents = new ArrayList<>();
     for (Batch b : batches) {
       allEvents.addAll(b.getEvents());
     }
-    return generateBatch(allEvents);
+
+    // The batch ID is the same for every batch in the current user session, doesn't matter if we get the 1st one or the last one
+    String batchId = batches.get(0).getId();
+
+    return generateBatch(batchId, allEvents);
   }
 
   /**

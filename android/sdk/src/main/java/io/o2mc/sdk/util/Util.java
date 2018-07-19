@@ -1,6 +1,7 @@
 package io.o2mc.sdk.util;
 
 import android.security.NetworkSecurityPolicy;
+import java.util.UUID;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogE;
@@ -123,5 +124,13 @@ public final class Util {
           maxRetries, maxRetries));
     }
     return maxRetries > 0;
+  }
+
+  /**
+   * Securely generates a random ID.
+   * https://stackoverflow.com/questions/24876188/how-big-is-the-chance-to-get-a-java-uuid-randomuuid-collision
+   */
+  public static String generateUUID() {
+    return String.valueOf(UUID.randomUUID());
   }
 }

@@ -9,5 +9,6 @@ data class Batch(
   val timestamp: String, // final
   val events: List<Event>, // final
   val number: Int, // final
+  val id: String?, // may be null, final
   var retries: Int // not final (additionally provides a setter automatically)
 )
