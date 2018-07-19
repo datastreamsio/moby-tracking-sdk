@@ -23,7 +23,7 @@
 
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;
-@property NSString *appId;
+@property (copy) NSString *appId;
 @property NSNumber *dispatchInterval;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
