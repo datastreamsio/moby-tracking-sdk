@@ -33,4 +33,10 @@
     });
 }
 
+-(void) clearEvents; {
+    dispatch_async(self->_eventQueue, ^{
+        [self->_events removeAllObjects];
+    });
+}
+
 @end

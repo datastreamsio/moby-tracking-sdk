@@ -15,5 +15,6 @@
 
 + (instancetype)sharedManager;
 -(void) addEvent :(NSDictionary*)event;
+-(void) clearEvents;
 
 @end

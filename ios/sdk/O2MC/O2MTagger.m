@@ -49,9 +49,7 @@ static int objectCount = 0;
 #pragma mark - Control methods
 
 -(void) clearFunnel; {
-    [self.funnel_lock lock];
-    [self->_eventManager.events removeAllObjects];
-    [self.funnel_lock unlock];
+    [self->_eventManager clearEvents];
 }
 
 -(void)stop {
