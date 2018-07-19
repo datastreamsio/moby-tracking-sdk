@@ -24,8 +24,8 @@ static int objectCount = 0;
     _identity = @"";
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
 
-    [self setEndpoint:endpoint];
-    [self setDispatchInterval:dispatchInterval];
+    _endpoint = endpoint;
+    _dispatchInterval = dispatchInterval;
 
     _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
                                              target:self
