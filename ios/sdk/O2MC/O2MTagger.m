@@ -17,7 +17,6 @@
     
     _eventManager = [O2MEventManager sharedManager];
     _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
-    _identity = @"";
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
 
     _endpoint = endpoint;

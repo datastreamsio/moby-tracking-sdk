@@ -14,7 +14,6 @@
 @class O2MDispatcher;
 
 @interface O2MTagger : NSObject {
-    NSString * _identity;
     NSTimer * _dispatchTimer;
     O2MDispatcher *_dispatcher;
     os_log_t _logTopic;
