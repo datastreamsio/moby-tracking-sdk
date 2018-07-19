@@ -16,6 +16,7 @@
 
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (assign, nonatomic) NSInteger connRetriesMax;
+@property NSString* deviceId;
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(NSMutableArray *)funnel;

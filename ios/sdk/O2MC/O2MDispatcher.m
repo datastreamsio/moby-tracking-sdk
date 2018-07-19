@@ -20,6 +20,7 @@
     _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
     _connRetries = 0;
     _connRetriesMax = 5;
+    _deviceId = [[NSUUID UUID] UUIDString]; // This will be unique each session.
     return self;
 }
 
@@ -31,6 +32,7 @@
     [data setObject:_appName forKey:@"appId"];
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
+    [data setObject:_deviceId forKey:@"deviceId"];
     [data setObject:d.deviceName forKey:@"deviceName"];
 
     return data;
