@@ -49,7 +49,7 @@ static int objectCount = 0;
 #pragma mark - Control methods
 
 -(void) clearFunnel; {
-    [self->_eventManager clearEvents];
+    [_eventManager clearEvents];
 }
 
 -(void)stop {
