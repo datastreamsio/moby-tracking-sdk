@@ -27,9 +27,9 @@
     return self;
 }
 
--(void) addEvent :(NSDictionary*)event; {
+-(void) addEvent :(O2MEvent*)event; {
     dispatch_async(self->_eventQueue,^{
-        [self->_events addObject:event];
+        [self->_events addObject:[event toDict]];
     });
 }
 

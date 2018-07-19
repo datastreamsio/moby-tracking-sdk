@@ -36,8 +36,8 @@
     [self->_tracker track:eventName];
 }
 
--(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson; {
-    [self->_tracker trackWithProperties:eventName :propertiesAsJson];
+-(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties; {
+    [self->_tracker trackWithProperties:eventName :properties];
 }
 
 @end

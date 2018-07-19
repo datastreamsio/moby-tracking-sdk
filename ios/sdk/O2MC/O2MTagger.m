@@ -78,30 +78,19 @@
             os_log_debug(self->_logTopic, "Track %@", eventName);
         #endif
 
-        [self->_eventManager addEvent:@{
-                                        @"event" : eventName,
-                                        @"alias":self->_alias,
-                                        @"identitiy":self->_identity,
-                                        @"time":[O2MUtil currentTimestamp]
-                                        }];
+        [self->_eventManager addEvent: [[O2MEvent alloc] init:eventName]];
     });
 }
 
--(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
+-(void)trackWithProperties:(NSString*)eventName :(NSDictionary*)properties;
 {
     dispatch_async(_tagQueue, ^{
         if (!self->_dispatchTimer.isValid) return;
         #ifdef DEBUG
-            os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
+            os_log_debug(self->_logTopic, "Track %@:%@", eventName, properties);
         #endif
 
-        [self->_eventManager addEvent:@{
-                                        @"event" : eventName,
-                                        @"alias":self->_alias,
-                                        @"identitiy":self->_identity,
-                                        @"time":[O2MUtil currentTimestamp],
-                                        @"properties":propertiesAsJson
-                                        }];
+        [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName :properties]];
     });
 }
 

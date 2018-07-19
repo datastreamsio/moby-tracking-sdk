@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "O2MEvent.h"
 
 @interface O2MEventManager : NSObject
 
@@ -18,7 +19,7 @@
  * Stores an event.
  * @param event event to store
  */
--(void) addEvent :(NSDictionary*)event;
+-(void) addEvent :(O2MEvent*)event;
 /**
  * Removes all stored events from the device
  */

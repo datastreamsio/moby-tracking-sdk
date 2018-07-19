@@ -9,6 +9,7 @@
 #import <os/log.h>
 #import <Foundation/Foundation.h>
 #import "O2MEventManager.h"
+#import "O2MEvent.h"
 
 @class O2MDispatcher;
 
@@ -73,11 +74,11 @@
 -(void)track :(NSString*)eventName;
 /**
  * Tracks an event with additional data.
- * Essentially adds a new event with the String parameter as name and any properties as JSON String format.
+ * Essentially adds a new event with the String parameter as name and any additonal properties.
  * @param eventName name of tracked event
- * @param propertiesAsJson anything you'd like to keep track of
+ * @param properties anything you'd like to keep track of
  */
--(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
+-(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties;
 
 #pragma mark - Internal methods
 
