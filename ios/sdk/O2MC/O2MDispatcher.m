@@ -18,7 +18,6 @@
     self = [super init];
     _appName = appName;
     _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
-    _connRetries = 0;
     _deviceId = [[NSUUID UUID] UUIDString]; // This will be unique each session.
     return self;
 }
@@ -37,11 +36,11 @@
     return data;
 }
 
-- (void)dispatch:(NSString *)endpoint :(NSMutableArray *)funnel; {
+- (void)dispatch:(NSString *)endpoint :(NSMutableArray *)funnel :(long)retries; {
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
             @"events" : funnel,
-            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries],
+            @"retries": [NSNumber numberWithLong:retries],
             @"timestamp": [O2MUtil currentTimestamp]
     };
 
@@ -88,12 +87,11 @@
 }
 
 -(void) successHandler {
-    // Reset after each successful data post.
-    self->_connRetries = 0;
+    [self.delegate didDispatchWithSuccess:self];
 }
 
 -(void) errorHandler {
-    self->_connRetries++;
+    [self.delegate didDispatchWithError:self];
 }
 
 -(NSURLSession *) urlSession {

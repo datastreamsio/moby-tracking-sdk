@@ -40,6 +40,7 @@
 		22B7AB322100970A007BC5D8 /* O2MEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEvent.m; sourceTree = "<group>"; };
 		22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MBatchManager.h; sourceTree = "<group>"; };
 		22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MBatchManager.m; sourceTree = "<group>"; };
+		22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MDispatcherDelegate.h; sourceTree = "<group>"; };
 		3CB18038EEAB8E83A3A0304C /* O2MDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2MDispatcher.h; sourceTree = "<group>"; };
 		3CB18376E4BAE82EB902F81E /* libdatastreams.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdatastreams.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB184E4A78E8A48D8996756 /* O2MDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2MDevice.m; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 				22B7AB322100970A007BC5D8 /* O2MEvent.m */,
 				22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */,
 				22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */,
+				22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */,
 			);
 			path = O2MC;
 			sourceTree = "<group>";
