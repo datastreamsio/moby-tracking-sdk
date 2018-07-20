@@ -57,7 +57,7 @@
                 os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries);
 
                 // Stopping the time based interval loop.
-                [timer invalidate];
+                [self stop];
             }
         }
     });
@@ -65,8 +65,10 @@
 
 -(void) stop; {
     dispatch_async(_batchQueue, ^{
-        [self->_dispatchTimer invalidate];
-        self->_dispatchTimer = nil;
+        if (self->_dispatchTimer) {
+            [self->_dispatchTimer invalidate];
+            self->_dispatchTimer = nil;
+        }
     });
 }
 
