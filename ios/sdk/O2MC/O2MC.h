@@ -16,7 +16,23 @@
 @property (readonly, nonatomic) O2MTagger *tracker;
 
 
--(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
+#pragma mark - Constructors
+
+/**
+ * Construcs the tracking SDK. NOTE: be sure to set an endpoint.
+ */
+-(instancetype) init;
+/**
+ * Constructs the tracking SDK.
+ * @param endpoint http(s) URL which should be publicly reachable
+ */
+-(instancetype) initWithEndpoint :(NSString *)endpoint;
+/**
+ * Constructs the tracking SDK.
+ * @param endpoint http(s) URL which should be publicly reachable
+ * @param dispatchInterval time in seconds between dispatches
+ */
+-(instancetype) initWithParams :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 
 #pragma mark - Configuration methods
 
