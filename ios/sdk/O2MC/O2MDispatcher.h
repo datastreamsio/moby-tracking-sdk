@@ -14,12 +14,11 @@
     os_log_t _logTopic;
 }
 
-@property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (nonatomic, weak) id <O2MDispatcherDelegate>delegate;
 @property (copy, nonatomic) NSString* deviceId;
 
 - (id)init:(NSString*)appName;
--(void) dispatch:(NSString*)endpoint :(NSMutableArray *)funnel;
+-(void) dispatch:(NSString*)endpoint :(NSMutableArray *)funnel :(long)retries;
 -(NSMutableDictionary *) getGeneralInfo;
 -(void) successHandler;
 -(void) errorHandler;

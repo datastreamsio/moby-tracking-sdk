@@ -16,6 +16,7 @@
 
 @property int batchNumber;
 @property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
+@property (assign, nonatomic, readonly) NSInteger connRetries;
 @property O2MDispatcher *dispatcher;
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;

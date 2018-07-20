@@ -13,6 +13,7 @@
 - (instancetype) init {
     if (self = [super init]) {
         _batchQueue = dispatch_queue_create("batchQueue", DISPATCH_QUEUE_SERIAL);
+        _connRetries = 0;
         _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
         _eventManager = [O2MEventManager sharedManager];
 
@@ -49,13 +50,12 @@
 
 -(void) dispatch:(NSTimer *)timer;{
     dispatch_async(_batchQueue, ^{
-        // TODO: this method should supply the batch number
         if(self->_eventManager.events.count > 0){
-            if(self->_dispatcher.connRetries < self->_maxRetries) {
+            if(self->_connRetries < self->_maxRetries) {
                 #ifdef DEBUG
                     os_log_debug(self->_logTopic, "Dispatcher has been triggered");
                 #endif
-                [self->_dispatcher dispatch :self->_endpoint :self->_eventManager.events];
+                [self->_dispatcher dispatch :self->_endpoint :self->_eventManager.events :self->_connRetries];
             } else {
                 os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries);
 
@@ -79,9 +79,11 @@
     #ifdef DEBUG
         os_log_debug(self->_logTopic, "Dispatcher error");
     #endif
+    self->_connRetries++;
 }
 - (void)didDispatchWithSuccess:(id)sender; {
     self->_batchNumber++;
+    self->_connRetries = 0;
 }
 
 
