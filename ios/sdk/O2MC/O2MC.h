@@ -19,7 +19,7 @@
 #pragma mark - Constructors
 
 /**
- * Construcs the tracking SDK. NOTE: be sure to set an endpoint.
+ * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
  */
 -(instancetype) init;
 /**
