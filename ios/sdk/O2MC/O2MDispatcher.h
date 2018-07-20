@@ -5,7 +5,6 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
-#import "O2MTagger.h"
 
 
 @interface O2MDispatcher : NSObject {
@@ -15,7 +14,6 @@
 }
 
 @property (assign, nonatomic, readonly) NSInteger connRetries;
-@property (assign, nonatomic) NSInteger connRetriesMax;
 @property (copy, nonatomic) NSString* deviceId;
 
 - (id)init:(NSString*)appName;

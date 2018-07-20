@@ -13,6 +13,8 @@
 @implementation O2MC
  -(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
      self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval];
+     [_tracker setMaxRetries:5];
+
     return self;
 }
 

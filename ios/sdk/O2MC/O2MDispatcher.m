@@ -19,7 +19,6 @@
     _appName = appName;
     _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
     _connRetries = 0;
-    _connRetriesMax = 5;
     _deviceId = [[NSUUID UUID] UUIDString]; // This will be unique each session.
     return self;
 }

@@ -7,38 +7,35 @@
 //
 
 #import "O2MTagger.h"
-#import "O2MDispatcher.h"
-#import "O2MUtil.h"
+
 
 @implementation O2MTagger
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
+    _batchManager = [O2MBatchManager sharedManager];
     _eventManager = [O2MEventManager sharedManager];
-    _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
 
     _endpoint = endpoint;
-    _dispatchInterval = dispatchInterval;
 
     _tagQueue = dispatch_queue_create("tagQueue", DISPATCH_QUEUE_SERIAL);
-    _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
-                                             target:self
-                                           selector:@selector(dispatch:)
-                                           userInfo:nil
-                                            repeats:YES];
-    [NSRunLoop.mainRunLoop addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
+
+    [self->_batchManager setEndpoint:endpoint];
+    [self->_batchManager startTimer:dispatchInterval];
 
     return self;
 }
 
 #pragma mark - Configuration methods
+-(void) setEndpoint :(NSString *) endpoint; {
+    [self->_batchManager setEndpoint:endpoint];
+}
+
 
 -(void) setMaxRetries :(NSInteger)maxRetries; {
-    if (_dispatcher) {
-        [_dispatcher setConnRetriesMax: maxRetries];
-    }
+    [_batchManager setMaxRetries: maxRetries];
 }
 
 #pragma mark - Control methods
@@ -56,7 +53,7 @@
 -(void)stop:(BOOL) clearFunnel; {
     dispatch_async(_tagQueue, ^{
         os_log_info(self->_logTopic, "stopping tracking");
-        [self->_dispatchTimer invalidate];
+        [self->_batchManager stop];
 
         if (clearFunnel == YES) {
             #ifdef DEBUG
@@ -71,7 +68,7 @@
 
 -(void)track :(NSString*)eventName; {
     dispatch_async(_tagQueue, ^{
-        if (!self->_dispatchTimer.isValid) return;
+        if (!self->_batchManager.dispatchTimer.isValid) return;
         #ifdef DEBUG
             os_log_debug(self->_logTopic, "Track %@", eventName);
         #endif
@@ -83,32 +80,12 @@
 -(void)trackWithProperties:(NSString*)eventName :(NSDictionary*)properties;
 {
     dispatch_async(_tagQueue, ^{
-        if (!self->_dispatchTimer.isValid) return;
+        if (!self->_batchManager.dispatchTimer.isValid) return;
         #ifdef DEBUG
             os_log_debug(self->_logTopic, "Track %@:%@", eventName, properties);
         #endif
 
         [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName :properties]];
-    });
-}
-
-#pragma mark - Internal methods
-
--(void) dispatch:(NSTimer *)timer;{
-    dispatch_async(_tagQueue, ^{
-        if(self->_eventManager.events.count > 0){
-            if(self->_dispatcher.connRetries < self->_dispatcher.connRetriesMax) {
-                #ifdef DEBUG
-                    os_log_debug(self->_logTopic, "Dispatcher has been triggered");
-                #endif
-                [self->_dispatcher dispatch :self->_endpoint :self->_eventManager.events];
-            } else {
-                os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)self->_dispatcher.connRetriesMax);
-
-                // Stopping the time based interval loop.
-                [timer invalidate];
-            }
-        }
     });
 }
 

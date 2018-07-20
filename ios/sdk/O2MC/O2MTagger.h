@@ -8,23 +8,23 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
+#import "O2MBatchManager.h"
+#import "O2MDispatcher.h"
 #import "O2MEventManager.h"
 #import "O2MEvent.h"
+#import "O2MUtil.h"
 
-@class O2MDispatcher;
 
 @interface O2MTagger : NSObject {
-    NSTimer * _dispatchTimer;
-    O2MDispatcher *_dispatcher;
-    os_log_t _logTopic;
+    O2MBatchManager *_batchManager;
     O2MEventManager* _eventManager;
+    os_log_t _logTopic;
     dispatch_queue_t _tagQueue;
 }
 
 @property NSTimer * dispatchTimer;
-@property NSString *endpoint;
+@property (nonatomic) NSString *endpoint;
 @property (copy) NSString *appId;
-@property NSNumber *dispatchInterval;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods
@@ -41,9 +41,9 @@
 -(void) setMaxRetries :(NSInteger)maxRetries;
 /**
  * The time interval between sending events to the backend.
- * @param dispatchInterval time in seconds (defaults to 8)
+ * @param dispatchInterval time in seconds (defaults to 10)
  */
--(void) setDispatchInterval :(NSNumber *)dispatchInterval;
+//-(void) setDispatchInterval :(NSNumber *)dispatchInterval;
 
 #pragma mark - Control methods
 
@@ -78,7 +78,4 @@
  */
 -(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties;
 
-#pragma mark - Internal methods
-
--(void) dispatch :(NSTimer *)timer;
 @end
