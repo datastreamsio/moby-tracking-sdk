@@ -66,7 +66,10 @@
 -(void) stop; {
     dispatch_async(_batchQueue, ^{
         [self->_dispatchTimer invalidate];
+        self->_dispatchTimer = nil;
     });
 }
+
+
 
 @end
