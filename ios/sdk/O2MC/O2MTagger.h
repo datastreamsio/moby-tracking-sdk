@@ -39,11 +39,6 @@
  * @param maxRetries retry amount (defaults to 5)
  */
 -(void) setMaxRetries :(NSInteger)maxRetries;
-/**
- * The time interval between sending events to the backend.
- * @param dispatchInterval time in seconds (defaults to 10)
- */
-//-(void) setDispatchInterval :(NSNumber *)dispatchInterval;
 
 #pragma mark - Control methods
 
