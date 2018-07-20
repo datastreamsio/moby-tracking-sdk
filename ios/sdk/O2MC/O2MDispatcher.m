@@ -28,7 +28,7 @@
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
     [data setObject:_deviceId forKey:@"deviceId"];
-    [data setObject:@"d.deviceName" forKey:@"deviceName"]; // TODO: TODO TODO
+    [data setObject:[O2MUtil deviceName] forKey:@"deviceName"];
 
     return data;
 }

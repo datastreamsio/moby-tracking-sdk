@@ -24,4 +24,13 @@
     return iso8601String;
 }
 
++(NSString*) deviceName  {
+    // See https://stackoverflow.com/a/11197770/765019
+    struct utsname systemInfo;
+    uname(&systemInfo);
+
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
+}
+
 @end
