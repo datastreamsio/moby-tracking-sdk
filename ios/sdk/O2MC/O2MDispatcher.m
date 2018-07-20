@@ -41,7 +41,7 @@
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
             @"events" : funnel,
-            @"retries": [NSString stringWithFormat:@"%zd", self->_connRetries],
+            @"retries": [NSNumber numberWithLong:self->_connRetries],
             @"timestamp": [O2MUtil currentTimestamp]
     };
 
