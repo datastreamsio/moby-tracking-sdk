@@ -1,15 +1,24 @@
 package io.o2mc.sdk.business.event;
 
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import java.util.List;
+
+import static io.o2mc.sdk.util.LogUtil.LogD;
 
 /**
  * Manages everything that's related to events by making use of a EventBus.
  */
 public class EventManager {
 
+  private static final String TAG = "EventManager";
+
   private EventBus eventBus;
   private boolean isStopped;
+
+  // Will be used for future exception handling, once this class gets more complex
+  @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionListener
+      o2MCExceptionListener;
 
   public EventManager() {
     this.eventBus = new EventBus();
@@ -36,6 +45,8 @@ public class EventManager {
   public void newEventWithProperties(String eventName, String value) {
     if (isStopped) return;
 
+    LogD(TAG, String.format("Tracked '%s'", eventName));
+
     Event e = eventBus.generateEventWithProperties(eventName, value);
     eventBus.add(e);
   }
@@ -57,10 +68,21 @@ public class EventManager {
   }
 
   /**
-   * When called, no more events will be generated
+   * When called, disallow generation of events.
    */
   public void stop() {
     reset();
     isStopped = true;
+  }
+
+  /**
+   * Allow generation of events again.
+   */
+  public void resume() {
+    isStopped = false;
+  }
+
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    this.o2MCExceptionListener = o2MCExceptionListener;
   }
 }

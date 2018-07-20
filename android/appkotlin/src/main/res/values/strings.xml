@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">AppKotlin</string>
+  <string name="name">Name</string>
+  <string name="create_event">Create track event</string>
+  <string name="stop_tracking">Stop Tracking</string>
+  <string name="resume_tracking">Resume Tracking</string>
+</resources>

@@ -1,36 +1,36 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        
+  ext.kotlin_version = '1.2.51'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+  repositories {
+    google()
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    // NOTE: Do not place your application dependencies here; they belong
+    // in the individual module build.gradle files
+  }
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
+  repositories {
+    google()
+    jcenter()
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }
 
 // Custom properties for all projects / modules.
 ext {
-    // The following are only a few examples of the types of properties you can define.
-    compileSdkVersion = 26
-    // You can also use this to specify versions for dependencies. Having consistent
-    // versions between modules can avoid behavior conflicts.
-    supportLibVersion = "27.1.1"
+  // The following are only a few examples of the types of properties you can define.
+  compileSdkVersion = 26
+  // You can also use this to specify versions for dependencies. Having consistent
+  // versions between modules can avoid behavior conflicts.
+  supportLibVersion = "27.1.1"
 }

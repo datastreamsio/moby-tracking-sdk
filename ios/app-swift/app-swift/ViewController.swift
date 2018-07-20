@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
-        self.o2mc = O2MC("http://127.0.0.1:5000/events", 10)
+        self.o2mc = O2MC(endpoint: "http://127.0.0.1:5000/events")
         
     }
 

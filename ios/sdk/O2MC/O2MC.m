@@ -11,11 +11,24 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
- -(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
-     self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval];
-     [_tracker setMaxRetries:5];
-
+-(instancetype) init; {
+    self = [self initWithParams:@"" :[[NSNumber alloc] initWithInt:10]];
     return self;
+}
+
+-(instancetype) initWithEndpoint :(NSString *)endpoint;  {
+    self = [self initWithParams:endpoint :[[NSNumber alloc] initWithInt:10]];
+    return self;
+}
+
+ -(instancetype)initWithParams :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
+     if (self = [super init]) {
+         self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
+
+         // Default setting
+         [_tracker setMaxRetries:5];
+     }
+     return self;
 }
 
 -(void) setEndpoint :(NSString *) endpoint; {

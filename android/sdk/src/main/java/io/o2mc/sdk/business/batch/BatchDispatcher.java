@@ -1,7 +1,7 @@
 package io.o2mc.sdk.business.batch;
 
-import android.support.annotation.NonNull;
 import com.google.gson.Gson;
+import io.o2mc.sdk.interfaces.O2MCCallback;
 import io.o2mc.sdk.domain.Batch;
 import java.io.IOException;
 import okhttp3.Call;
@@ -13,40 +13,22 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogE;
-import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * Dispatches events in JSON format.
  * Singleton class, guaranteed to have only one instance in the apps lifecycle.
- * Sends events in a thread-safe manner.
  */
-public class BatchDispatcher {
+class BatchDispatcher {
 
-  private static final String TAG = "BatchDispatcher";
+  private Gson gson;
 
-  private static Gson gson;
-  private static BatchManager batchManager;
-
-  private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-  private static final OkHttpClient client =
+  private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+  private final OkHttpClient client =
       new OkHttpClient().newBuilder().retryOnConnectionFailure(false).build();
 
-  // ==========================================
-  // region Start singleton technicalities
-  // ==========================================
-  private static BatchDispatcher instance;
-
-  public static synchronized BatchDispatcher getInstance() {
-    if (instance == null) {
-      instance = new BatchDispatcher();
-      gson = new Gson();
-    }
-    return instance;
+  public BatchDispatcher() {
+    gson = new Gson();
   }
-  // ==========================================
-  // endregion Start singleton technicalities
-  // ==========================================
 
   /**
    * Sends analytical events to backend specified by URL in JSON format.
@@ -54,45 +36,13 @@ public class BatchDispatcher {
    * @param url url of backend to send events to
    * @param batch list of events with meta data
    */
-  public void post(String url, Batch batch) {
-    try {
-      String json = batchToJson(batch);
+  public void post(String url, Batch batch, O2MCCallback callback) {
+    String json = batchToJson(batch);
 
-      RequestBody body = RequestBody.create(JSON, json);
-      Request request = new Request.Builder().url(url).post(body).build();
-      client.newCall(request).enqueue(new Callback() {
-        @Override
-        public void onFailure(@NonNull Call call, @NonNull IOException e) {
-          LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
-          BatchDispatcher.getInstance().failureCallback();
-        }
+    RequestBody body = RequestBody.create(JSON, json);
+    Request request = new Request.Builder().url(url).post(body).build();
 
-        @SuppressWarnings("ConstantConditions") // invalid warning because it's checked for
-        @Override
-        public void onResponse(@NonNull Call call, @NonNull Response response) {
-          if (response.isSuccessful()) {
-            // Http response indicates success, inform user and SDK
-            BatchDispatcher.getInstance().successCallback();
-            if (response.body() == null) {
-              LogW(TAG, "onResponse: empty http response from backend");
-            }
-          } else {
-            try {
-              // Http response indicates failure, inform user and SDK
-              BatchDispatcher.getInstance().failureCallback();
-
-              LogW(TAG, String.format("onResponse: Http response indicates failure: '%s'",
-                  response.body().string()));
-            } catch (NullPointerException | IOException ex) {
-              LogE(TAG, "onResponse: Response string is null", ex);
-            }
-          }
-        }
-      });
-    } catch (IllegalArgumentException | NullPointerException e) {
-      BatchDispatcher.getInstance().failureCallback();
-      LogE(TAG, "post: Failed to dispatch events", e);
-    }
+    client.newCall(request).enqueue(new BatchCallback(callback));
   }
 
   /**
@@ -103,32 +53,5 @@ public class BatchDispatcher {
    */
   private String batchToJson(Batch batch) {
     return gson.toJson(batch);
-  }
-
-  public void setBatchManager(BatchManager batchManager) {
-    BatchDispatcher.batchManager = batchManager;
-    LogD(TAG, "Set o2mc field.");
-  }
-
-  /**
-   * Called upon successful HTTP post
-   */
-  private void successCallback() {
-    if (batchManager == null) {
-      LogD(TAG, "O2mc variable is null.");
-      return;
-    }
-    batchManager.dispatchSuccess();
-  }
-
-  /**
-   * Called upon failure of HTTP post
-   */
-  private void failureCallback() {
-    if (batchManager == null) {
-      LogD(TAG, "O2mc variable is null.");
-      return;
-    }
-    batchManager.dispatchFailure();
   }
 }
