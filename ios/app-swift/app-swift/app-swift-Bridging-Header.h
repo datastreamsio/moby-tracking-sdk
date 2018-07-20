@@ -5,4 +5,3 @@
 #import "O2MC.h"
 #import "O2MTagger.h"
 #import "O2MDispatcher.h"
-#import "O2MDevice.h"

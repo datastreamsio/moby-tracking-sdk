@@ -6,10 +6,16 @@
 //  Copyright © 2018 Adversitement. All rights reserved.
 //
 #import <Foundation/Foundation.h>
+#import <sys/utsname.h>
 
 @interface O2MUtil : NSObject
     /**
      * This method generates an ISO 8601 formatted timestamp of the current time.
      */
     +(NSString*) currentTimestamp;
+
+    /**
+     * Returns device name (eg. iPhone9,2).
+     */
+    +(NSString*) deviceName;
 @end
