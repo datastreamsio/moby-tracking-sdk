@@ -17,6 +17,9 @@
         _eventManager = [O2MEventManager sharedManager];
 
         _logTopic = os_log_create("io.o2mc.sdk", "batchmanager");
+
+        // Handle dispatcher's callbacks
+        _dispatcher.delegate = self;
     }
     return self;
 }
@@ -70,6 +73,15 @@
             self->_dispatchTimer = nil;
         }
     });
+}
+
+- (void)didDispatchWithError:(id)sender; {
+    #ifdef DEBUG
+        os_log_debug(self->_logTopic, "Dispatcher error");
+    #endif
+}
+- (void)didDispatchWithSuccess:(id)sender; {
+    self->_batchNumber++;
 }
 
 

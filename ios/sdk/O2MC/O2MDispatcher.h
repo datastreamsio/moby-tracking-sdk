@@ -5,6 +5,7 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
+#import "O2MDispatcherDelegate.h"
 
 
 @interface O2MDispatcher : NSObject {
@@ -14,6 +15,7 @@
 }
 
 @property (assign, nonatomic, readonly) NSInteger connRetries;
+@property (nonatomic, weak) id <O2MDispatcherDelegate>delegate;
 @property (copy, nonatomic) NSString* deviceId;
 
 - (id)init:(NSString*)appName;

@@ -90,10 +90,12 @@
 -(void) successHandler {
     // Reset after each successful data post.
     self->_connRetries = 0;
+    [self.delegate didDispatchWithSuccess:self];
 }
 
 -(void) errorHandler {
     self->_connRetries++;
+    [self.delegate didDispatchWithError:self];
 }
 
 -(NSURLSession *) urlSession {

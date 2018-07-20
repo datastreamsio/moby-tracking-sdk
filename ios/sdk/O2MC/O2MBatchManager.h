@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <os/log.h>
 #import "O2MDispatcher.h"
+#import "O2MDispatcherDelegate.h"
 #import "O2MEventManager.h"
 
-@interface O2MBatchManager : NSObject
+@interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
 @property int batchNumber;
 @property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
@@ -31,5 +32,10 @@
 -(void) startTimer :(NSNumber *) dispatchInterval;
 -(void) dispatch :(NSTimer *)timer;
 -(void) stop;
+
+# pragma mark - Dispatcher delegator methods.
+
+- (void)didDispatchWithError:(id)sender;
+- (void)didDispatchWithSuccess:(id)sender;
 
 @end
