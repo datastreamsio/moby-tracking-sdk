@@ -7,51 +7,43 @@
 //
 
 #import "O2MTagger.h"
-#import "O2MDispatcher.h"
-#import "O2MUtil.h"
+
 
 @implementation O2MTagger
-
-static int objectCount = 0;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
-    _funnel = [[NSMutableArray alloc] init];
-    self.funnel_lock = [[NSLock alloc] init];
-    _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
-    _alias = [[NSUUID UUID] UUIDString];
-    _identity = @"";
+    _batchManager = [O2MBatchManager sharedManager];
+    _eventManager = [O2MEventManager sharedManager];
     _logTopic = os_log_create("io.o2mc.sdk", "tagger");
 
-    [self setEndpoint:endpoint];
-    [self setDispatchInterval:dispatchInterval];
+    _endpoint = endpoint;
 
-    _dispatchTimer = [NSTimer timerWithTimeInterval:dispatchInterval.floatValue
-                                             target:self
-                                           selector:@selector(dispatch:)
-                                           userInfo:nil
-                                            repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:_dispatchTimer forMode:NSRunLoopCommonModes];
+    _tagQueue = dispatch_queue_create("tagQueue", DISPATCH_QUEUE_SERIAL);
 
-    objectCount++;
+    [self->_batchManager setEndpoint:endpoint];
+    [self->_batchManager startTimer:dispatchInterval];
+
     return self;
 }
 
 #pragma mark - Configuration methods
+-(void) setEndpoint :(NSString *) endpoint; {
+    [self->_batchManager setEndpoint:endpoint];
+}
+
 
 -(void) setMaxRetries :(NSInteger)maxRetries; {
-    if (_dispatcher) {
-        [_dispatcher setConnRetriesMax: maxRetries];
-    }
+    [_batchManager setMaxRetries: maxRetries];
 }
 
 #pragma mark - Control methods
 
 -(void) clearFunnel; {
-    [self.funnel_lock lock];
-    [_funnel removeAllObjects];
-    [self.funnel_lock unlock];
+    dispatch_async(_tagQueue, ^{
+      [self->_eventManager clearEvents];
+    });
 }
 
 -(void)stop {
@@ -59,81 +51,42 @@ static int objectCount = 0;
 }
 
 -(void)stop:(BOOL) clearFunnel; {
-    os_log_info(self->_logTopic, "stopping tracking");
-    [_dispatchTimer invalidate];
-    
-    if (clearFunnel == YES) {
-        #ifdef DEBUG
-            os_log_debug(self->_logTopic, "clearing the funnel");
-        #endif
-        [self clearFunnel];
-    }
+    dispatch_async(_tagQueue, ^{
+        os_log_info(self->_logTopic, "stopping tracking");
+        [self->_batchManager stop];
+
+        if (clearFunnel == YES) {
+            #ifdef DEBUG
+                os_log_debug(self->_logTopic, "clearing the funnel");
+            #endif
+            [self clearFunnel];
+        }
+    });
 }
 
 #pragma mark - Tracking methods
 
 -(void)track :(NSString*)eventName; {
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "Track %@", eventName);
-    #endif
+    dispatch_async(_tagQueue, ^{
+        if (!self->_batchManager.dispatchTimer.isValid) return;
+        #ifdef DEBUG
+            os_log_debug(self->_logTopic, "Track %@", eventName);
+        #endif
 
-    NSDictionary *funnel = @{
-                             @"event" : eventName,
-                             @"alias":_alias,
-                             @"identitiy":_identity,
-                             @"time":[O2MUtil currentTimestamp]
-                             };
-    
-    [self addToFunnel:eventName :funnel];
+        [self->_eventManager addEvent: [[O2MEvent alloc] init:eventName]];
+    });
 }
 
--(void)trackWithProperties:(NSString*)eventName :(NSString*)propertiesAsJson;
+-(void)trackWithProperties:(NSString*)eventName :(NSDictionary*)properties;
 {
-    if (![_dispatchTimer isValid]) return;
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "Track %@:%@", eventName, propertiesAsJson);
-    #endif
+    dispatch_async(_tagQueue, ^{
+        if (!self->_batchManager.dispatchTimer.isValid) return;
+        #ifdef DEBUG
+            os_log_debug(self->_logTopic, "Track %@:%@", eventName, properties);
+        #endif
 
-    NSDictionary *funnel = @{
-                             @"event" : eventName,
-                             @"alias":_alias,
-                             @"identitiy":_identity,
-                             @"time":[O2MUtil currentTimestamp],
-                             @"properties":propertiesAsJson
-                             };
-    [self addToFunnel:eventName :funnel];
-}
-
-#pragma mark - Internal methods
-
--(void) dispatch:(NSTimer *)timer;{
-    [self.funnel_lock lock];
-    if(_funnel.count > 0){
-        if(_dispatcher.connRetries < _dispatcher.connRetriesMax) {
-            #ifdef DEBUG
-                os_log_debug(self->_logTopic, "Dispatcher has been triggered");
-            #endif
-            [_dispatcher dispatch :_endpoint :_funnel];
-        } else {
-            os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)_dispatcher.connRetriesMax);
-
-            // Stopping the time based interval loop.
-            [timer invalidate];
-        }
-    }
-    [self.funnel_lock unlock];
-}
-
--(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData; {
-    [self.funnel_lock lock];
-
-    [_funnel addObject:funnelData];
-
-    #ifdef DEBUG
-        os_log_debug(self->_logTopic, "number of events %lu", (unsigned long)[_funnel count]);
-    #endif
-    [self.funnel_lock unlock];
+        [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName :properties]];
+    });
 }
 
 @end

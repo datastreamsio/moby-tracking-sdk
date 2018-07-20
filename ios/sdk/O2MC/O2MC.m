@@ -13,6 +13,8 @@
 @implementation O2MC
  -(id)init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
      self->_tracker =  [[O2MTagger alloc] init:endpoint :dispatchInterval];
+     [_tracker setMaxRetries:5];
+
     return self;
 }
 
@@ -36,8 +38,8 @@
     [self->_tracker track:eventName];
 }
 
--(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson; {
-    [self->_tracker trackWithProperties:eventName :propertiesAsJson];
+-(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties; {
+    [self->_tracker trackWithProperties:eventName :properties];
 }
 
 @end

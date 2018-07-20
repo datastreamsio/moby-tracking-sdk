@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		22B7AB2520FDF4FF007BC5D8 /* O2MUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */; };
+		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
+		22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB322100970A007BC5D8 /* O2MEvent.m */; };
+		22B7AB362100C0A3007BC5D8 /* O2MBatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */; };
 		3CB1809DAFBA70A47D8F54D2 /* O2MTagger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB1885C2EC31A31FD51D342 /* O2MTagger.m */; };
 		3CB1841CBEC27153901A4A5C /* O2MDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB18A1D2CF6C3E9CFBD0160 /* O2MDispatcher.m */; };
 		3CB1845205ED3428858955F3 /* O2MDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB184E4A78E8A48D8996756 /* O2MDevice.m */; };
@@ -31,6 +34,12 @@
 /* Begin PBXFileReference section */
 		22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MUtil.m; sourceTree = "<group>"; };
 		22B7AB2820FE0177007BC5D8 /* O2MUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MUtil.h; sourceTree = "<group>"; };
+		22B7AB2E20FF71E7007BC5D8 /* O2MEventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MEventManager.h; sourceTree = "<group>"; };
+		22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEventManager.m; sourceTree = "<group>"; };
+		22B7AB3121009655007BC5D8 /* O2MEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MEvent.h; sourceTree = "<group>"; };
+		22B7AB322100970A007BC5D8 /* O2MEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEvent.m; sourceTree = "<group>"; };
+		22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MBatchManager.h; sourceTree = "<group>"; };
+		22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MBatchManager.m; sourceTree = "<group>"; };
 		3CB18038EEAB8E83A3A0304C /* O2MDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2MDispatcher.h; sourceTree = "<group>"; };
 		3CB18376E4BAE82EB902F81E /* libdatastreams.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdatastreams.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB184E4A78E8A48D8996756 /* O2MDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2MDevice.m; sourceTree = "<group>"; };
@@ -66,6 +75,12 @@
 				3CB18575925C4776BE94EA28 /* O2MDevice.h */,
 				22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */,
 				22B7AB2820FE0177007BC5D8 /* O2MUtil.h */,
+				22B7AB2E20FF71E7007BC5D8 /* O2MEventManager.h */,
+				22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */,
+				22B7AB3121009655007BC5D8 /* O2MEvent.h */,
+				22B7AB322100970A007BC5D8 /* O2MEvent.m */,
+				22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */,
+				22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */,
 			);
 			path = O2MC;
 			sourceTree = "<group>";
@@ -139,10 +154,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CB1809DAFBA70A47D8F54D2 /* O2MTagger.m in Sources */,
+				22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */,
+				22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */,
 				22B7AB2520FDF4FF007BC5D8 /* O2MUtil.m in Sources */,
 				3CB1841CBEC27153901A4A5C /* O2MDispatcher.m in Sources */,
 				E685A8B81D59BBD60048544E /* O2MC.m in Sources */,
 				3CB1845205ED3428858955F3 /* O2MDevice.m in Sources */,
+				22B7AB362100C0A3007BC5D8 /* O2MBatchManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

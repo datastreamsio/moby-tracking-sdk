@@ -8,23 +8,23 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
+#import "O2MBatchManager.h"
+#import "O2MDispatcher.h"
+#import "O2MEventManager.h"
+#import "O2MEvent.h"
+#import "O2MUtil.h"
 
-@class O2MDispatcher;
 
 @interface O2MTagger : NSObject {
-    NSString * _alias;
-    NSString * _identity;
-    NSMutableArray * _funnel;
-    NSTimer * _dispatchTimer;
-    O2MDispatcher *_dispatcher;
+    O2MBatchManager *_batchManager;
+    O2MEventManager* _eventManager;
     os_log_t _logTopic;
+    dispatch_queue_t _tagQueue;
 }
 
-@property NSLock * funnel_lock;
 @property NSTimer * dispatchTimer;
-@property NSString *endpoint;
-@property NSString *appId;
-@property NSNumber *dispatchInterval;
+@property (nonatomic) NSString *endpoint;
+@property (copy) NSString *appId;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods
@@ -39,11 +39,6 @@
  * @param maxRetries retry amount (defaults to 5)
  */
 -(void) setMaxRetries :(NSInteger)maxRetries;
-/**
- * The time interval between sending events to the backend.
- * @param dispatchInterval time in seconds (defaults to 8)
- */
--(void) setDispatchInterval :(NSNumber *)dispatchInterval;
 
 #pragma mark - Control methods
 
@@ -72,14 +67,10 @@
 -(void)track :(NSString*)eventName;
 /**
  * Tracks an event with additional data.
- * Essentially adds a new event with the String parameter as name and any properties as JSON String format.
+ * Essentially adds a new event with the String parameter as name and any additonal properties.
  * @param eventName name of tracked event
- * @param propertiesAsJson anything you'd like to keep track of
+ * @param properties anything you'd like to keep track of
  */
--(void)trackWithProperties :(NSString*)eventName :(NSString*)propertiesAsJson;
+-(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties;
 
-#pragma mark - Internal methods
-
--(void) addToFunnel :(NSString*)funnelKey :(NSDictionary*)funnelData;
--(void) dispatch :(NSTimer *)timer;
 @end
