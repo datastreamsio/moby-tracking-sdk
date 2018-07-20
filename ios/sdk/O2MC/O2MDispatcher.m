@@ -5,7 +5,6 @@
 
 
 #import "O2MDispatcher.h"
-#import "O2MDevice.h"
 #import "O2MUtil.h"
 #import <UIKit/UIDevice.h>
 
@@ -24,15 +23,12 @@
 }
 
 - (NSMutableDictionary *)getGeneralInfo; {
-
-    O2MDevice *d = [[O2MDevice alloc] init];
-
     NSMutableDictionary* data = [NSMutableDictionary new];
     [data setObject:_appName forKey:@"appId"];
     [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
     [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
     [data setObject:_deviceId forKey:@"deviceId"];
-    [data setObject:d.deviceName forKey:@"deviceName"];
+    [data setObject:@"d.deviceName" forKey:@"deviceName"]; // TODO: TODO TODO
 
     return data;
 }
