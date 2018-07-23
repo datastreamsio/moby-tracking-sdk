@@ -5,6 +5,7 @@
 
 #import <os/log.h>
 #import <Foundation/Foundation.h>
+#import "O2MBatch.h"
 #import "O2MDispatcherDelegate.h"
 
 
@@ -18,7 +19,7 @@
 @property (copy, nonatomic) NSString* deviceId;
 
 - (id)init:(NSString*)appName;
--(void) dispatch:(NSString*)endpoint :(NSMutableArray *)funnel :(long)retries;
+-(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch;
 -(NSMutableDictionary *) getGeneralInfo;
 -(void) successHandler;
 -(void) errorHandler;

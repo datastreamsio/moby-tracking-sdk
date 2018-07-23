@@ -7,15 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "O2MEvent.h"
 #import "O2MUtil.h"
 
 @interface  O2MBatch : NSObject
 
 @property (readonly) NSDictionary *deviceInformation;
-@property NSArray *events;
+@property NSMutableArray *events;
+@property long number;
 @property long retries;
 @property NSString *timestamp;
 
+-(instancetype) initWithBatchNumber :(int) number;
 -(instancetype) initWithDeviceInformation :(NSDictionary*) deviceInformation;
+
+-(void) addEvent :(O2MEvent*) event;
+-(void) addRetry;
+-(NSArray*) eventsAsString;
 
 @end

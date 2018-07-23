@@ -32,11 +32,12 @@
     return data;
 }
 
-- (void)dispatch:(NSString *)endpoint :(NSMutableArray *)funnel :(long)retries; {
+-(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch; {
     NSDictionary *data = @{
             @"deviceInformation" :  [self getGeneralInfo],
-            @"events" : funnel,
-            @"retries": [NSNumber numberWithLong:retries],
+            @"events" : [batch eventsAsString],
+            @"number": [NSNumber numberWithLong:batch.number],
+            @"retries": [NSNumber numberWithLong:batch.retries],
             @"timestamp": [O2MUtil currentTimestamp]
     };
 
@@ -68,7 +69,6 @@
                     #ifdef DEBUG
                         os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
                     #endif
-                    [funnel removeAllObjects];
                     [self successHandler];
                 }
             } else {

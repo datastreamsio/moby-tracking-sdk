@@ -29,7 +29,7 @@
 
 -(void) addEvent :(O2MEvent*)event; {
     dispatch_async(self->_eventQueue,^{
-        [self->_events addObject:[event toDict]];
+        [self->_events addObject:event];
     });
 }
 

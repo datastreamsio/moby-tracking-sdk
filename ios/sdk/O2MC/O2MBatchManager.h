@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <os/log.h>
+#import "O2MBatch.h"
 #import "O2MDispatcher.h"
 #import "O2MDispatcherDelegate.h"
 #import "O2MEventManager.h"
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
+@property NSMutableArray *batches;
 @property int batchNumber;
 @property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
 @property (assign, nonatomic, readonly) NSInteger connRetries;
