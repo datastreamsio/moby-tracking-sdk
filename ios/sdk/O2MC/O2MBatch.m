@@ -14,6 +14,7 @@
 -(instancetype) initWithDeviceInformation :(NSDictionary*) deviceInformation; {
     if (self = [super init]) {
         _deviceInformation = deviceInformation;
+        _timestamp = [O2MUtil currentTimestamp];
     }
     return self;
 }

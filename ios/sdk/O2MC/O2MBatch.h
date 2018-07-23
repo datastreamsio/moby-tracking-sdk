@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "O2MUtil.h"
 
 @interface  O2MBatch : NSObject
 
