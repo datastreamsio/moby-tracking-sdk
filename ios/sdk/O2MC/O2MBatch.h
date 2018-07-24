@@ -18,8 +18,7 @@
 @property long retries;
 @property NSString *timestamp;
 
--(instancetype) initWithBatchNumber :(int) number;
--(instancetype) initWithDeviceInformation :(NSDictionary*) deviceInformation;
+-(instancetype) initWithParams :(NSDictionary*) deviceInformation :(int) number;
 
 -(void) addEvent :(O2MEvent*) event;
 -(void) addRetry;

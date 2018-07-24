@@ -16,11 +16,9 @@
 }
 
 @property (nonatomic, weak) id <O2MDispatcherDelegate>delegate;
-@property (copy, nonatomic) NSString* deviceId;
 
 - (id)init:(NSString*)appName;
 -(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch;
--(NSMutableDictionary *) getGeneralInfo;
 -(void) successHandler;
 -(void) errorHandler;
 -(NSURLSession *) urlSession;

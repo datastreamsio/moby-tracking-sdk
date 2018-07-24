@@ -15,6 +15,13 @@
         _batches = [[NSMutableArray alloc] init];
         _batchQueue = dispatch_queue_create("batchQueue", DISPATCH_QUEUE_SERIAL);
         _connRetries = 0;
+        _deviceInfo = @{
+                        @"appId": [[NSBundle mainBundle] bundleIdentifier],
+                        @"deviceId": [[NSUUID UUID] UUIDString],
+                        @"deviceName": [O2MUtil deviceName],
+                        @"os": UIDevice.currentDevice.systemName,
+                        @"osVersion":UIDevice.currentDevice.systemVersion,
+                        };
         _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
         _eventManager = [O2MEventManager sharedManager];
 
@@ -51,7 +58,7 @@
 
 -(void) createBatch; {
     dispatch_async(self.batchQueue, ^{
-        O2MBatch *batch = [[O2MBatch alloc] initWithBatchNumber:self->_batchNumber];
+        O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
 
         int i;
         for (i=0; i< self->_eventManager.events.count; i++) {

@@ -3,10 +3,7 @@
 // Copyright (c) 2016 Adversitement. All rights reserved.
 //
 
-
 #import "O2MDispatcher.h"
-#import "O2MUtil.h"
-#import <UIKit/UIDevice.h>
 
 
 @implementation O2MDispatcher {
@@ -17,24 +14,12 @@
     self = [super init];
     _appName = appName;
     _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
-    _deviceId = [[NSUUID UUID] UUIDString]; // This will be unique each session.
     return self;
-}
-
-- (NSMutableDictionary *)getGeneralInfo; {
-    NSMutableDictionary* data = [NSMutableDictionary new];
-    [data setObject:_appName forKey:@"appId"];
-    [data setObject:UIDevice.currentDevice.systemName forKey:@"os"];
-    [data setObject:UIDevice.currentDevice.systemVersion forKey:@"osVersion"];
-    [data setObject:_deviceId forKey:@"deviceId"];
-    [data setObject:[O2MUtil deviceName] forKey:@"deviceName"];
-
-    return data;
 }
 
 -(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch; {
     NSDictionary *data = @{
-            @"deviceInformation" :  [self getGeneralInfo],
+            @"deviceInformation" :  [batch deviceInformation],
             @"events" : [batch eventsAsString],
             @"number": [NSNumber numberWithLong:batch.number],
             @"retries": [NSNumber numberWithLong:batch.retries],

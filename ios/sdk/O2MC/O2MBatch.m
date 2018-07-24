@@ -11,18 +11,11 @@
 
 @implementation O2MBatch
 
--(instancetype) initWithBatchNumber:(int)number; {
-    if (self = [super init]) {
-        _events = [[NSMutableArray alloc] init];
-        _number = number;
-        _timestamp = [O2MUtil currentTimestamp];
-    }
-    return self;
-}
-
--(instancetype) initWithDeviceInformation :(NSDictionary*) deviceInformation; {
+-(instancetype) initWithParams :(NSDictionary*) deviceInformation :(int)number; {
     if (self = [super init]) {
         _deviceInformation = deviceInformation;
+        _events = [[NSMutableArray alloc] init];
+        _number = number;
         _timestamp = [O2MUtil currentTimestamp];
     }
     return self;
