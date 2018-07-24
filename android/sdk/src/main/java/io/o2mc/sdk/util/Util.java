@@ -4,7 +4,6 @@ import android.security.NetworkSecurityPolicy;
 import java.util.UUID;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogE;
 import static io.o2mc.sdk.util.LogUtil.LogW;
 
 public final class Util {
@@ -98,15 +97,10 @@ public final class Util {
       return true;
     }
 
+    //noinspection SimplifiableIfStatement
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-      boolean allowed = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
-      if (!allowed) {
-        LogE(TAG,
-            "isAllowedToDispatchEvents: Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version.");
-      }
-      return allowed;
+      return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
     }
-
     return true;
   }
 

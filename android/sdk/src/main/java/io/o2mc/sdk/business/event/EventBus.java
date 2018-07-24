@@ -10,8 +10,6 @@ import java.util.List;
  */
 public class EventBus {
 
-  private static final String TAG = "EventBus";
-
   private final List<Event> events;
 
   public EventBus() {

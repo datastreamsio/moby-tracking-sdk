@@ -69,7 +69,9 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
       this.app.registerActivityLifecycleCallbacks(this);
     }
 
-    trackingManager = new TrackingManager(app, endpoint, dispatchInterval, maxRetries);
+    trackingManager = new TrackingManager();
+
+    trackingManager.init(app, endpoint, dispatchInterval, maxRetries);
   }
 
   /**

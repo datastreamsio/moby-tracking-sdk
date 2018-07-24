@@ -4,16 +4,16 @@ package io.o2mc.sdk.exceptions;
  * Occurs on errors related to the user's device.
  */
 // Suppress unused because the constructors are likely useful for future development.
-@SuppressWarnings("unused") public class O2MCDeviceException extends O2MCException {
-  public O2MCDeviceException(String message) {
+@SuppressWarnings("unused") public abstract class O2MCException extends Exception {
+  public O2MCException(String message) {
     super(message);
   }
 
-  public O2MCDeviceException(Throwable cause) {
+  public O2MCException(Throwable cause) {
     super(cause);
   }
 
-  public O2MCDeviceException(String message, Throwable cause) {
+  public O2MCException(String message, Throwable cause) {
     super(message, cause);
   }
 }

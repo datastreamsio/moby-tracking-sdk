@@ -6,11 +6,17 @@ import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.exceptions.O2MCDeviceException;
+import io.o2mc.sdk.exceptions.O2MCDispatchException;
+import io.o2mc.sdk.exceptions.O2MCEndpointException;
+import io.o2mc.sdk.exceptions.O2MCException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
+import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
 import io.o2mc.sdk.util.Util;
 import java.util.List;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
+import static io.o2mc.sdk.util.LogUtil.LogE;
 
 /**
  * Acts as an intermediate between O2MC and our classes. This is useful to protect methods which
@@ -20,7 +26,7 @@ import static io.o2mc.sdk.util.LogUtil.LogD;
  * Protecting functions from use by an implementing App prevents accidental usage of methods and
  * therefore prevents incorrect usage of our SDK. Makes the SDK more easy to use and robust.
  */
-public class TrackingManager {
+public class TrackingManager implements O2MCExceptionNotifier {
 
   private static final String TAG = "TrackingManager";
 
@@ -32,12 +38,17 @@ public class TrackingManager {
 
   private DeviceInformation deviceInformation;
 
-  public TrackingManager(Application application, String endpoint, int dispatchInterval,
+  private O2MCExceptionListener o2MCExceptionListener;
+
+  public TrackingManager() {
+  }
+
+  public void init(Application application, String endpoint, int dispatchInterval,
       int maxRetries) {
     this.application = application;
 
-    this.deviceManager = new DeviceManager(application);
-    this.eventManager = new EventManager();
+    this.deviceManager = new DeviceManager(this, application);
+    this.eventManager = new EventManager(this);
     this.batchManager = new BatchManager(this, endpoint, dispatchInterval, maxRetries);
   }
 
@@ -92,9 +103,7 @@ public class TrackingManager {
   }
 
   public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
-    deviceManager.setO2MCExceptionListener(o2MCExceptionListener);
-    batchManager.setO2MCExceptionListener(o2MCExceptionListener);
-    eventManager.setO2MCExceptionListener(o2MCExceptionListener);
+    this.o2MCExceptionListener = o2MCExceptionListener;
   }
 
   public void setIdentifier(String identifier) {
@@ -103,5 +112,25 @@ public class TrackingManager {
 
   public void setSessionIdentifier() {
     batchManager.setIdentifier(Util.generateUUID());
+  }
+
+  @Override public void notifyException(O2MCException e) {
+    if (o2MCExceptionListener != null) { // if listener is set, inform using an exception
+
+      // Important: Check every class
+      if (e instanceof O2MCEndpointException) {
+        o2MCExceptionListener.onO2MCEndpointException((O2MCEndpointException) e);
+      } else if (e instanceof O2MCDeviceException) {
+        o2MCExceptionListener.onO2MCDeviceException((O2MCDeviceException) e);
+      } else if (e instanceof O2MCDispatchException) {
+        o2MCExceptionListener.onO2MCDispatchException((O2MCDispatchException) e);
+      } else {
+        LogE(TAG, String.format(
+            "Exception \"%s\" (\"%s\") is not explicitly handled by the TrackingManager. Please notify the maintainer of the SDK to update the exception notifier.",
+            e.getClass().getSimpleName(), e.getMessage()));
+      }
+    } else { // no listener set, just log
+      LogE(TAG, e.getMessage());
+    }
   }
 }

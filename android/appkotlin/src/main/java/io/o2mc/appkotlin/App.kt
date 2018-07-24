@@ -5,6 +5,7 @@ import android.util.Log
 import io.o2mc.sdk.O2MC
 import io.o2mc.sdk.exceptions.O2MCDeviceException
 import io.o2mc.sdk.exceptions.O2MCDispatchException
+import io.o2mc.sdk.exceptions.O2MCEndpointException
 import io.o2mc.sdk.interfaces.O2MCExceptionListener
 
 class App : Application(), O2MCExceptionListener {
@@ -28,5 +29,9 @@ class App : Application(), O2MCExceptionListener {
 
   override fun onO2MCDeviceException(e: O2MCDeviceException?) {
     Log.e(TAG, "onO2MCDeviceException: Some exception: handling from App.kt")
+  }
+
+  override fun onO2MCEndpointException(e: O2MCEndpointException?) {
+    Log.e(TAG, "onO2MCEndpointException: Some exception: handling from App.kt")
   }
 }

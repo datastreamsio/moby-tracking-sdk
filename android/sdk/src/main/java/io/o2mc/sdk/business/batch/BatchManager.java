@@ -4,7 +4,7 @@ import io.o2mc.sdk.Config;
 import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
-import io.o2mc.sdk.interfaces.O2MCExceptionListener;
+import io.o2mc.sdk.exceptions.O2MCEndpointException;
 import io.o2mc.sdk.util.Util;
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,6 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogE;
 import static io.o2mc.sdk.util.LogUtil.LogI;
 import static io.o2mc.sdk.util.LogUtil.LogW;
 
@@ -42,8 +41,6 @@ public class BatchManager extends TimerTask implements Callback {
 
   private BatchDispatcher batchDispatcher;
 
-  private O2MCExceptionListener o2MCExceptionListener;
-
   private String batchId;
 
   /**
@@ -54,18 +51,14 @@ public class BatchManager extends TimerTask implements Callback {
    */
   public BatchManager(TrackingManager trackingManager, String endpoint, int dispatchInterval,
       int maxRetries) {
+    this.trackingManager = trackingManager;
+
     setEndpoint(endpoint);
     setDispatchInterval(dispatchInterval);
     setMaxRetries(maxRetries);
 
     batchBus = new BatchBus();
     batchDispatcher = new BatchDispatcher(this);
-
-    this.trackingManager = trackingManager;
-  }
-
-  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
-    this.o2MCExceptionListener = o2MCExceptionListener;
   }
 
   public void setIdentifier(String identifier) {
@@ -81,9 +74,10 @@ public class BatchManager extends TimerTask implements Callback {
     if (Util.isValidMaxRetries(maxRetries)) {
       this.maxRetries = maxRetries;
     } else {
-      LogE(TAG, String.format("O2MC: Max retries amount '%s' is invalid.", maxRetries));
       LogW(TAG,
-          String.format("setMaxRetries: Setting to default '%s'", Config.DEFAULT_MAX_RETRIES));
+          String.format(
+              "setMaxRetries: Max retries amount '%s' is invalid. Setting to default '%s'",
+              maxRetries, Config.DEFAULT_MAX_RETRIES));
       this.maxRetries = Config.DEFAULT_MAX_RETRIES;
     }
   }
@@ -99,11 +93,9 @@ public class BatchManager extends TimerTask implements Callback {
       this.dispatchInterval = seconds;
       startDispatching(); // Interval is set, start dispatching now.
     } else {
-      LogE(TAG, String.format(
-          "O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events.",
-          dispatchInterval));
-      LogW(TAG, String.format("setDispatchInterval: Setting to default '%s'",
-          Config.DEFAULT_DISPATCH_INTERVAL));
+      LogW(TAG, String.format(
+          "setDispatchInterval: O2MC: Dispatch interval '%s' is invalid. Note that the value must be positive and is denoted in seconds.%nNot dispatching events. Setting to default '%s'",
+          dispatchInterval, Config.DEFAULT_DISPATCH_INTERVAL));
       this.dispatchInterval = Config.DEFAULT_DISPATCH_INTERVAL;
     }
   }
@@ -115,14 +107,15 @@ public class BatchManager extends TimerTask implements Callback {
    */
   private void setEndpoint(String endpoint) {
     if (endpoint == null || endpoint.isEmpty()) {
-      LogE(TAG, "O2MC: Please provide a non-empty endpoint.");
+      trackingManager.notifyException(
+          new O2MCEndpointException("Please provide a non-empty endpoint."));
     } else if (Util.isValidEndpoint(endpoint)) {
       this.endpoint = endpoint;
       this.usingHttpsEndpoint = Util.isHttps(endpoint);
     } else {
-      LogE(TAG, String.format(
-          "O2MC: Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.",
-          endpoint));
+      trackingManager.notifyException(new O2MCEndpointException(
+          "Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'."
+      ));
     }
   }
 
@@ -132,7 +125,7 @@ public class BatchManager extends TimerTask implements Callback {
   private void startDispatching() {
     // Check if the device is allowed to dispatch events
     if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
-      LogE(TAG, "run: Not allowed to dispatch events. See previous message(s) for more info.");
+      trackingManager.notifyException(new O2MCDispatchException("Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version."));
       return;
     }
 
@@ -185,11 +178,9 @@ public class BatchManager extends TimerTask implements Callback {
   @Override public void onResponse(Call call, Response response) {
     if (response.isSuccessful()) {
       // Http response indicates success, inform user and SDK
-      LogI(TAG, "onResponse: Http response indicates success");
       batchBus.onBatchSucceeded();
     } else {
       // Http response indicates failure, inform user and SDK
-      LogE(TAG, "onResponse: Http response indicates failure");
       dispatchFailed(new O2MCDispatchException(
           String.format("Backend HTTP response status code indicated failure. Status was '%s'",
               response.code())));
@@ -211,12 +202,7 @@ public class BatchManager extends TimerTask implements Callback {
    */
   private void dispatchFailed(Exception e) {
     batchBus.onBatchFailed();
-
-    if (o2MCExceptionListener != null) {// if listener is set, inform using an exception
-      o2MCExceptionListener.onO2MCDispatchException(new O2MCDispatchException(e));
-    } else { // no listener set, just log
-      LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
-    }
+    trackingManager.notifyException(new O2MCDispatchException(e));
   }
 
   /**
@@ -267,7 +253,7 @@ public class BatchManager extends TimerTask implements Callback {
     // Dispatch the newly set batch
     LogI(TAG, String.format("run: Dispatching batch with '%s' events.",
         batchBus.getPendingBatch().getEvents().size()));
-    batchBus.onDispatch();
+    batchBus.preDispatch();
 
     batchDispatcher.post(endpoint, batchBus.getPendingBatch());
   }
