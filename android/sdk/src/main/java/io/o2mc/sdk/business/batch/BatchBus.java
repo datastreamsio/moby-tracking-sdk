@@ -55,7 +55,7 @@ public class BatchBus {
   /**
    * Called when the most recent batch has failed to be processed by the backend.
    */
-  public void lastBatchFailed() {
+  public void onBatchFailed() {
     retries++;
     awaitingCallback = false;
     LogD(TAG, String.format("Last batch failed. Retries is '%s' now.", retries));
@@ -64,11 +64,7 @@ public class BatchBus {
   /**
    * Called when the most recent batch has successfully been processed by the backend.
    */
-  public void lastBatchSucceeded() {
-    retries = 0;
-    pendingBatch = null;
-    awaitingCallback = false;
-    LogD(TAG, String.format("Last batch succeeded. Retries is '%s' now.", retries));
+  public void onBatchSucceeded() {
   }
 
   public int getRetries() {

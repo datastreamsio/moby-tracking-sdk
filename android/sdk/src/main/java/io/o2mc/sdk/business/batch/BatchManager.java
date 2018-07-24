@@ -4,12 +4,15 @@ import io.o2mc.sdk.Config;
 import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
-import io.o2mc.sdk.interfaces.O2MCCallback;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.util.Util;
+import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogE;
@@ -19,7 +22,7 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
 /**
  * Manages everything that's related to batches by making use of a BatchBus and a BatchDispatcher.
  */
-public class BatchManager {
+public class BatchManager extends TimerTask implements Callback {
 
   private static final String TAG = "BatchManager";
 
@@ -56,9 +59,17 @@ public class BatchManager {
     setMaxRetries(maxRetries);
 
     batchBus = new BatchBus();
-    batchDispatcher = new BatchDispatcher();
+    batchDispatcher = new BatchDispatcher(this);
 
     this.trackingManager = trackingManager;
+  }
+
+  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
+    this.o2MCExceptionListener = o2MCExceptionListener;
+  }
+
+  public void setIdentifier(String identifier) {
+    this.batchId = identifier;
   }
 
   /**
@@ -116,20 +127,6 @@ public class BatchManager {
   }
 
   /**
-   * Called upon successful HTTP post
-   */
-  public void dispatchSuccess() {
-    batchBus.lastBatchSucceeded();
-  }
-
-  /**
-   * Called upon failure of HTTP post
-   */
-  public void dispatchFailure() {
-    batchBus.lastBatchFailed();
-  }
-
-  /**
    * Sets a timer for dispatching events to the backend.
    */
   private void startDispatching() {
@@ -140,7 +137,7 @@ public class BatchManager {
     }
 
     final int SECOND = 1000;
-    timer.schedule(new DispatcherTask(), dispatchInterval * SECOND, dispatchInterval * SECOND);
+    timer.schedule(this, dispatchInterval * SECOND, dispatchInterval * SECOND);
   }
 
   /**
@@ -179,82 +176,99 @@ public class BatchManager {
     isStopped = false;
   }
 
-  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
-    this.o2MCExceptionListener = o2MCExceptionListener;
-  }
-
-  public void setIdentifier(String identifier) {
-    this.batchId = identifier;
+  /**
+   * Callback from OkHttp, called after successfully sending an HTTP request
+   *
+   * @param call the HTTP call that was sent
+   * @param response the HTTP response that was received
+   */
+  @Override public void onResponse(Call call, Response response) {
+    if (response.isSuccessful()) {
+      // Http response indicates success, inform user and SDK
+      LogI(TAG, "onResponse: Http response indicates success");
+      batchBus.onBatchSucceeded();
+    } else {
+      // Http response indicates failure, inform user and SDK
+      LogE(TAG, "onResponse: Http response indicates failure");
+      dispatchFailed(new O2MCDispatchException(
+          String.format("Backend HTTP response status code indicated failure. Status was '%s'",
+              response.code())));
+    }
   }
 
   /**
-   * Sends all events from the EventBus to the backend, if there are any events.
+   * Callback from OkHttp, called upon failure while trying to send an HTTP request
+   *
+   * @param call the call that was tried to send
+   * @param e the exception that occurred while trying to send
    */
-  class DispatcherTask extends TimerTask {
-    private static final String TAG = "Dispatcher";
+  @Override public void onFailure(Call call, IOException e) {
+    dispatchFailed(e);
+  }
 
-    @Override
-    public void run() {
-      if (isStopped) return;
+  /**
+   * Called upon failure of HTTP post
+   */
+  private void dispatchFailed(Exception e) {
+    batchBus.onBatchFailed();
 
-      if (isFirstRun) {
-        // Initialize batchGenerator meta data
-        batchBus.setDeviceInformation(trackingManager.getDeviceInformation());
-        isFirstRun = false;
-      }
-
-      // Don't try resending a batch if the max retries limit has exceeded
-      if (batchBus.getRetries() > maxRetries) {
-        LogW(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
-        isStopped = true;
-        return;
-      }
-
-      // Only generate a batch if we have events
-      if (getEvents().size() > 0) {
-        batchBus.add(batchBus.generateBatch(batchId, getEvents()));
-        LogD(TAG,
-            String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
-        clearEvents();
-      }
-
-      // If there's a batch pending, skip this run
-      if (batchBus.awaitingCallback()) {
-        LogD(TAG, "run: Still awaiting a callback from previous run. Stopping here.");
-        return;
-      }
-
-      // There's no pending batch, set / generate one if possible
-      if (batchBus.getPendingBatch() == null) {
-        batchBus.setPendingBatch();
-      }
-
-      // If there is one now, send it
-      if (batchBus.getPendingBatch() == null) {
-        LogI(TAG, "run: There is no pending batch set. Not dispatching.");
-        return;
-      }
-
-      // Dispatch the newly set batch
-      LogI(TAG, String.format("run: Dispatching batch with '%s' events.",
-          batchBus.getPendingBatch().getEvents().size()));
-      batchBus.onDispatch();
-
-      // TODO: 7/18/18 not happy about this structure; seems overkill to use a dedicated callback class for this; refactor appropriately
-      O2MCCallback callback = new O2MCCallback() {
-        @Override public void exception(Exception e) {
-          dispatchFailure();
-          if (o2MCExceptionListener != null) {// if listener is set, inform using an exception
-            o2MCExceptionListener.onO2MCDispatchException(new O2MCDispatchException(e));
-          } else { // no listener set, just log
-            LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
-          }
-        }
-        @Override public void success() {
-          dispatchSuccess();
-        }
-      };
-      batchDispatcher.post(endpoint, batchBus.getPendingBatch(), callback);
+    if (o2MCExceptionListener != null) {// if listener is set, inform using an exception
+      o2MCExceptionListener.onO2MCDispatchException(new O2MCDispatchException(e));
+    } else { // no listener set, just log
+      LogE(TAG, String.format("Unable to post data: '%s'", e.getMessage()));
     }
+  }
+
+  /**
+   * Batch preparation and queuing logic.
+   */
+  @Override
+  public void run() {
+    if (isStopped) return;
+
+    if (isFirstRun) {
+      // Initialize batchGenerator meta data
+      batchBus.setDeviceInformation(trackingManager.getDeviceInformation());
+      isFirstRun = false;
+    }
+
+    // Don't try resending a batch if the max retries limit has exceeded
+    if (batchBus.getRetries() > maxRetries) {
+      LogW(TAG, "run: Max retries limit has been reached. Not trying to resend batch.");
+      isStopped = true;
+      return;
+    }
+
+    // Only generate a batch if we have events
+    if (getEvents().size() > 0) {
+      batchBus.add(batchBus.generateBatch(batchId, getEvents()));
+      LogD(TAG,
+          String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
+      clearEvents();
+    }
+
+    // If there's a batch pending, skip this run
+    if (batchBus.awaitingCallback()) {
+      LogD(TAG, "run: Still awaiting a callback from previous run. Stopping here.");
+      return;
+    }
+
+    // There's no pending batch, set / generate one if possible
+    if (batchBus.getPendingBatch() == null) {
+      batchBus.setPendingBatch();
+    }
+
+    // If there is one now, send it
+    if (batchBus.getPendingBatch() == null) {
+      LogI(TAG, "run: There is no pending batch set. Not dispatching.");
+      return;
+    }
+
+    // Dispatch the newly set batch
+    LogI(TAG, String.format("run: Dispatching batch with '%s' events.",
+        batchBus.getPendingBatch().getEvents().size()));
+    batchBus.onDispatch();
+
+    batchDispatcher.post(endpoint, batchBus.getPendingBatch());
   }
 }
