@@ -37,7 +37,6 @@ dependencies {
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
   // Third party dependencies.
-  compile 'com.jaredrummler:android-device-names:1.1.7'
   implementation 'com.google.code.gson:gson:2.8.5'
   implementation 'com.squareup.okhttp3:okhttp:3.10.0'
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

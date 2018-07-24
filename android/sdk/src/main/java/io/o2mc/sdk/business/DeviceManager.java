@@ -2,8 +2,7 @@ package io.o2mc.sdk.business;
 
 import android.app.Application;
 import android.os.Build;
-import android.provider.Settings;
-import com.jaredrummler.android.device.DeviceName;
+import android.widget.Toast;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
@@ -44,7 +43,7 @@ public class DeviceManager {
     String appId = app.getPackageName();
     String os = "android";
     String osVersion = Build.VERSION.RELEASE;
-    String deviceName = DeviceName.getDeviceName();
+    String deviceName = android.os.Build.MODEL;
 
     return new DeviceInformation(
         appId, os, osVersion, deviceName
