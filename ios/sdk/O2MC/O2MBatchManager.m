@@ -13,7 +13,7 @@
 - (instancetype) init {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
-        _batchQueue = dispatch_queue_create("batchQueue", DISPATCH_QUEUE_SERIAL);
+        _batchQueue = dispatch_queue_create("io.o2mc.sdk.batchQueue", DISPATCH_QUEUE_SERIAL);
         _connRetries = 0;
         _deviceInfo = @{
                         @"appId": [[NSBundle mainBundle] bundleIdentifier],
