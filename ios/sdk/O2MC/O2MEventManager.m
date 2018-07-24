@@ -22,7 +22,7 @@
 -(instancetype) init; {
     if (self = [super init]) {
         _events = [[NSMutableArray alloc] init];
-        _eventQueue = dispatch_queue_create("io.o2mc.sdk.eventQueue", DISPATCH_QUEUE_SERIAL);
+        _eventQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
     }
     return self;
 }
