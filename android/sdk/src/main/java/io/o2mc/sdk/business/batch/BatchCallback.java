@@ -10,7 +10,6 @@ import okhttp3.Response;
 
 import static io.o2mc.sdk.util.LogUtil.LogE;
 import static io.o2mc.sdk.util.LogUtil.LogI;
-import static io.o2mc.sdk.util.LogUtil.LogW;
 
 public class BatchCallback implements Callback {
 
@@ -35,7 +34,7 @@ public class BatchCallback implements Callback {
       callback.success();
     } else {
       // Http response indicates failure, inform user and SDK
-      LogW(TAG, "onResponse: Http response indicates failure");
+      LogE(TAG, "onResponse: Http response indicates failure");
       callback.exception(new O2MCDispatchException(
           String.format("Backend HTTP response status code indicated failure. Status was '%s'",
               response.code())));
