@@ -2,7 +2,6 @@ package io.o2mc.sdk.business;
 
 import android.app.Application;
 import android.os.Build;
-import android.widget.Toast;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
