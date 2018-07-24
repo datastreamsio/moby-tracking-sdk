@@ -118,15 +118,15 @@ public class BatchManager {
   /**
    * Called upon successful HTTP post
    */
-  public void dispatchSuccess() {
-    batchBus.lastBatchSucceeded();
+  public void dispatchSucceeded() {
+    batchBus.onBatchSucceeded();
   }
 
   /**
    * Called upon failure of HTTP post
    */
-  public void dispatchFailure() {
-    batchBus.lastBatchFailed();
+  public void dispatchFailed() {
+    batchBus.onBatchFailed();
   }
 
   /**
@@ -243,7 +243,7 @@ public class BatchManager {
       // TODO: 7/18/18 not happy about this structure; seems overkill to use a dedicated callback class for this; refactor appropriately
       O2MCCallback callback = new O2MCCallback() {
         @Override public void exception(Exception e) {
-          dispatchFailure();
+          dispatchFailed();
           if (o2MCExceptionListener != null) {// if listener is set, inform using an exception
             o2MCExceptionListener.onO2MCDispatchException(new O2MCDispatchException(e));
           } else { // no listener set, just log
@@ -251,7 +251,7 @@ public class BatchManager {
           }
         }
         @Override public void success() {
-          dispatchSuccess();
+          dispatchSucceeded();
         }
       };
       batchDispatcher.post(endpoint, batchBus.getPendingBatch(), callback);
