@@ -91,6 +91,24 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
   }
 
   /**
+   * Sets an identifier for a user. This identifier will be sent along with tracked events.
+   * This could be useful to correlate various batches with each other.
+   *
+   * @param identifier any identifier you'd like to use to identify a user with (in String format)
+   */
+  public void setIdentifier(String identifier) {
+    trackingManager.setIdentifier(identifier);
+  }
+
+  /**
+   * Sets a randomly generated UUID for a user. This identifier will be sent along with tracked events.
+   * This could be useful to correlate various batches with each other.
+   */
+  public void setSessionIdentifier() {
+    trackingManager.setSessionIdentifier();
+  }
+
+  /**
    * Enable or disable logging.
    * Logging in release builds is disabled. This behavior is immutable.
    * Logging in all other builds is configurable. The default is set to 'true', logging is enabled.

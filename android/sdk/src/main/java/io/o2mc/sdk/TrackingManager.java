@@ -7,6 +7,7 @@ import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
+import io.o2mc.sdk.util.Util;
 import java.util.List;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
@@ -94,5 +95,13 @@ public class TrackingManager {
     deviceManager.setO2MCExceptionListener(o2MCExceptionListener);
     batchManager.setO2MCExceptionListener(o2MCExceptionListener);
     eventManager.setO2MCExceptionListener(o2MCExceptionListener);
+  }
+
+  public void setIdentifier(String identifier) {
+    batchManager.setIdentifier(identifier);
+  }
+
+  public void setSessionIdentifier() {
+    batchManager.setIdentifier(Util.generateUUID());
   }
 }
