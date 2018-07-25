@@ -17,6 +17,7 @@ object {
 ```
 object {
 	string appId;
+	string deviceId;
 	string os;
 	string osVersion;
 }
@@ -25,6 +26,12 @@ object {
 #### appId
 
 The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
+
+#### deviceId
+
+Unique identifier to identify events across batches. There are 3 modes; anonymous, session identifier, persistent identifier.
+
+The anonymous mode will result in a `null` value. The session identifier is a random `UUID` generated on each SDK initialisation. The persistent identifier can be any string value set by the implementing party.
 
 #### os
 
