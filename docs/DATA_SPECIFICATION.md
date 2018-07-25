@@ -70,3 +70,7 @@ Batch number. Numbering starts on `0` and increments each batch. The batch numbe
 #### retries
 
 Defines how often the dispatcher has been attempted to sent the batch to the backend. If the `retries` value reaches the maximum retry amount, the dispatcher will stop attempt to send the batch.
+
+#### timestamp
+
+Batch generation time as an ISO 8601 format.
