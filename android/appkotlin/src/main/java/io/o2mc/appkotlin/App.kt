@@ -27,10 +27,10 @@ class App : Application(), O2MCExceptionListener {
   }
 
   override fun onO2MCDeviceException(e: O2MCDeviceException) {
-    Log.e(TAG, "Handling an onO2MCDeviceException from App.kt: " + e.message)
+    Log.e(TAG, "Handling an O2MCDeviceException from App.kt: " + e.message)
   }
 
   override fun onO2MCEndpointException(e: O2MCEndpointException) {
-    Log.e(TAG, "Handling an onO2MCEndpointException from App.kt: " + e.message)
+    Log.e(TAG, "Handling an O2MCEndpointException from App.kt: " + e.message)
   }
 }

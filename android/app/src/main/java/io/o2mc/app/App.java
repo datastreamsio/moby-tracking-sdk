@@ -27,10 +27,10 @@ public class App extends Application implements O2MCExceptionListener {
   }
 
   @Override public void onO2MCDeviceException(O2MCDeviceException e) {
-    Log.e(TAG, "Handling an onO2MCDeviceException from App.java: " + e.getMessage());
+    Log.e(TAG, "Handling an O2MCDeviceException from App.java: " + e.getMessage());
   }
 
   @Override public void onO2MCEndpointException(O2MCEndpointException e) {
-    Log.e(TAG, "Handling an onO2MCEndpointException from App.java: " + e.getMessage());
+    Log.e(TAG, "Handling an O2MCEndpointException from App.java: " + e.getMessage());
   }
 }
