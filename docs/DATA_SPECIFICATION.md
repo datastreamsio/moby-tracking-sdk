@@ -12,7 +12,7 @@ object {
 ```
 
 ### DeviceInformation property
-
+This object contains generic device information.
 
 ```
 object {
@@ -49,6 +49,7 @@ The device's operating system. For example `iOS` or `android`.
 The operating system's version. For example `11.4` or `9`.
 
 ### Events property
+This object is generated after a [`track()`](API.md#track) [`trackWithProperties()`](API.md#trackwithproperties) method has been triggered.
 
 ```
 object {
@@ -71,6 +72,7 @@ Optional custom properties object. Properties can be set using the `trackWithPro
 Event generation time as an ISO 8601 format.
 
 ### Meta properties
+These properties contain meta information about the current batch.
 
 ```
 object {
