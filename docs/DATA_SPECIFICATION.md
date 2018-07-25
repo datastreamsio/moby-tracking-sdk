@@ -62,6 +62,10 @@ object {
 
 Name of the triggered event.
 
+#### properties
+
+Optional custom properties object. Properties can be set using the `trackWithProperties()` [method](API.md#trackwithproperties).
+
 ### Meta properties
 
 ```
