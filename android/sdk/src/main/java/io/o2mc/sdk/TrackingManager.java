@@ -17,6 +17,7 @@ import java.util.List;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogE;
+import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * Acts as an intermediate between O2MC and our classes. This is useful to protect methods which
@@ -47,9 +48,13 @@ public class TrackingManager implements O2MCExceptionNotifier {
       int maxRetries) {
     this.application = application;
 
-    this.deviceManager = new DeviceManager(this, application);
-    this.eventManager = new EventManager(this);
-    this.batchManager = new BatchManager(this, endpoint, dispatchInterval, maxRetries);
+    this.deviceManager = new DeviceManager();
+    this.eventManager = new EventManager();
+    this.batchManager = new BatchManager();
+
+    this.deviceManager.init(this, application);
+    this.eventManager.init(this);
+    this.batchManager.init(this, endpoint, dispatchInterval, maxRetries);
   }
 
   public void setMaxRetries(int maxRetries) {
@@ -114,7 +119,7 @@ public class TrackingManager implements O2MCExceptionNotifier {
     batchManager.setIdentifier(Util.generateUUID());
   }
 
-  @Override public void notifyException(O2MCException e) {
+  @Override public void notifyException(O2MCException e, boolean isFatal) {
     if (o2MCExceptionListener != null) { // if listener is set, inform using an exception
 
       // Important: Check every class
@@ -131,6 +136,12 @@ public class TrackingManager implements O2MCExceptionNotifier {
       }
     } else { // no listener set, just log
       LogE(TAG, e.getMessage());
+    }
+
+    // If exception was fatal, stop the SDK
+    if (isFatal) {
+      stop();
+      LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.", e.getClass().getSimpleName()));
     }
   }
 }

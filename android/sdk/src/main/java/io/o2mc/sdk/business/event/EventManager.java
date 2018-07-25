@@ -19,9 +19,9 @@ public class EventManager {
   // Will be used for future exception handling, once this class gets more complex
   @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionNotifier notifier;
 
-  public EventManager(O2MCExceptionNotifier notifier) {
-    this.notifier = notifier;
+  public void init(O2MCExceptionNotifier notifier){
     this.eventBus = new EventBus();
+    this.notifier = notifier;
   }
 
   /**

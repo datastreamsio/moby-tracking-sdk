@@ -49,16 +49,16 @@ public class BatchManager extends TimerTask implements Callback {
    * @param dispatchInterval dispatch interval in seconds
    * @param maxRetries number of times the manager will retry sending batches before giving up
    */
-  public BatchManager(TrackingManager trackingManager, String endpoint, int dispatchInterval,
+  public void init(TrackingManager trackingManager, String endpoint, int dispatchInterval,
       int maxRetries) {
+    batchBus = new BatchBus();
+    batchDispatcher = new BatchDispatcher(this);
+
     this.trackingManager = trackingManager;
 
     setEndpoint(endpoint);
     setDispatchInterval(dispatchInterval);
     setMaxRetries(maxRetries);
-
-    batchBus = new BatchBus();
-    batchDispatcher = new BatchDispatcher(this);
   }
 
   public void setIdentifier(String identifier) {
@@ -108,14 +108,17 @@ public class BatchManager extends TimerTask implements Callback {
   private void setEndpoint(String endpoint) {
     if (endpoint == null || endpoint.isEmpty()) {
       trackingManager.notifyException(
-          new O2MCEndpointException("Please provide a non-empty endpoint."));
+          new O2MCEndpointException("Please provide a non-empty endpoint."),
+          true); // fatal exception, the next dispatch wouldn't work even if we tried
     } else if (Util.isValidEndpoint(endpoint)) {
       this.endpoint = endpoint;
       this.usingHttpsEndpoint = Util.isHttps(endpoint);
     } else {
       trackingManager.notifyException(new O2MCEndpointException(
-          "Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'."
-      ));
+              String.format(
+                  "Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.",
+                  endpoint)),
+          true);  // fatal exception, the next dispatch wouldn't work even if we tried
     }
   }
 
@@ -125,7 +128,9 @@ public class BatchManager extends TimerTask implements Callback {
   private void startDispatching() {
     // Check if the device is allowed to dispatch events
     if (!Util.isAllowedToDispatchEvents(usingHttpsEndpoint)) {
-      trackingManager.notifyException(new O2MCDispatchException("Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version."));
+      trackingManager.notifyException(new O2MCDispatchException(
+              "Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version."),
+          true); // fatal exception, the next dispatch wouldn't work even if we tried
       return;
     }
 
@@ -202,7 +207,8 @@ public class BatchManager extends TimerTask implements Callback {
    */
   private void dispatchFailed(Exception e) {
     batchBus.onBatchFailed();
-    trackingManager.notifyException(new O2MCDispatchException(e));
+    trackingManager.notifyException(new O2MCDispatchException(e),
+        false); // non fatal, network may be down this time, but on next dispatch, the batch dispatch may work (again)
   }
 
   /**

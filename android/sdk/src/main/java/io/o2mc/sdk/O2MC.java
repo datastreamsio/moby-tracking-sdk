@@ -70,7 +70,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
     }
 
     trackingManager = new TrackingManager();
-
     trackingManager.init(app, endpoint, dispatchInterval, maxRetries);
   }
 

@@ -13,6 +13,7 @@ public interface O2MCExceptionNotifier {
    * If they've not set an exception listener, log an error.
    *
    * @param e an exception with a message descriptive of what went wrong. Its type indicates at which subject the error occurred.
+   * @param isFatal true if exception is fatal for base SDK functionality. SDK will then stop working.
    */
-  void notifyException(O2MCException e);
+  void notifyException(O2MCException e, boolean isFatal);
 }

@@ -16,7 +16,7 @@ public class DeviceManager {
 
   private O2MCExceptionNotifier notifier;
 
-  public DeviceManager(O2MCExceptionNotifier notifier, Application app) {
+  public void init(O2MCExceptionNotifier notifier, Application app) {
     this.notifier = notifier;
     this.app = app;
   }
@@ -29,7 +29,8 @@ public class DeviceManager {
   public DeviceInformation generateDeviceInformation() {
     if (app == null) {
       notifier.notifyException(new O2MCDeviceException(
-          "No device information could be retrieved. Did you supply your Application to the O2MC module?"));
+              "No device information could be retrieved. Did you supply your Application to the O2MC module?"),
+          false); // non fatal, the SDK can still send events, it just won't include much meta data
       return null;
     }
 
