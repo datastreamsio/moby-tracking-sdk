@@ -41,9 +41,6 @@ public class TrackingManager implements O2MCExceptionNotifier {
 
   private O2MCExceptionListener o2MCExceptionListener;
 
-  public TrackingManager() {
-  }
-
   public void init(Application application, String endpoint, int dispatchInterval,
       int maxRetries) {
     this.application = application;
