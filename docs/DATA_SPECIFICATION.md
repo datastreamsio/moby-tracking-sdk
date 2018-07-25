@@ -35,7 +35,7 @@ The anonymous mode will result in a `null` value. The session identifier is a ra
 
 #### os
 
-The device's operating system. For example `ios` or `android`. The value should be in lowercase.
+The device's operating system. For example `iOS` or `android`.
 
 #### osVersion
 
