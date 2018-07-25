@@ -32,13 +32,29 @@ Refer to the [API documentation](docs/API.md) for more details on how to use the
 ## Data specification
 The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
 
-```
-object {
-	object deviceInformation;
-	array events { object; };
-	int number;
-	int retries;
-	string timestamp;
+> Example
+```json
+{
+    "deviceInformation": {
+        "appId": "io.o2mc.app",
+        "deviceName": "Android SDK built for x86",
+        "os": "android",
+        "osVersion": "9"
+    },
+    "events": [
+        {
+            "name": "MainActivity created",                                                     
+            "timestamp": "2018-07-25T11:19:17+02:00",
+        },
+        {
+            "name": "Clicked button: 'Create Track Event'",                                                     
+            "timestamp": "2018-07-25T11:19:17+02:00",
+            "value": "Name"
+        }
+    ],
+    "number": 1,
+    "retries": 0,
+    "timestamp": "2018-07-25T11:19:18+02:00"
 }
 ```
 
