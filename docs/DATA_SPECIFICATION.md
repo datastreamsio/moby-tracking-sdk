@@ -54,7 +54,7 @@ This object is generated after a [`track()`](API.md#track) [`trackWithProperties
 ```
 object {
 	string event;
-	object properties;
+	object? properties;
 	string timestamp;
 }
 ```
