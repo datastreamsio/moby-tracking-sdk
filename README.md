@@ -30,12 +30,31 @@ For a Hello-world example, please refer to [this](docs/ANDROID_HELLO_WORLD.md) p
 Refer to the [API documentation](docs/API.md) for more details on how to use the SDK.
 
 ## Data specification
-The data is sent as JSON data. The format contains two main properties, the `application` and the `tracked` property. Both properties are guaranteed to be included.
+The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
 
-```
-object {
-	object application;
-	array tracked { object; };
+> Example
+```json
+{
+    "deviceInformation": {
+        "appId": "io.o2mc.app",
+        "deviceName": "Android SDK built for x86",
+        "os": "android",
+        "osVersion": "9"
+    },
+    "events": [
+        {
+            "name": "MainActivity created",                                                     
+            "timestamp": "2018-07-25T11:19:17+02:00",
+        },
+        {
+            "name": "Clicked button: 'Create Track Event'",                                                     
+            "timestamp": "2018-07-25T11:19:17+02:00",
+            "value": "Name"
+        }
+    ],
+    "number": 1,
+    "retries": 0,
+    "timestamp": "2018-07-25T11:19:18+02:00"
 }
 ```
 
