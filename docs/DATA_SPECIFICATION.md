@@ -62,3 +62,7 @@ object {
 	string timestamp;
 }
 ```
+
+#### number
+
+Batch number. Numbering starts on `0` and increments each batch. The batch number will reset each session.
