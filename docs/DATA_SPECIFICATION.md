@@ -50,7 +50,13 @@ The operating system's version. For example `11.4` or `9`.
 
 ### Events property
 
-*TODO*
+```
+object {
+	string event;
+	object properties;
+	string timestamp;
+}
+```
 
 ### Meta properties
 
