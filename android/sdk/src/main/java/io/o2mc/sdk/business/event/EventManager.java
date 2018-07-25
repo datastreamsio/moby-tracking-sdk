@@ -1,7 +1,7 @@
 package io.o2mc.sdk.business.event;
 
 import io.o2mc.sdk.domain.Event;
-import io.o2mc.sdk.interfaces.O2MCExceptionListener;
+import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
 import java.util.List;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
@@ -17,11 +17,11 @@ public class EventManager {
   private boolean isStopped;
 
   // Will be used for future exception handling, once this class gets more complex
-  @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionListener
-      o2MCExceptionListener;
+  @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionNotifier notifier;
 
-  public EventManager() {
+  public void init(O2MCExceptionNotifier notifier){
     this.eventBus = new EventBus();
+    this.notifier = notifier;
   }
 
   /**
@@ -80,9 +80,5 @@ public class EventManager {
    */
   public void resume() {
     isStopped = false;
-  }
-
-  public void setO2MCExceptionListener(O2MCExceptionListener o2MCExceptionListener) {
-    this.o2MCExceptionListener = o2MCExceptionListener;
   }
 }

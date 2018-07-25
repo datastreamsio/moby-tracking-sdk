@@ -26,7 +26,7 @@ public class O2MCTest {
       o2mc = new O2MC(null, e);
       o2mc.track("EventName");
       o2mc.trackWithProperties("EventName", "Props");
-      o2mc.reset();
+      o2mc.stop();
     }
   }
 }
