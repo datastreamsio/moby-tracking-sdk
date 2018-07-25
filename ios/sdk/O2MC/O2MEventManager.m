@@ -39,4 +39,14 @@
     });
 }
 
+-(long) eventCount; {
+    __block long count;
+
+    dispatch_sync(self->_eventQueue, ^{
+        count = self->_events.count;
+    });
+
+    return count;
+}
+
 @end

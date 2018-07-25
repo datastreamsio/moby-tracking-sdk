@@ -11,12 +11,24 @@
 		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
 		22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB322100970A007BC5D8 /* O2MEvent.m */; };
 		22B7AB362100C0A3007BC5D8 /* O2MBatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */; };
+		22C1581221088FE500A18575 /* libdatastreams.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB18376E4BAE82EB902F81E /* libdatastreams.a */; };
+		22C158182108970A00A18575 /* EventManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1580F21088FE500A18575 /* EventManagerTests.m */; };
 		22F55110210216F700B4F7BA /* O2MBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F5510F210216F700B4F7BA /* O2MBatch.m */; };
 		3CB1809DAFBA70A47D8F54D2 /* O2MTagger.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB1885C2EC31A31FD51D342 /* O2MTagger.m */; };
 		3CB1841CBEC27153901A4A5C /* O2MDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB18A1D2CF6C3E9CFBD0160 /* O2MDispatcher.m */; };
 		3CB18B283CA5676866573F4D /* O2MTagger.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3CB18B0DE2FAF82863390BA4 /* O2MTagger.h */; };
 		E685A8B81D59BBD60048544E /* O2MC.m in Sources */ = {isa = PBXBuildFile; fileRef = E685A8B71D59BBD60048544E /* O2MC.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22C1581321088FE500A18575 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CB18830619F92436E12AF54 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3CB186CD2A6A8575D2DFBD56;
+			remoteInfo = datastreams;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		3CB18DE1BBD9A59E3B593520 /* CopyFiles */ = {
@@ -40,6 +52,9 @@
 		22B7AB322100970A007BC5D8 /* O2MEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEvent.m; sourceTree = "<group>"; };
 		22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MBatchManager.h; sourceTree = "<group>"; };
 		22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MBatchManager.m; sourceTree = "<group>"; };
+		22C1580D21088FE400A18575 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22C1580F21088FE500A18575 /* EventManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventManagerTests.m; sourceTree = "<group>"; };
+		22C1581121088FE500A18575 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MDispatcherDelegate.h; sourceTree = "<group>"; };
 		22F5510E210215CF00B4F7BA /* O2MBatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MBatch.h; sourceTree = "<group>"; };
 		22F5510F210216F700B4F7BA /* O2MBatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MBatch.m; sourceTree = "<group>"; };
@@ -53,6 +68,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		22C1580A21088FE400A18575 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C1581221088FE500A18575 /* libdatastreams.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3CB18B3CFDC00EB51C609C7A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22C1580E21088FE500A18575 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				22C1580F21088FE500A18575 /* EventManagerTests.m */,
+				22C1581121088FE500A18575 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		3CB1842C6C34AE6EEEBFBFD4 /* O2MC */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				3CB18376E4BAE82EB902F81E /* libdatastreams.a */,
+				22C1580D21088FE400A18575 /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +131,7 @@
 		3CB18BC1C4669EA4442DF54E = {
 			isa = PBXGroup;
 			children = (
+				22C1580E21088FE500A18575 /* Tests */,
 				3CB1885C989F1D71E5DF1D64 /* Products */,
 				3CB1842C6C34AE6EEEBFBFD4 /* O2MC */,
 			);
@@ -106,6 +140,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		22C1580C21088FE400A18575 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22C1581721088FE500A18575 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				22C1580921088FE400A18575 /* Sources */,
+				22C1580A21088FE400A18575 /* Frameworks */,
+				22C1580B21088FE400A18575 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22C1581421088FE500A18575 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 22C1580D21088FE400A18575 /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3CB186CD2A6A8575D2DFBD56 /* datastreams */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3CB1851D9F5B77C4B1BFCDD8 /* Build configuration list for PBXNativeTarget "datastreams" */;
@@ -132,6 +184,12 @@
 				CLASSPREFIX = O2M;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Adversitement;
+				TargetAttributes = {
+					22C1580C21088FE400A18575 = {
+						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 3CB18F93D9BF8DF8E55032EB /* Build configuration list for PBXProject "O2MC" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -146,11 +204,30 @@
 			projectRoot = "";
 			targets = (
 				3CB186CD2A6A8575D2DFBD56 /* datastreams */,
+				22C1580C21088FE400A18575 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		22C1580B21088FE400A18575 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		22C1580921088FE400A18575 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22C158182108970A00A18575 /* EventManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3CB18AE98ED9FEE8CC935D28 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -168,7 +245,55 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		22C1581421088FE500A18575 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3CB186CD2A6A8575D2DFBD56 /* datastreams */;
+			targetProxy = 22C1581321088FE500A18575 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		22C1581521088FE500A18575 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.o2mc.sdk.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		22C1581621088FE500A18575 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.o2mc.sdk.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3CB181DB64D02BE3D530735E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -297,6 +422,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		22C1581721088FE500A18575 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22C1581521088FE500A18575 /* Debug */,
+				22C1581621088FE500A18575 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3CB1851D9F5B77C4B1BFCDD8 /* Build configuration list for PBXNativeTarget "datastreams" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

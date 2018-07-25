@@ -11,7 +11,7 @@
 
 @interface O2MEventManager : NSObject
 
-@property (readonly, strong) NSMutableArray* events;
+@property (atomic, readonly, strong) NSMutableArray* events;
 @property (nonatomic, readonly, strong) dispatch_queue_t eventQueue;
 
 + (instancetype)sharedManager;
@@ -24,5 +24,9 @@
  * Removes all stored events from the device
  */
 -(void) clearEvents;
+/**
+ * Amount of events stored
+ */
+-(long) eventCount;
 
 @end

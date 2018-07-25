@@ -92,7 +92,7 @@
                 // Stopping the time based interval loop.
                 [self stop];
             }
-        } else if(self->_eventManager.events.count > 0) {
+        } else if([self->_eventManager eventCount] > 0) {
             [self createBatch];
         }
     });
