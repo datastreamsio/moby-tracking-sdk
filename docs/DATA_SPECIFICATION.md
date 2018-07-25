@@ -1,5 +1,5 @@
 # Data specification
-The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
+The data is sent as JSON data. The format contains two main properties, the [`deviceInformation`](#deviceinformation-property) and the [`events`](#events-property) property. Both properties are guaranteed to be included.
 
 ```
 object {
