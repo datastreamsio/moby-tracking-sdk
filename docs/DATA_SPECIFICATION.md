@@ -65,7 +65,7 @@ Name of the triggered event.
 
 #### properties
 
-Optional custom properties object. Properties can be set using the `trackWithProperties()` [method](API.md#trackwithproperties).
+Optional custom properties object. Properties can be set using the [`trackWithProperties()`](API.md#trackwithproperties) method.
 
 #### timestamp
 
