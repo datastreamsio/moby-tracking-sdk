@@ -58,6 +58,10 @@ object {
 }
 ```
 
+#### event
+
+Name of the triggered event.
+
 ### Meta properties
 
 ```
