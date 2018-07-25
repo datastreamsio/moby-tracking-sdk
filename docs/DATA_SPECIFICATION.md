@@ -66,6 +66,10 @@ Name of the triggered event.
 
 Optional custom properties object. Properties can be set using the `trackWithProperties()` [method](API.md#trackwithproperties).
 
+#### timestamp
+
+Event generation time as an ISO 8601 format.
+
 ### Meta properties
 
 ```
