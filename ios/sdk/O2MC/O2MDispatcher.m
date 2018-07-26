@@ -13,7 +13,7 @@
 - (id)init:(NSString *)appName; {
     self = [super init];
     _appName = appName;
-    _logTopic = os_log_create("io.o2mc.sdk", "dispatcher");
+    _logger = [[O2MLogger alloc] initWithTopic:"dispatcher"];
     return self;
 }
 
@@ -33,7 +33,7 @@
                                                          error:&error];
 
     if (!jsonData) {
-        os_log_error(self->_logTopic, "Got an error: %@", error);
+        [self->_logger logE:[[NSString stringWithFormat:@"Got an error %@", error] UTF8String]];
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *post = [NSString stringWithFormat:@"%@", jsonString];
@@ -51,13 +51,11 @@
 
             if (data.length > 0 && error == nil) {
                 if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
-                    #ifdef DEBUG
-                        os_log_debug(self->_logTopic, "length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString,     [response URL]);
-                    #endif
+                    [self->_logger logD:[[NSString stringWithFormat:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]] UTF8String]];
                     [self successHandler];
                 }
             } else {
-                os_log(self->_logTopic, "Connection could not be made");
+                [self->_logger log:"Connection could not be made"];
                 [self errorHandler];
             }
         }];
