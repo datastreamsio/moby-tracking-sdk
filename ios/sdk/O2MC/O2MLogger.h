@@ -7,6 +7,16 @@
 //
 #import <Foundation/Foundation.h>
 
+/**
+ * Mock NSLog on production builds.
+ */
+#ifdef DEBUG
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#   define NSLog(...) (void)0
+#endif
+
+
 @interface O2MLogger : NSObject
 
 +(void) log;
