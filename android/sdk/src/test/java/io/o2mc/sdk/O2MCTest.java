@@ -3,6 +3,7 @@ package io.o2mc.sdk;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
 import io.o2mc.sdk.exceptions.O2MCEndpointException;
+import io.o2mc.sdk.exceptions.O2MCTrackException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,10 @@ public class O2MCTest {
       }
 
       @Override public void onO2MCEndpointException(O2MCEndpointException e) {
+      }
+
+      @Override public void onO2MCTrackException(O2MCTrackException e) {
+
       }
     });
     executeAllMethods(o2mc);

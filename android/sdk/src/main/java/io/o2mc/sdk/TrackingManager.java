@@ -10,6 +10,7 @@ import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
 import io.o2mc.sdk.exceptions.O2MCEndpointException;
 import io.o2mc.sdk.exceptions.O2MCException;
+import io.o2mc.sdk.exceptions.O2MCTrackException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
 import io.o2mc.sdk.util.Util;
@@ -126,6 +127,8 @@ public class TrackingManager implements O2MCExceptionNotifier {
         o2MCExceptionListener.onO2MCDeviceException((O2MCDeviceException) e);
       } else if (e instanceof O2MCDispatchException) {
         o2MCExceptionListener.onO2MCDispatchException((O2MCDispatchException) e);
+      } else if (e instanceof O2MCTrackException) {
+        o2MCExceptionListener.onO2MCTrackException((O2MCTrackException) e);
       } else {
         LogE(TAG, String.format(
             "Exception \"%s\" (\"%s\") is not explicitly handled by the TrackingManager. Please notify the maintainer of the SDK to update the exception notifier.",

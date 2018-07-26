@@ -6,6 +6,7 @@ import io.o2mc.sdk.O2MC;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
 import io.o2mc.sdk.exceptions.O2MCEndpointException;
+import io.o2mc.sdk.exceptions.O2MCTrackException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 
 public class App extends Application implements O2MCExceptionListener {
@@ -32,5 +33,9 @@ public class App extends Application implements O2MCExceptionListener {
 
   @Override public void onO2MCEndpointException(O2MCEndpointException e) {
     Log.e(TAG, "Handling an O2MCEndpointException from App.java: " + e.getMessage());
+  }
+
+  @Override public void onO2MCTrackException(O2MCTrackException e) {
+    Log.e(TAG, "Handling an O2MCTrackException from App.java: " + e.getMessage());
   }
 }

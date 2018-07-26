@@ -1,17 +1,15 @@
 package io.o2mc.sdk.business.event;
 
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.exceptions.O2MCTrackException;
 import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
+import io.o2mc.sdk.util.Util;
 import java.util.List;
-
-import static io.o2mc.sdk.util.LogUtil.LogD;
 
 /**
  * Manages everything that's related to events by making use of a EventBus.
  */
 public class EventManager {
-
-  private static final String TAG = "EventManager";
 
   private EventBus eventBus;
   private boolean isStopped;
@@ -19,7 +17,7 @@ public class EventManager {
   // Will be used for future exception handling, once this class gets more complex
   @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionNotifier notifier;
 
-  public void init(O2MCExceptionNotifier notifier){
+  public void init(O2MCExceptionNotifier notifier) {
     this.eventBus = new EventBus();
     this.notifier = notifier;
   }
@@ -31,6 +29,13 @@ public class EventManager {
    */
   public void newEvent(String eventName) {
     if (isStopped) return;
+
+    if (!Util.isValidEventName(eventName)) {
+      notifier.notifyException(
+          new O2MCTrackException(String.format("Event name '%s' is invalid.", eventName)),
+          false); // is not fatal for base SDK functionality, next event name may be valid again
+      return;
+    }
 
     Event e = eventBus.generateEvent(eventName);
     eventBus.add(e);
@@ -45,7 +50,18 @@ public class EventManager {
   public void newEventWithProperties(String eventName, String value) {
     if (isStopped) return;
 
-    LogD(TAG, String.format("Tracked '%s'", eventName));
+    if (!Util.isValidEventName(eventName)) {
+      notifier.notifyException(
+          new O2MCTrackException(String.format("Event name '%s' is invalid.", eventName)),
+          false); // is not fatal for base SDK functionality, next event name may be valid again
+      return;
+    }
+
+    if (!Util.isValidEventValue(value)) {
+      notifier.notifyException(
+          new O2MCTrackException(String.format("Value '%s' is invalid.", value)),
+          false); // is not fatal for base SDK functionality, next event value may be valid again
+    }
 
     Event e = eventBus.generateEventWithProperties(eventName, value);
     eventBus.add(e);
