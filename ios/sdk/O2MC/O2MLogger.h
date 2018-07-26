@@ -17,6 +17,13 @@
 #   define NSLog(...) (void)0
 #endif
 
+typedef enum O2MLogType : NSUInteger {
+    ODebug,
+    OInfo,
+    OError,
+    OFault
+} O2MLogType;
+
 
 @interface O2MLogger : NSObject {
 
@@ -39,26 +46,26 @@
  * Sends a default-level log message.
  * @param logMsg log message
  */
--(void) log :(const char*) logMsg;
+-(void) log :(NSString*) logMsg, ... NS_FORMAT_FUNCTION(1,2);
 /**
  * Sends an info-level log message.
  * @param logMsg log message
  */
--(void) logI :(const char*) logMsg;
+-(void) logI :(NSString*) logMsg, ... NS_FORMAT_FUNCTION(1,2);
 /**
  * Sends a debug-level log message.
  * @param logMsg log message
  */
--(void) logD :(const char*) logMsg;
+-(void) logD :(NSString*) logMsg, ... NS_FORMAT_FUNCTION(1,2);
 /**
  * Sends an error-level log message.
  * @param logMsg log message
  */
--(void) logE :(const char*) logMsg;
+-(void) logE :(NSString*) logMsg, ... NS_FORMAT_FUNCTION(1,2);
 /**
  * Sends a fault-level log message.
  * @param logMsg log message
  */
--(void) logF :(const char*) logMsg;
+-(void) logF :(NSString*) logMsg, ... NS_FORMAT_FUNCTION(1,2);
 
 @end
