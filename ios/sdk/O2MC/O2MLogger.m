@@ -10,23 +10,23 @@
 
 @implementation O2MLogger
 
-+(void) log; {
+-(void) log :(NSString*) logMsg; {
     
 }
 
-+(void) logI; {
+-(void) logI :(NSString*) logMsg; {
     
 }
 
-+(void) logD; {
+-(void) logD :(NSString*) logMsg; {
     
 }
 
-+(void) logE; {
+-(void) logE :(NSString*) logMsg; {
     
 }
 
-+(void) logF; {
+-(void) logF :(NSString*) logMsg; {
     
 }
 

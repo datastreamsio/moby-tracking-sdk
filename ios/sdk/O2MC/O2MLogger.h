@@ -19,10 +19,25 @@
 
 @interface O2MLogger : NSObject
 
-+(void) log;
-+(void) logI;
-+(void) logD;
-+(void) logE;
-+(void) logF;
+/**
+ * Sends a default-level log message.
+ */
+-(void) log :(NSString*) logMsg;
+/**
+ * Sends an info-level log message.
+ */
+-(void) logI :(NSString*) logMsg;
+/**
+ * Sends a debug-level log message.
+ */
+-(void) logD :(NSString*) logMsg;
+/**
+ * Sends an error-level log message.
+ */
+-(void) logE :(NSString*) logMsg;
+/**
+ * Sends a fault-level log message.
+ */
+-(void) logF :(NSString*) logMsg;
 
 @end
