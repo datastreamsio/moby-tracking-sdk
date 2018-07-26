@@ -57,38 +57,48 @@
 }
 
 -(void) log :(NSString*) logMsg, ... ; {
+#ifdef DEBUG
     va_list args;
     va_start(args, logMsg);
     [self actualLogger:ODebug :[self strFmtToChar:logMsg :args]];
     va_end(args);
+#endif
 }
 
 -(void) logI :(NSString*) logMsg, ... ; {
+#ifdef DEBUG
     va_list args;
     va_start(args, logMsg);
     [self actualLogger:OInfo :[self strFmtToChar:logMsg :args]];
     va_end(args);
+#endif
 }
 
 -(void) logD :(NSString*) logMsg, ... ; {
+#ifdef DEBUG
     va_list args;
     va_start(args, logMsg);
     [self actualLogger:ODebug :[self strFmtToChar:logMsg :args]];
     va_end(args);
+#endif
 }
 
 -(void) logE :(NSString*) logMsg, ... ; {
+#ifdef DEBUG
     va_list args;
     va_start(args, logMsg);
     [self actualLogger:OError :[self strFmtToChar:logMsg :args]];
     va_end(args);
+#endif
 }
 
 -(void) logF :(NSString*) logMsg, ... ; {
+#ifdef DEBUG
     va_list args;
     va_start(args, logMsg);
     [self actualLogger:OFault :[self strFmtToChar:logMsg :args]];
     va_end(args);
+#endif
 }
 
 @end
