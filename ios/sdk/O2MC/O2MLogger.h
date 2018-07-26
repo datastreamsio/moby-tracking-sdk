@@ -37,22 +37,27 @@
 
 /**
  * Sends a default-level log message.
+ * @param logMsg log message
  */
 -(void) log :(const char*) logMsg;
 /**
  * Sends an info-level log message.
+ * @param logMsg log message
  */
 -(void) logI :(const char*) logMsg;
 /**
  * Sends a debug-level log message.
+ * @param logMsg log message
  */
 -(void) logD :(const char*) logMsg;
 /**
  * Sends an error-level log message.
+ * @param logMsg log message
  */
 -(void) logE :(const char*) logMsg;
 /**
  * Sends a fault-level log message.
+ * @param logMsg log message
  */
 -(void) logF :(const char*) logMsg;
 
