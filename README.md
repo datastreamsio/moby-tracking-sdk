@@ -16,7 +16,7 @@ The following tools are required depending on which mobile OS you are targeting.
 **iOS**
 
 * XCode
-* iOS 10+
+* iOS 9+
 
 
 
