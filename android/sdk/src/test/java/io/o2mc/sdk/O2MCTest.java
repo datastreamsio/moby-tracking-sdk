@@ -29,6 +29,13 @@ public class O2MCTest {
     o2mc.stop();
   }
 
+  /**
+   * All public methods are individually tested in this class, but one method call should not
+   * influence other functionality. This method will execute various methods to verify whether
+   * or not the SDK will crash after performing another action prior to calling this method.
+   *
+   * @param o2mc o2mc instance which has been used before
+   */
   private void executeAllMethods(O2MC o2mc) {
     o2mc.setMaxRetries(0);
     o2mc.setO2MCExceptionListener(null);
