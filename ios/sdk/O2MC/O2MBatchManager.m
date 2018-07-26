@@ -25,7 +25,7 @@
         _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
         _eventManager = [O2MEventManager sharedManager];
 
-        _logTopic = os_log_create("io.o2mc.sdk", "batchmanager");
+        _logger = [[O2MLogger alloc] initWithTopic:"batchmanager"];
 
         // Handle dispatcher's callbacks
         _dispatcher.delegate = self;
@@ -82,12 +82,10 @@
     dispatch_async(_batchQueue, ^{
         if(self->_batches.count > 0){
             if(self->_connRetries < self->_maxRetries) {
-                #ifdef DEBUG
-                    os_log_debug(self->_logTopic, "Dispatcher has been triggered");
-                #endif
+                [self->_logger logD:@"Dispatcher has been triggered"];
                 [self->_dispatcher dispatch :self->_endpoint :self->_batches[0]];
             } else {
-                os_log_info(self->_logTopic, "Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries);
+                [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
 
                 // Stopping the time based interval loop.
                 [self stop];
@@ -109,9 +107,7 @@
 
 - (void)didDispatchWithError:(id)sender; {
     dispatch_async(_batchQueue, ^{
-        #ifdef DEBUG
-            os_log_debug(self->_logTopic, "Dispatcher error");
-        #endif
+        [self->_logger logD:@"Dispatcher error"];
         self->_connRetries++;
         [self batchRetryIncrement];
     });

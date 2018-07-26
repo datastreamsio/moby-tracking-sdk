@@ -33,7 +33,7 @@
                                                          error:&error];
 
     if (!jsonData) {
-        [self->_logger logE:[[NSString stringWithFormat:@"Got an error %@", error] UTF8String]];
+        [self->_logger logE:@"Got an error %@", error];
     } else {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *post = [NSString stringWithFormat:@"%@", jsonString];
@@ -51,11 +51,11 @@
 
             if (data.length > 0 && error == nil) {
                 if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
-                    [self->_logger logD:[[NSString stringWithFormat:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]] UTF8String]];
+                    [self->_logger logD:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]];
                     [self successHandler];
                 }
             } else {
-                [self->_logger log:"Connection could not be made"];
+                [self->_logger log:@"Connection could not be made"];
                 [self errorHandler];
             }
         }];
