@@ -11,9 +11,9 @@
 
 -(instancetype) initWithTopic :(char *) topic; {
     if (self = [super init]) {
-#ifdef os_log
-        self->_logTopic = os_log_create("io.o2mc.sdk", topic);
-#endif
+        if([self osLogAvailable]) {
+            self->_logTopic = os_log_create("io.o2mc.sdk", topic);
+        }
         self->_topic = topic;
     }
     return self;
