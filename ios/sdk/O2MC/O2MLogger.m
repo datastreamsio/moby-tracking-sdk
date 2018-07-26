@@ -19,44 +19,53 @@
     return self;
 }
 
+-(BOOL) osLogAvailable; {
+    // minimal versions for os_log check on runtime.
+    if (@available(iOS 10.0, macOS 10.12, tvOS 10.0, *)) {
+        return YES;
+    }
+
+    return NO;
+}
+
 -(void) log :(const char*) logMsg; {
-#ifdef os_log
-    os_log_debug(self->_logTopic, "%s", logMsg);
-#else
-    NSLog(@"[%s] %s", self->_topic, logMsg);
-#endif
+    if([self osLogAvailable]) {
+        os_log_debug(self->_logTopic, "%s", logMsg);
+    } else {
+        NSLog(@"[%s] %s", self->_topic, logMsg);
+    }
 }
 
 -(void) logI :(const char*) logMsg; {
-#ifdef os_log
-    os_log_info(self->_logTopic, "%s", logMsg);
-#else
-    NSLog(@"[%s] %s", self->_topic, logMsg);
-#endif
+    if([self osLogAvailable]) {
+        os_log_info(self->_logTopic, "%s", logMsg);
+    } else {
+        NSLog(@"[%s] %s", self->_topic, logMsg);
+    }
 }
 
 -(void) logD :(const char*) logMsg; {
-#ifdef os_log
-    os_log_debug(self->_logTopic, "%s", logMsg);
-#else
-    NSLog(@"[%s] %s", self->_topic, logMsg);
-#endif
+    if([self osLogAvailable]) {
+        os_log_debug(self->_logTopic, "%s", logMsg);
+    } else {
+        NSLog(@"[%s] %s", self->_topic, logMsg);
+    }
 }
 
 -(void) logE :(const char*) logMsg; {
-#ifdef os_log
-    os_log_error(self->_logTopic, "%s", logMsg);
-#else
-    NSLog(@"[%s] %s", self->_topic, logMsg);
-#endif
+    if([self osLogAvailable]) {
+        os_log_error(self->_logTopic, "%s", logMsg);
+    } else {
+        NSLog(@"[%s] %s", self->_topic, logMsg);
+    }
 }
 
 -(void) logF :(const char*) logMsg; {
-#ifdef os_log
-    os_log_fault(self->_logTopic, "%s", logMsg);
-#else
-    NSLog(@"[%s] %s", self->_topic, logMsg);
-#endif
+    if([self osLogAvailable]) {
+        os_log_fault(self->_logTopic, "%s", logMsg);
+    } else {
+        NSLog(@"[%s] %s", self->_topic, logMsg);
+    }
 }
 
 @end
