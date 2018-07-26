@@ -6,6 +6,7 @@
 //  Copyright © 2018 Adversitement. All rights reserved.
 //
 #import <Foundation/Foundation.h>
+#import <os/log.h>
 
 /**
  * Mock NSLog on production builds.
@@ -17,27 +18,42 @@
 #endif
 
 
-@interface O2MLogger : NSObject
+@interface O2MLogger : NSObject {
+
+@private char* _topic;
+@private os_log_t _logTopic;
+
+}
+
+#pragma mark - Constructor methods
+
+/**
+ * Constructs a logger object with a log topic.
+ * @param topic self describing log topic
+ */
+-(instancetype) initWithTopic :(char*) topic;
+
+#pragma mark - Log methods
 
 /**
  * Sends a default-level log message.
  */
--(void) log :(NSString*) logMsg;
+-(void) log :(const char*) logMsg;
 /**
  * Sends an info-level log message.
  */
--(void) logI :(NSString*) logMsg;
+-(void) logI :(const char*) logMsg;
 /**
  * Sends a debug-level log message.
  */
--(void) logD :(NSString*) logMsg;
+-(void) logD :(const char*) logMsg;
 /**
  * Sends an error-level log message.
  */
--(void) logE :(NSString*) logMsg;
+-(void) logE :(const char*) logMsg;
 /**
  * Sends a fault-level log message.
  */
--(void) logF :(NSString*) logMsg;
+-(void) logF :(const char*) logMsg;
 
 @end
