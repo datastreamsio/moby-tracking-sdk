@@ -6,19 +6,19 @@
 //  Copyright © 2016 Adversitement. All rights reserved.
 //
 
-#import <os/log.h>
 #import <Foundation/Foundation.h>
 #import "O2MBatchManager.h"
 #import "O2MDispatcher.h"
 #import "O2MEventManager.h"
 #import "O2MEvent.h"
+#import "O2MLogger.h"
 #import "O2MUtil.h"
 
 
 @interface O2MTagger : NSObject {
     O2MBatchManager *_batchManager;
     O2MEventManager* _eventManager;
-    os_log_t _logTopic;
+    O2MLogger *_logger;
     dispatch_queue_t _tagQueue;
 }
 

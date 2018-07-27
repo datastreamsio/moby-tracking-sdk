@@ -17,7 +17,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
+        if #available(iOS 10.0, *) {
+            self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
+        }
         self.o2mc = O2MC(endpoint: "http://127.0.0.1:5000/events")
         
     }
@@ -28,19 +30,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func BtnTouchCreateEvent(_ sender: Any) {
-        os_log("created event", self._logTopic)
+        if #available(iOS 10.0, *) {
+            os_log("created event", self._logTopic)
+        } else {
+            NSLog("created event")
+        }
         
         self.o2mc.track(self.eventNameTextField.text)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
-        os_log("reset tracking", self._logTopic)
+        if #available(iOS 10.0, *) {
+            os_log("reset tracking", self._logTopic)
+        } else {
+            NSLog("reset tracking")
+        }
         
         self.o2mc.tracker.clearFunnel()
     }
 
     @IBAction func BtnTouchStopTracking(_ sender: Any) {
-        os_log("stop tracking", self._logTopic)
+        if #available(iOS 10.0, *) {
+            os_log("stop tracking", self._logTopic)
+        } else {
+            NSLog("stop tracking")
+        }
 
         self.o2mc.stop()
     }

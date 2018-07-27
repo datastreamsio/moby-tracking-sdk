@@ -65,6 +65,10 @@ public class BatchBus {
    * Called when the most recent batch has successfully been processed by the backend.
    */
   public void onBatchSucceeded() {
+    retries = 0;
+    pendingBatch = null;
+    awaitingCallback = false;
+    LogD(TAG, String.format("Last batch succeeded. Retries is '%s' now.", retries));
   }
 
   public int getRetries() {
@@ -143,9 +147,9 @@ public class BatchBus {
   }
 
   /**
-   * Executed when starting to dispatch batch(es) from BatchManager.
+   * Executed before dispatching batch(es) from BatchManager.
    */
-  public void onDispatch() {
+  public void preDispatch() {
     awaitingCallback = true;
     pendingBatch.setRetries(retries);
   }

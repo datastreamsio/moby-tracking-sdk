@@ -3,16 +3,16 @@
 // Copyright (c) 2016 Adversitement. All rights reserved.
 //
 
-#import <os/log.h>
 #import <Foundation/Foundation.h>
 #import "O2MBatch.h"
 #import "O2MDispatcherDelegate.h"
+#import "O2MLogger.h"
 
 
 @interface O2MDispatcher : NSObject {
     NSString* _appName;
+    O2MLogger* _logger;
     NSURLSession* _session;
-    os_log_t _logTopic;
 }
 
 @property (nonatomic, weak) id <O2MDispatcherDelegate>delegate;

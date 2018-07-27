@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <os/log.h>
 #import "O2MBatch.h"
 #import "O2MDispatcher.h"
 #import "O2MDispatcherDelegate.h"
 #import "O2MEventManager.h"
+#import "O2MLogger.h"
 #import "O2MUtil.h"
 #import <UIKit/UIDevice.h>
 
@@ -26,7 +26,7 @@
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;
 @property O2MEventManager *eventManager;
-@property (readonly) os_log_t logTopic;
+@property (readonly) O2MLogger *logger;
 @property NSInteger maxRetries;
 
 

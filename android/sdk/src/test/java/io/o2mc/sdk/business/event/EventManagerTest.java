@@ -13,6 +13,7 @@ import static org.junit.Assert.assertNull;
   @Before
   public void setUp() throws Exception {
     eventManager = new EventManager();
+    eventManager.init(null);
   }
 
   @Test

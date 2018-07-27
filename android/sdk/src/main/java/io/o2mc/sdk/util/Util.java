@@ -4,7 +4,6 @@ import android.security.NetworkSecurityPolicy;
 import java.util.UUID;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogE;
 import static io.o2mc.sdk.util.LogUtil.LogW;
 
 public final class Util {
@@ -98,15 +97,10 @@ public final class Util {
       return true;
     }
 
+    //noinspection SimplifiableIfStatement
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-      boolean allowed = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
-      if (!allowed) {
-        LogE(TAG,
-            "isAllowedToDispatchEvents: Http traffic is not allowed on newer versions of the Android API. Please use HTTPS instead, or lower your min/target SDK version.");
-      }
-      return allowed;
+      return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted();
     }
-
     return true;
   }
 
@@ -132,5 +126,37 @@ public final class Util {
    */
   public static String generateUUID() {
     return String.valueOf(UUID.randomUUID());
+  }
+
+  /**
+   * Validates correctness of an event name.
+   *
+   * @param eventName the name to validate
+   * @return true if event name is valid
+   */
+  public static boolean isValidEventName(String eventName) {
+    // Must me non-empty
+    if (eventName == null || eventName.isEmpty()) {
+      return false;
+    }
+
+    // All conditions passed, event name is valid
+    return true;
+  }
+
+  /**
+   * Validates correctness of an event value.
+   *
+   * @param value the value of an event to validate
+   * @return true if event value is valid
+   */
+  public static boolean isValidEventValue(String value) {
+    // Must me non-empty
+    if (value == null || value.isEmpty()) {
+      return false;
+    }
+
+    // All conditions passed, event value is valid
+    return true;
   }
 }
