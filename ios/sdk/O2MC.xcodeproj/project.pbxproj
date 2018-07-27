@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		226362C32108C4C3006C7C3D /* O2MLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 226362C22108C4C3006C7C3D /* O2MLogger.m */; };
 		22B7AB2520FDF4FF007BC5D8 /* O2MUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */; };
 		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
 		22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB322100970A007BC5D8 /* O2MEvent.m */; };
@@ -32,6 +33,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		226362C12108BF04006C7C3D /* O2MLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MLogger.h; sourceTree = "<group>"; };
+		226362C22108C4C3006C7C3D /* O2MLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MLogger.m; sourceTree = "<group>"; };
 		22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MUtil.m; sourceTree = "<group>"; };
 		22B7AB2820FE0177007BC5D8 /* O2MUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MUtil.h; sourceTree = "<group>"; };
 		22B7AB2E20FF71E7007BC5D8 /* O2MEventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MEventManager.h; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 				22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */,
 				22F5510E210215CF00B4F7BA /* O2MBatch.h */,
 				22F5510F210216F700B4F7BA /* O2MBatch.m */,
+				226362C12108BF04006C7C3D /* O2MLogger.h */,
+				226362C22108C4C3006C7C3D /* O2MLogger.m */,
 			);
 			path = O2MC;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				226362C32108C4C3006C7C3D /* O2MLogger.m in Sources */,
 				3CB1809DAFBA70A47D8F54D2 /* O2MTagger.m in Sources */,
 				22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */,
 				22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */,
@@ -221,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = "";
 				SDKROOT = iphoneos;
@@ -276,7 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;

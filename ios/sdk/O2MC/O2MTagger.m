@@ -16,7 +16,7 @@
     
     _batchManager = [O2MBatchManager sharedManager];
     _eventManager = [O2MEventManager sharedManager];
-    _logTopic = os_log_create("io.o2mc.sdk", "tagger");
+    _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 
     _endpoint = endpoint;
 
@@ -52,13 +52,11 @@
 
 -(void)stop:(BOOL) clearFunnel; {
     dispatch_async(_tagQueue, ^{
-        os_log_info(self->_logTopic, "stopping tracking");
+        [self->_logger logI:@"stopping tracking"];
         [self->_batchManager stop];
 
         if (clearFunnel == YES) {
-            #ifdef DEBUG
-                os_log_debug(self->_logTopic, "clearing the funnel");
-            #endif
+            [self->_logger logD:@"clearing the funnel"];
             [self clearFunnel];
         }
     });
@@ -69,9 +67,7 @@
 -(void)track :(NSString*)eventName; {
     dispatch_async(_tagQueue, ^{
         if (!self->_batchManager.dispatchTimer.isValid) return;
-        #ifdef DEBUG
-            os_log_debug(self->_logTopic, "Track %@", eventName);
-        #endif
+        [self->_logger logD:@"Track %@", eventName];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] init:eventName]];
     });
@@ -81,9 +77,7 @@
 {
     dispatch_async(_tagQueue, ^{
         if (!self->_batchManager.dispatchTimer.isValid) return;
-        #ifdef DEBUG
-            os_log_debug(self->_logTopic, "Track %@:%@", eventName, properties);
-        #endif
+        [self->_logger logD:@"Track %@:%@", eventName, properties];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName :properties]];
     });
