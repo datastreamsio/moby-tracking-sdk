@@ -77,11 +77,14 @@ public class O2MCTest {
   @Test
   public void setMaxRetries() {
     o2mc.setMaxRetries(-10000);
+    executeAllMethods(o2mc);
+
     o2mc.setMaxRetries(-1);
     o2mc.setMaxRetries(0);
     o2mc.setMaxRetries(1);
     o2mc.setMaxRetries(10);
     o2mc.setMaxRetries(10000);
+    executeAllMethods(o2mc);
   }
 
   @Test
