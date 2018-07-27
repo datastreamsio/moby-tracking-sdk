@@ -9,17 +9,21 @@
 
 @implementation O2MUtil
 
+
+static NSDateFormatter *o2mDateFormatter = nil;
+
 +(NSString*) currentTimestamp {
     // method found on stackoverflow: https://stackoverflow.com/a/16254918
     // iOS 10+ should use NSISO8601DateFormatter.
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-    [dateFormatter setLocale:enUSPOSIXLocale];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
-    
+    if(o2mDateFormatter == nil) {
+        o2mDateFormatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        [o2mDateFormatter setLocale:enUSPOSIXLocale];
+        [o2mDateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
+    }
     NSDate *now = [NSDate date];
-    NSString *iso8601String = [dateFormatter stringFromDate:now];
+    NSString *iso8601String = [o2mDateFormatter stringFromDate:now];
     
     return iso8601String;
 }
