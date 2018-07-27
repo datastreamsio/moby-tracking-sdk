@@ -32,7 +32,7 @@ public interface O2MCExceptionListener {
   void onO2MCEndpointException(O2MCEndpointException e);
 
   /**
-   * Occurs on errors related to the supplied endpoint.
+   * Occurs on errors related to the tracking methods.
    *
    * @param e An exception descriptive of what went wrong.
    */
