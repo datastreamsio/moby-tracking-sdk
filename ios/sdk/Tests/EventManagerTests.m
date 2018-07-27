@@ -59,14 +59,5 @@
     XCTAssertEqual([self->_eventManager eventCount], iterations);
 }
 
-- (void)testAddingMultipleEventsUsingPropCount {
-    long iterations = 1337;
-    for(int i=0; i<iterations; i++) {
-        O2MEvent *event = [[O2MEvent alloc] init:@"bar"];
-        [self->_eventManager addEvent:event];
-    }
-
-    XCTAssertEqual(self->_eventManager.events.count, iterations);
-}
 
 @end
