@@ -59,5 +59,4 @@
     XCTAssertEqual([self->_eventManager eventCount], iterations);
 }
 
-
 @end

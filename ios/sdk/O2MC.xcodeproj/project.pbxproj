@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		226362C32108C4C3006C7C3D /* O2MLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 226362C22108C4C3006C7C3D /* O2MLogger.m */; };
+		229073FB210B2460009A29CD /* O2MEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 229073FA210B2460009A29CD /* O2MEventTests.m */; };
 		22B7AB2520FDF4FF007BC5D8 /* O2MUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */; };
 		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
 		22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB322100970A007BC5D8 /* O2MEvent.m */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		226362C12108BF04006C7C3D /* O2MLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MLogger.h; sourceTree = "<group>"; };
 		226362C22108C4C3006C7C3D /* O2MLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MLogger.m; sourceTree = "<group>"; };
+		229073FA210B2460009A29CD /* O2MEventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEventTests.m; sourceTree = "<group>"; };
 		22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MUtil.m; sourceTree = "<group>"; };
 		22B7AB2820FE0177007BC5D8 /* O2MUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MUtil.h; sourceTree = "<group>"; };
 		22B7AB2E20FF71E7007BC5D8 /* O2MEventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MEventManager.h; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				22C1580F21088FE500A18575 /* EventManagerTests.m */,
 				22C1581121088FE500A18575 /* Info.plist */,
+				229073FA210B2460009A29CD /* O2MEventTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C158182108970A00A18575 /* EventManagerTests.m in Sources */,
+				229073FB210B2460009A29CD /* O2MEventTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
