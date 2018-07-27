@@ -6,10 +6,10 @@ import io.o2mc.sdk.O2MC
 import io.o2mc.sdk.exceptions.O2MCDeviceException
 import io.o2mc.sdk.exceptions.O2MCDispatchException
 import io.o2mc.sdk.exceptions.O2MCEndpointException
+import io.o2mc.sdk.exceptions.O2MCTrackException
 import io.o2mc.sdk.interfaces.O2MCExceptionListener
 
 class App : Application(), O2MCExceptionListener {
-
   // Closest equivalent to Java's static (https://stackoverflow.com/a/43857895/5273299)
   companion object {
     const val TAG = "App"
@@ -32,5 +32,9 @@ class App : Application(), O2MCExceptionListener {
 
   override fun onO2MCEndpointException(e: O2MCEndpointException) {
     Log.e(TAG, "Handling an O2MCEndpointException from App.kt: " + e.message)
+  }
+
+  override fun onO2MCTrackException(e: O2MCTrackException) {
+    Log.e(TAG, "Handling an O2MCTrackException from App.kt: " + e.message)
   }
 }

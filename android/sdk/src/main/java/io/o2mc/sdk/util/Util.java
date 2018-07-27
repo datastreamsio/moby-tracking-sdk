@@ -127,4 +127,36 @@ public final class Util {
   public static String generateUUID() {
     return String.valueOf(UUID.randomUUID());
   }
+
+  /**
+   * Validates correctness of an event name.
+   *
+   * @param eventName the name to validate
+   * @return true if event name is valid
+   */
+  public static boolean isValidEventName(String eventName) {
+    // Must me non-empty
+    if (eventName == null || eventName.isEmpty()) {
+      return false;
+    }
+
+    // All conditions passed, event name is valid
+    return true;
+  }
+
+  /**
+   * Validates correctness of an event value.
+   *
+   * @param value the value of an event to validate
+   * @return true if event value is valid
+   */
+  public static boolean isValidEventValue(String value) {
+    // Must me non-empty
+    if (value == null || value.isEmpty()) {
+      return false;
+    }
+
+    // All conditions passed, event value is valid
+    return true;
+  }
 }
