@@ -5,10 +5,11 @@ package io.o2mc.sdk.domain
  * Essentially contains events and meta data for analytical purposes.
  */
 data class Batch(
-  val deviceInformation: DeviceInformation?, // may be null, final (provides only a getter automatically)
+  val device: DeviceInformation?, // may be null, final (provides only a getter automatically)
   val timestamp: String, // final
   val events: List<Event>, // final
   val number: Int, // final
-  val id: String?, // may be null, final
+  val sessionId: String?, // may be null, final
   var retries: Int // not final (additionally provides a setter automatically)
 )
+
