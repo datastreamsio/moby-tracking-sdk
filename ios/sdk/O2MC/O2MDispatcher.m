@@ -19,10 +19,11 @@
 
 -(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch; {
     NSDictionary *data = @{
-            @"deviceInformation" :  [batch deviceInformation],
+            @"device" :  [batch deviceInformation],
             @"events" : [batch eventsAsString],
             @"number": [NSNumber numberWithLong:batch.number],
             @"retries": [NSNumber numberWithLong:batch.retries],
+            @"sesssionId": [[NSUUID UUID] UUIDString], // TODO: see #79
             @"timestamp": [O2MUtil currentTimestamp]
     };
 

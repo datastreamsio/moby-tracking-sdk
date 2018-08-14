@@ -30,13 +30,13 @@
 -(NSDictionary*) toDict; {
     if (_properties != nil) {
         return @{
-                 @"event": _event,
-                 @"properties": _properties,
+                 @"name": _event,
+                 @"value": _properties,
                  @"timestamp": _timestamp
                  };
     }
     return @{
-             @"event": _event,
+             @"name": _event,
              @"timestamp": _timestamp,
              };
 }
