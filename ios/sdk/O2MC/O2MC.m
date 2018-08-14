@@ -52,7 +52,7 @@
 }
 
 -(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties; {
-    [self->_tracker trackWithProperties:eventName :properties];
+    [self->_tracker trackWithProperties:eventName properties:properties];
 }
 
 -(void)setIdentifier:(NSString*) uniqueIdentifier; {
