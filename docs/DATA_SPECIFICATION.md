@@ -7,6 +7,7 @@ object {
 	array events { object; };
 	int number;
 	int retries;
+	string? sessionId;
 	string timestamp;
 }
 ```
