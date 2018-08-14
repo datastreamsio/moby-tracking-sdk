@@ -16,7 +16,7 @@
 @property (copy, readonly, nonatomic) NSString* timestamp;
 
 -(instancetype) init :(NSString*) event;
--(instancetype) initWithProperties :(NSString*) event :(NSDictionary*) properties;
+-(instancetype) initWithProperties:(NSString*)event properties:(NSDictionary*)properties;
 -(NSDictionary*) toDict;
 
 @end
