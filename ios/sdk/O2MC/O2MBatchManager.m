@@ -82,7 +82,7 @@
         if(self->_batches.count > 0){
             if(self->_connRetries < self->_maxRetries) {
                 [self->_logger logD:@"Dispatcher has been triggered"];
-                [self->_dispatcher dispatch:self->_endpoint :self->_batches[0] :self->_sessionIdentifier];
+                [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
             } else {
                 [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
 

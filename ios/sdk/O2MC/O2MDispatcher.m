@@ -17,7 +17,7 @@
     return self;
 }
 
--(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch :(NSString*) sessionIdentifier; {
+-(void) dispatchWithEndpoint:(NSString*)endpoint batch:(O2MBatch*)batch sessionId:(NSString*)sessionIdentifier; {
     NSDictionary *dataWithoutSessionId = @{
             @"device" :  [batch deviceInformation],
             @"events" : [batch eventsAsString],
