@@ -25,7 +25,7 @@ The following tools are required depending on which mobile OS you are targeting.
 ### Android
 > Hello, World!
 
-For a Hello-world example, please refer to [this](docs/ANDROID_HELLO_WORLD.md) page.
+For a Hello-world example, please refer to [this](docs/ANDROID.md) page.
 
 Refer to the [API documentation](docs/API.md) for more details on how to use the SDK.
 
