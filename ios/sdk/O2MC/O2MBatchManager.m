@@ -17,8 +17,7 @@
         _connRetries = 0;
         _deviceInfo = @{
                         @"appId": [[NSBundle mainBundle] bundleIdentifier],
-                        @"deviceId": [[NSUUID UUID] UUIDString],
-                        @"deviceName": [O2MUtil deviceName],
+                        @"name": [O2MUtil deviceName],
                         @"os": UIDevice.currentDevice.systemName,
                         @"osVersion":UIDevice.currentDevice.systemVersion,
                         };
