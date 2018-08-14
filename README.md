@@ -25,9 +25,9 @@ The following tools are required depending on which mobile OS you are targeting.
 ### Android
 > Hello, World!
 
-For a Hello-world example, please refer to [this](docs/ANDROID_HELLO_WORLD.md) page.
+For a Hello-world example, please refer to [this](docs/ANDROID.md) page.
 
-Refer to the [API documentation](docs/API.md) for more details on how to use the SDK.
+Refer to the [API documentation](docs#api) for more details on how to use the SDK.
 
 ## Data specification
 The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
