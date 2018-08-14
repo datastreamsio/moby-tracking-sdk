@@ -3,7 +3,7 @@ The data is sent as JSON data. The format contains two main properties, the [`de
 
 ```
 object {
-	object deviceInformation;
+	object device;
 	array events { object; };
 	int number;
 	int retries;
@@ -11,14 +11,13 @@ object {
 }
 ```
 
-### DeviceInformation property
+### Device property
 This object contains generic device information.
 
 ```
 object {
 	string appId;
-	string deviceId;
-	string deviceName;
+	string name;
 	string os;
 	string osVersion;
 }
@@ -28,13 +27,8 @@ object {
 
 The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
 
-#### deviceId
 
-Unique identifier to identify events across batches. There are 3 modes; anonymous, session identifier, persistent identifier.
-
-The anonymous mode will result in a `null` value. The session identifier is a random `UUID` generated on each SDK initialisation. The persistent identifier can be any string value set by the implementing party.
-
-#### deviceName
+#### name
 
 The raw device model name.
 
@@ -79,6 +73,7 @@ object {
 	...
 	int number;
 	int retries;
+	string sessionId;
 	string timestamp;
 }
 ```
@@ -90,6 +85,12 @@ Batch number. Numbering starts on `0` and increments each batch. The batch numbe
 #### retries
 
 Defines how often the dispatcher has been attempted to sent the batch to the backend. If the `retries` value reaches the maximum retry amount, the dispatcher will stop attempt to send the batch.
+
+#### sessionId
+
+Unique identifier to identify events across batches. There are 3 modes; anonymous, session identifier, persistent identifier.
+
+The anonymous mode will result in a `null` value. The session identifier is a random `UUID` generated on each SDK initialisation. The persistent identifier can be any string value set by the implementing party.
 
 #### timestamp
 
