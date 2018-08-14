@@ -39,11 +39,11 @@
 }
 
 -(void)setIdentifier :(NSString*) uniqueIdentifier; {
-    // TODO: to be implemented
+    [self->_batchManager setSessionIdentifier:uniqueIdentifier];
 }
 
 -(void)setSessionIdentifier; {
-    self->_sessionIdentifier = [[NSUUID UUID] UUIDString];
+    [self->_batchManager setSessionIdentifier:[[NSUUID UUID] UUIDString]];
 }
 
 #pragma mark - Control methods

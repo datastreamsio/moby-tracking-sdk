@@ -18,7 +18,7 @@
 @property (nonatomic, weak) id <O2MDispatcherDelegate>delegate;
 
 - (id)init:(NSString*)appName;
--(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch;
+-(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch :(NSString*) sessionIdentifier;
 -(void) successHandler;
 -(void) errorHandler;
 -(NSURLSession *) urlSession;

@@ -56,7 +56,7 @@
 }
 
 -(void)setIdentifier :(NSString*) uniqueIdentifier; {
-    // TODO: to be implemented
+    [self->_tracker setIdentifier:uniqueIdentifier];
 }
 
 -(void)setSessionIdentifier; {
