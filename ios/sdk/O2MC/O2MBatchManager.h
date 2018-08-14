@@ -28,6 +28,7 @@
 @property O2MEventManager *eventManager;
 @property (readonly) O2MLogger *logger;
 @property NSInteger maxRetries;
+@property NSString *sessionIdentifier;
 
 
 + (instancetype)sharedManager;

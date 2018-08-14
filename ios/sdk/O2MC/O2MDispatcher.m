@@ -17,16 +17,20 @@
     return self;
 }
 
--(void) dispatch:(NSString*)endpoint :(O2MBatch*)batch; {
-    NSDictionary *data = @{
+-(void) dispatchWithEndpoint:(NSString*)endpoint batch:(O2MBatch*)batch sessionId:(NSString*)sessionIdentifier; {
+    NSDictionary *dataWithoutSessionId = @{
             @"device" :  [batch deviceInformation],
             @"events" : [batch eventsAsString],
             @"number": [NSNumber numberWithLong:batch.number],
             @"retries": [NSNumber numberWithLong:batch.retries],
-            @"sesssionId": [[NSUUID UUID] UUIDString], // TODO: see #79
             @"timestamp": [O2MUtil currentTimestamp]
     };
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithDictionary:dataWithoutSessionId];
 
+    if(sessionIdentifier != nil) {
+        // Add sessionId prop to json payload in case it has been set.
+        [data setObject:sessionIdentifier forKey:@"sessionId"];
+    }
 
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:data

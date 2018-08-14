@@ -75,4 +75,18 @@
  */
 -(void)trackWithProperties :(NSString*)eventName :(NSDictionary*)properties;
 
+/**
+ * Sets an identifier for a user. This identifier will be sent along the tracked events.
+ * This could be useful to correlate various batches with each other.
+ *
+ * @param uniqueIdentifier unique string which identifies a user.
+ */
+-(void)setIdentifier :(NSString*) uniqueIdentifier;
+
+/**
+ * Sets a random session identifier to identify a user.
+ * The identifier is based on a UUID.
+ */
+-(void)setSessionIdentifier;
+
 @end
