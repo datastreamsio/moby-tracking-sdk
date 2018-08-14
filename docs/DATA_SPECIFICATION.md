@@ -91,7 +91,7 @@ Defines how often the dispatcher has been attempted to sent the batch to the bac
 
 Unique identifier to identify events across batches. There are 3 modes; anonymous, session identifier, persistent identifier.
 
-The anonymous mode will result in a `null` value. The session identifier is a random `UUID` generated on each SDK initialisation. The persistent identifier can be any string value set by the implementing party.
+The anonymous mode won't include the property at all. The session identifier is a random `UUID` generated on each SDK initialisation. The persistent identifier can be any string value set by the implementing party.
 
 #### timestamp
 
