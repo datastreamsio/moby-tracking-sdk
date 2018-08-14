@@ -20,6 +20,7 @@
     O2MEventManager* _eventManager;
     O2MLogger *_logger;
     dispatch_queue_t _tagQueue;
+    NSString *_sessionIdentifier;
 }
 
 @property NSTimer * dispatchTimer;
@@ -39,6 +40,9 @@
  * @param maxRetries retry amount (defaults to 5)
  */
 -(void) setMaxRetries :(NSInteger)maxRetries;
+
+-(void)setIdentifier :(NSString*) uniqueIdentifier;
+-(void)setSessionIdentifier;
 
 #pragma mark - Control methods
 

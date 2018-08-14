@@ -55,5 +55,13 @@
     [self->_tracker trackWithProperties:eventName :properties];
 }
 
+-(void)setIdentifier :(NSString*) uniqueIdentifier; {
+    // TODO: to be implemented
+}
+
+-(void)setSessionIdentifier; {
+    [self->_tracker setSessionIdentifier];
+}
+
 @end
 

@@ -38,6 +38,14 @@
     [_batchManager setMaxRetries: maxRetries];
 }
 
+-(void)setIdentifier :(NSString*) uniqueIdentifier; {
+    // TODO: to be implemented
+}
+
+-(void)setSessionIdentifier; {
+    self->_sessionIdentifier = [[NSUUID UUID] UUIDString];
+}
+
 #pragma mark - Control methods
 
 -(void) clearFunnel; {
