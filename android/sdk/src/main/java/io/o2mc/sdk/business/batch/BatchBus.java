@@ -141,7 +141,7 @@ public class BatchBus {
     }
 
     // The batch ID is the same for every batch in the current user session, doesn't matter if we get the 1st one or the last one
-    String batchId = batches.get(0).getId();
+    String batchId = batches.get(0).getSessionId();
 
     return generateBatch(batchId, allEvents);
   }
