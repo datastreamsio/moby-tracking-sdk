@@ -57,7 +57,7 @@
  * Stops tracking of events.
  * @param clearFunnel clears any existing events
  */
--(void) stopAndClearEvents:(BOOL)clearFunnel;
+-(void) stop:(BOOL)clearFunnel;
 
 #pragma mark - Tracking methods
 

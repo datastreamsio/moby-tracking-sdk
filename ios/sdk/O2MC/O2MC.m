@@ -43,7 +43,7 @@
     [self->_tracker stop];
 }
 
--(void) stopAndClearEvents:(BOOL)clearFunnel; {
+-(void) stop:(BOOL)clearFunnel; {
     [self->_tracker stop:clearFunnel];
 }
 
