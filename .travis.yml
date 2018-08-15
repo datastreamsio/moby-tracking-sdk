@@ -6,6 +6,6 @@ android:
     # SDK version
     - android-26
 before_script:
-  - cd android/sdk
+  - cd android
 script:
   - ./gradlew test
