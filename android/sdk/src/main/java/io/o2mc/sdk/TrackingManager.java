@@ -55,6 +55,10 @@ public class TrackingManager implements O2MCExceptionNotifier {
     this.batchManager.init(this, endpoint, dispatchInterval, maxRetries);
   }
 
+  public boolean setEndpoint(String endpoint) {
+    return this.batchManager.setEndpoint(endpoint);
+  }
+
   public void setMaxRetries(int maxRetries) {
     this.batchManager.setMaxRetries(maxRetries);
   }
