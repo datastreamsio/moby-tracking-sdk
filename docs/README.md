@@ -22,7 +22,7 @@ Here's a complete example of the HTTP request.
 ```http
 POST /flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml HTTP/1.1
 Host: https://baltar-dev.dimml.io
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 
 {
    "device":{
