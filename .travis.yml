@@ -1,0 +1,23 @@
+matrix:
+  include:
+    - name: android
+      language: android
+      android:
+        components:
+          - build-tools-26.0.2
+
+          # SDK version
+          - android-26
+      before_script:
+        - cd android
+      script:
+        - ./gradlew test
+    - name: ios
+      language: objective-c
+      os: osx
+      osx_image: xcode9.4
+      before_script:
+        - cd ios/sdk
+      script:
+        - xcodebuild -project O2MC.xcodeproj -scheme Tests
+          -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' test
