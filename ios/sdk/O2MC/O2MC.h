@@ -62,20 +62,6 @@
 #pragma mark - Tracking methods
 
 /**
- * Tracks an event.
- * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
- * @param eventName name of tracked event
- */
--(void)track:(NSString*)eventName;
-/**
- * Tracks an event with additional data.
- * Essentially adds a new event with the String parameter as name and any additonal properties.
- * @param eventName name of tracked event
- * @param properties anything you'd like to keep track of
- */
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
-
-/**
  * Sets an identifier for a user. This identifier will be sent along the tracked events.
  * This could be useful to correlate various batches with each other.
  *
@@ -88,5 +74,19 @@
  * The identifier is based on a UUID.
  */
 -(void)setSessionIdentifier;
+
+/**
+ * Tracks an event.
+ * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
+ * @param eventName name of tracked event
+ */
+-(void)track:(NSString*)eventName;
+/**
+ * Tracks an event with additional data.
+ * Essentially adds a new event with the String parameter as name and any additonal properties.
+ * @param eventName name of tracked event
+ * @param properties anything you'd like to keep track of
+ */
+-(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
 
 @end

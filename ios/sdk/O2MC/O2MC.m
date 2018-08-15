@@ -47,20 +47,20 @@
     [self->_tracker stop:clearFunnel];
 }
 
--(void)track :(NSString*)eventName; {
-    [self->_tracker track:eventName];
-}
-
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties; {
-    [self->_tracker trackWithProperties:eventName properties:properties];
-}
-
 -(void)setIdentifier:(NSString*) uniqueIdentifier; {
     [self->_tracker setIdentifier:uniqueIdentifier];
 }
 
 -(void)setSessionIdentifier; {
     [self->_tracker setSessionIdentifier];
+}
+
+-(void)track :(NSString*)eventName; {
+    [self->_tracker track:eventName];
+}
+
+-(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties; {
+    [self->_tracker trackWithProperties:eventName properties:properties];
 }
 
 @end
