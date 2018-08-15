@@ -1,11 +1,11 @@
 language: android
-  android:
-    components:
-      - build-tools-26.0.0
-      
-      # SDK version
-      - android-26
-    before_script:
-      - cd android/sdk
-    script:
-      - ./gradlew test
+android:
+  components:
+    - build-tools-26.0.0
+
+    # SDK version
+    - android-26
+before_script:
+  - cd android/sdk
+script:
+  - ./gradlew test
