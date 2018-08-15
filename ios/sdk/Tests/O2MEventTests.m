@@ -59,8 +59,8 @@
     O2MEvent *event = [[O2MEvent alloc] init:eventName];
 
     NSDictionary *eventDict = [event toDict];
-    XCTAssertNotNil(eventDict[@"event"]);
-    XCTAssertEqual(eventDict[@"event"], eventName);
+    XCTAssertNotNil(eventDict[@"name"]);
+    XCTAssertEqual(eventDict[@"name"], eventName);
     XCTAssertNotNil(eventDict[@"timestamp"]);
 }
 
@@ -72,9 +72,9 @@
     O2MEvent *event = [[O2MEvent alloc] initWithProperties:eventName properties:eventProps];
 
     NSDictionary *eventDict = [event toDict];
-    XCTAssertNotNil(eventDict[@"event"]);
-    XCTAssertEqual(eventDict[@"event"], eventName);
-    XCTAssertEqual(eventDict[@"properties"][@"foo"], eventProps[@"foo"]);
+    XCTAssertNotNil(eventDict[@"name"]);
+    XCTAssertEqual(eventDict[@"name"], eventName);
+    XCTAssertEqual(eventDict[@"value"][@"foo"], eventProps[@"foo"]);
     XCTAssertNotNil(eventDict[@"timestamp"]);
 }
 
