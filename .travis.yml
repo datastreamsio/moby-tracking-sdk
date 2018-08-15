@@ -1,6 +1,7 @@
 matrix:
   include:
-    - language: android
+    - name: android
+      language: android
       android:
         components:
           - build-tools-26.0.2
