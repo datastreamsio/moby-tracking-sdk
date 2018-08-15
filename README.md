@@ -30,14 +30,14 @@ For a Hello-world example, please refer to [this](docs/ANDROID.md) page.
 Refer to the [API documentation](docs#api) for more details on how to use the SDK.
 
 ## Data specification
-The data is sent as JSON data. The format contains two main properties, the `deviceInformation` and the `events` property. Both properties are guaranteed to be included.
+The data is sent as JSON data. The format contains two main properties, the `device` and the `events` property. Both properties are guaranteed to be included.
 
 > Example
 ```json
 {
-    "deviceInformation": {
+    "device": {
         "appId": "io.o2mc.app",
-        "deviceName": "Android SDK built for x86",
+        "name": "Android SDK built for x86",
         "os": "android",
         "osVersion": "9"
     },
@@ -54,6 +54,7 @@ The data is sent as JSON data. The format contains two main properties, the `dev
     ],
     "number": 1,
     "retries": 0,
+    "sessionId": "6458def9-30b8-4591-9eb3-9e9881b8dc3f",
     "timestamp": "2018-07-25T11:19:18+02:00"
 }
 ```

@@ -22,13 +22,12 @@ Here's a complete example of the HTTP request.
 ```http
 POST /flow/code.js?dimml.concept=//johndoe@exampleandroid.app.dimml HTTP/1.1
 Host: https://baltar-dev.dimml.io
-Content-Type: application/json
+Content-Type: application/json; charset=UTF-8
 
 {
-   "deviceInformation":{
+   "device":{
       "appId":"io.o2mc.app",
-      "deviceId":"eeb261ced725039b",
-      "deviceName":"Android SDK Built For X86",
+      "name":"Android SDK Built For X86",
       "os":"android",
       "osVersion":"9"
    },
@@ -50,6 +49,7 @@ Content-Type: application/json
    ],
    "number":0,
    "retries":0,
+   "sessionId": "6458def9-30b8-4591-9eb3-9e9881b8dc3f",
    "timestamp":"2018-07-06T12:25:28Z"
 }
 ```
