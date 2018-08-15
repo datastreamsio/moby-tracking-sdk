@@ -20,4 +20,4 @@ matrix:
         - cd ios/sdk
       script:
         - xcodebuild -project O2MC.xcodeproj -scheme Tests
-          -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' build test
+          -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' test
