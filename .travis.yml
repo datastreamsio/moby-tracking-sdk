@@ -1,11 +1,13 @@
-language: android
-android:
-  components:
-    - build-tools-26.0.2
+matrix:
+  include:
+    - language: android
+      android:
+        components:
+          - build-tools-26.0.2
 
-    # SDK version
-    - android-26
-before_script:
-  - cd android
-script:
-  - ./gradlew test
+          # SDK version
+          - android-26
+      before_script:
+        - cd android
+      script:
+        - ./gradlew test
