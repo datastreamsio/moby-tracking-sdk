@@ -54,6 +54,7 @@ The data is sent as JSON data. The format contains two main properties, the `dev
     ],
     "number": 1,
     "retries": 0,
+    "sessionId": "6458def9-30b8-4591-9eb3-9e9881b8dc3f",
     "timestamp": "2018-07-25T11:19:18+02:00"
 }
 ```
