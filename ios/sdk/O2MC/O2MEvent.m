@@ -18,7 +18,7 @@
     return self;
 }
 
--(instancetype) initWithProperties :(NSString*) event :(NSDictionary*) properties; {
+-(instancetype) initWithProperties:(NSString*)event properties:(NSDictionary*)properties; {
     if (self = [super init]) {
         _event = event;
         _properties = properties;

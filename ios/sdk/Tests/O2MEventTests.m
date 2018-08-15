@@ -42,7 +42,7 @@
     NSDictionary *eventProps = @{
                                 @"foo": @"bar"
                                 };
-    O2MEvent *event = [[O2MEvent alloc] initWithProperties:eventName :eventProps];
+    O2MEvent *event = [[O2MEvent alloc] initWithProperties:eventName properties:eventProps];
 
     // Test if we have an event name set.
     XCTAssertNotNil(event.event);
@@ -69,7 +69,7 @@
     NSDictionary *eventProps = @{
                                  @"foo": @"bar"
                                  };
-    O2MEvent *event = [[O2MEvent alloc] initWithProperties:eventName :eventProps];
+    O2MEvent *event = [[O2MEvent alloc] initWithProperties:eventName properties:eventProps];
 
     NSDictionary *eventDict = [event toDict];
     XCTAssertNotNil(eventDict[@"event"]);

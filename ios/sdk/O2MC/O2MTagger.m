@@ -81,13 +81,14 @@
     });
 }
 
--(void)trackWithProperties:(NSString*)eventName :(NSDictionary*)properties;
+-(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
 {
     dispatch_async(_tagQueue, ^{
         if (!self->_batchManager.dispatchTimer.isValid) return;
         [self->_logger logD:@"Track %@:%@", eventName, properties];
 
-        [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName :properties]];
+        [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName
+                                                                 properties:properties]];
     });
 }
 
