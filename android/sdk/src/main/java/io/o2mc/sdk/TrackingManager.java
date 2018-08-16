@@ -74,7 +74,7 @@ public class TrackingManager implements O2MCExceptionNotifier {
   public void trackWithProperties(String eventName, Object value) {
     eventManager.newEventWithProperties(eventName, value);
   }
- 
+
   public List<Event> getEventsFromBus() {
     return eventManager.getEvents();
   }
