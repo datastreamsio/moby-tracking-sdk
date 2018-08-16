@@ -32,7 +32,7 @@ The unique identifier for an app. Also known as bundle identifier or package nam
 
 #### locale
 
-The language and country code written as specified by RFC 4647. For example: `en-US` or `pt-BR`.
+The language and country code. The format will be written as inspired by RFC 4647. For example: `en_US` or `pt_BR`.
 
 #### name
 
