@@ -24,11 +24,12 @@
 }
 
 @property NSTimer * dispatchTimer;
-@property (nonatomic) NSString *endpoint;
 @property (copy) NSString *appId;
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods
+
+-(NSString*) getEndpoint;
 
 /**
  * Configures an end point where the events will be dispatched to.

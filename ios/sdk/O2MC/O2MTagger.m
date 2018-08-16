@@ -18,8 +18,6 @@
     _eventManager = [O2MEventManager sharedManager];
     _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 
-    _endpoint = endpoint;
-
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
 
     [self->_batchManager setEndpoint:endpoint];
@@ -29,6 +27,10 @@
 }
 
 #pragma mark - Configuration methods
+-(NSString*) getEndpoint; {
+    return self->_batchManager.endpoint;
+}
+
 -(void) setEndpoint :(NSString *) endpoint; {
     [self->_batchManager setEndpoint:endpoint];
 }

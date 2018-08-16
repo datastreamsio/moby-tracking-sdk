@@ -37,6 +37,12 @@
 #pragma mark - Configuration methods
 
 /**
+ * Returns configured endpoint.
+ * @return endpoint
+ */
+-(NSString*) getEndpoint;
+
+/**
  * Configures an end point where the events will be dispatched to.
  * @param endpoint http(s) URL which should be publicly reachable
  */

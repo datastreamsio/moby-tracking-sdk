@@ -31,6 +31,10 @@
      return self;
 }
 
+-(NSString*) getEndpoint; {
+    return [self->_tracker getEndpoint];
+}
+
 -(void) setEndpoint :(NSString *) endpoint; {
     [self->_tracker setEndpoint:endpoint];
 }
