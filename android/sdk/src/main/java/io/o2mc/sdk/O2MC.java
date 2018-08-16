@@ -74,6 +74,24 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
   }
 
   /**
+   * Changes the URL of the backend to send batches to.
+   *
+   * @param endpoint String value of the URL to the backend
+   */
+  public void setEndpoint(String endpoint) {
+    boolean validEndpoint = trackingManager.setEndpoint(endpoint);
+    if (validEndpoint) {
+      // Manager may be stopped earlier because the endpoint was incorrect
+      // Since the endpoint is correct now, resume tracking
+      trackingManager.resume();
+    } else {
+      // Stop tracking if the endpoint is invalid. Events won't be sent to the
+      // backend anyway, it would only waste the user's data bundle by trying.
+      trackingManager.stop();
+    }
+  }
+
+  /**
    * Changes the number of times the SDK should try to resend data to the backend before giving up.
    *
    * @param maxRetries number of times to retry

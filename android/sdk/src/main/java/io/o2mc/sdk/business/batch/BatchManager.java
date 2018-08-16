@@ -105,20 +105,23 @@ public class BatchManager extends TimerTask implements Callback {
    *
    * @param endpoint URL in String format
    */
-  private void setEndpoint(String endpoint) {
+  public boolean setEndpoint(String endpoint) {
     if (endpoint == null || endpoint.isEmpty()) {
       trackingManager.notifyException(
           new O2MCEndpointException("Please provide a non-empty endpoint."),
           true); // fatal exception, the next dispatch wouldn't work even if we tried
+      return false;
     } else if (Util.isValidEndpoint(endpoint)) {
       this.endpoint = endpoint;
       this.usingHttpsEndpoint = Util.isHttps(endpoint);
+      return true;
     } else {
       trackingManager.notifyException(new O2MCEndpointException(
               String.format(
                   "Endpoint is incorrect. Tracking events will fail to be dispatched. Please verify the correctness of '%s'.",
                   endpoint)),
           true);  // fatal exception, the next dispatch wouldn't work even if we tried
+      return false;
     }
   }
 
