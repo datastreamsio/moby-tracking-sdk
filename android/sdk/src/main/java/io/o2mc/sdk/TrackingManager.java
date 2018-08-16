@@ -74,7 +74,7 @@ public class TrackingManager implements O2MCExceptionNotifier {
   public void trackWithProperties(String eventName, Object value) {
     eventManager.newEventWithProperties(eventName, value);
   }
-
+ 
   public List<Event> getEventsFromBus() {
     return eventManager.getEvents();
   }
@@ -149,7 +149,8 @@ public class TrackingManager implements O2MCExceptionNotifier {
     // If exception was fatal, stop the SDK
     if (isFatal) {
       stop();
-      LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.", e.getClass().getSimpleName()));
+      LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.",
+          e.getClass().getSimpleName()));
     }
   }
 }
