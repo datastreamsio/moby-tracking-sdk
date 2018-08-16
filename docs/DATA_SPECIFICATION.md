@@ -27,7 +27,7 @@ object {
 
 #### appId
 
-The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
+The unique identifier for an app. Also known as bundle identifier or package name. An example appId could be: `com.carrotstore.orderapp`.
 
 
 #### locale
