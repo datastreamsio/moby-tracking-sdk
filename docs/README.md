@@ -27,6 +27,7 @@ Content-Type: application/json; charset=UTF-8
 {
    "device":{
       "appId":"io.o2mc.app",
+      "locale": "en_US",
       "name":"Android SDK Built For X86",
       "os":"android",
       "osVersion":"9"

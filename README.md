@@ -37,6 +37,7 @@ The data is sent as JSON data. The format contains two main properties, the `dev
 {
     "device": {
         "appId": "io.o2mc.app",
+        "locale": "en_US",
         "name": "Android SDK built for x86",
         "os": "android",
         "osVersion": "9"
