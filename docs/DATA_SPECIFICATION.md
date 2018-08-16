@@ -18,6 +18,7 @@ This object contains generic device information.
 ```
 object {
 	string appId;
+	string locale;
 	string name;
 	string os;
 	string osVersion;
@@ -26,8 +27,12 @@ object {
 
 #### appId
 
-The unique identifier for an app. Also known as bundle identifier or package name. An example appId be: `com.carrotstore.orderapp`.
+The unique identifier for an app. Also known as bundle identifier or package name. An example appId could be: `com.carrotstore.orderapp`.
 
+
+#### locale
+
+The language and country code. The format will be written as inspired by RFC 4647. For example: `en_US` or `pt_BR`.
 
 #### name
 
