@@ -5,6 +5,7 @@ import android.os.Build;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
+import java.util.Locale;
 
 /**
  * Manages all operations specifically targeted to the user's device.
@@ -38,12 +39,7 @@ public class DeviceManager {
     String os = "android";
     String osVersion = Build.VERSION.RELEASE;
     String deviceName = android.os.Build.MODEL;
-
-    String language =
-        app.getResources().getConfiguration().locale.getCountry(); // should be 'ISO 3166-1'
-    String country =
-        app.getResources().getConfiguration().locale.getLanguage(); // should be 'ISO 639'
-    String locale = country + "_" + language; // 'RFC 4647' standard
+    String locale = Locale.getDefault().toString(); // 'RFC 4647' standard
 
     return new DeviceInformation(
         appId, os, osVersion, locale, deviceName
