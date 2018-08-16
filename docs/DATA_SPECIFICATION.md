@@ -48,13 +48,13 @@ This object is generated after a [`track()`](API.md#track) [`trackWithProperties
 
 ```
 object {
-	string event;
+	string name;
 	object? properties;
 	string timestamp;
 }
 ```
 
-#### event
+#### name
 
 Name of the triggered event.
 
