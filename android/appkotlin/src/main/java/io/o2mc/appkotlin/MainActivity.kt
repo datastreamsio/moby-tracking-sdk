@@ -25,6 +25,16 @@ class MainActivity : AppCompatActivity() {
   }
 
   /**
+   * Called on 'Set Endpoint' button click
+   */
+  fun onSetEndpointHandler(v: View) {
+    val editText: EditText = findViewById(R.id.editTextEndpointIp)
+    val text: String = editText.text.toString() // access text by property syntax
+
+    App.o2mc.setEndpoint(text)
+  }
+
+  /**
    * Called on 'Stop Tracking' button click
    */
   fun onStopTracking(v: View) {
