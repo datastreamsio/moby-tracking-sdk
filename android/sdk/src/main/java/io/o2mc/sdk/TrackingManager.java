@@ -55,6 +55,10 @@ public class TrackingManager implements O2MCExceptionNotifier {
     this.batchManager.init(this, endpoint, dispatchInterval, maxRetries);
   }
 
+  public String getEndpoint() {
+    return this.batchManager.getEndpoint();
+  }
+
   public boolean setEndpoint(String endpoint) {
     return this.batchManager.setEndpoint(endpoint);
   }
@@ -67,7 +71,7 @@ public class TrackingManager implements O2MCExceptionNotifier {
     eventManager.newEvent(eventName);
   }
 
-  public void trackWithProperties(String eventName, String value) {
+  public void trackWithProperties(String eventName, Object value) {
     eventManager.newEventWithProperties(eventName, value);
   }
 

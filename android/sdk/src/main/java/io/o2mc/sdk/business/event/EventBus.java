@@ -32,7 +32,7 @@ public class EventBus {
     return new Event(eventName, null, TimeUtil.generateTimestamp());
   }
 
-  public Event generateEventWithProperties(String eventName, String value) {
+  public Event generateEventWithProperties(String eventName, Object value) {
     return new Event(eventName, value, TimeUtil.generateTimestamp());
   }
 }
