@@ -65,6 +65,10 @@ public class BatchManager extends TimerTask implements Callback {
     this.batchId = identifier;
   }
 
+  public String getIdentifier() {
+    return batchId;
+  }
+
   /**
    * Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
    *

@@ -4,6 +4,7 @@ import android.app.Application;
 import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
+import io.o2mc.sdk.business.operations.OperationManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
@@ -36,6 +37,7 @@ public class TrackingManager implements O2MCExceptionNotifier {
 
   private DeviceManager deviceManager;
   private EventManager eventManager;
+  private OperationManager operationManager;
   private BatchManager batchManager;
 
   private DeviceInformation deviceInformation;
@@ -48,10 +50,12 @@ public class TrackingManager implements O2MCExceptionNotifier {
 
     this.deviceManager = new DeviceManager();
     this.eventManager = new EventManager();
+    this.operationManager = new OperationManager();
     this.batchManager = new BatchManager();
 
     this.deviceManager.init(this, application);
     this.eventManager.init(this);
+    this.operationManager.init(this);
     this.batchManager.init(this, endpoint, dispatchInterval, maxRetries);
   }
 
@@ -65,6 +69,10 @@ public class TrackingManager implements O2MCExceptionNotifier {
 
   public void track(String eventName) {
     eventManager.newEvent(eventName);
+  }
+
+  public void forget(String identifier) {
+    operationManager.newOperationWithProperties(0, identifier);
   }
 
   public void trackWithProperties(String eventName, String value) {
@@ -121,6 +129,10 @@ public class TrackingManager implements O2MCExceptionNotifier {
     batchManager.setIdentifier(Util.generateUUID());
   }
 
+  public String getSessionIdentifier() {
+    return batchManager.getIdentifier();
+  }
+
   @Override public void notifyException(O2MCException e, boolean isFatal) {
     if (o2MCExceptionListener != null) { // if listener is set, inform using an exception
 
@@ -145,7 +157,8 @@ public class TrackingManager implements O2MCExceptionNotifier {
     // If exception was fatal, stop the SDK
     if (isFatal) {
       stop();
-      LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.", e.getClass().getSimpleName()));
+      LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.",
+          e.getClass().getSimpleName()));
     }
   }
 }

@@ -7,15 +7,14 @@ import io.o2mc.sdk.util.Util;
 import java.util.List;
 
 /**
- * Manages everything that's related to events by making use of a EventBus.
+ * Manages everything that's related to events by making use of an EventBus.
  */
 public class EventManager {
 
   private EventBus eventBus;
   private boolean isStopped;
 
-  // Will be used for future exception handling, once this class gets more complex
-  @SuppressWarnings({ "FieldCanBeLocal", "unused" }) private O2MCExceptionNotifier notifier;
+  private O2MCExceptionNotifier notifier;
 
   public void init(O2MCExceptionNotifier notifier) {
     this.eventBus = new EventBus();
@@ -59,7 +58,7 @@ public class EventManager {
 
     if (!Util.isValidEventValue(value)) {
       notifier.notifyException(
-          new O2MCTrackException(String.format("Value '%s' is invalid.", value)),
+          new O2MCTrackException(String.format("Event value '%s' is invalid.", value)),
           false); // is not fatal for base SDK functionality, next event value may be valid again
     }
 

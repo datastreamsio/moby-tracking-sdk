@@ -145,6 +145,32 @@ public final class Util {
   }
 
   /**
+   * Validates correctness of an operation code.
+   *
+   * @param operationCode the code to validate
+   * @return true if operation code is valid
+   */
+  public static boolean isValidOperationCode(int operationCode) {
+    // TODO: 8/18/18 validate
+
+    // All conditions passed, event name is valid
+    return true;
+  }
+
+  /**
+   * Validates correctness of an operation value.
+   *
+   * @param value the value of an operation to validate
+   * @return true if operation value is valid
+   */
+  public static boolean isValidOperationValue(Object value) {
+    // TODO: 8/18/18 validate
+
+    // All conditions passed, event value is valid
+    return true;
+  }
+
+  /**
    * Validates correctness of an event value.
    *
    * @param value the value of an event to validate
