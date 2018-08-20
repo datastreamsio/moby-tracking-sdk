@@ -11,6 +11,5 @@ class App : Application() {
   // Called on constructor
   init {
     o2mc = O2MC(this, "http://10.0.2.2:5000/events") // init the 'static' field o2mc
-    o2mc.
   }
 }
