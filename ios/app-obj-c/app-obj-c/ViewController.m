@@ -19,6 +19,9 @@
 
     self._logTopic = os_log_create("io.o2mc.app-obj-c", "testapp-obj-c");
     self.O2MC = [[O2MC alloc] initWithEndpoint:@"http://127.0.0.1:5000/events"];
+
+    // Set endpoint textfield with the currently set endpoint.
+    [self.endpointTextField setText:[self.O2MC getEndpoint]];
 }
 
 
