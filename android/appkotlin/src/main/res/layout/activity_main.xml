@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,56 +10,150 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
       android:orientation="vertical"
       >
 
-    <EditText
-        android:id="@+id/editText"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:text="@string/name"
-        />
+        app:cardUseCompatPadding="true"
+        >
 
-    <Button
-        android:id="@+id/buttonCreateTrackEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onCreateEventHandler"
-        android:text="@string/create_event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
 
-    <Button
-        android:id="@+id/buttonStopTracking"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onStopTracking"
-        android:text="@string/stop_tracking"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        <TextView
+            android:id="@+id/titleTrack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/track"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            />
 
-    <Button
-        android:id="@+id/buttonResumeTracking"
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            android:text="@string/name"
+            />
+
+        <Button
+            android:id="@+id/btnConfirmUsername"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="16dp"
+            android:onClick="onCreateEventHandler"
+            android:text="@string/track"
+            style="@style/Widget.AppCompat.Button.Colored"
+            />
+
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onResumeTracking"
-        android:text="@string/resume_tracking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="299dp"
-        />
+        app:cardUseCompatPadding="true"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+
+        <TextView
+            android:id="@+id/titleControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/controls"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            />
+
+        <Button
+            android:id="@+id/buttonResumeTracking"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="16dp"
+            android:onClick="onStopTracking"
+            android:text="@string/stop_tracking"
+            style="@style/Widget.AppCompat.Button.Colored"
+            />
+        <Button
+            android:id="@+id/buttonStopTracking"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:onClick="onResumeTracking"
+            android:text="@string/resume_tracking"
+            style="@style/Widget.AppCompat.Button.Colored"
+            />
+
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+
+        <TextView
+            android:id="@+id/titleEndpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/endpointTitle"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            />
+
+        <EditText
+            android:id="@+id/editTextEndpointIp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:inputType="textPersonName"
+            android:text="@string/endpoint"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_margin="16dp"
+            android:onClick="onSetEndpointHandler"
+            android:text="@string/setEndpoint"
+            style="@style/Widget.AppCompat.Button.Colored"
+            />
+
+      </LinearLayout>
+    </android.support.v7.widget.CardView>
+
   </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

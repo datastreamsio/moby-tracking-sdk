@@ -74,6 +74,15 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
   }
 
   /**
+   * Retrieves the URL of the backend to send batches to.
+   *
+   * @param endpoint String value of the URL to the backend
+   */
+  public String getEndpoint(String endpoint) {
+    return trackingManager.getEndpoint();
+  }
+
+  /**
    * Changes the URL of the backend to send batches to.
    *
    * @param endpoint String value of the URL to the backend
@@ -230,7 +239,7 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    * @param eventName name of tracked event
    * @param value anything you'd like to keep track of in String format
    */
-  public void trackWithProperties(String eventName, String value) {
+  public void trackWithProperties(String eventName, Object value) {
     trackingManager.trackWithProperties(eventName, value);
   }
 

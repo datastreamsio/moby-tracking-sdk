@@ -46,7 +46,7 @@ public class EventManager {
    * @param eventName name of event to generate
    * @param value value to include in the event
    */
-  public void newEventWithProperties(String eventName, String value) {
+  public void newEventWithProperties(String eventName, Object value) {
     if (isStopped) return;
 
     if (!Util.isValidEventName(eventName)) {
