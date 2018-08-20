@@ -1,6 +1,8 @@
 package io.o2mc.sdk;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 import io.o2mc.sdk.business.DeviceManager;
 import io.o2mc.sdk.business.batch.BatchManager;
 import io.o2mc.sdk.business.event.EventManager;
@@ -28,7 +30,8 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
  * Protecting functions from use by an implementing App prevents accidental usage of methods and
  * therefore prevents incorrect usage of our SDK. Makes the SDK more easy to use and robust.
  */
-public class TrackingManager implements O2MCExceptionNotifier {
+public class TrackingManager
+    implements O2MCExceptionNotifier, Application.ActivityLifecycleCallbacks {
 
   private static final String TAG = "TrackingManager";
 
@@ -44,7 +47,14 @@ public class TrackingManager implements O2MCExceptionNotifier {
 
   public void init(Application application, String endpoint, int dispatchInterval,
       int maxRetries) {
-    this.application = application;
+    if (application == null) {
+      LogW(TAG, "O2MC: Application (context) provided was null. " +
+          "Manually tracked events will still work, however " +
+          "activity lifecycle callbacks will not be automatically detected.");
+    } else {
+      this.application = application;
+      this.application.registerActivityLifecycleCallbacks(this);
+    }
 
     this.deviceManager = new DeviceManager();
     this.eventManager = new EventManager();
@@ -152,5 +162,69 @@ public class TrackingManager implements O2MCExceptionNotifier {
       LogW(TAG, String.format("Exception \"%s\" was fatal. SDK was stopped.",
           e.getClass().getSimpleName()));
     }
+  }
+
+  public void startLifecycleTracking() {
+    // TODO: 8/20/18
+  }
+
+  public void stopLifecycleTracking() {
+    // TODO: 8/20/18
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityCreated' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityCreated(Activity activity, Bundle bundle) {
+    LogD(TAG, "Activity created.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityStarted(Activity activity) {
+    LogD(TAG, "Activity started.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityResumed(Activity activity) {
+    LogD(TAG, "Activity resumed.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityPaused' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityPaused(Activity activity) {
+    LogD(TAG, "Activity resumed.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityStopped' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityStopped(Activity activity) {
+    LogD(TAG, "Activity stopped.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivitySaveInstanceState' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+    LogD(TAG, "Activity saved instance state.");
+  }
+
+  /**
+   * Executed on the Activity lifecycle event 'onActivityDestroyed' of any Activity inside the provided 'App' parameter on initialization of this class.
+   */
+  @Override
+  public void onActivityDestroyed(Activity activity) {
+    LogD(TAG, "Activity destroyed.");
   }
 }
