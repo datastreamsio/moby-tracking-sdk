@@ -26,6 +26,16 @@ public class MainActivity extends AppCompatActivity {
   }
 
   /**
+   * Called on 'Set Endpoint' button click
+   */
+  public void onSetEndpointHandler(View v) {
+    EditText editText = findViewById(R.id.editTextEndpointIp);
+    String text = editText.getText().toString();
+
+    App.getO2mc().setEndpoint(text);
+  }
+
+  /**
    * Called on 'Stop Tracking' button click
    */
   public void onStopTracking(View v) {

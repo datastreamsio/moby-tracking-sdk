@@ -1,7 +1,12 @@
 <resources>
   <string name="app_name">AppKotlin</string>
   <string name="name">Name</string>
-  <string name="create_event">Create track event</string>
+  <string name="create_event">Create Track Event</string>
   <string name="stop_tracking">Stop Tracking</string>
   <string name="resume_tracking">Resume Tracking</string>
+  <string name="track">Track</string>
+  <string name="controls">Controls</string>
+  <string name="endpoint">http://10.0.2.2:5000/events</string>
+  <string name="endpointTitle">Endpoint</string>
+  <string name="setEndpoint">Set Endpoint</string>
 </resources>
