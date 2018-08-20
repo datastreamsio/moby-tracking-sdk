@@ -31,19 +31,6 @@
                                     <action selector="BtnTouchCreateEvent:" destination="Abu-cO-rNf" eventType="touchDown" id="RSy-aD-iDa"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zWT-dW-HNr">
-                                <rect key="frame" x="337" y="150" width="95" height="126"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-lc-up9">
-                                        <rect key="frame" x="0.0" y="0.0" width="95" height="126"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hVB-nc-p0b">
-                                                <rect key="frame" x="0.0" y="0.0" width="95" height="126"/>
-                                            </stackView>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUK-Mt-LmN">
                                 <rect key="frame" x="337" y="150" width="95" height="30"/>
                                 <state key="normal" title="Stop Tracking"/>
@@ -63,12 +50,10 @@
                         <constraints>
                             <constraint firstItem="KUK-Mt-LmN" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="IFy-iv-o58"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="KUK-Mt-LmN" secondAttribute="centerX" id="Iys-Y8-WGs"/>
-                            <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="zWT-dW-HNr" secondAttribute="centerX" id="LPl-9t-rXg"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="top" secondItem="K7p-86-AlV" secondAttribute="bottom" constant="8" symbolic="YES" id="PMQ-kw-lnJ"/>
                             <constraint firstItem="K7p-86-AlV" firstAttribute="top" secondItem="czo-UV-NSk" secondAttribute="top" constant="16" id="ZCW-vo-U84"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="top" secondItem="DoE-SC-Mbw" secondAttribute="bottom" constant="8" symbolic="YES" id="bpk-e5-No3"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="centerX" secondItem="K7p-86-AlV" secondAttribute="centerX" id="eKK-TI-c8x"/>
-                            <constraint firstItem="zWT-dW-HNr" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="mR4-FO-JF4"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="Mly-dr-BNN" secondAttribute="centerX" id="qAw-d9-2N2"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="DoE-SC-Mbw" secondAttribute="centerX" id="wqM-wb-Po1"/>
                         </constraints>
