@@ -50,6 +50,7 @@
 
 - (IBAction)InputEndpointChanged:(id)sender; {
     os_log(self._logTopic, "endpoint data changed");
+
     [self.O2MC.tracker setEndpoint:self.endpointTextField.text];
 }
 
