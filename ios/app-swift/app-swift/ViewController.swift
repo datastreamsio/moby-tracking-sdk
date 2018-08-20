@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var eventNameTextField: UITextField!
+    @IBOutlet weak var endpointNameTextField: UITextField!
     var o2mc : O2MC!
     var _logTopic: OSLog!
     
@@ -57,6 +58,16 @@ class ViewController: UIViewController {
         }
 
         self.o2mc.stop()
+    }
+
+    @IBAction func InputEndpointChanged(_ sender: Any) {
+        if #available(iOS 10.0, *) {
+            os_log("endpoint changed", self._logTopic)
+        } else {
+            NSLog("endpoint changed")
+        }
+
+        self.o2mc.setEndpoint(self.endpointNameTextField.text)
     }
 }
 
