@@ -14,12 +14,15 @@
 @interface ViewController : UIViewController
 
 @property (strong, nonatomic) O2MC *O2MC;
+@property (nonatomic, retain) IBOutlet UITextField *endpointTextField;
 @property (nonatomic, retain) IBOutlet UITextField *eventNameTextField;
 @property (nonatomic, retain) os_log_t _logTopic;
 
 - (IBAction)BtnTouchCreateEvent:(id)sender;
 - (IBAction)BtnTouchResetTracking:(id)sender;
 - (IBAction)BtnTouchStopTracking:(id)sender;
+
+- (IBAction)InputEndpointChanged:(id)sender;
 
 @end
 

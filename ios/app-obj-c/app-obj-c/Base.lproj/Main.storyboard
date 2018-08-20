@@ -24,6 +24,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="center" text="HTTP(s) endpoint" borderStyle="roundedRect" placeholder="Endpoint URL" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KM1-dw-9DS">
+                                <rect key="frame" x="316.5" y="268" width="136" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="InputEndpointChanged:" destination="Abu-cO-rNf" eventType="editingDidEnd" id="xwh-I4-1e4"/>
+                                </connections>
+                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoE-SC-Mbw">
                                 <rect key="frame" x="321" y="74" width="127" height="30"/>
                                 <state key="normal" title="Create track event"/>
@@ -45,27 +54,38 @@
                                     <action selector="BtnTouchResetTracking:" destination="Abu-cO-rNf" eventType="touchDown" id="I6X-Ce-oKj"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OPt-HO-tdY">
+                                <rect key="frame" x="352" y="239" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="KM1-dw-9DS" firstAttribute="top" secondItem="OPt-HO-tdY" secondAttribute="bottom" constant="8" symbolic="YES" id="C8f-Ff-9yk"/>
                             <constraint firstItem="KUK-Mt-LmN" firstAttribute="top" secondItem="crc-Kh-X3j" secondAttribute="bottom" constant="8" symbolic="YES" id="IFy-iv-o58"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="KUK-Mt-LmN" secondAttribute="centerX" id="Iys-Y8-WGs"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="top" secondItem="K7p-86-AlV" secondAttribute="bottom" constant="8" symbolic="YES" id="PMQ-kw-lnJ"/>
                             <constraint firstItem="K7p-86-AlV" firstAttribute="top" secondItem="czo-UV-NSk" secondAttribute="top" constant="16" id="ZCW-vo-U84"/>
+                            <constraint firstItem="OPt-HO-tdY" firstAttribute="centerX" secondItem="KM1-dw-9DS" secondAttribute="centerX" id="aD8-zP-Pnl"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="top" secondItem="DoE-SC-Mbw" secondAttribute="bottom" constant="8" symbolic="YES" id="bpk-e5-No3"/>
                             <constraint firstItem="DoE-SC-Mbw" firstAttribute="centerX" secondItem="K7p-86-AlV" secondAttribute="centerX" id="eKK-TI-c8x"/>
+                            <constraint firstItem="OPt-HO-tdY" firstAttribute="centerX" secondItem="KUK-Mt-LmN" secondAttribute="centerX" id="hJq-Wy-EMA"/>
+                            <constraint firstItem="OPt-HO-tdY" firstAttribute="top" secondItem="KUK-Mt-LmN" secondAttribute="bottom" constant="59" id="mVy-eS-lCo"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="Mly-dr-BNN" secondAttribute="centerX" id="qAw-d9-2N2"/>
                             <constraint firstItem="crc-Kh-X3j" firstAttribute="centerX" secondItem="DoE-SC-Mbw" secondAttribute="centerX" id="wqM-wb-Po1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="czo-UV-NSk"/>
                     </view>
                     <connections>
+                        <outlet property="endpointTextField" destination="KM1-dw-9DS" id="cBY-ZK-2JH"/>
                         <outlet property="eventNameTextField" destination="K7p-86-AlV" id="fng-o7-eR4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMo-6E-HaG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757.60000000000002" y="-162.3688155922039"/>
+            <point key="canvasLocation" x="757.03125" y="-162.890625"/>
         </scene>
     </scenes>
 </document>
