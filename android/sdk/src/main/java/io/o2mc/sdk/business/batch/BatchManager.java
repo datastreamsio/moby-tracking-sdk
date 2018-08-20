@@ -3,6 +3,7 @@ package io.o2mc.sdk.business.batch;
 import io.o2mc.sdk.Config;
 import io.o2mc.sdk.TrackingManager;
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.domain.Operation;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
 import io.o2mc.sdk.exceptions.O2MCEndpointException;
 import io.o2mc.sdk.util.Util;
@@ -153,6 +154,10 @@ public class BatchManager extends TimerTask implements Callback {
     return trackingManager.getEventsFromBus();
   }
 
+  private List<Operation> getOperations() {
+    return trackingManager.getOperationsFromBus();
+  }
+
   /**
    * Clears all events which are currently in the EventBus.
    */
@@ -238,12 +243,14 @@ public class BatchManager extends TimerTask implements Callback {
     }
 
     // Only generate a batch if we have events
-    if (getEvents().size() > 0) {
+    if (getEvents().size() > 0 && getOperations().size() > 0) {
       batchBus.add(batchBus.generateBatch(batchId, getEvents()));
       LogD(TAG,
           String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
       clearEvents();
     }
+
+
 
     // If there's a batch pending, skip this run
     if (batchBus.awaitingCallback()) {

@@ -3,6 +3,7 @@ package io.o2mc.sdk.business.batch;
 import io.o2mc.sdk.domain.Batch;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.domain.Operation;
 import io.o2mc.sdk.util.TimeUtil;
 import java.util.ArrayList;
 import java.util.List;

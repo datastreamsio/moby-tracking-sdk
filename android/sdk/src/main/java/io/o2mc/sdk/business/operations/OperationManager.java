@@ -5,6 +5,7 @@ import io.o2mc.sdk.domain.Operation;
 import io.o2mc.sdk.exceptions.O2MCOperationException;
 import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
 import io.o2mc.sdk.util.Util;
+import java.util.List;
 
 /**
  * Manages everything that's related to operations by making use of an OperationsBus.
@@ -20,6 +21,10 @@ public class OperationManager {
   public void init(O2MCExceptionNotifier notifier) {
     this.operationBus = new OperationBus();
     this.notifier = notifier;
+  }
+
+  public List<Operation> getOperations() {
+    return operationBus.getOperations();
   }
 
   /**
@@ -60,7 +65,7 @@ public class OperationManager {
       return;
     }
 
-    Operation o = operationBus.generateOperation(operationCode);
+    Operation o = operationBus.generateOperationWithProperties(operationCode, value);
     operationBus.add(o);
   }
 }

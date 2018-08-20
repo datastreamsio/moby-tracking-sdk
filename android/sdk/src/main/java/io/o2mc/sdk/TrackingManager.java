@@ -7,6 +7,7 @@ import io.o2mc.sdk.business.event.EventManager;
 import io.o2mc.sdk.business.operations.OperationManager;
 import io.o2mc.sdk.domain.DeviceInformation;
 import io.o2mc.sdk.domain.Event;
+import io.o2mc.sdk.domain.Operation;
 import io.o2mc.sdk.exceptions.O2MCDeviceException;
 import io.o2mc.sdk.exceptions.O2MCDispatchException;
 import io.o2mc.sdk.exceptions.O2MCEndpointException;
@@ -76,15 +77,19 @@ public class TrackingManager implements O2MCExceptionNotifier {
   }
 
   public void forget(String identifier) {
-    operationManager.newOperationWithProperties(0, identifier);
+    operationManager.newOperationWithProperties(Operation.FORGET_BY_ID, identifier);
   }
-  
+
   public void trackWithProperties(String eventName, Object value) {
     eventManager.newEventWithProperties(eventName, value);
   }
 
   public List<Event> getEventsFromBus() {
     return eventManager.getEvents();
+  }
+
+  public List<Operation> getOperationsFromBus() {
+    return operationManager.getOperations();
   }
 
   public void clearEventsFromBus() {
