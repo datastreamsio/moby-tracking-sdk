@@ -17,16 +17,8 @@
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
-@property NSMutableArray *batches;
-@property int batchNumber;
-@property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
-@property (assign, nonatomic, readonly) NSInteger connRetries;
-@property (readonly) NSDictionary *deviceInfo;
-@property O2MDispatcher *dispatcher;
 @property NSTimer * dispatchTimer;
 @property NSString *endpoint;
-@property O2MEventManager *eventManager;
-@property (readonly) O2MLogger *logger;
 @property NSInteger maxRetries;
 @property NSString *sessionIdentifier;
 
