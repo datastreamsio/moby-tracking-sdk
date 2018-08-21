@@ -11,17 +11,17 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
--(instancetype) init; {
+-(nonnull instancetype) init; {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:@""];
     return self;
 }
 
--(instancetype) initWithEndpoint:(NSString *)endpoint;  {
+-(nonnull instancetype) initWithEndpoint:(NSString *)endpoint;  {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:endpoint];
     return self;
 }
 
--(instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint; {
+-(nonnull instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint; {
      if (self = [super init]) {
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
 
@@ -31,7 +31,7 @@
      return self;
 }
 
--(NSString*) getEndpoint; {
+-(nonnull NSString*) getEndpoint; {
     return [self->_tracker getEndpoint];
 }
 

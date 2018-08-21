@@ -67,7 +67,7 @@ class ViewController: UIViewController {
             NSLog("endpoint changed")
         }
 
-        self.o2mc.setEndpoint(self.endpointNameTextField.text)
+        self.o2mc.setEndpoint(self.endpointNameTextField.text!)
     }
 }
 

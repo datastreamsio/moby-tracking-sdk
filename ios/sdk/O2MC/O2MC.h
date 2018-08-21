@@ -13,7 +13,7 @@
 @interface O2MC : NSObject {
 }
 
-@property (readonly, nonatomic) O2MTagger *tracker;
+@property (readonly, nonatomic, nonnull) O2MTagger *tracker;
 
 
 #pragma mark - Constructors
@@ -21,18 +21,18 @@
 /**
  * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
  */
--(instancetype) init;
+-(nonnull instancetype) init;
 /**
  * Constructs the tracking SDK.
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(instancetype) initWithEndpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithEndpoint:(NSString *)endpoint;
 /**
  * Constructs the tracking SDK.
  * @param dispatchInterval time in seconds between dispatches
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint;
 
 #pragma mark - Configuration methods
 
@@ -40,13 +40,13 @@
  * Returns configured endpoint.
  * @return endpoint
  */
--(NSString*) getEndpoint;
+-(nonnull NSString*) getEndpoint;
 
 /**
  * Configures an end point where the events will be dispatched to.
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(void) setEndpoint:(NSString *)endpoint;
+-(void) setEndpoint:(nonnull NSString *)endpoint;
 /**
  * The max amount of connection retries before stopping dispatching.
  * @param maxRetries retry amount (defaults to 5)

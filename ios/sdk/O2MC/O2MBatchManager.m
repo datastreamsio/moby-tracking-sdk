@@ -23,6 +23,7 @@
                         @"osVersion":UIDevice.currentDevice.systemVersion,
                         };
         _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
+        _endpoint = @"";
         _eventManager = [O2MEventManager sharedManager];
 
         _logger = [[O2MLogger alloc] initWithTopic:"batchmanager"];
