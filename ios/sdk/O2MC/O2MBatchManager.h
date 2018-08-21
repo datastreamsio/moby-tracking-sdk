@@ -18,11 +18,11 @@
 
 + (instancetype)sharedManager;
 /**
- * Starts the timer with a specific dispatch interval.
+ * Starts dispatching with a specific dispatch interval.
  * @param dispatchInterval dispatch time in seconds.
  */
 -(void) startTimer :(NSNumber *) dispatchInterval;
--(void) dispatch :(NSTimer *)timer;
+-(void) dispatchWithInterval :(NSNumber *) dispatchInterval;
 -(BOOL) isDispatching;
 -(void) stop;
 

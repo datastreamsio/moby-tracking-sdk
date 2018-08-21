@@ -66,7 +66,7 @@
     return sharedO2MBatchManager;
 }
 
--(void) startTimer :(NSNumber *) dispatchInterval; {
+-(void) dispatchWithInterval :(NSNumber *) dispatchInterval; {
     dispatch_async(_batchQueue, ^{
         if (self->_dispatchTimer) {
             [self->_dispatchTimer invalidate];

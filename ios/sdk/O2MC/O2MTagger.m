@@ -21,7 +21,7 @@
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
 
     [self->_batchManager setEndpoint:endpoint];
-    [self->_batchManager startTimer:dispatchInterval];
+    [self->_batchManager dispatchWithInterval:dispatchInterval];
 
     return self;
 }
