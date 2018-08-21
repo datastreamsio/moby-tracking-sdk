@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".ControlActivity"
+    >
+
+  <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:cardUseCompatPadding="true"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+      <TextView
+          android:id="@+id/titleControls"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:layout_marginTop="16dp"
+          android:text="@string/controls"
+          android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+          />
+
+      <Button
+          android:id="@+id/buttonResumeTracking"
+          android:layout_width="match_parent"
+          android:layout_height="75dp"
+          android:layout_margin="16dp"
+          android:onClick="onStopTracking"
+          android:text="@string/stop_tracking"
+          style="@style/Widget.AppCompat.Button.Colored"
+          />
+      <Button
+          android:id="@+id/buttonStopTracking"
+          android:layout_width="match_parent"
+          android:layout_height="75dp"
+          android:layout_marginBottom="16dp"
+          android:layout_marginLeft="16dp"
+          android:layout_marginRight="16dp"
+          android:onClick="onResumeTracking"
+          android:text="@string/resume_tracking"
+          style="@style/Widget.AppCompat.Button.Colored"
+          />
+
+    </LinearLayout>
+  </android.support.v7.widget.CardView>
+</ScrollView>

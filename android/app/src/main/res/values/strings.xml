@@ -9,4 +9,5 @@
   <string name="endpoint">http://10.0.2.2:5000/events</string>
   <string name="endpointTitle">Endpoint</string>
   <string name="setEndpoint">Set Endpoint</string>
+  <string name="open_controls">OPEN</string>
 </resources>

@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     App.o2mc.track("MainActivityCreated") // access o2mc by property syntax
-    App.o2mc.setContextTracking(true)
   }
 
   /**
