@@ -7,13 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "O2MBatch.h"
-#import "O2MDispatcher.h"
 #import "O2MDispatcherDelegate.h"
-#import "O2MEventManager.h"
-#import "O2MLogger.h"
-#import "O2MUtil.h"
-#import <UIKit/UIDevice.h>
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
