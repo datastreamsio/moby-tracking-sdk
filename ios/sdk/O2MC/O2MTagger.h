@@ -23,9 +23,6 @@
     NSString *_sessionIdentifier;
 }
 
-@property NSTimer * dispatchTimer;
-@property (copy) NSString *appId;
-
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods
 
