@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         }
         self.o2mc = O2MC(endpoint: "http://127.0.0.1:5000/events")
         
+        self.endpointNameTextField.text = self.o2mc.getEndpoint()
     }
 
     override func didReceiveMemoryWarning() {
