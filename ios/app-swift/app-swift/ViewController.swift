@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         }
         self.o2mc = O2MC(endpoint: "http://127.0.0.1:5000/events")
         
+        self.endpointNameTextField.text = self.o2mc.getEndpoint()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
             NSLog("created event")
         }
         
-        self.o2mc.track(self.eventNameTextField.text)
+        self.o2mc.track(self.eventNameTextField.text!)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
@@ -67,7 +68,7 @@ class ViewController: UIViewController {
             NSLog("endpoint changed")
         }
 
-        self.o2mc.setEndpoint(self.endpointNameTextField.text)
+        self.o2mc.setEndpoint(self.endpointNameTextField.text!)
     }
 }
 

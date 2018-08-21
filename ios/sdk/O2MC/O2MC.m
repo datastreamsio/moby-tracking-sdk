@@ -11,17 +11,17 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
--(instancetype) init; {
+-(nonnull instancetype) init; {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:@""];
     return self;
 }
 
--(instancetype) initWithEndpoint:(NSString *)endpoint;  {
+-(nonnull instancetype) initWithEndpoint:(nonnull NSString *)endpoint;  {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:endpoint];
     return self;
 }
 
--(instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint; {
+-(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint; {
      if (self = [super init]) {
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
 
@@ -31,11 +31,11 @@
      return self;
 }
 
--(NSString*) getEndpoint; {
+-(nonnull NSString*) getEndpoint; {
     return [self->_tracker getEndpoint];
 }
 
--(void) setEndpoint :(NSString *) endpoint; {
+-(void) setEndpoint:(nonnull NSString *)endpoint; {
     [self->_tracker setEndpoint:endpoint];
 }
 
@@ -51,7 +51,7 @@
     [self->_tracker stop:clearFunnel];
 }
 
--(void)setIdentifier:(NSString*) uniqueIdentifier; {
+-(void)setIdentifier:(nullable NSString*) uniqueIdentifier; {
     [self->_tracker setIdentifier:uniqueIdentifier];
 }
 
@@ -59,11 +59,11 @@
     [self->_tracker setSessionIdentifier];
 }
 
--(void)track :(NSString*)eventName; {
+-(void)track:(nonnull NSString*)eventName; {
     [self->_tracker track:eventName];
 }
 
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties; {
+-(void)trackWithProperties:(nonnull NSString*)eventName properties:(nonnull NSDictionary*)properties; {
     [self->_tracker trackWithProperties:eventName properties:properties];
 }
 

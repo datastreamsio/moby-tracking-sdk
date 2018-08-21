@@ -13,7 +13,7 @@
 @interface O2MC : NSObject {
 }
 
-@property (readonly, nonatomic) O2MTagger *tracker;
+@property (readonly, nonatomic, nonnull) O2MTagger *tracker;
 
 
 #pragma mark - Constructors
@@ -21,18 +21,18 @@
 /**
  * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
  */
--(instancetype) init;
+-(nonnull instancetype) init;
 /**
  * Constructs the tracking SDK.
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(instancetype) initWithEndpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithEndpoint:(nonnull NSString *)endpoint;
 /**
  * Constructs the tracking SDK.
  * @param dispatchInterval time in seconds between dispatches
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint;
 
 #pragma mark - Configuration methods
 
@@ -40,13 +40,13 @@
  * Returns configured endpoint.
  * @return endpoint
  */
--(NSString*) getEndpoint;
+-(nonnull NSString*) getEndpoint;
 
 /**
  * Configures an end point where the events will be dispatched to.
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(void) setEndpoint:(NSString *)endpoint;
+-(void) setEndpoint:(nonnull NSString *)endpoint;
 /**
  * The max amount of connection retries before stopping dispatching.
  * @param maxRetries retry amount (defaults to 5)
@@ -73,7 +73,7 @@
  *
  * @param uniqueIdentifier unique string which identifies a user.
  */
--(void)setIdentifier:(NSString*) uniqueIdentifier;
+-(void)setIdentifier:(nullable NSString*) uniqueIdentifier;
 
 /**
  * Sets a random session identifier to identify a user.
@@ -86,13 +86,13 @@
  * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
  * @param eventName name of tracked event
  */
--(void)track:(NSString*)eventName;
+-(void)track:(nonnull NSString*)eventName;
 /**
  * Tracks an event with additional data.
  * Essentially adds a new event with the String parameter as name and any additonal properties.
  * @param eventName name of tracked event
  * @param properties anything you'd like to keep track of
  */
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
+-(void)trackWithProperties:(nonnull NSString*)eventName properties:(nonnull NSDictionary*)properties;
 
 @end
