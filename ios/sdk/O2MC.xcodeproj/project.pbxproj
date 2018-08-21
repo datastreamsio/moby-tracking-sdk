@@ -91,6 +91,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22864336212C2D150015AD7A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				22B7AB3121009655007BC5D8 /* O2MEvent.h */,
+				22B7AB322100970A007BC5D8 /* O2MEvent.m */,
+				22F5510E210215CF00B4F7BA /* O2MBatch.h */,
+				22F5510F210216F700B4F7BA /* O2MBatch.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		22C1580E21088FE500A18575 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +115,7 @@
 		3CB1842C6C34AE6EEEBFBFD4 /* O2MC */ = {
 			isa = PBXGroup;
 			children = (
+				22864336212C2D150015AD7A /* Models */,
 				3CB18B0DE2FAF82863390BA4 /* O2MTagger.h */,
 				3CB1885C2EC31A31FD51D342 /* O2MTagger.m */,
 				3CB18A1D2CF6C3E9CFBD0160 /* O2MDispatcher.m */,
@@ -114,13 +126,9 @@
 				22B7AB2820FE0177007BC5D8 /* O2MUtil.h */,
 				22B7AB2E20FF71E7007BC5D8 /* O2MEventManager.h */,
 				22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */,
-				22B7AB3121009655007BC5D8 /* O2MEvent.h */,
-				22B7AB322100970A007BC5D8 /* O2MEvent.m */,
 				22B7AB342100BCB9007BC5D8 /* O2MBatchManager.h */,
 				22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */,
 				22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */,
-				22F5510E210215CF00B4F7BA /* O2MBatch.h */,
-				22F5510F210216F700B4F7BA /* O2MBatch.m */,
 				226362C12108BF04006C7C3D /* O2MLogger.h */,
 				226362C22108C4C3006C7C3D /* O2MLogger.m */,
 			);

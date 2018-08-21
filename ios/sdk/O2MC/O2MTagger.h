@@ -10,7 +10,7 @@
 #import "O2MBatchManager.h"
 #import "O2MDispatcher.h"
 #import "O2MEventManager.h"
-#import "O2MEvent.h"
+#import "Models/O2MEvent.h"
 #import "O2MLogger.h"
 #import "O2MUtil.h"
 

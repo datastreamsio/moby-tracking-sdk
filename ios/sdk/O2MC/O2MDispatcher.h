@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "O2MBatch.h"
+#import "Models/O2MBatch.h"
 #import "O2MDispatcherDelegate.h"
 #import "O2MLogger.h"
 

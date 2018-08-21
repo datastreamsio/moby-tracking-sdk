@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "O2MEvent.h"
+#import "Models/O2MEvent.h"
 
 @interface O2MEventManager : NSObject
 
