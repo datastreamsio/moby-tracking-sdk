@@ -76,7 +76,7 @@
 
 -(void)track :(NSString*)eventName; {
     dispatch_async(_tagQueue, ^{
-        if (!self->_batchManager.dispatchTimer.isValid) return;
+        if (![self->_batchManager isDispatching]) return;
         [self->_logger logD:@"Track %@", eventName];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] init:eventName]];
@@ -86,7 +86,7 @@
 -(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
 {
     dispatch_async(_tagQueue, ^{
-        if (!self->_batchManager.dispatchTimer.isValid) return;
+        if (![self->_batchManager isDispatching]) return;
         [self->_logger logD:@"Track %@:%@", eventName, properties];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName

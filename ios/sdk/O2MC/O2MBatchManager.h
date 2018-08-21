@@ -17,7 +17,6 @@
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
-@property NSTimer * dispatchTimer;
 @property NSString *endpoint;
 @property NSInteger maxRetries;
 @property NSString *sessionIdentifier;
@@ -30,6 +29,7 @@
  */
 -(void) startTimer :(NSNumber *) dispatchInterval;
 -(void) dispatch :(NSTimer *)timer;
+-(BOOL) isDispatching;
 -(void) stop;
 
 # pragma mark - Dispatcher delegator methods.

@@ -16,6 +16,7 @@
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
+@property NSTimer * dispatchTimer;
 @property O2MEventManager *eventManager;
 @property (readonly) O2MLogger *logger;
 
@@ -108,6 +109,10 @@
             [self createBatch];
         }
     });
+}
+
+-(BOOL) isDispatching; {
+    return [self->_dispatchTimer isValid];
 }
 
 -(void) stop; {
