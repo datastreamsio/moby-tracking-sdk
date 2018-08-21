@@ -7,21 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "O2MBatchManager.h"
-#import "O2MDispatcher.h"
-#import "O2MEventManager.h"
-#import "Models/O2MEvent.h"
-#import "O2MLogger.h"
-#import "O2MUtil.h"
 
 
-@interface O2MTagger : NSObject {
-    O2MBatchManager *_batchManager;
-    O2MEventManager* _eventManager;
-    O2MLogger *_logger;
-    dispatch_queue_t _tagQueue;
-    NSString *_sessionIdentifier;
-}
+@interface O2MTagger : NSObject
 
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods

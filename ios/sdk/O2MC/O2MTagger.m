@@ -8,6 +8,20 @@
 
 #import "O2MTagger.h"
 
+#import "O2MBatchManager.h"
+#import "O2MEventManager.h"
+#import "Models/O2MEvent.h"
+#import "O2MLogger.h"
+#import "O2MUtil.h"
+
+@interface O2MTagger()
+
+@property O2MBatchManager *batchManager;
+@property O2MEventManager *eventManager;
+@property O2MLogger *logger;
+@property dispatch_queue_t tagQueue;
+
+@end
 
 @implementation O2MTagger
 
