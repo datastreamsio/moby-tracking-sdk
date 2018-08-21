@@ -42,13 +42,6 @@ public class O2MCTest {
     o2mc.setIdentifier(null);
     o2mc.setSessionIdentifier();
     o2mc.setLogging(false);
-    o2mc.onActivityCreated(null, null);
-    o2mc.onActivityStarted(null);
-    o2mc.onActivityResumed(null);
-    o2mc.onActivityPaused(null);
-    o2mc.onActivityStopped(null);
-    o2mc.onActivitySaveInstanceState(null, null);
-    o2mc.onActivityDestroyed(null);
     o2mc.track(null);
     o2mc.trackWithProperties(null, null);
     o2mc.stop();
@@ -133,48 +126,6 @@ public class O2MCTest {
     executeAllMethods(o2mc);
 
     o2mc.setLogging(false);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityCreated() {
-    o2mc.onActivityCreated(null, null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityStarted() {
-    o2mc.onActivityStarted(null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityResumed() {
-    o2mc.onActivityResumed(null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityPaused() {
-    o2mc.onActivityPaused(null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityStopped() {
-    o2mc.onActivityStopped(null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivitySaveInstanceState() {
-    o2mc.onActivitySaveInstanceState(null, null);
-    executeAllMethods(o2mc);
-  }
-
-  @Test
-  public void onActivityDestroyed() {
-    o2mc.onActivityDestroyed(null);
     executeAllMethods(o2mc);
   }
 

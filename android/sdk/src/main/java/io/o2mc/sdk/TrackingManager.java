@@ -53,7 +53,6 @@ public class TrackingManager
           "activity lifecycle callbacks will not be automatically detected.");
     } else {
       this.application = application;
-      this.application.registerActivityLifecycleCallbacks(this);
     }
 
     this.deviceManager = new DeviceManager();
@@ -165,11 +164,11 @@ public class TrackingManager
   }
 
   public void startLifecycleTracking() {
-    // TODO: 8/20/18
+    this.application.registerActivityLifecycleCallbacks(this);
   }
 
   public void stopLifecycleTracking() {
-    // TODO: 8/20/18
+    this.application.unregisterActivityLifecycleCallbacks(this);
   }
 
   /**
@@ -177,7 +176,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityCreated(Activity activity, Bundle bundle) {
-    LogD(TAG, "Activity created.");
+    LogD(TAG, String.format("Activity '%s' created.", activity.getLocalClassName()));
   }
 
   /**
@@ -185,7 +184,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityStarted(Activity activity) {
-    LogD(TAG, "Activity started.");
+    track("ActivityStarted:" + activity.getLocalClassName());
   }
 
   /**
@@ -193,7 +192,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityResumed(Activity activity) {
-    LogD(TAG, "Activity resumed.");
+    LogD(TAG, String.format("Activity '%s' resumed.", activity.getLocalClassName()));
   }
 
   /**
@@ -201,7 +200,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityPaused(Activity activity) {
-    LogD(TAG, "Activity resumed.");
+    LogD(TAG, String.format("Activity '%s' resumed.", activity.getLocalClassName()));
   }
 
   /**
@@ -209,7 +208,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityStopped(Activity activity) {
-    LogD(TAG, "Activity stopped.");
+    track("ActivityStopped:" + activity.getLocalClassName());
   }
 
   /**
@@ -217,7 +216,7 @@ public class TrackingManager
    */
   @Override
   public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-    LogD(TAG, "Activity saved instance state.");
+    LogD(TAG, String.format("Activity '%s' saved instance state.", activity.getLocalClassName()));
   }
 
   /**
@@ -225,6 +224,6 @@ public class TrackingManager
    */
   @Override
   public void onActivityDestroyed(Activity activity) {
-    LogD(TAG, "Activity destroyed.");
+    LogD(TAG, String.format("Activity '%s' destroyed.", activity.getLocalClassName()));
   }
 }
