@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:padding="16dp"
     >
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="16dp"
       android:orientation="vertical"
       >
 
@@ -86,23 +86,12 @@
             />
 
         <Button
-            android:id="@+id/buttonResumeTracking"
+            android:id="@+id/buttonOpenControls"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_margin="16dp"
-            android:onClick="onStopTracking"
-            android:text="@string/stop_tracking"
-            style="@style/Widget.AppCompat.Button.Colored"
-            />
-        <Button
-            android:id="@+id/buttonStopTracking"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:onClick="onResumeTracking"
-            android:text="@string/resume_tracking"
+            android:onClick="onOpenControls"
+            android:text="@string/open_controls"
             style="@style/Widget.AppCompat.Button.Colored"
             />
 
@@ -157,3 +146,4 @@
 
   </LinearLayout>
 </ScrollView>
+

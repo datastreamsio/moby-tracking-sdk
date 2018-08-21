@@ -1,9 +1,11 @@
 package io.o2mc.appkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     setContentView(R.layout.activity_main)
 
     App.o2mc.track("MainActivityCreated") // access o2mc by property syntax
+    App.o2mc.setContextTracking(true)
   }
 
   /**
@@ -35,16 +38,9 @@ class MainActivity : AppCompatActivity() {
   }
 
   /**
-   * Called on 'Stop Tracking' button click
+   * Called on 'Open' button click
    */
-  fun onStopTracking(v: View) {
-    App.o2mc.stop()
-  }
-
-  /**
-   * Called on 'Resume Tracking' button click
-   */
-  fun onResumeTracking(v: View) {
-    App.o2mc.resume()
+  fun onOpenControls(v: View) {
+    startActivity(Intent(this, ControlActivity::class.java))
   }
 }
