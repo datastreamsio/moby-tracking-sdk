@@ -38,7 +38,7 @@ class ViewController: UIViewController {
             NSLog("created event")
         }
         
-        self.o2mc.track(self.eventNameTextField.text)
+        self.o2mc.track(self.eventNameTextField.text!)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {

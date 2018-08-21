@@ -26,13 +26,13 @@
  * Constructs the tracking SDK.
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(nonnull instancetype) initWithEndpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithEndpoint:(nonnull NSString *)endpoint;
 /**
  * Constructs the tracking SDK.
  * @param dispatchInterval time in seconds between dispatches
  * @param endpoint http(s) URL which should be publicly reachable
  */
--(nonnull instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint;
+-(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint;
 
 #pragma mark - Configuration methods
 
@@ -73,7 +73,7 @@
  *
  * @param uniqueIdentifier unique string which identifies a user.
  */
--(void)setIdentifier:(NSString*) uniqueIdentifier;
+-(void)setIdentifier:(nullable NSString*) uniqueIdentifier;
 
 /**
  * Sets a random session identifier to identify a user.
@@ -86,13 +86,13 @@
  * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
  * @param eventName name of tracked event
  */
--(void)track:(NSString*)eventName;
+-(void)track:(nonnull NSString*)eventName;
 /**
  * Tracks an event with additional data.
  * Essentially adds a new event with the String parameter as name and any additonal properties.
  * @param eventName name of tracked event
  * @param properties anything you'd like to keep track of
  */
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
+-(void)trackWithProperties:(nonnull NSString*)eventName properties:(nonnull NSDictionary*)properties;
 
 @end
