@@ -12,7 +12,6 @@
 @interface O2MEventManager : NSObject
 
 @property (atomic, readonly, strong) NSMutableArray* events;
-@property (nonatomic, readonly, strong) dispatch_queue_t eventQueue;
 
 + (instancetype)sharedManager;
 /**

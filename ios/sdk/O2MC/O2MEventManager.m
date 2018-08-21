@@ -8,6 +8,12 @@
 
 #import "O2MEventManager.h"
 
+@interface O2MEventManager()
+
+@property (nonatomic, readonly, strong) dispatch_queue_t eventQueue;
+
+@end
+
 @implementation O2MEventManager
 + (instancetype)sharedManager {
     static O2MEventManager *sharedO2MEventManager = nil;
