@@ -21,7 +21,6 @@
  * Starts dispatching with a specific dispatch interval.
  * @param dispatchInterval dispatch time in seconds.
  */
--(void) startTimer :(NSNumber *) dispatchInterval;
 -(void) dispatchWithInterval :(NSNumber *) dispatchInterval;
 -(BOOL) isDispatching;
 -(void) stop;
