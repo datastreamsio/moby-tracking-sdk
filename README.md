@@ -1,4 +1,4 @@
-# Mobile tracking SDK [![Android Build Status](https://travis-ci.org/O2MC/dimml-mobile-sdk.svg?branch=master)](https://travis-ci.org/O2MC/dimml-mobile-sdk)
+# Moby tracking SDK [![Android Build Status](https://travis-ci.org/O2MC/dimml-mobile-sdk.svg?branch=master)](https://travis-ci.org/O2MC/dimml-mobile-sdk)
 
 O2MC's mobile tracking SDK for collecting and measuring analytical events.
 
