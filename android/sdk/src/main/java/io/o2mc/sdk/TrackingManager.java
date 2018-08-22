@@ -76,6 +76,10 @@ public class TrackingManager implements O2MCExceptionNotifier {
     eventManager.newEvent(eventName);
   }
 
+  public void forget(String identifier) {
+    operationManager.newOperationWithProperties(Operation.FORGET_BY_ID, identifier);
+  }
+  
   public void trackWithProperties(String eventName, Object value) {
     eventManager.newEventWithProperties(eventName, value);
   }
