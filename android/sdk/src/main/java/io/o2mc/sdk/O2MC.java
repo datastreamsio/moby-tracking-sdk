@@ -162,7 +162,7 @@ import static io.o2mc.sdk.util.LogUtil.LogD;
 
   /**
    * Tracks an event with additional data.
-   * Essentially adds a new event with the String parameter as name and any properties in String format.
+   * Essentially adds a new event with the String parameter as name and any properties.
    * Will be dispatched to backend on next dispatch interval.
    *
    * @param eventName name of tracked event
