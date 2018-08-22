@@ -1,13 +1,7 @@
 package io.o2mc.app;
 
 import android.app.Application;
-import android.util.Log;
 import io.o2mc.sdk.O2MC;
-import io.o2mc.sdk.exceptions.O2MCDeviceException;
-import io.o2mc.sdk.exceptions.O2MCDispatchException;
-import io.o2mc.sdk.exceptions.O2MCEndpointException;
-import io.o2mc.sdk.exceptions.O2MCTrackException;
-import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 
 public class App extends Application {
 

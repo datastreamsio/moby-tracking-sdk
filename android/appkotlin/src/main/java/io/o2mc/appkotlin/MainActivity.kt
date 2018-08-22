@@ -1,5 +1,6 @@
 package io.o2mc.appkotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -35,16 +36,9 @@ class MainActivity : AppCompatActivity() {
   }
 
   /**
-   * Called on 'Stop Tracking' button click
+   * Called on 'Open' button click
    */
-  fun onStopTracking(v: View) {
-    App.o2mc.stop()
-  }
-
-  /**
-   * Called on 'Resume Tracking' button click
-   */
-  fun onResumeTracking(v: View) {
-    App.o2mc.resume()
+  fun onOpenControls(v: View) {
+    startActivity(Intent(this, ControlActivity::class.java))
   }
 }

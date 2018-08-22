@@ -1,5 +1,6 @@
 package io.o2mc.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     App.getO2mc().track("MainActivityCreated");
+    App.getO2mc().setContextTracking(true);
   }
 
   /**
@@ -36,16 +38,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   /**
-   * Called on 'Stop Tracking' button click
+   * Called on 'Open' button click
    */
-  public void onStopTracking(View v) {
-    App.getO2mc().stop();
-  }
-
-  /**
-   * Called on 'Resume Tracking' button click
-   */
-  public void onResumeTracking(View v) {
-    App.getO2mc().resume();
+  public void onOpenControls(View v) {
+    startActivity(new Intent(this, ControlActivity.class));
   }
 }

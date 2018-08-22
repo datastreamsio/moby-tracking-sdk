@@ -5,7 +5,6 @@ import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.util.LogUtil;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * This is central point of communication between the SDK and the app implementing it.
