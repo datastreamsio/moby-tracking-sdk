@@ -5,6 +5,7 @@ The data is sent as JSON data. The format contains two main properties, the [`de
 object {
 	object device;
 	array events { object; };
+	array operations { object; };
 	int number;
 	int retries;
 	string? sessionId;
@@ -54,7 +55,7 @@ This object is generated after a [`track()`](API.md#track) [`trackWithProperties
 ```
 object {
 	string name;
-	object? properties;
+	object? value;
 	string timestamp;
 }
 ```
@@ -63,13 +64,36 @@ object {
 
 Name of the triggered event.
 
-#### properties
+#### value
 
 Optional custom properties object. Properties can be set using the [`trackWithProperties()`](API.md#trackwithproperties) method.
 
 #### timestamp
 
 Event generation time as an ISO 8601 format.
+
+### Operations property
+This object is generated when an action on the backend in required.
+
+```
+object {
+	int code;
+	object? value;
+	string timestamp;
+}
+```
+
+#### code
+
+Code of the triggered event.
+
+#### value
+
+Optional custom properties object.
+
+#### timestamp
+
+Operation generation time as an ISO 8601 format.
 
 ### Meta properties
 These properties contain meta information about the current batch.
