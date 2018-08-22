@@ -28,6 +28,13 @@ public class OperationManager {
   }
 
   /**
+   * Removes all tracking events which would otherwise be sent upon next dispatch interval.
+   */
+  public void reset() {
+    operationBus.clearOperations();
+  }
+
+  /**
    * Generates a new operation and adds it to the OperationBus.
    *
    * @param operationCode code of operation to generate

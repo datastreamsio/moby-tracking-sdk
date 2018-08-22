@@ -9,5 +9,7 @@ data class Operation(
 ) {
   companion object {
     const val FORGET_BY_ID = 0
+//    const val GET_DATA_BY_ID = 1 // example
+//    const val MODIFY_BY_ID = 2 // example
   }
 }

@@ -21,6 +21,10 @@ public class OperationBus {
     operations.add(o);
   }
 
+  public void clearOperations() {
+    operations.clear();
+  }
+
   public List<Operation> getOperations() {
     return operations;
   }

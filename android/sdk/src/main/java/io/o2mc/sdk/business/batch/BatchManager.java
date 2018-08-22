@@ -52,7 +52,7 @@ public class BatchManager extends TimerTask implements Callback {
    */
   public void init(TrackingManager trackingManager, String endpoint, int dispatchInterval,
       int maxRetries) {
-    batchBus = new BatchBus();
+    batchBus = new BatchBus(trackingManager);
     batchDispatcher = new BatchDispatcher(this);
 
     this.trackingManager = trackingManager;
@@ -165,6 +165,13 @@ public class BatchManager extends TimerTask implements Callback {
     trackingManager.clearEventsFromBus();
   }
 
+  /**
+   * Clears all operations which are currently in the OperationBus.
+   */
+  private void clearOperations() {
+    trackingManager.clearOperationsFromBus();
+  }
+
   public void reset() {
     batchBus.clearBatches();
     batchBus.clearPending();
@@ -243,14 +250,13 @@ public class BatchManager extends TimerTask implements Callback {
     }
 
     // Only generate a batch if we have events
-    if (getEvents().size() > 0 && getOperations().size() > 0) {
-      batchBus.add(batchBus.generateBatch(batchId, getEvents()));
+    if (getEvents().size() > 0 || getOperations().size() > 0) {
+      batchBus.add(batchBus.generateBatch(batchId, getEvents(), getOperations()));
       LogD(TAG,
           String.format("run: Newly generated batch contains '%s' events", getEvents().size()));
       clearEvents();
+      clearOperations();
     }
-
-
 
     // If there's a batch pending, skip this run
     if (batchBus.awaitingCallback()) {

@@ -153,6 +153,10 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
     trackingManager.forget(identifier);
   }
 
+  public void getDataById(String identifier) {
+    trackingManager.getDataById(identifier);
+  }
+
   /**
    * Enable or disable logging.
    * Logging in release builds is disabled. This behavior is immutable.
