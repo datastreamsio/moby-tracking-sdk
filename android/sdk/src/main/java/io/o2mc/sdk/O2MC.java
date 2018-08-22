@@ -137,6 +137,23 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
   }
 
   /**
+   * Gets the current user's session identifier.
+   */
+  public String getSessionIdentifier() {
+    return trackingManager.getSessionIdentifier();
+  }
+
+  /**
+   * Removes all (personal) data related to the user with given identifier.
+   * This is in compliance with the 'Right to be forgotten' GDPR laws.
+   *
+   * @param identifier the identifier of the user who will be forgotten
+   */
+  public void forgetByIdentifier(String identifier) {
+    trackingManager.forget(identifier);
+  }
+
+  /**
    * Enable or disable logging.
    * Logging in release builds is disabled. This behavior is immutable.
    * Logging in all other builds is configurable. The default is set to 'true', logging is enabled.
