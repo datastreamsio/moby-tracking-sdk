@@ -1,6 +1,5 @@
 package io.o2mc.sdk.business.operations;
 
-import io.o2mc.sdk.domain.Event;
 import io.o2mc.sdk.domain.Operation;
 import io.o2mc.sdk.util.TimeUtil;
 import java.util.ArrayList;
@@ -30,10 +29,10 @@ public class OperationBus {
   }
 
   public Operation generateOperation(int operationCode) {
-    return new Operation(operationCode, null);
+    return new Operation(operationCode, null, TimeUtil.generateTimestamp());
   }
 
   public Operation generateOperationWithProperties(int operationCode, Object properties) {
-    return new Operation(operationCode, properties);
+    return new Operation(operationCode, properties, TimeUtil.generateTimestamp());
   }
 }
