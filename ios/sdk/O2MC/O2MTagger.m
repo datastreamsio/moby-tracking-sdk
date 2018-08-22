@@ -8,6 +8,20 @@
 
 #import "O2MTagger.h"
 
+#import "O2MBatchManager.h"
+#import "O2MEventManager.h"
+#import "Models/O2MEvent.h"
+#import "O2MLogger.h"
+#import "O2MUtil.h"
+
+@interface O2MTagger()
+
+@property O2MBatchManager *batchManager;
+@property O2MEventManager *eventManager;
+@property O2MLogger *logger;
+@property dispatch_queue_t tagQueue;
+
+@end
 
 @implementation O2MTagger
 
@@ -21,7 +35,7 @@
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
 
     [self->_batchManager setEndpoint:endpoint];
-    [self->_batchManager startTimer:dispatchInterval];
+    [self->_batchManager dispatchWithInterval:dispatchInterval];
 
     return self;
 }
@@ -76,7 +90,7 @@
 
 -(void)track :(NSString*)eventName; {
     dispatch_async(_tagQueue, ^{
-        if (!self->_batchManager.dispatchTimer.isValid) return;
+        if (![self->_batchManager isDispatching]) return;
         [self->_logger logD:@"Track %@", eventName];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] init:eventName]];
@@ -86,7 +100,7 @@
 -(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
 {
     dispatch_async(_tagQueue, ^{
-        if (!self->_batchManager.dispatchTimer.isValid) return;
+        if (![self->_batchManager isDispatching]) return;
         [self->_logger logD:@"Track %@:%@", eventName, properties];
 
         [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName

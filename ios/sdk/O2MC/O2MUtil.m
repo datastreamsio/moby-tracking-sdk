@@ -12,6 +12,10 @@
 
 static NSDateFormatter *o2mDateFormatter = nil;
 
+/**
+ * Returns the current time.
+ * @return current time formatted in ISO-8601
+ */
 +(NSString*) currentTimestamp {
     // method found on stackoverflow: https://stackoverflow.com/a/16254918
     // iOS 10+ should use NSISO8601DateFormatter.
