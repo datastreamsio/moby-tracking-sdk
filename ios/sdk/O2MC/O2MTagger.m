@@ -29,7 +29,7 @@
     self = [super init];
     
     _batchManager = [[O2MBatchManager alloc] initWithTagger:self];
-    _eventManager = [O2MEventManager sharedManager];
+    _eventManager = [[O2MEventManager alloc] initWithTagger:self];
     _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
