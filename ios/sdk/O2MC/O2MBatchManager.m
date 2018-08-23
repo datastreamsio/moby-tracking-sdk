@@ -68,8 +68,7 @@
     O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
     self->_batchNumber++;
 
-    int i;
-    for (i=0; i< events.count; i++) {
+    for (int i=0; i< events.count; i++) {
         [batch addEvent:events[i]];
     }
 
