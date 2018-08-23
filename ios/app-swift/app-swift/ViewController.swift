@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var eventNameTextField: UITextField!
     @IBOutlet weak var endpointNameTextField: UITextField!
-    var o2mc : O2MC!
     var _logTopic: OSLog!
     
     override func viewDidLoad() {
@@ -21,10 +20,8 @@ class ViewController: UIViewController {
         if #available(iOS 10.0, *) {
             self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
         }
-        self.o2mc = O2MC.sharedInstance()
-        self.o2mc.setEndpoint("http://127.0.0.1:5000/events")
         
-        self.endpointNameTextField.text = self.o2mc.getEndpoint()
+        self.endpointNameTextField.text = O2MC.sharedInstance().getEndpoint()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +36,7 @@ class ViewController: UIViewController {
             NSLog("created event")
         }
         
-        self.o2mc.track(self.eventNameTextField.text!)
+        O2MC.sharedInstance().track(self.eventNameTextField.text!)
     }
     
     @IBAction func BtnTouchResetTracking(_ sender: Any) {
@@ -49,7 +46,7 @@ class ViewController: UIViewController {
             NSLog("reset tracking")
         }
         
-        self.o2mc.tracker.clearFunnel()
+        O2MC.sharedInstance().tracker.clearFunnel()
     }
 
     @IBAction func BtnTouchStopTracking(_ sender: Any) {
@@ -59,7 +56,7 @@ class ViewController: UIViewController {
             NSLog("stop tracking")
         }
 
-        self.o2mc.stop()
+        O2MC.sharedInstance().stop()
     }
 
     @IBAction func InputEndpointChanged(_ sender: Any) {
@@ -69,7 +66,7 @@ class ViewController: UIViewController {
             NSLog("endpoint changed")
         }
 
-        self.o2mc.setEndpoint(self.endpointNameTextField.text!)
+        O2MC.sharedInstance().setEndpoint(self.endpointNameTextField.text!)
     }
 }
 
