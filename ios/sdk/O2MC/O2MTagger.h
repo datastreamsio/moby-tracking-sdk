@@ -63,4 +63,12 @@
  */
 -(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties;
 
+#pragma mark - Misc methods
+
+/**
+ * Returns currently unprocessed events from the O2MEventManager.
+ * @return Array with events
+ */
+-(NSMutableArray*)events;
+
 @end

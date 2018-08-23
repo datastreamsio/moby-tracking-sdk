@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "O2MDispatcherDelegate.h"
+#import "O2MTagger.h"
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
@@ -15,6 +16,8 @@
 @property NSInteger maxRetries;
 @property NSString *sessionIdentifier;
 
+
+-(instancetype) initWithTagger:(O2MTagger*)tagger;
 
 /**
  * Starts dispatching with a specific dispatch interval.

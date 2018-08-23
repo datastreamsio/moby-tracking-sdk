@@ -28,7 +28,7 @@
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
-    _batchManager = [[O2MBatchManager alloc] init];
+    _batchManager = [[O2MBatchManager alloc] initWithTagger:self];
     _eventManager = [O2MEventManager sharedManager];
     _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 
@@ -106,6 +106,12 @@
         [self->_eventManager addEvent: [[O2MEvent alloc] initWithProperties:eventName
                                                                  properties:properties]];
     });
+}
+
+#pragma mark - Misc methods
+
+-(NSMutableArray*)events; {
+    return [self->_eventManager events];
 }
 
 @end
