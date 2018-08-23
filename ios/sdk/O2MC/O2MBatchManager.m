@@ -22,7 +22,6 @@
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
-@property O2MTagger *tagger;
 @property NSTimer * dispatchTimer;
 @property (readonly) O2MLogger *logger;
 
@@ -30,7 +29,7 @@
 
 @implementation O2MBatchManager
 
--(instancetype) initWithTagger:(O2MTagger*)tagger; {
+-(instancetype) init; {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
         _connRetries = 0;
@@ -45,7 +44,6 @@
         _endpoint = @"";
 
         _logger = [[O2MLogger alloc] initWithTopic:"batchmanager"];
-        _tagger = tagger;
 
         // Handle dispatcher's callbacks
         _dispatcher.delegate = self;

@@ -11,7 +11,7 @@
 
 @implementation O2MEventManager
 
--(instancetype) initWithTagger:(O2MTagger*)tagger; {
+-(instancetype) init; {
     if (self = [super init]) {
         _events = [[NSMutableArray alloc] init];
     }

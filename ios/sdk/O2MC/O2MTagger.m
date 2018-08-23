@@ -32,8 +32,8 @@
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
-    _batchManager = [[O2MBatchManager alloc] initWithTagger:self];
-    _eventManager = [[O2MEventManager alloc] initWithTagger:self];
+    _batchManager = [[O2MBatchManager alloc] init];
+    _eventManager = [[O2MEventManager alloc] init];
     _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
