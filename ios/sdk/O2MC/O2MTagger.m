@@ -145,12 +145,6 @@
     });
 }
 
-#pragma mark - Misc methods
-
--(NSMutableArray*)events; {
-    return [self->_eventManager events];
-}
-
 @end
 
 
