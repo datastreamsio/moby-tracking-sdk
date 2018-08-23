@@ -64,9 +64,9 @@
     [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
 }
 
--(void) createBatch; {
+-(void) createBatchWithEvents:(NSMutableArray*)events; {
     O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
-    NSMutableArray *events = [self->_tagger events];
+    self->_batchNumber++;
 
     int i;
     for (i=0; i< events.count; i++) {
@@ -74,7 +74,6 @@
     }
 
     [self->_batches addObject:batch];
-    [self->_tagger clearFunnel];
 }
 
 -(void) batchRetryIncrement; {
@@ -94,8 +93,6 @@
             // Stopping the time based interval loop.
             [self stop];
         }
-    } else if([self->_tagger.events count] > 0) {
-        [self createBatch];
     }
 }
 
@@ -116,10 +113,10 @@
     [self batchRetryIncrement];
 }
 - (void)didDispatchWithSuccess:(id)sender; {
-    self->_batchNumber++;
     self->_connRetries = 0;
-
-    [self->_batches removeAllObjects]; // TODO: should remove a specific batch in case there are more items.
+    if([self->_batches count] > 0) {
+        [self->_batches removeObjectAtIndex:0];
+    }
 }
 
 

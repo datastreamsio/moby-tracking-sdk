@@ -16,8 +16,12 @@
 
 @interface O2MTagger()
 
+// Managers
 @property O2MBatchManager *batchManager;
 @property O2MEventManager *eventManager;
+
+// Misc
+@property NSTimer * batchCreateTimer;
 @property O2MLogger *logger;
 @property dispatch_queue_t tagQueue;
 
@@ -36,8 +40,33 @@
 
     [self->_batchManager setEndpoint:endpoint];
     [self->_batchManager dispatchWithInterval:dispatchInterval];
+    [self batchWithInterval:[[NSNumber alloc]initWithInt:1]];
 
     return self;
+}
+
+#pragma mark - Internal batch methods
+
+-(void) batchWithInterval :(NSNumber *) dispatchInterval; {
+    if (self->_batchCreateTimer) {
+        [self->_batchCreateTimer invalidate];
+        self->_batchCreateTimer = nil;
+    }
+    self->_batchCreateTimer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue] target:self selector:@selector(createBatch:) userInfo:nil repeats:YES];
+
+    // Start the dispatch timer
+    [NSRunLoop.mainRunLoop addTimer:self->_batchCreateTimer forMode:NSRunLoopCommonModes];
+}
+
+-(void) createBatch:(NSTimer *)timer;{
+    dispatch_async(_tagQueue, ^{
+        // Check if there are any events to batch
+        if(self->_eventManager.eventCount == 0) return;
+
+        // Collect events from the event manager and push them to the batchmanager.
+        [self->_batchManager createBatchWithEvents:self->_eventManager.events];
+        [self->_eventManager clearEvents];
+    });
 }
 
 #pragma mark - Configuration methods
@@ -78,12 +107,20 @@
     dispatch_async(_tagQueue, ^{
         [self->_logger logI:@"stopping tracking"];
         [self->_batchManager stop];
+        [self stopTimer];
 
         if (clearFunnel == YES) {
             [self->_logger logD:@"clearing the funnel"];
             [self clearFunnel];
         }
     });
+}
+
+-(void)stopTimer; {
+    if(self->_batchCreateTimer) {
+        [self->_batchCreateTimer invalidate];
+        self->_batchCreateTimer = nil;
+    }
 }
 
 #pragma mark - Tracking methods

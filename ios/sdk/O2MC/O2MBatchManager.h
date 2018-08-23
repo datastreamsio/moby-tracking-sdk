@@ -19,6 +19,7 @@
 
 -(instancetype) initWithTagger:(O2MTagger*)tagger;
 
+-(void) createBatchWithEvents:(NSMutableArray*)events;
 /**
  * Starts dispatching with a specific dispatch interval.
  * @param dispatchInterval dispatch time in seconds.
