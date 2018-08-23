@@ -11,16 +11,33 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
+
++(nonnull instancetype) sharedInstance; {
+    static O2MC *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[O2MC alloc] init];
+    });
+
+    return sharedInstance;
+}
+
+/**
+ * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
+ * @return an O2MC instance
+ */
 -(nonnull instancetype) init; {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:@""];
     return self;
 }
 
--(nonnull instancetype) initWithEndpoint:(nonnull NSString *)endpoint;  {
-    self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:endpoint];
-    return self;
-}
-
+/**
+ * Constructs the tracking SDK.
+ * @param dispatchInterval time in seconds between dispatches
+ * @param endpoint http(s) URL which should be publicly reachable
+ * @return an O2MC instance
+ */
 -(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint; {
      if (self = [super init]) {
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];

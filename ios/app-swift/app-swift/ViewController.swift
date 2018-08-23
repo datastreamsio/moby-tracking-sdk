@@ -21,7 +21,8 @@ class ViewController: UIViewController {
         if #available(iOS 10.0, *) {
             self._logTopic = OSLog(subsystem: "io.o2mc.app-swift", category: "testapp-swift")
         }
-        self.o2mc = O2MC(endpoint: "http://127.0.0.1:5000/events")
+        self.o2mc = O2MC.sharedInstance()
+        self.o2mc.setEndpoint("http://127.0.0.1:5000/events")
         
         self.endpointNameTextField.text = self.o2mc.getEndpoint()
     }
