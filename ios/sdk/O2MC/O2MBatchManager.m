@@ -19,7 +19,6 @@
 
 @property NSMutableArray *batches;
 @property int batchNumber;
-@property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
@@ -34,7 +33,6 @@
 -(instancetype) initWithTagger:(O2MTagger*)tagger; {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
-        _batchQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
         _connRetries = 0;
         _deviceInfo = @{
                         @"appId": [[NSBundle mainBundle] bundleIdentifier],
@@ -56,57 +54,49 @@
 }
 
 -(void) dispatchWithInterval :(NSNumber *) dispatchInterval; {
-    dispatch_async(_batchQueue, ^{
-        if (self->_dispatchTimer) {
-            [self->_dispatchTimer invalidate];
-            self->_dispatchTimer = nil;
-        }
-        self->_dispatchTimer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue] target:self selector:@selector(dispatch:) userInfo:nil repeats:YES];
+    if (self->_dispatchTimer) {
+        [self->_dispatchTimer invalidate];
+        self->_dispatchTimer = nil;
+    }
+    self->_dispatchTimer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue] target:self selector:@selector(dispatch:) userInfo:nil repeats:YES];
 
-        // Start the dispatch timer
-        [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
-    });
+    // Start the dispatch timer
+    [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
 }
 
 -(void) createBatch; {
-    dispatch_async(self.batchQueue, ^{
-        O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
-        NSMutableArray *events = [self->_tagger events];
+    O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
+    NSMutableArray *events = [self->_tagger events];
 
-        int i;
-        for (i=0; i< events.count; i++) {
-            [batch addEvent:events[i]];
-        }
+    int i;
+    for (i=0; i< events.count; i++) {
+        [batch addEvent:events[i]];
+    }
 
-        [self->_batches addObject:batch];
-        [self->_tagger clearFunnel];
-    });
+    [self->_batches addObject:batch];
+    [self->_tagger clearFunnel];
 }
 
 -(void) batchRetryIncrement; {
-    dispatch_async(self.batchQueue, ^{
-        if(self->_batches.count > 0) {
-            [[self->_batches objectAtIndex:0] addRetry];
-        }
-    });
+    if(self->_batches.count > 0) {
+        [[self->_batches objectAtIndex:0] addRetry];
+    }
 }
 
 -(void) dispatch:(NSTimer *)timer;{
-    dispatch_async(_batchQueue, ^{
-        if(self->_batches.count > 0){
-            if(self->_connRetries < self->_maxRetries) {
-                [self->_logger logD:@"Dispatcher has been triggered"];
-                [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
-            } else {
-                [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
+    if(self->_batches.count > 0){
+        if(self->_connRetries < self->_maxRetries) {
+            [self->_logger logD:@"Dispatcher has been triggered"];
+            [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
+        } else {
+            [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
 
-                // Stopping the time based interval loop.
-                [self stop];
-            }
-        } else if([self->_tagger.events count] > 0) {
-            [self createBatch];
+            // Stopping the time based interval loop.
+            [self stop];
         }
-    });
+    } else if([self->_tagger.events count] > 0) {
+        [self createBatch];
+    }
 }
 
 -(BOOL) isDispatching; {
@@ -114,20 +104,16 @@
 }
 
 -(void) stop; {
-    dispatch_async(_batchQueue, ^{
-        if (self->_dispatchTimer) {
-            [self->_dispatchTimer invalidate];
-            self->_dispatchTimer = nil;
-        }
-    });
+    if (self->_dispatchTimer) {
+        [self->_dispatchTimer invalidate];
+        self->_dispatchTimer = nil;
+    }
 }
 
 - (void)didDispatchWithError:(id)sender; {
-    dispatch_async(_batchQueue, ^{
-        [self->_logger logD:@"Dispatcher error"];
-        self->_connRetries++;
-        [self batchRetryIncrement];
-    });
+    [self->_logger logD:@"Dispatcher error"];
+    self->_connRetries++;
+    [self batchRetryIncrement];
 }
 - (void)didDispatchWithSuccess:(id)sender; {
     self->_batchNumber++;
