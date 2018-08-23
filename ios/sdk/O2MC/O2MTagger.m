@@ -28,7 +28,7 @@
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval; {
     self = [super init];
     
-    _batchManager = [O2MBatchManager sharedManager];
+    _batchManager = [[O2MBatchManager alloc] init];
     _eventManager = [O2MEventManager sharedManager];
     _logger = [[O2MLogger alloc] initWithTopic:"tagger"];
 

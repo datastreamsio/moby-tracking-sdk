@@ -56,16 +56,6 @@
     return self;
 }
 
-+ (instancetype)sharedManager {
-    static O2MBatchManager *sharedO2MBatchManager = nil;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        sharedO2MBatchManager = [[self alloc] init];
-    });
-    return sharedO2MBatchManager;
-}
-
 -(void) dispatchWithInterval :(NSNumber *) dispatchInterval; {
     dispatch_async(_batchQueue, ^{
         if (self->_dispatchTimer) {

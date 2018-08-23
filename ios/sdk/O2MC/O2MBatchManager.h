@@ -16,7 +16,6 @@
 @property NSString *sessionIdentifier;
 
 
-+ (instancetype)sharedManager;
 /**
  * Starts dispatching with a specific dispatch interval.
  * @param dispatchInterval dispatch time in seconds.
