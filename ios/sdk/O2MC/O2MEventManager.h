@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "Models/O2MEvent.h"
-#import "O2MTagger.h"
 
 @interface O2MEventManager : NSObject
 
 @property (atomic, readonly, strong) NSMutableArray* events;
 
--(instancetype) initWithTagger:(O2MTagger*)tagger;
+-(instancetype) init;
 
 /**
  * Stores an event.

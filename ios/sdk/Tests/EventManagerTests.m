@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import "O2MEvent.h"
 #import "O2MEventManager.h"
-#import "O2MTagger.h"
 
 @interface EventManagerTests : XCTestCase
 
@@ -22,8 +21,7 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    O2MTagger *tagger;
-    self->_eventManager = [[O2MEventManager alloc] initWithTagger:tagger];
+    self->_eventManager = [[O2MEventManager alloc] init];
 }
 
 - (void)tearDown {

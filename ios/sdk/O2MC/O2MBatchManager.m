@@ -23,7 +23,6 @@
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
-@property O2MTagger *tagger;
 @property NSTimer * dispatchTimer;
 @property (readonly) O2MLogger *logger;
 
@@ -31,7 +30,7 @@
 
 @implementation O2MBatchManager
 
--(instancetype) initWithTagger:(O2MTagger*)tagger; {
+-(instancetype) init; {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
         _batchQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
@@ -47,7 +46,6 @@
         _endpoint = @"";
 
         _logger = [[O2MLogger alloc] initWithTopic:"batchmanager"];
-        _tagger = tagger;
 
         // Handle dispatcher's callbacks
         _dispatcher.delegate = self;
@@ -56,30 +54,26 @@
 }
 
 -(void) dispatchWithInterval :(NSNumber *) dispatchInterval; {
-    dispatch_async(_batchQueue, ^{
-        if (self->_dispatchTimer) {
-            [self->_dispatchTimer invalidate];
-            self->_dispatchTimer = nil;
-        }
-        self->_dispatchTimer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue] target:self selector:@selector(dispatch:) userInfo:nil repeats:YES];
+    if (self->_dispatchTimer) {
+        [self->_dispatchTimer invalidate];
+        self->_dispatchTimer = nil;
+    }
+    self->_dispatchTimer = [NSTimer timerWithTimeInterval:[dispatchInterval floatValue] target:self selector:@selector(dispatch:) userInfo:nil repeats:YES];
 
-        // Start the dispatch timer
-        [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
-    });
+    // Start the dispatch timer
+    [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
 }
 
--(void) createBatch; {
+-(void) createBatchWithEvents:(NSArray*)events; {
     dispatch_async(self.batchQueue, ^{
         O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
-        NSMutableArray *events = [self->_tagger events];
+        self->_batchNumber++;
 
-        int i;
-        for (i=0; i< events.count; i++) {
+        for (int i=0; i< events.count; i++) {
             [batch addEvent:events[i]];
         }
 
         [self->_batches addObject:batch];
-        [self->_tagger clearFunnel];
     });
 }
 
@@ -92,7 +86,7 @@
 }
 
 -(void) dispatch:(NSTimer *)timer;{
-    dispatch_async(_batchQueue, ^{
+    dispatch_async(self.batchQueue, ^{
         if(self->_batches.count > 0){
             if(self->_connRetries < self->_maxRetries) {
                 [self->_logger logD:@"Dispatcher has been triggered"];
@@ -103,8 +97,6 @@
                 // Stopping the time based interval loop.
                 [self stop];
             }
-        } else if([self->_tagger.events count] > 0) {
-            [self createBatch];
         }
     });
 }
@@ -114,26 +106,26 @@
 }
 
 -(void) stop; {
-    dispatch_async(_batchQueue, ^{
-        if (self->_dispatchTimer) {
-            [self->_dispatchTimer invalidate];
-            self->_dispatchTimer = nil;
-        }
-    });
+    if (self->_dispatchTimer) {
+        [self->_dispatchTimer invalidate];
+        self->_dispatchTimer = nil;
+    }
 }
 
 - (void)didDispatchWithError:(id)sender; {
-    dispatch_async(_batchQueue, ^{
+    dispatch_async(self.batchQueue, ^{
         [self->_logger logD:@"Dispatcher error"];
         self->_connRetries++;
         [self batchRetryIncrement];
     });
 }
 - (void)didDispatchWithSuccess:(id)sender; {
-    self->_batchNumber++;
-    self->_connRetries = 0;
-
-    [self->_batches removeAllObjects]; // TODO: should remove a specific batch in case there are more items.
+    dispatch_async(self.batchQueue, ^{
+        self->_connRetries = 0;
+        if([self->_batches count] > 0) {
+            [self->_batches removeObjectAtIndex:0];
+        }
+    });
 }
 
 
