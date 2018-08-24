@@ -34,7 +34,8 @@ android {
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      useProguard false
+      //      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
     debug {
       debuggable true
@@ -51,9 +52,9 @@ dependencies {
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
   // Third party dependencies.
-  implementation 'com.google.code.gson:gson:2.8.5'
-  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-  compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  api 'com.google.code.gson:gson:2.8.5'
+  api 'com.squareup.okhttp3:okhttp:3.10.0'
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 // start Bintray config
@@ -74,19 +75,15 @@ ext {
   developerName = 'Edwin van Rooij'
   developerEmail = 'edwinvrooij@gmail.com'
 
-  libraryVersion = '0.0.1'
+  libraryVersion = '0.0.7'
 
   licenseName = 'MIT License'
   licenseUrl = 'https://github.com/O2MC/moby-tracking-sdk/blob/master/LICENSE'
   allLicenses = ['MIT License']
 }
 
-//if (project.rootProject.file('local.properties').exists()) {
-//  apply from 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//  apply from 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-//}
 if (project.rootProject.file('local.properties').exists()) {
-  apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-  apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+  apply from: project.file('install-v1.gradle')
+  apply from: project.file('bintray-v1.gradle')
 }
 // end
