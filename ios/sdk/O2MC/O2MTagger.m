@@ -64,7 +64,9 @@
         if(self->_eventManager.eventCount == 0) return;
 
         // Collect events from the event manager and push them to the batchmanager.
-        [self->_batchManager createBatchWithEvents:self->_eventManager.events];
+        // We copy the events to a new array since the events would be emptied by ARC before they
+        // could be added to a batch.
+        [self->_batchManager createBatchWithEvents:[[NSArray alloc] initWithArray:self->_eventManager.events]];
         [self->_eventManager clearEvents];
     });
 }

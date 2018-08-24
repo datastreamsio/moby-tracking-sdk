@@ -19,6 +19,7 @@
 
 @property NSMutableArray *batches;
 @property int batchNumber;
+@property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
@@ -32,6 +33,7 @@
 -(instancetype) init; {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
+        _batchQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
         _connRetries = 0;
         _deviceInfo = @{
                         @"appId": [[NSBundle mainBundle] bundleIdentifier],
@@ -62,35 +64,41 @@
     [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
 }
 
--(void) createBatchWithEvents:(NSMutableArray*)events; {
-    O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
-    self->_batchNumber++;
+-(void) createBatchWithEvents:(NSArray*)events; {
+    dispatch_async(self.batchQueue, ^{
+        O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
+        self->_batchNumber++;
 
-    for (int i=0; i< events.count; i++) {
-        [batch addEvent:events[i]];
-    }
+        for (int i=0; i< events.count; i++) {
+            [batch addEvent:events[i]];
+        }
 
-    [self->_batches addObject:batch];
+        [self->_batches addObject:batch];
+    });
 }
 
 -(void) batchRetryIncrement; {
-    if(self->_batches.count > 0) {
-        [[self->_batches objectAtIndex:0] addRetry];
-    }
+    dispatch_async(self.batchQueue, ^{
+        if(self->_batches.count > 0) {
+            [[self->_batches objectAtIndex:0] addRetry];
+        }
+    });
 }
 
 -(void) dispatch:(NSTimer *)timer;{
-    if(self->_batches.count > 0){
-        if(self->_connRetries < self->_maxRetries) {
-            [self->_logger logD:@"Dispatcher has been triggered"];
-            [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
-        } else {
-            [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
+    dispatch_async(self.batchQueue, ^{
+        if(self->_batches.count > 0){
+            if(self->_connRetries < self->_maxRetries) {
+                [self->_logger logD:@"Dispatcher has been triggered"];
+                [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
+            } else {
+                [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
 
-            // Stopping the time based interval loop.
-            [self stop];
+                // Stopping the time based interval loop.
+                [self stop];
+            }
         }
-    }
+    });
 }
 
 -(BOOL) isDispatching; {
@@ -105,15 +113,19 @@
 }
 
 - (void)didDispatchWithError:(id)sender; {
-    [self->_logger logD:@"Dispatcher error"];
-    self->_connRetries++;
-    [self batchRetryIncrement];
+    dispatch_async(self.batchQueue, ^{
+        [self->_logger logD:@"Dispatcher error"];
+        self->_connRetries++;
+        [self batchRetryIncrement];
+    });
 }
 - (void)didDispatchWithSuccess:(id)sender; {
-    self->_connRetries = 0;
-    if([self->_batches count] > 0) {
-        [self->_batches removeObjectAtIndex:0];
-    }
+    dispatch_async(self.batchQueue, ^{
+        self->_connRetries = 0;
+        if([self->_batches count] > 0) {
+            [self->_batches removeObjectAtIndex:0];
+        }
+    });
 }
 
 
