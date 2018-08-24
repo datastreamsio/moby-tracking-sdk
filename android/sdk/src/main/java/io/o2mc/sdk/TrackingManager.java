@@ -67,20 +67,30 @@ public class TrackingManager implements O2MCExceptionNotifier {
     this.batchManager.setMaxRetries(maxRetries);
   }
 
-  public void track(String eventName) {
-    eventManager.newEvent(eventName);
+  // warning is not dangerous, since we're not editing the eventManager anywhere else than in init()
+  @SuppressWarnings("SynchronizeOnNonFinalField") public void track(String eventName) {
+    synchronized (eventManager) {
+      eventManager.newEvent(eventName);
+    }
   }
 
+  @SuppressWarnings("SynchronizeOnNonFinalField")
   public void trackWithProperties(String eventName, Object value) {
-    eventManager.newEventWithProperties(eventName, value);
+    synchronized (eventManager) {
+      eventManager.newEventWithProperties(eventName, value);
+    }
   }
 
-  public List<Event> getEventsFromBus() {
-    return eventManager.getEvents();
+  @SuppressWarnings("SynchronizeOnNonFinalField") public List<Event> getEventsFromBus() {
+    synchronized (eventManager) {
+      return eventManager.getEvents();
+    }
   }
 
-  public void clearEventsFromBus() {
-    eventManager.reset();
+  @SuppressWarnings("SynchronizeOnNonFinalField") public void clearEventsFromBus() {
+    synchronized (eventManager) {
+      eventManager.reset();
+    }
   }
 
   /**
