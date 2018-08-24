@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "O2MC.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    // Set endpoint
+    [[O2MC sharedInstance] setEndpoint:@"http://127.0.0.1:5000/events"];
+
     return YES;
 }
 

@@ -15,17 +15,8 @@
 @end
 
 @implementation O2MEventManager
-+ (instancetype)sharedManager {
-    static O2MEventManager *sharedO2MEventManager = nil;
-    static dispatch_once_t onceToken;
 
-    dispatch_once(&onceToken, ^{
-        sharedO2MEventManager = [[self alloc] init];
-    });
-    return sharedO2MEventManager;
-}
-
--(instancetype) init; {
+-(instancetype) initWithTagger:(O2MTagger*)tagger; {
     if (self = [super init]) {
         _events = [[NSMutableArray alloc] init];
         _eventQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);

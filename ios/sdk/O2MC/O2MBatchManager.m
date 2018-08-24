@@ -10,7 +10,6 @@
 
 #import "O2MBatch.h"
 #import "O2MDispatcher.h"
-#import "O2MEventManager.h"
 #import "O2MLogger.h"
 #import "O2MUtil.h"
 #import <UIKit/UIDevice.h>
@@ -24,15 +23,15 @@
 @property (assign, nonatomic, readonly) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
+@property O2MTagger *tagger;
 @property NSTimer * dispatchTimer;
-@property O2MEventManager *eventManager;
 @property (readonly) O2MLogger *logger;
 
 @end
 
 @implementation O2MBatchManager
 
-- (instancetype) init {
+-(instancetype) initWithTagger:(O2MTagger*)tagger; {
     if (self = [super init]) {
         _batches = [[NSMutableArray alloc] init];
         _batchQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
@@ -46,24 +45,14 @@
                         };
         _dispatcher = [[O2MDispatcher alloc] init :[[NSBundle mainBundle] bundleIdentifier]];
         _endpoint = @"";
-        _eventManager = [O2MEventManager sharedManager];
 
         _logger = [[O2MLogger alloc] initWithTopic:"batchmanager"];
+        _tagger = tagger;
 
         // Handle dispatcher's callbacks
         _dispatcher.delegate = self;
     }
     return self;
-}
-
-+ (instancetype)sharedManager {
-    static O2MBatchManager *sharedO2MBatchManager = nil;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        sharedO2MBatchManager = [[self alloc] init];
-    });
-    return sharedO2MBatchManager;
 }
 
 -(void) dispatchWithInterval :(NSNumber *) dispatchInterval; {
@@ -82,14 +71,15 @@
 -(void) createBatch; {
     dispatch_async(self.batchQueue, ^{
         O2MBatch *batch = [[O2MBatch alloc] initWithParams:self->_deviceInfo :self->_batchNumber];
+        NSMutableArray *events = [self->_tagger events];
 
         int i;
-        for (i=0; i< self->_eventManager.events.count; i++) {
-            [batch addEvent:self->_eventManager.events[i]];
+        for (i=0; i< events.count; i++) {
+            [batch addEvent:events[i]];
         }
 
         [self->_batches addObject:batch];
-        [self->_eventManager.events removeAllObjects];
+        [self->_tagger clearFunnel];
     });
 }
 
@@ -113,7 +103,7 @@
                 // Stopping the time based interval loop.
                 [self stop];
             }
-        } else if([self->_eventManager eventCount] > 0) {
+        } else if([self->_tagger.events count] > 0) {
             [self createBatch];
         }
     });

@@ -18,21 +18,8 @@
 
 #pragma mark - Constructors
 
-/**
- * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
- */
--(nonnull instancetype) init;
-/**
- * Constructs the tracking SDK.
- * @param endpoint http(s) URL which should be publicly reachable
- */
--(nonnull instancetype) initWithEndpoint:(nonnull NSString *)endpoint;
-/**
- * Constructs the tracking SDK.
- * @param dispatchInterval time in seconds between dispatches
- * @param endpoint http(s) URL which should be publicly reachable
- */
--(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint;
++(nonnull instancetype) sharedInstance;
+
 
 #pragma mark - Configuration methods
 

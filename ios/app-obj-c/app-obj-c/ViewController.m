@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "O2MC.h"
 
 @interface ViewController ()
 
@@ -17,11 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Init
     self._logTopic = os_log_create("io.o2mc.app-obj-c", "testapp-obj-c");
-    self.O2MC = [[O2MC alloc] initWithEndpoint:@"http://127.0.0.1:5000/events"];
 
     // Set endpoint textfield with the currently set endpoint.
-    [self.endpointTextField setText:[self.O2MC getEndpoint]];
+    [self.endpointTextField setText:[[O2MC sharedInstance] getEndpoint]];
 }
 
 
@@ -33,25 +34,26 @@
 - (IBAction)BtnTouchCreateEvent:(id)sender {
     os_log(self._logTopic, "created event");
 
-    [self.O2MC track:self.eventNameTextField.text];
+    [[O2MC sharedInstance] track:self.eventNameTextField.text];
 }
 
 - (IBAction)BtnTouchResetTracking:(id)sender {
     os_log(self._logTopic, "reset tracking");
 
-    [self.O2MC.tracker clearFunnel];
+    [[O2MC sharedInstance] stop];
+    // TODO: implement resume method
 }
 
 - (IBAction)BtnTouchStopTracking:(id)sender {
     os_log(self._logTopic, "stop tracking");
 
-    [self.O2MC stop];
+    [[O2MC sharedInstance] stop];
 }
 
 - (IBAction)InputEndpointChanged:(id)sender; {
     os_log(self._logTopic, "endpoint data changed");
 
-    [self.O2MC.tracker setEndpoint:self.endpointTextField.text];
+    [[O2MC sharedInstance] setEndpoint:self.endpointTextField.text];
 }
 
 
