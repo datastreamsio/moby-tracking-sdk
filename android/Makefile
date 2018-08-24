@@ -1,7 +1,7 @@
 all : deploy
 
 clean : 
-	bash gradlew clean
+	bash gradlew :sdk:clean
 
 deploy : install upload
 

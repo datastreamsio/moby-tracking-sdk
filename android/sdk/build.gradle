@@ -83,7 +83,7 @@ ext {
 }
 
 if (project.rootProject.file('local.properties').exists()) {
-  apply from: project.file('install-v1.gradle')
-  apply from: project.file('bintray-v1.gradle')
+  apply from: project.file('build-config.gradle')
+  apply from: project.file('upload-config.gradle')
 }
 // end
