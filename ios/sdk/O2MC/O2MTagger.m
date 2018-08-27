@@ -13,6 +13,8 @@
 #import "Models/O2MEvent.h"
 #import "O2MLogger.h"
 #import "O2MUtil.h"
+#import <UIKit/UIApplication.h>
+#import <UIKit/UIWindow.h>
 
 @interface O2MTagger()
 
@@ -41,9 +43,32 @@
     [self->_batchManager setEndpoint:endpoint];
     [self->_batchManager dispatchWithInterval:dispatchInterval];
     [self batchWithInterval:[[NSNumber alloc]initWithInt:1]];
+    [self addObservers];
 
     return self;
 }
+
+- (void) addObservers
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(enterForeground)
+                   name:UIApplicationWillEnterForegroundNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(enterBackground)
+                   name:UIApplicationDidEnterBackgroundNotification
+                 object:nil];
+}
+
+- (void)enterForeground; {
+    [self track:@"foreground"];
+}
+
+- (void)enterBackground; {
+    [self track:@"background"];
+}
+
 
 #pragma mark - Internal batch methods
 
