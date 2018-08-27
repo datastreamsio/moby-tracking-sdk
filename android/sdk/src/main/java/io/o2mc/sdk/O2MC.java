@@ -1,13 +1,10 @@
 package io.o2mc.sdk;
 
-import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.util.LogUtil;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
-import static io.o2mc.sdk.util.LogUtil.LogW;
 
 /**
  * This is central point of communication between the SDK and the app implementing it.
@@ -15,8 +12,7 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
  */
 // Suppress unused warnings, because the methods in this class are supposed to be used by any
 // app implementing this SDK. They may or may not be used, but that's up to the developer.
-@SuppressWarnings({ "unused", "WeakerAccess" }) public class O2MC
-    implements Application.ActivityLifecycleCallbacks {
+@SuppressWarnings({ "unused", "WeakerAccess" }) public class O2MC {
 
   private static final String TAG = "O2MC";
 
@@ -60,15 +56,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
    * @param maxRetries Sets the max amount of retries for generating batches. Helps to reduce cpu usage / battery draining.
    */
   public O2MC(Application app, String endpoint, int dispatchInterval, int maxRetries) {
-    if (app == null) {
-      LogW(TAG, "O2MC: Application (context) provided was null. " +
-          "Manually tracked events will still work, however " +
-          "activity lifecycle callbacks will not be automatically detected.");
-    } else {
-      this.app = app;
-      this.app.registerActivityLifecycleCallbacks(this);
-    }
-
     trackingManager = new TrackingManager();
     trackingManager.init(app, endpoint, dispatchInterval, maxRetries);
   }
@@ -97,6 +84,21 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
       // Stop tracking if the endpoint is invalid. Events won't be sent to the
       // backend anyway, it would only waste the user's data bundle by trying.
       trackingManager.stop();
+    }
+  }
+
+  /**
+   * Enables or disables automatic activity lifecycle event tracking.
+   * If set to true, activity life cycle events like 'onCreate(...)' are automatically
+   * tracked and sent to the backend.
+   *
+   * @param shouldTrackContext true if you wish to track context
+   */
+  public void setContextTracking(boolean shouldTrackContext) {
+    if (shouldTrackContext) {
+      trackingManager.startLifecycleTracking();
+    } else {
+      trackingManager.stopLifecycleTracking();
     }
   }
 
@@ -148,62 +150,6 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
   }
 
   /**
-   * Executed on the Activity lifecycle event 'onActivityCreated' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityCreated(Activity activity, Bundle bundle) {
-    LogD(TAG, "Activity created.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityStarted(Activity activity) {
-    LogD(TAG, "Activity started.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivityStarted' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityResumed(Activity activity) {
-    LogD(TAG, "Activity resumed.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivityPaused' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityPaused(Activity activity) {
-    LogD(TAG, "Activity resumed.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivityStopped' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityStopped(Activity activity) {
-    LogD(TAG, "Activity stopped.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivitySaveInstanceState' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
-    LogD(TAG, "Activity saved instance state.");
-  }
-
-  /**
-   * Executed on the Activity lifecycle event 'onActivityDestroyed' of any Activity inside the provided 'App' parameter on initialization of this class.
-   */
-  @Override
-  public void onActivityDestroyed(Activity activity) {
-    LogD(TAG, "Activity destroyed.");
-  }
-
-  /**
    * Tracks an event.
    * Essentially adds a new event with the String parameter as name to be dispatched on the next dispatch interval.
    *
@@ -216,7 +162,7 @@ import static io.o2mc.sdk.util.LogUtil.LogW;
 
   /**
    * Tracks an event with additional data.
-   * Essentially adds a new event with the String parameter as name and any properties in String format.
+   * Essentially adds a new event with the String parameter as name and any properties.
    * Will be dispatched to backend on next dispatch interval.
    *
    * @param eventName name of tracked event

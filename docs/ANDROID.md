@@ -161,11 +161,11 @@ public void track(String eventName) { ... }
 * Will be dispatched to backend on next dispatch interval.
 *
 * @param eventName name of tracked event
-* @param value     anything you'd like to keep track of in String format
+* @param value anything you'd like to keep track of in String format
 */
-public void trackWithProperties(String eventName, String value) { ... }
+public void trackWithProperties(String eventName, Object value) { ... }
 ```
 
 > Invoke function by executing the following statement
 
-`App.getO2mc().trackWithProperties("<eventname>", "<eventvalue>");`
+`App.getO2mc().trackWithProperties("<eventname>", <eventvalue>);`
