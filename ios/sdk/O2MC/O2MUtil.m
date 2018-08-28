@@ -41,4 +41,8 @@ static NSDateFormatter *o2mDateFormatter = nil;
                               encoding:NSUTF8StringEncoding];
 }
 
++ (id) objectOrNull:(id)obj; {
+    return obj ?: [NSNull null];
+}
+
 @end

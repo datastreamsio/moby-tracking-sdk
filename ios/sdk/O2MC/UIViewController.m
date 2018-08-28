@@ -9,6 +9,8 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "O2MC.h"
+#import "O2MUtil.h"
+
 
 @implementation UIViewController (Tracking)
 
@@ -44,7 +46,7 @@
     [self O2M_viewDidAppear:animated];
 
     // Track viewDidAppear event
-    [[O2MC sharedInstance] trackWithProperties:@"viewDidAppear" properties:@{@"title": self.title ?: [NSNull null]}];
+    [[O2MC sharedInstance] trackWithProperties:@"viewDidAppear" properties:@{@"title": [O2MUtil objectOrNull:self.title]}];
 }
 
 @end

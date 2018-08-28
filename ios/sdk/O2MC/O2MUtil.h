@@ -18,4 +18,9 @@
      * Returns device name (eg. iPhone9,2).
      */
     +(NSString*) deviceName;
+
+/**
+* If nil, return NSNull object.
+*/
++ (id) objectOrNull:(id)obj;
 @end
