@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		226362C32108C4C3006C7C3D /* O2MLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 226362C22108C4C3006C7C3D /* O2MLogger.m */; };
+		22701190213542440031A282 /* UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2270118F213542440031A282 /* UIViewController.m */; };
 		229073FB210B2460009A29CD /* O2MEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 229073FA210B2460009A29CD /* O2MEventTests.m */; };
 		22B7AB2520FDF4FF007BC5D8 /* O2MUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */; };
 		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		226362C12108BF04006C7C3D /* O2MLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MLogger.h; sourceTree = "<group>"; };
 		226362C22108C4C3006C7C3D /* O2MLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MLogger.m; sourceTree = "<group>"; };
+		2270118F213542440031A282 /* UIViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewController.m; sourceTree = "<group>"; };
 		229073FA210B2460009A29CD /* O2MEventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MEventTests.m; sourceTree = "<group>"; };
 		22B7AB2420FDF4FF007BC5D8 /* O2MUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MUtil.m; sourceTree = "<group>"; };
 		22B7AB2820FE0177007BC5D8 /* O2MUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MUtil.h; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */,
 				226362C12108BF04006C7C3D /* O2MLogger.h */,
 				226362C22108C4C3006C7C3D /* O2MLogger.m */,
+				2270118F213542440031A282 /* UIViewController.m */,
 			);
 			path = O2MC;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				3CB1841CBEC27153901A4A5C /* O2MDispatcher.m in Sources */,
 				E685A8B81D59BBD60048544E /* O2MC.m in Sources */,
 				22B7AB362100C0A3007BC5D8 /* O2MBatchManager.m in Sources */,
+				22701190213542440031A282 /* UIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
