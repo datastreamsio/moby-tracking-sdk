@@ -1,0 +1,620 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2271F4EE21367DE000A46352 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F4ED21367DE000A46352 /* AppDelegate.m */; };
+		2271F4F121367DE000A46352 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F4F021367DE000A46352 /* ViewController.m */; };
+		2271F4F421367DE000A46352 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2271F4F221367DE000A46352 /* Main.storyboard */; };
+		2271F4F621367DE100A46352 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2271F4F521367DE100A46352 /* Assets.xcassets */; };
+		2271F4F921367DE100A46352 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2271F4F721367DE100A46352 /* LaunchScreen.storyboard */; };
+		2271F4FC21367DE100A46352 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F4FB21367DE100A46352 /* main.m */; };
+		2271F50621367DE100A46352 /* The_Food_MazeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F50521367DE100A46352 /* The_Food_MazeTests.m */; };
+		2271F51121367DE100A46352 /* The_Food_MazeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F51021367DE100A46352 /* The_Food_MazeUITests.m */; };
+		2271F51F21367ECA00A46352 /* BananaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F51E21367ECA00A46352 /* BananaViewController.m */; };
+		2271F523213680FF00A46352 /* AppleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2271F522213680FF00A46352 /* AppleViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2271F50221367DE100A46352 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2271F4E121367DE000A46352 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2271F4E821367DE000A46352;
+			remoteInfo = "The Food Maze";
+		};
+		2271F50D21367DE100A46352 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2271F4E121367DE000A46352 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2271F4E821367DE000A46352;
+			remoteInfo = "The Food Maze";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2271F4E921367DE000A46352 /* The Food Maze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Food Maze.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2271F4EC21367DE000A46352 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2271F4ED21367DE000A46352 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2271F4EF21367DE000A46352 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2271F4F021367DE000A46352 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2271F4F321367DE000A46352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2271F4F521367DE100A46352 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2271F4F821367DE100A46352 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2271F4FA21367DE100A46352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2271F4FB21367DE100A46352 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2271F50121367DE100A46352 /* The Food MazeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Food MazeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2271F50521367DE100A46352 /* The_Food_MazeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = The_Food_MazeTests.m; sourceTree = "<group>"; };
+		2271F50721367DE100A46352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2271F50C21367DE100A46352 /* The Food MazeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "The Food MazeUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2271F51021367DE100A46352 /* The_Food_MazeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = The_Food_MazeUITests.m; sourceTree = "<group>"; };
+		2271F51221367DE100A46352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2271F51E21367ECA00A46352 /* BananaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BananaViewController.m; sourceTree = "<group>"; };
+		2271F52021367EE100A46352 /* BananaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BananaViewController.h; sourceTree = "<group>"; };
+		2271F521213680EE00A46352 /* AppleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppleViewController.h; sourceTree = "<group>"; };
+		2271F522213680FF00A46352 /* AppleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2271F4E621367DE000A46352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F4FE21367DE100A46352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F50921367DE100A46352 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2271F4E021367DE000A46352 = {
+			isa = PBXGroup;
+			children = (
+				2271F55C21368CB400A46352 /* Libraries */,
+				2271F4EB21367DE000A46352 /* The Food Maze */,
+				2271F50421367DE100A46352 /* The Food MazeTests */,
+				2271F50F21367DE100A46352 /* The Food MazeUITests */,
+				2271F4EA21367DE000A46352 /* Products */,
+				2271F52D2136823B00A46352 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2271F4EA21367DE000A46352 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2271F4E921367DE000A46352 /* The Food Maze.app */,
+				2271F50121367DE100A46352 /* The Food MazeTests.xctest */,
+				2271F50C21367DE100A46352 /* The Food MazeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2271F4EB21367DE000A46352 /* The Food Maze */ = {
+			isa = PBXGroup;
+			children = (
+				2271F4EC21367DE000A46352 /* AppDelegate.h */,
+				2271F4ED21367DE000A46352 /* AppDelegate.m */,
+				2271F4EF21367DE000A46352 /* ViewController.h */,
+				2271F4F021367DE000A46352 /* ViewController.m */,
+				2271F4F221367DE000A46352 /* Main.storyboard */,
+				2271F4F521367DE100A46352 /* Assets.xcassets */,
+				2271F4F721367DE100A46352 /* LaunchScreen.storyboard */,
+				2271F4FA21367DE100A46352 /* Info.plist */,
+				2271F4FB21367DE100A46352 /* main.m */,
+				2271F51E21367ECA00A46352 /* BananaViewController.m */,
+				2271F52021367EE100A46352 /* BananaViewController.h */,
+				2271F521213680EE00A46352 /* AppleViewController.h */,
+				2271F522213680FF00A46352 /* AppleViewController.m */,
+			);
+			path = "The Food Maze";
+			sourceTree = "<group>";
+		};
+		2271F50421367DE100A46352 /* The Food MazeTests */ = {
+			isa = PBXGroup;
+			children = (
+				2271F50521367DE100A46352 /* The_Food_MazeTests.m */,
+				2271F50721367DE100A46352 /* Info.plist */,
+			);
+			path = "The Food MazeTests";
+			sourceTree = "<group>";
+		};
+		2271F50F21367DE100A46352 /* The Food MazeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2271F51021367DE100A46352 /* The_Food_MazeUITests.m */,
+				2271F51221367DE100A46352 /* Info.plist */,
+			);
+			path = "The Food MazeUITests";
+			sourceTree = "<group>";
+		};
+		2271F52D2136823B00A46352 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2271F55C21368CB400A46352 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2271F4E821367DE000A46352 /* The Food Maze */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2271F51521367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food Maze" */;
+			buildPhases = (
+				2271F4E521367DE000A46352 /* Sources */,
+				2271F4E621367DE000A46352 /* Frameworks */,
+				2271F4E721367DE000A46352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "The Food Maze";
+			productName = "The Food Maze";
+			productReference = 2271F4E921367DE000A46352 /* The Food Maze.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2271F50021367DE100A46352 /* The Food MazeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2271F51821367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food MazeTests" */;
+			buildPhases = (
+				2271F4FD21367DE100A46352 /* Sources */,
+				2271F4FE21367DE100A46352 /* Frameworks */,
+				2271F4FF21367DE100A46352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2271F50321367DE100A46352 /* PBXTargetDependency */,
+			);
+			name = "The Food MazeTests";
+			productName = "The Food MazeTests";
+			productReference = 2271F50121367DE100A46352 /* The Food MazeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2271F50B21367DE100A46352 /* The Food MazeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2271F51B21367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food MazeUITests" */;
+			buildPhases = (
+				2271F50821367DE100A46352 /* Sources */,
+				2271F50921367DE100A46352 /* Frameworks */,
+				2271F50A21367DE100A46352 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2271F50E21367DE100A46352 /* PBXTargetDependency */,
+			);
+			name = "The Food MazeUITests";
+			productName = "The Food MazeUITests";
+			productReference = 2271F50C21367DE100A46352 /* The Food MazeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2271F4E121367DE000A46352 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = o2mc;
+				TargetAttributes = {
+					2271F4E821367DE000A46352 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					2271F50021367DE100A46352 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 2271F4E821367DE000A46352;
+					};
+					2271F50B21367DE100A46352 = {
+						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = 2271F4E821367DE000A46352;
+					};
+				};
+			};
+			buildConfigurationList = 2271F4E421367DE000A46352 /* Build configuration list for PBXProject "The Food Maze" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2271F4E021367DE000A46352;
+			productRefGroup = 2271F4EA21367DE000A46352 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2271F4E821367DE000A46352 /* The Food Maze */,
+				2271F50021367DE100A46352 /* The Food MazeTests */,
+				2271F50B21367DE100A46352 /* The Food MazeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2271F4E721367DE000A46352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2271F4F921367DE100A46352 /* LaunchScreen.storyboard in Resources */,
+				2271F4F621367DE100A46352 /* Assets.xcassets in Resources */,
+				2271F4F421367DE000A46352 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F4FF21367DE100A46352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F50A21367DE100A46352 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2271F4E521367DE000A46352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2271F4F121367DE000A46352 /* ViewController.m in Sources */,
+				2271F51F21367ECA00A46352 /* BananaViewController.m in Sources */,
+				2271F4FC21367DE100A46352 /* main.m in Sources */,
+				2271F4EE21367DE000A46352 /* AppDelegate.m in Sources */,
+				2271F523213680FF00A46352 /* AppleViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F4FD21367DE100A46352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2271F50621367DE100A46352 /* The_Food_MazeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2271F50821367DE100A46352 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2271F51121367DE100A46352 /* The_Food_MazeUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2271F50321367DE100A46352 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2271F4E821367DE000A46352 /* The Food Maze */;
+			targetProxy = 2271F50221367DE100A46352 /* PBXContainerItemProxy */;
+		};
+		2271F50E21367DE100A46352 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2271F4E821367DE000A46352 /* The Food Maze */;
+			targetProxy = 2271F50D21367DE100A46352 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2271F4F221367DE000A46352 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2271F4F321367DE000A46352 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2271F4F721367DE100A46352 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2271F4F821367DE100A46352 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2271F51321367DE100A46352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LIBRARY_SEARCH_PATHS = "";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2271F51421367DE100A46352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LIBRARY_SEARCH_PATHS = "";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2271F51621367DE100A46352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../sdk/**",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				INFOPLIST_FILE = "The Food Maze/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-Maze";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2271F51721367DE100A46352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../sdk/**",
+				);
+				INFOPLIST_FILE = "The Food Maze/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-Maze";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2271F51921367DE100A46352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Food MazeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-MazeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Food Maze.app/The Food Maze";
+			};
+			name = Debug;
+		};
+		2271F51A21367DE100A46352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Food MazeTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-MazeTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/The Food Maze.app/The Food Maze";
+			};
+			name = Release;
+		};
+		2271F51C21367DE100A46352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Food MazeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-MazeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Food Maze";
+			};
+			name = Debug;
+		};
+		2271F51D21367DE100A46352 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "The Food MazeUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.o2mc.The-Food-MazeUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "The Food Maze";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2271F4E421367DE000A46352 /* Build configuration list for PBXProject "The Food Maze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2271F51321367DE100A46352 /* Debug */,
+				2271F51421367DE100A46352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2271F51521367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food Maze" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2271F51621367DE100A46352 /* Debug */,
+				2271F51721367DE100A46352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2271F51821367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food MazeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2271F51921367DE100A46352 /* Debug */,
+				2271F51A21367DE100A46352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2271F51B21367DE100A46352 /* Build configuration list for PBXNativeTarget "The Food MazeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2271F51C21367DE100A46352 /* Debug */,
+				2271F51D21367DE100A46352 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2271F4E121367DE000A46352 /* Project object */;
+}
