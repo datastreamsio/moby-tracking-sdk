@@ -16,7 +16,10 @@ import io.o2mc.sdk.exceptions.O2MCTrackException;
 import io.o2mc.sdk.interfaces.O2MCExceptionListener;
 import io.o2mc.sdk.interfaces.O2MCExceptionNotifier;
 import io.o2mc.sdk.util.Util;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static io.o2mc.sdk.util.LogUtil.LogD;
 import static io.o2mc.sdk.util.LogUtil.LogE;
@@ -194,7 +197,10 @@ public class TrackingManager
    */
   @Override
   public void onActivityStarted(Activity activity) {
-    track("viewStart:" + activity.getLocalClassName());
+    Map<String, String> map = new HashMap<>();
+    map.put("name", activity.getLocalClassName());
+
+    trackWithProperties("viewStart", map);
   }
 
   /**
@@ -218,7 +224,10 @@ public class TrackingManager
    */
   @Override
   public void onActivityStopped(Activity activity) {
-    track("viewStop:" + activity.getLocalClassName());
+    Map<String, String> map = new HashMap<>();
+    map.put("name", activity.getLocalClassName());
+
+    trackWithProperties("viewStop", map);
   }
 
   /**
