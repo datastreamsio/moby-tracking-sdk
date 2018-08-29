@@ -129,9 +129,11 @@ Additionally, you could specify the max amount of retries before the SDK gives u
 
 `o2mc = new O2MC(this, "<endpoint>", 15, 20);`
 
-Finally, it's possible to set a max retries number without explicitly stating the `dispatchInterval`, like this:
+It's possible to set a max retries number without explicitly stating the `dispatchInterval`, like this:
 
 `o2mc.setMaxRetries(15);`
+
+Finally it's possible to automatically track activity changes. This can be enabled by setting `o2mc.setContextTracking(true);`.
 
 
 # General tracking function
