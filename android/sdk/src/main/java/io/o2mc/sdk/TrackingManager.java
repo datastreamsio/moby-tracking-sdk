@@ -194,7 +194,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityStarted(Activity activity) {
-    track("ActivityStarted:" + activity.getLocalClassName());
+    track("viewStart:" + activity.getLocalClassName());
   }
 
   /**
@@ -218,7 +218,7 @@ public class TrackingManager
    */
   @Override
   public void onActivityStopped(Activity activity) {
-    track("ActivityStopped:" + activity.getLocalClassName());
+    track("viewStop:" + activity.getLocalClassName());
   }
 
   /**

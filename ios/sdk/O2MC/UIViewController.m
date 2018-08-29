@@ -53,14 +53,14 @@
     [self O2M_viewDidAppear:animated];
 
     // Track viewDidAppear event
-    [[O2MC sharedInstance] trackWithProperties:@"viewDidAppear" properties:@{@"title": [O2MUtil objectOrNull:self.title]}];
+    [[O2MC sharedInstance] trackWithProperties:@"viewStart" properties:@{@"title": [O2MUtil objectOrNull:self.title]}];
 }
 
 - (void)O2M_viewWillDisappear:(BOOL)animated; {
     [self O2M_viewWillDisappear:(BOOL)animated];
 
     // Track viewDidDisappear event
-    [[O2MC sharedInstance] trackWithProperties:@"viewWillDisappear" properties:@{@"title": [O2MUtil objectOrNull:self.title]}];
+    [[O2MC sharedInstance] trackWithProperties:@"viewStop" properties:@{@"title": [O2MUtil objectOrNull:self.title]}];
 }
 
 @end
