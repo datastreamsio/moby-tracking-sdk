@@ -16,6 +16,12 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        BOOL trackScreen = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"O2M_TRACK_VIEWS"] boolValue];
+
+        // Only swizzle when explicitly requested
+        if (!trackScreen)
+            return;
+
         [self swizzleMethodBySelector:@selector(viewWillAppear:) swizzledSelector:@selector(O2M_viewDidAppear:)];
         [self swizzleMethodBySelector:@selector(viewWillDisappear:) swizzledSelector:@selector(O2M_viewWillDisappear:)];
     });
