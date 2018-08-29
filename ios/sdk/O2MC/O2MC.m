@@ -11,17 +11,34 @@
 #import "O2MTagger.h"
 
 @implementation O2MC
--(instancetype) init; {
+
++(nonnull instancetype) sharedInstance; {
+    static O2MC *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[O2MC alloc] init];
+    });
+
+    return sharedInstance;
+}
+
+/**
+ * Constructs the tracking SDK. NOTE: be sure to set an endpoint.
+ * @return an O2MC instance
+ */
+-(nonnull instancetype) init; {
     self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:@""];
     return self;
 }
 
--(instancetype) initWithEndpoint:(NSString *)endpoint;  {
-    self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:endpoint];
-    return self;
-}
-
--(instancetype) initWithDispatchInterval:(NSNumber *)dispatchInterval endpoint:(NSString *)endpoint; {
+/**
+ * Constructs the tracking SDK.
+ * @param dispatchInterval time in seconds between dispatches
+ * @param endpoint http(s) URL which should be publicly reachable
+ * @return an O2MC instance
+ */
+-(nonnull instancetype) initWithDispatchInterval:(nonnull NSNumber *)dispatchInterval endpoint:(nonnull NSString *)endpoint; {
      if (self = [super init]) {
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
 
@@ -31,11 +48,11 @@
      return self;
 }
 
--(NSString*) getEndpoint; {
+-(nonnull NSString*) getEndpoint; {
     return [self->_tracker getEndpoint];
 }
 
--(void) setEndpoint :(NSString *) endpoint; {
+-(void) setEndpoint:(nonnull NSString *)endpoint; {
     [self->_tracker setEndpoint:endpoint];
 }
 
@@ -51,7 +68,7 @@
     [self->_tracker stop:clearFunnel];
 }
 
--(void)setIdentifier:(NSString*) uniqueIdentifier; {
+-(void)setIdentifier:(nullable NSString*) uniqueIdentifier; {
     [self->_tracker setIdentifier:uniqueIdentifier];
 }
 
@@ -59,11 +76,11 @@
     [self->_tracker setSessionIdentifier];
 }
 
--(void)track :(NSString*)eventName; {
+-(void)track:(nonnull NSString*)eventName; {
     [self->_tracker track:eventName];
 }
 
--(void)trackWithProperties:(NSString*)eventName properties:(NSDictionary*)properties; {
+-(void)trackWithProperties:(nonnull NSString*)eventName properties:(nonnull NSDictionary*)properties; {
     [self->_tracker trackWithProperties:eventName properties:properties];
 }
 
