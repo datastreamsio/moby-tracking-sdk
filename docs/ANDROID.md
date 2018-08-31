@@ -129,9 +129,11 @@ Additionally, you could specify the max amount of retries before the SDK gives u
 
 `o2mc = new O2MC(this, "<endpoint>", 15, 20);`
 
-Finally, it's possible to set a max retries number without explicitly stating the `dispatchInterval`, like this:
+It's possible to set a max retries number without explicitly stating the `dispatchInterval`, like this:
 
 `o2mc.setMaxRetries(15);`
+
+Finally it's possible to automatically track activity changes. This can be enabled by setting `o2mc.setContextTracking(true);`.
 
 
 # General tracking function
@@ -161,11 +163,11 @@ public void track(String eventName) { ... }
 * Will be dispatched to backend on next dispatch interval.
 *
 * @param eventName name of tracked event
-* @param value     anything you'd like to keep track of in String format
+* @param value anything you'd like to keep track of in String format
 */
-public void trackWithProperties(String eventName, String value) { ... }
+public void trackWithProperties(String eventName, Object value) { ... }
 ```
 
 > Invoke function by executing the following statement
 
-`App.getO2mc().trackWithProperties("<eventname>", "<eventvalue>");`
+`App.getO2mc().trackWithProperties("<eventname>", <eventvalue>);`
