@@ -97,7 +97,8 @@
 
 -(void) clearFunnel; {
     dispatch_async(_tagQueue, ^{
-      [self->_eventManager clearEvents];
+        [self->_eventManager clearEvents];
+        [self->_logger logD:@"clearing the funnel"];
     });
 }
 
@@ -112,10 +113,7 @@
 
     if (clearFunnel == NO) return;
 
-    dispatch_async(_tagQueue, ^{
-        [self->_logger logD:@"clearing the funnel"];
-        [self clearFunnel];
-    });
+    [self clearFunnel];
 }
 
 -(void)stopTimer; {
