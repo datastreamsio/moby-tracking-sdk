@@ -62,6 +62,9 @@
 
     // Start the dispatch timer
     [NSRunLoop.mainRunLoop addTimer:self->_dispatchTimer forMode:NSRunLoopCommonModes];
+
+    // Reset connection retries on (re)start
+    self->_connRetries = 0;
 }
 
 -(void) createBatchWithEvents:(NSArray*)events; {
