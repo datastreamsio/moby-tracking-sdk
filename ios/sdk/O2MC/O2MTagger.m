@@ -106,15 +106,15 @@
 }
 
 -(void)stop:(BOOL) clearFunnel; {
-    dispatch_async(_tagQueue, ^{
-        [self->_logger logI:@"stopping tracking"];
-        [self->_batchManager stop];
-        [self stopTimer];
+    [self->_logger logI:@"stopping tracking"];
+    [self->_batchManager stop];
+    [self stopTimer];
 
-        if (clearFunnel == YES) {
-            [self->_logger logD:@"clearing the funnel"];
-            [self clearFunnel];
-        }
+    if (clearFunnel == NO) return;
+
+    dispatch_async(_tagQueue, ^{
+        [self->_logger logD:@"clearing the funnel"];
+        [self clearFunnel];
     });
 }
 
@@ -122,6 +122,16 @@
     if(self->_batchCreateTimer) {
         [self->_batchCreateTimer invalidate];
         self->_batchCreateTimer = nil;
+    }
+}
+
+-(void)resume; {
+    if(![[self batchCreateTimer] isValid]) {
+        [self batchWithInterval:[[NSNumber alloc] initWithInt:10]];
+    }
+
+    if(![self->_batchManager isDispatching]) {
+        [self->_batchManager dispatchWithInterval:[[NSNumber alloc] initWithInt:10]];
     }
 }
 
