@@ -11,6 +11,7 @@
 
 @implementation O2MConfig
 static NSNumber *_batchInterval = nil;
+static NSNumber *_dispatchInterval = nil;
 static NSString *_httpEndpoint = @"http://127.0.0.1:5000/events";
 static NSInteger _maxRetries = 2;
 
@@ -19,6 +20,13 @@ static NSInteger _maxRetries = 2;
         _batchInterval = [[NSNumber alloc] initWithInt:2];
     }
     return _batchInterval;
+}
+
++ (NSNumber*)dispatchInterval {
+    if(_dispatchInterval == nil){
+        _dispatchInterval = [[NSNumber alloc] initWithInt:2];
+    }
+    return _dispatchInterval;
 }
 
 + (NSString*)httpEndpoint {

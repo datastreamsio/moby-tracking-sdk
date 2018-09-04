@@ -29,7 +29,7 @@
  * @return an O2MC instance
  */
 -(nonnull instancetype) init; {
-    self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:O2MConfig.httpEndpoint];
+    self = [self initWithDispatchInterval:O2MConfig.dispatchInterval endpoint:O2MConfig.httpEndpoint];
     return self;
 }
 

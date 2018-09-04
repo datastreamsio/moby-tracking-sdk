@@ -130,7 +130,7 @@
     }
 
     if(![self->_batchManager isDispatching]) {
-        [self->_batchManager dispatchWithInterval:[[NSNumber alloc] initWithInt:10]];
+        [self->_batchManager dispatchWithInterval:O2MConfig.dispatchInterval];
     }
 }
 
