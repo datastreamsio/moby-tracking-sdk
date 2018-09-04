@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "O2MC.h"
+#import "O2MConfig.h"
 #import "O2MTagger.h"
 
 @implementation O2MC
@@ -43,7 +44,7 @@
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
 
          // Default setting
-         [_tracker setMaxRetries:5];
+         [_tracker setMaxRetries:O2MConfig.maxRetries];
      }
      return self;
 }
