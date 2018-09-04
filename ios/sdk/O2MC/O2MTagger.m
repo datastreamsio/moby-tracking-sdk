@@ -9,6 +9,7 @@
 #import "O2MTagger.h"
 
 #import "O2MBatchManager.h"
+#import "O2MConfig.h"
 #import "O2MEventManager.h"
 #import "Models/O2MEvent.h"
 #import "O2MLogger.h"
@@ -40,7 +41,7 @@
 
     [self->_batchManager setEndpoint:endpoint];
     [self->_batchManager dispatchWithInterval:dispatchInterval];
-    [self batchWithInterval:[[NSNumber alloc]initWithInt:1]];
+    [self batchWithInterval:O2MConfig.batchInterval];
 
     return self;
 }
@@ -125,7 +126,7 @@
 
 -(void)resume; {
     if(![[self batchCreateTimer] isValid]) {
-        [self batchWithInterval:[[NSNumber alloc] initWithInt:10]];
+        [self batchWithInterval:O2MConfig.batchInterval];
     }
 
     if(![self->_batchManager isDispatching]) {
