@@ -9,6 +9,7 @@
 
 @interface O2MConfig : NSObject
 
+@property (class, nonatomic, assign, readonly) NSString *httpEndpoint;
 @property (class, nonatomic, assign, readonly) NSInteger maxRetries;
 
 @end
