@@ -46,7 +46,8 @@ class ViewController: UIViewController {
             NSLog("reset tracking")
         }
         
-        O2MC.sharedInstance().tracker.clearFunnel()
+        O2MC.sharedInstance().stop()
+        O2MC.sharedInstance().resume()
     }
 
     @IBAction func BtnTouchStopTracking(_ sender: Any) {

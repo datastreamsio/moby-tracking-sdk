@@ -52,6 +52,11 @@
  */
 -(void) stop:(BOOL)clearFunnel;
 
+/**
+ * Resumes tracking when stopped.
+ */
+-(void) resume;
+
 #pragma mark - Tracking methods
 
 /**

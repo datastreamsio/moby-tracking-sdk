@@ -41,7 +41,7 @@
     os_log(self._logTopic, "reset tracking");
 
     [[O2MC sharedInstance] stop];
-    // TODO: implement resume method
+    [[O2MC sharedInstance] resume];
 }
 
 - (IBAction)BtnTouchStopTracking:(id)sender {

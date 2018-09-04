@@ -68,6 +68,10 @@
     [self->_tracker stop:clearFunnel];
 }
 
+-(void) resume; {
+    [self->_tracker resume];
+}
+
 -(void)setIdentifier:(nullable NSString*) uniqueIdentifier; {
     [self->_tracker setIdentifier:uniqueIdentifier];
 }
