@@ -20,7 +20,7 @@
 @property NSMutableArray *batches;
 @property int batchNumber;
 @property (nonatomic, readonly, strong) dispatch_queue_t batchQueue;
-@property (assign, nonatomic, readonly) NSInteger connRetries;
+@property (assign, nonatomic, readwrite) NSInteger connRetries;
 @property (readonly) NSDictionary *deviceInfo;
 @property O2MDispatcher *dispatcher;
 @property NSTimer * dispatchTimer;
@@ -36,7 +36,7 @@
         _batchQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
         _connRetries = 0;
         _deviceInfo = @{
-                        @"appId": [[NSBundle mainBundle] bundleIdentifier],
+                        @"appId": [[NSBundle mainBundle] bundleIdentifier] ?: [NSNull null],
                         @"locale": [[NSLocale currentLocale] localeIdentifier],
                         @"name": [O2MUtil deviceName],
                         @"os": UIDevice.currentDevice.systemName,
