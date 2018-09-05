@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "O2MC.h"
+#import "O2MConfig.h"
 #import "O2MTagger.h"
 
 @implementation O2MC
@@ -28,7 +29,7 @@
  * @return an O2MC instance
  */
 -(nonnull instancetype) init; {
-    self = [self initWithDispatchInterval:[[NSNumber alloc] initWithInt:10] endpoint:@""];
+    self = [self initWithDispatchInterval:O2MConfig.dispatchInterval endpoint:O2MConfig.httpEndpoint];
     return self;
 }
 
@@ -43,7 +44,7 @@
          self->_tracker = [[O2MTagger alloc] init:endpoint :dispatchInterval];
 
          // Default setting
-         [_tracker setMaxRetries:5];
+         [_tracker setMaxRetries:O2MConfig.maxRetries];
      }
      return self;
 }
