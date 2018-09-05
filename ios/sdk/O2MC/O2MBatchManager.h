@@ -11,8 +11,10 @@
 
 @interface O2MBatchManager : NSObject <O2MDispatcherDelegate>
 
+@property (nonatomic, readonly) int batchNumber;
 @property NSString *endpoint;
 @property NSInteger maxRetries;
+@property (nonatomic, readonly) NSInteger connRetries;
 @property NSString *sessionIdentifier;
 
 
