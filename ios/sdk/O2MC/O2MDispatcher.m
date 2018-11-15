@@ -54,11 +54,9 @@
         NSURLSessionDataTask *dataTask = [[self urlSession] dataTaskWithRequest: request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
-            if (data.length > 0 && error == nil) {
-                if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
-                    [self->_logger logD:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]];
-                    [self successHandler];
-                }
+            if (data.length > 0 && error == nil && (httpResponse.statusCode == 200 || httpResponse.statusCode == 201)) {
+                [self->_logger logD:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]];
+                [self successHandler];
             } else {
                 [self->_logger log:@"Connection could not be made"];
                 [self errorHandler];
