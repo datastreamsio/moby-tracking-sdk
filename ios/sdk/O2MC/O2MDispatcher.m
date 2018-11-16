@@ -55,7 +55,7 @@
            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
             if (data.length > 0 && error == nil) {
-                if(httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
+                if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
                     [self->_logger logD:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]];
                     [self successHandler];
                 } else {
