@@ -58,6 +58,9 @@
                 if (httpResponse.statusCode == 200 || httpResponse.statusCode == 201) {
                     [self->_logger logD:@"length (%lu) Funnel -> ( %@ ) has been dispatched to: %@", (unsigned long)[data length], jsonString, [response URL]];
                     [self successHandler];
+                } else {
+                    [self->_logger log:@"Incorrect http response"];
+                    [self errorHandler];
                 }
             } else {
                 [self->_logger log:@"Connection could not be made"];
