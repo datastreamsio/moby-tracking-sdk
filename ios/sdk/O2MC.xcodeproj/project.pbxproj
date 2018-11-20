@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		22087A5A219ED93F00524F74 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22087A59219ED93F00524F74 /* Foundation.framework */; };
-		22087A5C219EDA1300524F74 /* O2MC.h in Headers */ = {isa = PBXBuildFile; fileRef = E685A8B91D59BBF20048544E /* O2MC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		22087A5D219EDA5200524F74 /* O2MEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B7AB3121009655007BC5D8 /* O2MEvent.h */; };
 		22087A5E219EDA5200524F74 /* O2MBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F5510E210215CF00B4F7BA /* O2MBatch.h */; };
 		22087A5F219EDA5200524F74 /* O2MTagger.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CB18B0DE2FAF82863390BA4 /* O2MTagger.h */; };
@@ -19,7 +18,7 @@
 		22087A64219EDA5200524F74 /* O2MDispatcherDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F5510C2101F31B00B4F7BA /* O2MDispatcherDelegate.h */; };
 		22087A65219EDA5200524F74 /* O2MLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 226362C12108BF04006C7C3D /* O2MLogger.h */; };
 		22087A66219EDA5200524F74 /* O2MConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 22D8569E213EB7C4009FEB3E /* O2MConfig.h */; };
-		22087AC7219EE53700524F74 /* O2MC.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E685A8B91D59BBF20048544E /* O2MC.h */; };
+		22242DC221A43C6F0047B9EF /* O2MC.h in Headers */ = {isa = PBXBuildFile; fileRef = E685A8B91D59BBF20048544E /* O2MC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		226362C32108C4C3006C7C3D /* O2MLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 226362C22108C4C3006C7C3D /* O2MLogger.m */; };
 		22701190213542440031A282 /* UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2270118F213542440031A282 /* UIViewController.m */; };
 		229073FB210B2460009A29CD /* O2MEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 229073FA210B2460009A29CD /* O2MEventTests.m */; };
@@ -54,7 +53,6 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				22087AC7219EE53700524F74 /* O2MC.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,10 +192,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22087A5C219EDA1300524F74 /* O2MC.h in Headers */,
 				22087A5D219EDA5200524F74 /* O2MEvent.h in Headers */,
 				22087A5E219EDA5200524F74 /* O2MBatch.h in Headers */,
 				22087A5F219EDA5200524F74 /* O2MTagger.h in Headers */,
+				22242DC221A43C6F0047B9EF /* O2MC.h in Headers */,
 				22087A60219EDA5200524F74 /* O2MDispatcher.h in Headers */,
 				22087A61219EDA5200524F74 /* O2MUtil.h in Headers */,
 				22087A62219EDA5200524F74 /* O2MEventManager.h in Headers */,
