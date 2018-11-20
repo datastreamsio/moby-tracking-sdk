@@ -27,7 +27,7 @@
 		22B7AB3020FF740E007BC5D8 /* O2MEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB2F20FF740E007BC5D8 /* O2MEventManager.m */; };
 		22B7AB332100970A007BC5D8 /* O2MEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB322100970A007BC5D8 /* O2MEvent.m */; };
 		22B7AB362100C0A3007BC5D8 /* O2MBatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7AB352100C0A3007BC5D8 /* O2MBatchManager.m */; };
-		22C1581221088FE500A18575 /* libdatastreams.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB18376E4BAE82EB902F81E /* libdatastreams.a */; };
+		22C1581221088FE500A18575 /* libO2MC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB18376E4BAE82EB902F81E /* libO2MC.a */; };
 		22C158182108970A00A18575 /* EventManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C1580F21088FE500A18575 /* EventManagerTests.m */; };
 		22D8569C213E762C009FEB3E /* O2MBatchManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8569B213E762C009FEB3E /* O2MBatchManagerTests.m */; };
 		22D856A0213EB8B7009FEB3E /* O2MConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8569F213EB8B7009FEB3E /* O2MConfig.m */; };
@@ -84,7 +84,7 @@
 		22F5510E210215CF00B4F7BA /* O2MBatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MBatch.h; sourceTree = "<group>"; };
 		22F5510F210216F700B4F7BA /* O2MBatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MBatch.m; sourceTree = "<group>"; };
 		3CB18038EEAB8E83A3A0304C /* O2MDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2MDispatcher.h; sourceTree = "<group>"; };
-		3CB18376E4BAE82EB902F81E /* libdatastreams.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdatastreams.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CB18376E4BAE82EB902F81E /* libO2MC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libO2MC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB1885C2EC31A31FD51D342 /* O2MTagger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = O2MTagger.m; sourceTree = "<group>"; };
 		3CB18A1D2CF6C3E9CFBD0160 /* O2MDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2MDispatcher.m; sourceTree = "<group>"; };
 		3CB18B0DE2FAF82863390BA4 /* O2MTagger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = O2MTagger.h; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22C1581221088FE500A18575 /* libdatastreams.a in Frameworks */,
+				22C1581221088FE500A18575 /* libO2MC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +171,7 @@
 		3CB1885C989F1D71E5DF1D64 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3CB18376E4BAE82EB902F81E /* libdatastreams.a */,
+				3CB18376E4BAE82EB902F81E /* libO2MC.a */,
 				22C1580D21088FE400A18575 /* Tests.xctest */,
 			);
 			name = Products;
@@ -244,7 +244,7 @@
 			);
 			name = datastreams;
 			productName = datastreams;
-			productReference = 3CB18376E4BAE82EB902F81E /* libdatastreams.a */;
+			productReference = 3CB18376E4BAE82EB902F81E /* libO2MC.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -378,7 +378,7 @@
 				HEADER_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
@@ -495,7 +495,7 @@
 				HEADER_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DNDEBUG";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
