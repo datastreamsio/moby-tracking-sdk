@@ -88,12 +88,37 @@
     });
 }
 
+-(O2MBatch*) mergeBatches; {
+    if(self->_batches.count < 1) {
+        return nil;
+    }
+
+    if(self->_batches.count == 1) {
+        return self->_batches[0];
+    }
+    // We found multiple batches ready, lets merge them all together.
+    NSMutableArray* events = [[NSMutableArray alloc] init];
+    O2MBatch* batch = self->_batches[0];
+
+    // We start at the latest batch number, move the events and remove the batch.
+    for(int i=(int)self->_batches.count-1; i>0; i--) {
+        [events addObjectsFromArray:[self->_batches[i] events]];
+        [self->_batches removeLastObject];
+    }
+
+    [self->_logger logD:@"merged %lu batches into 1", (unsigned long)self->_batches.count];
+
+    return batch;
+}
+
 -(void) dispatch:(NSTimer *)timer;{
     dispatch_async(self.batchQueue, ^{
         if(self->_batches.count > 0){
             if(self->_connRetries < self->_maxRetries) {
                 [self->_logger logD:@"Dispatcher has been triggered"];
-                [self->_dispatcher dispatchWithEndpoint:self->_endpoint batch:self->_batches[0] sessionId:self->_sessionIdentifier];
+                [self->_dispatcher dispatchWithEndpoint:self->_endpoint
+                                                  batch:self->_batches[0]
+                                              sessionId:self->_sessionIdentifier];
             } else {
                 [self->_logger logI:@"Reached max connection retries (%ld), stopping dispatcher.", (long)self->_maxRetries];
 
