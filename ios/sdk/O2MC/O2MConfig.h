@@ -10,7 +10,7 @@
 @interface O2MConfig : NSObject
 
 @property (class, nonatomic, assign, readonly) NSNumber *batchInterval;
-@property (class, nonatomic, assign, readonly) NSNumber *dispatchInterval;
+@property (class, nonatomic, assign) NSNumber *dispatchInterval;
 @property (class, nonatomic, assign, readonly) NSString *httpEndpoint;
 @property (class, nonatomic, assign, readonly) NSInteger maxRetries;
 

@@ -40,7 +40,7 @@
     _tagQueue = dispatch_queue_create("io.o2mc.sdk", DISPATCH_QUEUE_SERIAL);
 
     [self->_batchManager setEndpoint:endpoint];
-    [self->_batchManager dispatchWithInterval:dispatchInterval];
+    [self setDispatchInterval:dispatchInterval];
     [self batchWithInterval:O2MConfig.batchInterval];
 
     return self;
@@ -73,6 +73,10 @@
 }
 
 #pragma mark - Configuration methods
+-(void) setDispatchInterval:(nonnull NSNumber*)dispatchInterval; {
+    [self->_batchManager dispatchWithInterval:dispatchInterval];
+}
+
 -(NSString*) getEndpoint; {
     return self->_batchManager.endpoint;
 }
