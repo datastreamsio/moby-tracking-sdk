@@ -30,6 +30,15 @@
 -(nonnull NSString*) getEndpoint;
 
 /**
+ * Configures the dispatch interval in seconds.
+ * Defining a lower interval results in more realtime and lower chance of
+ * data loss. On the other hand a lower interval will result in more data
+ * usage and resource usage from the end user's device.
+ * @param dispatchInterval interval of sending data to the server (defaults to 10)
+ */
+-(void) setDispatchInterval:(nonnull NSNumber*)dispatchInterval;
+
+/**
  * Configures an end point where the events will be dispatched to.
  * @param endpoint http(s) URL which should be publicly reachable
  */
