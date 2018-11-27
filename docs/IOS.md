@@ -22,6 +22,24 @@ The max amount of connection retries before stopping dispatching (defaults to **
 
 `[[O2MC sharedInstance] setMaxRetries:<#(NSInteger)#>]`
 
+# Tracking configuration
+
+## setIdentifier
+
+Sets an identifier for a user. This identifier will be sent along the tracked events. This could be useful to correlate various batches with each other.
+
+> Invoke method by executing the following statement
+
+`[[O2MC sharedInstance] setIdentifier:@"john-doe"]`
+
+## setSessionIdentifier
+
+Sets a random session identifier to identify a user. The identifier is based on a UUID.
+
+> Invoke method by executing the following statement
+
+`[[O2MC sharedInstance] setSessionIdentifier]`
+
 # Control methods
 
 ## stop
