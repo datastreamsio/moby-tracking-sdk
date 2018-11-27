@@ -22,7 +22,31 @@ The max amount of connection retries before stopping dispatching (defaults to **
 
 `[[O2MC sharedInstance] setMaxRetries:<#(NSInteger)#>]`
 
-# General tracking functions
+# Control methods
+
+## stop
+
+Stops tracking of events.
+
+> Stop tracking
+
+`[[O2MC sharedInstance] stop]`
+
+Optionally the stop method also accepts a BOOL. If true, the currently queued events will be removed.
+
+> Stop and remove queued events
+
+`[[O2MC sharedInstance] stop:YES]`
+
+## resume
+
+Resumes tracking when stopped.
+
+> Resume
+
+`[[O2MC sharedInstance] stop:YES]`
+
+# General tracking methods
 
 ## [track:..]
 
