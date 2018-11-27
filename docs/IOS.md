@@ -8,17 +8,32 @@ Please consider defining the development or production URL based on the build co
 
 ## setDispatchInterval
 
-Configures the dispatch interval in seconds (default **10**). Defining a lower interval results in more realtime and lower chance of data loss. On the other hand a lower interval will result in more data usage and resource usage from the end user's device.
+```objective-c
+/**
+ * Configures the dispatch interval in seconds.
+ * Defining a lower interval results in more realtime and lower chance of
+ * data loss. On the other hand a lower interval will result in more data
+ * usage and resource usage from the end user's device.
+ * @param dispatchInterval interval of sending data to the server (defaults to 10)
+ */
+-(void) setDispatchInterval:(nonnull NSNumber*)dispatchInterval;
+```
 
-> Change dispatch interval in seconds
+> Invoke method by executing the following statement
 
 `[[O2MC sharedInstance] setDispatchInterval:<#(NSInteger)#>]`
 
 ## setMaxRetries
 
-The max amount of connection retries before stopping dispatching (defaults to **5**).
+```objective-c
+/**
+ * The max amount of connection retries before stopping dispatching.
+ * @param maxRetries retry amount (defaults to 5)
+ */
+-(void) setMaxRetries:(NSInteger)maxRetries;
+```
 
-> Changing the max amount of retries
+> Invoke method by executing the following statement
 
 `[[O2MC sharedInstance] setMaxRetries:<#(NSInteger)#>]`
 
@@ -26,7 +41,15 @@ The max amount of connection retries before stopping dispatching (defaults to **
 
 ## setIdentifier
 
-Sets an identifier for a user. This identifier will be sent along the tracked events. This could be useful to correlate various batches with each other.
+```objective-c
+/**
+ * Sets an identifier for a user. This identifier will be sent along the tracked events.
+ * This could be useful to correlate various batches with each other.
+ *
+ * @param uniqueIdentifier unique string which identifies a user.
+ */
+-(void)setIdentifier:(nullable NSString*) uniqueIdentifier;
+```
 
 > Invoke method by executing the following statement
 
@@ -34,7 +57,13 @@ Sets an identifier for a user. This identifier will be sent along the tracked ev
 
 ## setSessionIdentifier
 
-Sets a random session identifier to identify a user. The identifier is based on a UUID.
+```objective-c
+/**
+ * Sets a random session identifier to identify a user.
+ * The identifier is based on a UUID.
+ */
+-(void)setSessionIdentifier;
+```
 
 > Invoke method by executing the following statement
 
@@ -44,23 +73,41 @@ Sets a random session identifier to identify a user. The identifier is based on 
 
 ## stop
 
-Stops tracking of events.
+```objective-c
+/**
+ * Stops tracking of events.
+ */
+-(void) stop;
+```
 
-> Stop tracking
+> Invoke method by executing the following statement
 
 `[[O2MC sharedInstance] stop]`
 
 Optionally the stop method also accepts a BOOL. If true, the currently queued events will be removed.
 
-> Stop and remove queued events
+```objective-c
+/**
+ * Stops tracking of events.
+ * @param clearFunnel clears any existing events
+ */
+-(void) stop:(BOOL)clearFunnel;
+```
+
+> Invoke method by executing the following statement
 
 `[[O2MC sharedInstance] stop:YES]`
 
 ## resume
 
-Resumes tracking when stopped.
+```objective-c
+/**
+ * Resumes tracking when stopped.
+ */
+-(void) resume;
+```
 
-> Resume
+> Invoke method by executing the following statement
 
 `[[O2MC sharedInstance] stop:YES]`
 
