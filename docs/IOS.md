@@ -113,7 +113,7 @@ Optionally the stop method also accepts a BOOL. If true, the currently queued ev
 
 # General tracking methods
 
-## [track:..]
+## track
 
 ```objective-c
 /**
@@ -128,7 +128,7 @@ Optionally the stop method also accepts a BOOL. If true, the currently queued ev
 
 `[[O2MC sharedInstance] track:@"<eventname>"];`
 
-## [trackWithProperties:..]
+## trackWithProperties
 
 ```objective-c
 /**
