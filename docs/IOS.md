@@ -1,3 +1,18 @@
+# Initialization & Configuration
+
+This is how you'd initialize our O2MC module:
+
+`[[O2MC sharedInstance] setEndpoint:@"<endpoint>"];`
+
+Please consider defining the development or production URL based on the build configuration.
+
+Optionally, you could specify the `dispatchInterval` in **seconds** yourself (default **10**):
+
+> Change dispatch interval to 60 seconds
+
+`[[O2MC sharedInstance] setDispatchInterval:[[NSNumber alloc] initWithInt:60]];`
+
+
 # General tracking functions
 
 ## [track:..]
