@@ -6,12 +6,21 @@ This is how you'd initialize our O2MC module:
 
 Please consider defining the development or production URL based on the build configuration.
 
-Optionally, you could specify the `dispatchInterval` in **seconds** yourself (default **10**):
+## setDispatchInterval
 
-> Change dispatch interval to 60 seconds
+Configures the dispatch interval in seconds (default **10**). Defining a lower interval results in more realtime and lower chance of data loss. On the other hand a lower interval will result in more data usage and resource usage from the end user's device.
 
-`[[O2MC sharedInstance] setDispatchInterval:[[NSNumber alloc] initWithInt:60]];`
+> Change dispatch interval in seconds
 
+`[[O2MC sharedInstance] setDispatchInterval:<#(NSInteger)#>]`
+
+## setMaxRetries
+
+The max amount of connection retries before stopping dispatching (defaults to **5**).
+
+> Changing the max amount of retries
+
+`[[O2MC sharedInstance] setMaxRetries:<#(NSInteger)#>]`
 
 # General tracking functions
 
