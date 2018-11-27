@@ -14,6 +14,7 @@
 -(O2MTagger *) init :(NSString *)endpoint :(NSNumber *)dispatchInterval;
 #pragma mark - Configuration methods
 
+-(void) setDispatchInterval:(nonnull NSNumber*)dispatchInterval;
 -(NSString*) getEndpoint;
 
 /**

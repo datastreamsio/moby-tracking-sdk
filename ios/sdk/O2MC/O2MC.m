@@ -57,6 +57,11 @@
     [self->_tracker setEndpoint:endpoint];
 }
 
+-(void) setDispatchInterval:(nonnull NSNumber*)dispatchInterval; {
+    O2MConfig.dispatchInterval = dispatchInterval;
+    [self->_tracker setDispatchInterval:dispatchInterval];
+}
+
 -(void) setMaxRetries :(NSInteger)maxRetries; {
     [self->_tracker setMaxRetries:maxRetries];
 }

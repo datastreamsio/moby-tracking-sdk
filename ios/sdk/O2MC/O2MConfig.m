@@ -24,9 +24,13 @@ static NSInteger _maxRetries = 2;
 
 + (NSNumber*)dispatchInterval {
     if(_dispatchInterval == nil){
-        _dispatchInterval = [[NSNumber alloc] initWithInt:2];
+        [O2MConfig setDispatchInterval:[[NSNumber alloc] initWithInt:10]];
     }
     return _dispatchInterval;
+}
+
++ (void)setDispatchInterval:(NSNumber *)dispatchInterval {
+    _dispatchInterval = dispatchInterval;
 }
 
 + (NSString*)httpEndpoint {
